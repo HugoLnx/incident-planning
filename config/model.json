@@ -1,0 +1,27 @@
+{
+  "group": {
+    "name": "Objective",
+    "expressions": [
+      {"name": "Objective", "approval-roles": ["Major Chief"]}
+    ],
+
+    "group": {
+      "name": "Strategy",
+      "expressions": [
+        {"name": "How", "approval-roles": ["Minor Chief"], "approval-roles": ["Chief", "Manager"]},
+        {"name": "Why", "optional": true, "approval-roles": ["Chief", "Manager"]}
+      ],
+
+      "group": {
+        "name": "Tactic",
+        "expressions": [
+          {"name": "Who", "approval-roles": ["Chief", "Manager"]},
+          {"name": "What", "approval-roles": ["Chief", "Manager"]},
+          {"name": "Where", "optional": true, "approval-roles": ["Chief", "Manager"]},
+          {"name": "When", "type": "time", "optional": true, "approval-roles": ["Chief", "Manager"]},
+          {"name": "Response Action", "type": "external", "approval-roles": ["Chief", "Manager"]}
+        ]
+      }
+    }
+  }
+}
