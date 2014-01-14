@@ -8,14 +8,15 @@ module Model
       @expression_parser = expression_parser
     end
 
-    def parse(hash)
+    def parse(hash, father = nil)
       return nil unless hash.has_key? GROUP_KEY
 
       group_hash = hash[GROUP_KEY]
 
       name = group_hash[NAME_KEY]
-      child = parse group_hash
-      group = Model::Group.new(name, child)
+      group = Model::Group.new(name)
+      group.father = father
+      group.child = parse(group_hash, group)
       parse_expressions(group_hash, group)
       group
     end

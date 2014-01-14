@@ -13,5 +13,13 @@ module Model
       @approval_roles = approval_roles
       @father = father
     end
+
+    def path
+      if self.father
+        [self.father.path, self.name].join("/")
+      else
+        self.name
+      end
+    end
   end
 end

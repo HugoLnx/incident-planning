@@ -10,25 +10,39 @@ module Model
       expect(group.name).to be == "GroupName"
     end
 
-    it "parse hash with a chain of groups" do
-      hash = {
-        "group" => {
-          "name" => "GroupRoot",
+    context "hash with a chain of groups" do
+      before :each do
+        hash = {
           "group" => {
-            "name" => "GroupChild",
+            "name" => "GroupRoot",
             "group" => {
-              "name" => "GroupGrandchild"
+              "name" => "GroupChild",
+              "group" => {
+                "name" => "GroupGrandchild"
+              }
             }
           }
         }
-      }
 
-      parser = GroupParser.new ExpressionParser.new
-      group = parser.parse hash
+        parser = GroupParser.new ExpressionParser.new
+        @group = parser.parse hash
+      end
 
-      expect(group.name).to be == "GroupRoot"
-      expect(group.child.name).to be == "GroupChild"
-      expect(group.child.child.name).to be == "GroupGrandchild"
+      it "parse relating as childs" do
+        expect(@group.name).to be == "GroupRoot"
+        expect(@group.child.name).to be == "GroupChild"
+        expect(@group.child.child.name).to be == "GroupGrandchild"
+      end
+
+      it "parse relating as fathers" do
+        father = @group
+        child = @group.child
+        grandchild = @group.child.child
+
+        expect(grandchild.father).to be == child
+        expect(child.father).to be == father
+        expect(father.father).to be == nil
+      end
     end
 
     context "hash with a group and your expressions" do
