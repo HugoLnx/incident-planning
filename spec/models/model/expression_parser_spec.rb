@@ -49,7 +49,7 @@ module Model
     it "parse an array of expressions" do
       hash = [
         {"name" => "Expression1"},
-        {"name" => "Expression2"},
+        {"name" => "Expression2"}
       ]
 
       parser = ExpressionParser.new
@@ -57,6 +57,19 @@ module Model
 
       expect(expressions[0].name).to be == "Expression1"
       expect(expressions[1].name).to be == "Expression2"
+    end
+
+    it "parse an array of expressions including the father" do
+      hash = [
+        {"name" => "Expression1"},
+        {"name" => "Expression2"}
+      ]
+
+      parser = ExpressionParser.new
+      father = build :group
+      expressions = parser.parse_all hash, father
+
+      expect(expressions).to be_all{|e| e.father == father}
     end
   end
 end

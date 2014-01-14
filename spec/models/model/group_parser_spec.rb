@@ -31,21 +31,28 @@ module Model
       expect(group.child.child.name).to be == "GroupGrandchild"
     end
 
-    it "parse hash with a group and your expressions" do
-      hash = {
-        "group" => {
-          "name" => "GroupName",
-          "expressions" => [
-            {"name" => "ExpressionName"}
-          ]
+    context "hash with a group and your expressions" do
+      before :each do
+        hash = {
+          "group" => {
+            "name" => "GroupName",
+            "expressions" => [
+              {"name" => "ExpressionName"}
+            ]
+          }
         }
-      }
+        
+        parser = GroupParser.new ExpressionParser.new
+        @group = parser.parse hash
+      end
 
-      
-      parser = GroupParser.new ExpressionParser.new
-      group = parser.parse hash
-      expect(group.expressions.first.name).to be == "ExpressionName"
+      it "parse the expressions" do
+        expect(@group.expressions.first.name).to be == "ExpressionName"
+      end
+
+      it "relate expressions to the group as their father" do
+        expect(@group.expressions.first.father).to be == @group
+      end
     end
-
   end
 end
