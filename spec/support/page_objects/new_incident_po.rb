@@ -1,19 +1,20 @@
 module PageObjects
   class NewIncidentPO
-    def initialize(session)
+    def initialize(session, routing_helpers)
       @session = session
+      @routing = routing_helpers
     end
 
     def path
-      new_incident_path
+      @routing.new_incident_path
     end
 
     def visit
       @session.visit path
     end
     
-    def form
-      form_element = @session.find("#incident_form")
+    def incident_form
+      form_element = @session.find("#new_incident_form")
       IncidentFormPO.new(form_element)
     end
 

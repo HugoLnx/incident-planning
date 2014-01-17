@@ -5,6 +5,10 @@ module FeaturesExampleGroup
 
   included do
     metadata[:type] = :feature
+
+    def routing_helpers
+      Rails.application.routes.url_helpers
+    end
   end
 
   RSpec.configure do |config|

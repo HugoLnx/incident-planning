@@ -8,7 +8,7 @@ require 'spec_helper'
 
 feature "Managing an incident" do
   scenario "Registering an incident" do
-    @new_incident_page = NewIncidentPO.new(page)
+    @new_incident_page = NewIncidentPO.new(page, routing_helpers)
     @new_incident_page.visit
     
     form = @new_incident_page.incident_form
