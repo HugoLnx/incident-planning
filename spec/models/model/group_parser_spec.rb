@@ -5,7 +5,7 @@ module Model
     it "parse hash with a named group" do
       hash = {"group" => {"name" => "GroupName"}}
 
-      parser = GroupParser.new ExpressionParser.new
+      parser = build :group_parser
       group = parser.parse hash
       expect(group.name).to be == "GroupName"
     end
@@ -24,7 +24,7 @@ module Model
           }
         }
 
-        parser = GroupParser.new ExpressionParser.new
+        parser = build :group_parser
         @group = parser.parse hash
       end
 
@@ -56,7 +56,7 @@ module Model
           }
         }
         
-        parser = GroupParser.new ExpressionParser.new
+        parser = build :group_parser
         @group = parser.parse hash
       end
 

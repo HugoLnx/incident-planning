@@ -6,6 +6,8 @@ module Model
     attr_reader :approval_roles
     attr_reader :father
 
+    TYPES = %w{text time external}
+
     def initialize(name, type, optional, approval_roles, father)
       @name = name
       @type = type

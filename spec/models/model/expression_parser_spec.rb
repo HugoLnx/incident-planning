@@ -7,7 +7,7 @@ module Model
         "name" => "ExpressionName"
       }
 
-      parser = ExpressionParser.new
+      parser = build :expression_parser
       expression = parser.parse hash
 
       expect(expression.name).to be == "ExpressionName"
@@ -18,7 +18,7 @@ module Model
         "type" => "Type"
       }
 
-      parser = ExpressionParser.new
+      parser = build :expression_parser
       expression = parser.parse hash
 
       expect(expression.type).to be == "Type"
@@ -29,7 +29,7 @@ module Model
         "optional" => true
       }
 
-      parser = ExpressionParser.new
+      parser = build :expression_parser
       expression = parser.parse hash
 
       expect(expression.optional).to be == true
@@ -40,7 +40,7 @@ module Model
         "approval-roles" => %w{Role1 Role2}
       }
 
-      parser = ExpressionParser.new
+      parser = build :expression_parser
       expression = parser.parse hash
 
       expect(expression.approval_roles).to be == %w{Role1 Role2}
@@ -52,7 +52,7 @@ module Model
         {"name" => "Expression2"}
       ]
 
-      parser = ExpressionParser.new
+      parser = build :expression_parser
       expressions = parser.parse_all hash
 
       expect(expressions[0].name).to be == "Expression1"
@@ -65,7 +65,7 @@ module Model
         {"name" => "Expression2"}
       ]
 
-      parser = ExpressionParser.new
+      parser = build :expression_parser
       father = build :group
       expressions = parser.parse_all hash, father
 
