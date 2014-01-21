@@ -11,23 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140117163103) do
+ActiveRecord::Schema.define(version: 20140121202603) do
 
   create_table "cycles", force: true do |t|
-    t.integer  "incident_id"
-    t.integer  "number"
-    t.integer  "current_object"
-    t.datetime "from"
-    t.datetime "to"
-    t.boolean  "closed"
+    t.integer  "incident_id",                    null: false
+    t.integer  "number",                         null: false
+    t.integer  "current_object",                 null: false
+    t.datetime "from",                           null: false
+    t.datetime "to",                             null: false
+    t.boolean  "closed",         default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "cycles", ["incident_id"], name: "index_cycles_on_incident_id", using: :btree
+
   create_table "incidents", force: true do |t|
-    t.string   "name"
+    t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "text_expressions", force: true do |t|
+    t.string   "hierarchical_path", null: false
+    t.string   "text",              null: false
+    t.integer  "cycle_id",          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "text_expressions", ["cycle_id"], name: "index_text_expressions_on_cycle_id", using: :btree
 
 end
