@@ -1,3 +1,3 @@
 class Incident < ActiveRecord::Base
-  has_many :cycle
+  has_many :cycles
 end

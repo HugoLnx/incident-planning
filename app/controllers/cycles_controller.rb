@@ -3,19 +3,18 @@ class CyclesController < ApplicationController
   before_action :set_incident
 
   def index
-    @cycles = Cycle.all
+    @cycles = @incident.cycles.all
   end
 
   def show
   end
 
   def new
-    @cycle = Cycle.new
+    @cycle = @incident.cycles.new
   end
 
   def create
-    @cycle = Cycle.new(cycle_params)
-    @cycle.incident = @incident
+    @cycle = @incident.cycles.new(cycle_params)
 
     respond_to do |format|
       if @cycle.save
@@ -39,7 +38,7 @@ class CyclesController < ApplicationController
   def destroy
     @cycle.destroy
     respond_to do |format|
-      format.html { redirect_to cycles_url }
+      format.html { redirect_to incident_cycles_url(@incident) }
     end
   end
 
