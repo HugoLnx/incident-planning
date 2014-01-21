@@ -10,11 +10,12 @@ class CyclesController < ApplicationController
   end
 
   def new
-    @cycle = @incident.cycles.new
+    @cycle = Forms::Form202.new
   end
 
   def create
-    @cycle = @incident.cycles.new(cycle_params)
+    @cycle = Forms::Form202.new(cycle_params)
+    @cycle.incident = @incident
 
     respond_to do |format|
       if @cycle.save
@@ -53,5 +54,9 @@ class CyclesController < ApplicationController
 
     def cycle_params
       cycle_params = params.require(:cycle).permit(:number, :from, :to)
+      flatter = StandardLib::HashFlatter.new(cycle_params)
+      flatter.flatten("from"){|values| DateTime.new(*values.map(&:to_i))}
+      flatter.flatten("to"){|values| DateTime.new(*values.map(&:to_i))}
+      flatter.hash
     end
 end
