@@ -20,4 +20,12 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    models:
+      cycle: Cycle
+    attributes:
+      forms_cycle:
+        from: From
+  errors:
+    messages:
+      date_format: "must have the format '%{dateformat}'"
