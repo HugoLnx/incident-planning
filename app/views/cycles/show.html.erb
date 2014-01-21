@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Incident:</strong>
+  <%= @cycle.incident_id %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @cycle.number %>
+</p>
+
+<p>
+  <strong>Current object:</strong>
+  <%= @cycle.current_object %>
+</p>
+
+<p>
+  <strong>From:</strong>
+  <%= @cycle.from %>
+</p>
+
+<p>
+  <strong>To:</strong>
+  <%= @cycle.to %>
+</p>
+
+<p>
+  <strong>Closed:</strong>
+  <%= @cycle.closed %>
+</p>
+
+<%= link_to 'Edit', edit_cycle_path(@cycle) %> |
+<%= link_to 'Back', cycles_path %>

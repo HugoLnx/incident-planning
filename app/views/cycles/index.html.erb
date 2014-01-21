@@ -1,0 +1,37 @@
+<h1>Listing cycles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Incident</th>
+      <th>Number</th>
+      <th>Current object</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Closed</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cycles.each do |cycle| %>
+      <tr>
+        <td><%= cycle.incident_id %></td>
+        <td><%= cycle.number %></td>
+        <td><%= cycle.current_object %></td>
+        <td><%= cycle.from %></td>
+        <td><%= cycle.to %></td>
+        <td><%= cycle.closed %></td>
+        <td><%= link_to 'Show', incident_cycle_path(@incident, cycle) %></td>
+        <td><%= link_to 'Edit', edit_incident_cycle_path(@incident, cycle) %></td>
+        <td><%= link_to 'Destroy', incident_cycle_path(@incident, cycle), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Cycle', new_incident_cycle_path(@incident) %>

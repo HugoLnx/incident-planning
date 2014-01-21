@@ -11,20 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140117144021) do
+ActiveRecord::Schema.define(version: 20140117163103) do
 
-  create_table "incidents", force: true do |t|
-    t.string   "name"
+  create_table "cycles", force: true do |t|
+    t.integer  "incident_id"
+    t.integer  "number"
+    t.integer  "current_object"
+    t.datetime "from"
+    t.datetime "to"
+    t.boolean  "closed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "plannings", force: true do |t|
-    t.string   "incident_name"
-    t.text     "priorities_list"
-    t.date     "from"
-    t.date     "to"
-    t.integer  "cycle"
+  create_table "incidents", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

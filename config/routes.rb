@@ -1,5 +1,8 @@
 IncidentPlanning::Application.routes.draw do
-  resources :incidents
+  resources :incidents do
+    resources :cycles
+  end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
