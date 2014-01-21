@@ -1,29 +1,13 @@
-<%= form_for([@incident, @cycle]) do |f| %>
-  <% if @cycle.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@cycle.errors.count, "error") %> prohibited this cycle from being saved:</h2>
+<%= simple_form_for([@incident, @cycle]) do |f| %>
+  <%= f.error_notification %>
 
-      <ul>
-      <% @cycle.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <div class="form-inputs">
+    <%= f.input :from, as: :datetime %>
+    <%= f.input :to, as: :datetime %>
+    <%= f.input :number, as: :integer %>
+  </div>
 
-  <div class="field">
-    <%= f.label :from %><br>
-    <%= f.datetime_select :from %>
-  </div>
-  <div class="field">
-    <%= f.label :to %><br>
-    <%= f.datetime_select :to %>
-  </div>
-  <div class="field">
-    <%= f.label :number %><br>
-    <%= f.number_field :number %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Add cycle" %>
+  <div class="form-actions">
+    <%= f.button :submit %>
   </div>
 <% end %>
