@@ -10,5 +10,7 @@ class CreateCycles < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :cycles, :incident_id
   end
 end
