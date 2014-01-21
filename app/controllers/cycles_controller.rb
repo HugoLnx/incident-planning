@@ -53,7 +53,8 @@ class CyclesController < ApplicationController
     end
 
     def cycle_params
-      cycle_params = params.require(:cycle).permit(:number, :from, :to)
+      cycle_params = params.require(:cycle).permit(:number, :from, :to, :objectives, :priorities)
+      cycle_params[:objectives] = cycle_params[:objectives].lines.map{|text| TextExpression.new_objective(text.strip)}
       flatter = StandardLib::HashFlatter.new(cycle_params)
       flatter.flatten("from"){|values| DateTime.new(*values.map(&:to_i))}
       flatter.flatten("to"){|values| DateTime.new(*values.map(&:to_i))}

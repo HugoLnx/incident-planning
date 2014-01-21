@@ -7,6 +7,7 @@ class CreateCycles < ActiveRecord::Migration
       t.datetime :from, null: false
       t.datetime :to, null: false
       t.boolean :closed, default: false
+      t.text :priorities
 
       t.timestamps
     end

@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140121202603) do
     t.datetime "from",                           null: false
     t.datetime "to",                             null: false
     t.boolean  "closed",         default: false
+    t.text     "priorities"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

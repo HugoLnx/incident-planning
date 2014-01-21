@@ -5,6 +5,9 @@
     <%= f.input :from, as: :datetime %>
     <%= f.input :to, as: :datetime %>
     <%= f.input :number, as: :integer %>
+
+    <%= f.input :objectives, as: :text, input_html: {cols: 100, rows: 10} %>
+    <%= f.input :priorities, as: :text, input_html: {cols: 100, rows: 10} %>
   </div>
 
   <div class="form-actions">
