@@ -33,4 +33,5 @@ production:
  adapter: postgresql
   encoding: unicode
   database: incident_planning_production
+  username: root
   password:
