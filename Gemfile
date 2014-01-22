@@ -29,6 +29,11 @@ gem 'jbuilder', '~> 1.2'
 
 gem "simple_form", "~> 3.0.1"
 
+group :production do
+  gem 'rails_12factor'
+  gem 'pg'
+end
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -53,3 +58,5 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+ruby "2.0.0"
