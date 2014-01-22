@@ -13,6 +13,10 @@ class CyclesController < ApplicationController
     @cycle = Forms::Form202.new
   end
 
+  def edit
+    @cycle = Forms::Form202.new_from(@cycle)
+  end
+
   def create
     @cycle = Forms::Form202.new(cycle_params)
     @cycle.incident = @incident
@@ -27,8 +31,12 @@ class CyclesController < ApplicationController
   end
 
   def update
+    @cycle = Forms::Form202.new_from(@cycle)
+    @cycle.incident = @incident
+    @cycle.update_with(cycle_params)
+
     respond_to do |format|
-      if @cycle.update(cycle_params)
+      if @cycle.save
         format.html { redirect_to incident_cycles_path(@incident), notice: 'The cycle was successfully updated.' }
       else
         format.html { render action: 'edit' }
@@ -53,8 +61,7 @@ class CyclesController < ApplicationController
     end
 
     def cycle_params
-      cycle_params = params.require(:cycle).permit(:number, :from, :to, :objectives, :priorities)
-      cycle_params[:objectives] = cycle_params[:objectives].lines.map{|text| TextExpression.new_objective(text.strip)}
+      cycle_params = params.require(:cycle).permit(:number, :from, :to, :objectives_text, :priorities)
       flatter = StandardLib::HashFlatter.new(cycle_params)
       flatter.flatten("from"){|values| DateTime.new(*values.map(&:to_i))}
       flatter.flatten("to"){|values| DateTime.new(*values.map(&:to_i))}

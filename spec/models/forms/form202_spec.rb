@@ -3,6 +3,90 @@ require 'spec_helper'
 describe Forms::Form202 do
   it_behaves_like "ActiveModel"
 
+  context "when building from a cycle" do
+    it "set your attributes from cycle" do
+      now = DateTime.now
+      tomorrow = DateTime.now.days_since 1
+
+      cycle = build :cycle,
+        from: now,
+        to: tomorrow,
+        number: 1,
+        priorities: "hey priorities"
+      
+      form = Forms::Form202.new_from(cycle)
+
+      expect(form.from).to be == cycle.from
+      expect(form.to).to be == cycle.to
+      expect(form.number).to be == cycle.number
+      expect(form.priorities).to be == cycle.priorities
+    end
+
+    it "set your objectives from cycles objectives" do
+      cycle = create :cycle,
+        text_expressions: create_list(:objective, 3)
+
+      form = Forms::Form202.new_from(cycle)
+
+      expect(form.objectives.to_a).to be == cycle.text_expressions.load.to_a
+    end
+  end
+
+  context "when updating" do
+    it "re-set your attributes" do
+      now = DateTime.now
+      tomorrow = DateTime.now.days_since 1
+      objectives = build_list :objective, 3
+
+      form = build :form202
+
+      form.update_with({
+        from: now,
+        to: tomorrow,
+        number: 1,
+        priorities: "hey priorities",
+        objectives: objectives
+      })
+
+      expect(form.from).to be == now
+      expect(form.to).to be == tomorrow
+      expect(form.number).to be == 1
+      expect(form.priorities).to be == "hey priorities"
+      expect(form.objectives).to be == objectives
+    end
+  end
+
+  context "when check if is persisted" do
+    it "verifies if your cycle is persisted" do
+      form = build :form202
+
+      expect(form.cycle).to receive(:persisted?)
+
+      form.persisted?
+    end
+  end
+
+  context "when receives new objectives as text" do
+    it "builds text expressions based on the lines of objectives text" do
+      form = build :form202, objectives_text: %Q{obj1\nobj2}
+
+      expect(form.objectives[0].text).to be == "obj1"
+      expect(form.objectives[1].text).to be == "obj2"
+    end
+  end
+
+  context "when parse objectives to text" do
+    it "each text expression becomes a line in the text" do
+      form = build :form202, objectives: [
+        build(:objective, text: "obj1"),
+        build(:objective, text: "obj2"),
+        build(:objective, text: "obj3")
+      ]
+
+      expect(form.objectives_text).to be == %Q{obj1\nobj2\nobj3}
+    end
+  end
+
   context "when getting a cycle" do
     it "builds cycle based on your parameters" do
       now = DateTime.now

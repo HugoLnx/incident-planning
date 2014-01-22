@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @cycle %> |
-<%= link_to 'Back', cycles_path %>
+<%= link_to 'Show', incident_cycle_path(@incident, @cycle.cycle) %> |
+<%= link_to 'Back', incident_cycles_path(@incident) %>
