@@ -26,9 +26,19 @@
 </p>
 
 <p>
+  <strong>Priorities:</strong>
+	<pre><%= @cycle.priorities %>	</pre>
+</p>
+
+<p>
+  <strong>Objectives:</strong>
+	<pre><%= @cycle.text_expressions.objectives.load.map(&:text).join("\n") %></pre>
+</p>
+
+<p>
   <strong>Closed:</strong>
   <%= @cycle.closed %>
 </p>
 
-<%= link_to 'Edit', edit_cycle_path(@cycle) %> |
-<%= link_to 'Back', cycles_path %>
+<%= link_to 'Edit', edit_incident_cycle_path(@incident, @cycle) %> |
+<%= link_to 'Back', incident_cycles_path %>
