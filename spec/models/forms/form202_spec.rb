@@ -177,7 +177,7 @@ describe Forms::Form202 do
         form = build :form202, objectives: objectives
 
         allow(objectives[1]).to receive(:save!) do
-          raise ActiveRecord::RecordInvalid.new(form.cycle)
+          raise ActiveRecord::RecordInvalid.new(objectives[1])
         end
 
         expect(form.save).to be_false

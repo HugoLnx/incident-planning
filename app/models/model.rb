@@ -7,7 +7,7 @@ module Model
     Dao.new.root_group.child
   end
 
-  def self.tatic
+  def self.tactic
     Dao.new.root_group.child.child
   end
 
@@ -19,23 +19,23 @@ module Model
     strategy.expressions.find{|expression| expression.name == "Why"}
   end
 
-  def self.tatic_who
-    tatic.expressions.find{|expression| expression.name == "Who"}
+  def self.tactic_who
+    tactic.expressions.find{|expression| expression.name == "Who"}
   end
 
-  def self.tatic_what
-    tatic.expressions.find{|expression| expression.name == "What"}
+  def self.tactic_what
+    tactic.expressions.find{|expression| expression.name == "What"}
   end
 
-  def self.tatic_where
-    tatic.expressions.find{|expression| expression.name == "Where"}
+  def self.tactic_where
+    tactic.expressions.find{|expression| expression.name == "Where"}
   end
 
-  def self.tatic_when
-    tatic.expressions.find{|expression| expression.name == "When"}
+  def self.tactic_when
+    tactic.expressions.find{|expression| expression.name == "When"}
   end
 
-  def self.tatic_response_action
-    tatic.expressions.find{|expression| expression.name == "Response Action"}
+  def self.tactic_response_action
+    tactic.expressions.find{|expression| expression.name == "Response Action"}
   end
 end

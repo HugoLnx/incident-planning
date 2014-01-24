@@ -1,0 +1,22 @@
+<%= simple_form_for [@incident, @cycle, @form234], url: incident_cycle_analysis_matrix_path do |f| %>
+  <table>
+    <thead>
+      <tr>
+        <th>Objectives</th>
+        <th>Strategies</th>
+        <th>Tatics</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% AnalysisMatricesHelper::AnalysisMatrixData.new(@cycle).each_row do |row| %>
+        <tr>
+          <td><%= row[:objective] %></td>
+          <td><%= row[:strategy] %></td>
+          <td><%= row[:tactic] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= f.input :name %>
+<% end %>

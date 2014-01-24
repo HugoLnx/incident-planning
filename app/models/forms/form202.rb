@@ -69,7 +69,7 @@ module Forms
           cycle.save!
           objectives && objectives.each do |objective|
             objective.cycle = cycle
-            objective.save!
+            Expressions::Objective.save!(objective)
           end
         end
       rescue ActiveRecord::ActiveRecordError

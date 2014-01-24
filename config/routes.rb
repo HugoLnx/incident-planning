@@ -2,7 +2,9 @@ IncidentPlanning::Application.routes.draw do
   root to: "incidents#index"
 
   resources :incidents do
-    resources :cycles
+    resources :cycles do
+      resource :analysis_matrix
+    end
   end
 
 
