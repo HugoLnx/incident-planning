@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 1.2'
 
 gem "simple_form", "~> 3.0.1"
 
+gem "interactive_editor"
+
 group :production do
   gem 'rails_12factor'
   gem 'pg'
