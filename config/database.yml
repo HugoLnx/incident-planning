@@ -30,7 +30,7 @@ test:
   socket: /var/run/mysqld/mysqld.sock
 
 production:
- adapter: postgresql
+  adapter: postgresql
   encoding: unicode
   database: incident_planning_production
   username: root
