@@ -14,6 +14,7 @@ module Concerns
     module ClassMethods
       def new_objective(*args)
         expression = self.new(*args)
+        expression.group = Group.new name: Model.objective.name
         expression.name = Model.objective.name
         expression
       end
