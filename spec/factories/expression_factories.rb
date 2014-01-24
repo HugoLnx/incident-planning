@@ -4,7 +4,8 @@ FactoryGirl.define do
     cycle
 
     factory :objective do
-      hierarchical_path Model.objective.path
+      association :group, factory: :objective_group
+      name Model.objective.name
     end
   end
 end

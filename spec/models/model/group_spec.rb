@@ -3,9 +3,9 @@ require 'spec_helper'
 module Model
   describe Group do
     it "know your ancestors" do
-      grandfather = build(:group, name: "Grandfather")
-      father = build(:group, name: "Father")
-      child = build(:group, name: "Child")
+      grandfather = build(:model_group, name: "Grandfather")
+      father = build(:model_group, name: "Father")
+      child = build(:model_group, name: "Child")
 
       child.father = father
       father.father = grandfather
@@ -14,9 +14,9 @@ module Model
     end
 
     it "know your path based on your ancestors names" do
-      grandfather = build(:group, name: "Grandfather")
-      father = build(:group, name: "Father")
-      child = build(:group, name: "Child")
+      grandfather = build(:model_group, name: "Grandfather")
+      father = build(:model_group, name: "Father")
+      child = build(:model_group, name: "Child")
 
       child.father = father
       father.father = grandfather

@@ -47,7 +47,7 @@ module Forms
     def objectives_text=(objectives_text)
       return if objectives_text.nil?
       @objectives = objectives_text.lines.map do |objective_text|
-        TextExpression.new_objective(objective_text.strip)
+        TextExpression.new_objective(text: objective_text.strip)
       end
     end
 

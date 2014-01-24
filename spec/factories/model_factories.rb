@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :group, class: Model::Group do
+  factory :model_group, class: Model::Group do
     ignore do
       sequence(:name){|i| "GroupName #{i}"}
     end

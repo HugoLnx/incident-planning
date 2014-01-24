@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140121202603) do
+ActiveRecord::Schema.define(version: 20140124104355) do
 
   create_table "cycles", force: true do |t|
     t.integer  "incident_id",                    null: false
@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(version: 20140121202603) do
 
   add_index "cycles", ["incident_id"], name: "index_cycles_on_incident_id", using: :btree
 
+  create_table "groups", force: true do |t|
+    t.integer  "expression_id"
+    t.string   "expression_type"
+    t.string   "name",            null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "groups", ["expression_id"], name: "index_groups_on_expression_id", using: :btree
+  add_index "groups", ["expression_type"], name: "index_groups_on_expression_type", using: :btree
+
   create_table "incidents", force: true do |t|
     t.string   "name",       null: false
     t.datetime "created_at"
@@ -34,13 +45,25 @@ ActiveRecord::Schema.define(version: 20140121202603) do
   end
 
   create_table "text_expressions", force: true do |t|
-    t.string   "hierarchical_path", null: false
-    t.string   "text",              null: false
-    t.integer  "cycle_id",          null: false
+    t.string   "name",       null: false
+    t.string   "text",       null: false
+    t.integer  "cycle_id",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "group_id"
+  end
+
+  add_index "text_expressions", ["cycle_id"], name: "index_text_expressions_on_cycle_id", using: :btree
+  add_index "text_expressions", ["group_id"], name: "index_text_expressions_on_group_id", using: :btree
+
+  create_table "time_expressions", force: true do |t|
+    t.datetime "when",       null: false
+    t.string   "name",       null: false
+    t.integer  "group_id",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "text_expressions", ["cycle_id"], name: "index_text_expressions_on_cycle_id", using: :btree
+  add_index "time_expressions", ["group_id"], name: "index_time_expressions_on_group_id", using: :btree
 
 end
