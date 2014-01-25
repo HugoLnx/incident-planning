@@ -9,11 +9,11 @@
     </thead>
 
     <tbody>
-      <% AnalysisMatricesHelper::AnalysisMatrixData.new(@cycle).each_row do |row| %>
+      <% @matrix_data.each_row do |row| %>
         <tr>
-          <td><%= row[:objective] %></td>
-          <td><%= row[:strategy] %></td>
-          <td><%= row[:tactic] %></td>
+          <td><%= row.objective && row.objective.text %></td>
+          <td><%= row.strategy && row.strategy.text %></td>
+          <td><%= row.tactic && row.tactic.text %></td>
         </tr>
       <% end %>
     </tbody>

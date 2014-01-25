@@ -3,6 +3,8 @@ class AnalysisMatricesController < ApplicationController
   before_filter :set_form234, only: [:new]
 
   def new
+    dao = Dao::AnalysisMatrixDao.new(@cycle)
+    @matrix_data = AnalysisMatrixData.new(dao)
   end
 
 private
