@@ -8,30 +8,39 @@ class AnalysisMatrixData
     current_strategy = nil
     @tactics.each do |current_tactic|
       row = {}
-      tactic_expression = current_tactic.text_expressions.find{|t| t.name == Model.tactic_where.name}
-      tactic_expression && row[:tactic] = tactic_expression
+      row[:tactic_repeated] = false
+      row[:stragegy_repeated] = false
+      row[:objective_repeated] = false
 
-      if current_tactic.father != current_strategy
-        row[:strategy] = current_tactic.father.text_expressions.find{|s| s.name == Model.strategy_how.name}
+      if current_tactic.father == current_strategy
+        row[:strategy_repeated] = true
       end
       current_strategy = current_tactic.father
 
-      if current_strategy.father != current_objective
-        row[:objective] = current_strategy.father.text_expressions.find{|o| o.name == Model.objective.name}
+      if current_strategy.father == current_objective
+        row[:objective_repeated] = true
       end
       current_objective = current_strategy.father
 
-      yield AnalysisMatrixData::Row.new(row[:objective], row[:strategy], row[:tactic])
+      row[:tactic] = Groups::Tactic.new(current_tactic)
+      row[:strategy] = Groups::Strategy.new(current_strategy)
+      row[:objective] = Groups::Objective.new(current_objective)
+
+      yield AnalysisMatrixData::Row.new(row)
     end
   end
 
   class Row
     attr_reader :tactic, :strategy, :objective
+    attr_reader :tactic_repeated, :strategy_repeated, :objective_repeated
 
-    def initialize(objective, strategy, tactic)
-      @objective = objective
-      @strategy = strategy
-      @tactic = tactic
+    def initialize(row = {})
+      @objective = row[:objective]
+      @strategy = row[:strategy]
+      @tactic = row[:tactic]
+      @objective_repeated = row[:objective_repeated]
+      @strategy_repeated = row[:strategy_repeated]
+      @tactic_repeated = row[:tactic_repeated]
     end
   end
 end

@@ -1,5 +1,5 @@
-<td><%= tactic && tactic.text %></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td class="<%= repeated ? "repeated " : "" %>tactic who"><%= tactic && tactic.who && tactic.who.text %></td>
+<td class="<%= repeated ? "repeated " : "" %>tactic what"><%= tactic && tactic.what && tactic.what.text %></td>
+<td class="<%= repeated ? "repeated " : "" %>tactic where"><%= tactic && tactic.where && tactic.where.text %></td>
+<td class="<%= repeated ? "repeated " : "" %>tactic when"><%= tactic && tactic.when && tactic.when.time %></td>
+<td class="<%= repeated ? "repeated " : "" %>tactic response-action"><%= tactic && tactic.response_action && tactic.response_action.text %></td>

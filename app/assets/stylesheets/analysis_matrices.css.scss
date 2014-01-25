@@ -1,0 +1,58 @@
+$objective_color: #ccf;
+$strategy_color: #fcc;
+$tactic_color: #cfc;
+
+$form_dark_percent: 10%;
+$repeated_desaturate_percent: 80%;
+$header_dark_percent: 30%;
+$repeated_font_color: #999;
+
+.analysis-matrix {
+  border-collapse: collapse;
+}
+
+.analysis-matrix td {
+  padding: 3px;
+}
+
+.objective {
+  background-color: $objective_color;
+}
+
+.objective.header {
+  background-color: darken($objective_color, $header_dark_percent);
+}
+
+.objective.repeated {
+  background-color: desaturate($objective_color, $repeated_desaturate_percent);
+  color: $repeated_font_color;
+}
+
+.strategy {
+  background-color: $strategy_color;
+}
+
+.strategy.form {
+  background-color: darken($strategy_color, $form_dark_percent);
+}
+
+.strategy.header {
+  background-color: darken($strategy_color, $header_dark_percent);
+}
+
+.strategy.repeated {
+  background-color: desaturate($strategy_color, $repeated_desaturate_percent);
+  color: $repeated_font_color;
+}
+
+.tactic {
+  background-color: $tactic_color;
+}
+
+.tactic.form {
+  background-color: darken($tactic_color, $form_dark_percent);
+}
+
+.tactic.header {
+  background-color: darken($tactic_color, $header_dark_percent);
+}

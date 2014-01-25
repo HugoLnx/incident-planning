@@ -1,20 +1,20 @@
 <%= simple_form_for [@incident, @cycle, @form234], url: incident_cycle_analysis_matrix_path do |f| %>
-  <table>
+  <table class="analysis-matrix">
     <thead>
       <tr>
-        <th>Objectives</th>
-        <th colspan="1">Strategies</th>
-        <th colspan="4">Tatics</th>
+        <th class="header objective">Objectives</th>
+        <th class="header strategy" colspan="2">Strategies</th>
+        <th class="header tactic" colspan="5">Tatics</th>
       </tr>
       <tr>
-        <th>Objective</th>
-        <th>How</th>
-        <th>Why</th>
-        <th>Who</th>
-        <th>What</th>
-        <th>Where</th>
-        <th>When</th>
-        <th>Response Action</th>
+        <th class="header objective">Objective</th>
+        <th class="header strategy">How</th>
+        <th class="header strategy">Why</th>
+        <th class="header tactic">Who</th>
+        <th class="header tactic">What</th>
+        <th class="header tactic">Where</th>
+        <th class="header tactic">When</th>
+        <th class="header tactic">Response Action</th>
       </tr>
     </thead>
 
@@ -30,5 +30,4 @@
       <% end %>
     </tbody>
   </table>
-  <%= f.input :name %>
 <% end %>
