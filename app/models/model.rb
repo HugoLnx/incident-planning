@@ -1,14 +1,14 @@
 module Model
   def self.objective
-    Dao.new.root_group.expressions.first
+    Model::Dao.new.root_group.expressions.first
   end
 
   def self.strategy
-    Dao.new.root_group.child
+    Model::Dao.new.root_group.child
   end
 
   def self.tactic
-    Dao.new.root_group.child.child
+    Model::Dao.new.root_group.child.child
   end
 
   def self.strategy_how
