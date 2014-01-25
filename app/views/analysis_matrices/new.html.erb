@@ -3,17 +3,29 @@
     <thead>
       <tr>
         <th>Objectives</th>
-        <th>Strategies</th>
-        <th>Tatics</th>
+        <th colspan="1">Strategies</th>
+        <th colspan="4">Tatics</th>
+      </tr>
+      <tr>
+        <th>Objective</th>
+        <th>How</th>
+        <th>Why</th>
+        <th>Who</th>
+        <th>What</th>
+        <th>Where</th>
+        <th>When</th>
+        <th>Response Action</th>
       </tr>
     </thead>
 
     <tbody>
-      <% AnalysisMatricesHelper::AnalysisMatrixCells.new(@matrix_data).each_row do |row| %>
+      <% each_row @matrix_data do |row| %>
         <tr>
-          <td><%= row.objective %></td>
-          <td><%= row.strategy %></td>
-          <td><%= row.tactic %></td>
+          <%= row.objective_cells %>
+
+          <%= row.strategy_cells %>
+
+          <%= row.tactic_cells %>
         </tr>
       <% end %>
     </tbody>
