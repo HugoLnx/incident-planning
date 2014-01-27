@@ -20,11 +20,11 @@
   <tbody>
     <% each_row @matrix_data do |row| %>
       <tr>
-        <%= row.objective_cells %>
+        <%= row.objective_cells.render %>
 
-        <%= row.strategy_cells %>
+        <%= row.strategy_cells.render %>
 
-        <%= row.tactic_cells %>
+        <%= row.tactic_cells.render %>
       </tr>
     <% end %>
   </tbody>
