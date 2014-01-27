@@ -21,7 +21,7 @@ describe AnalysisMatrixData do
       end
 
       it "the objective is non-repeated" do
-        expect(@rows.first.objective_repeated).to be_false
+        expect(@rows.first).to_not have_objective_repeated
       end
     end
 
@@ -58,12 +58,12 @@ describe AnalysisMatrixData do
       end
 
       it "objective of the second row is marked as repeated" do
-        expect(@rows[1].objective_repeated).to be_true
+        expect(@rows[1]).to have_objective_repeated
       end
 
       it "all strategies is marked as non-repeated" do
-        expect(@rows[0].strategy_repeated).to be_false
-        expect(@rows[1].strategy_repeated).to be_false
+        expect(@rows[0]).to_not have_strategy_repeated
+        expect(@rows[1]).to_not have_strategy_repeated
       end
     end
 
@@ -89,15 +89,15 @@ describe AnalysisMatrixData do
       end
 
       it "strategy and objective of second row are marked as repeated" do
-        expect(@rows[1].objective_repeated).to be_true
-        expect(@rows[1].strategy_repeated).to be_true
+        expect(@rows[1]).to have_objective_repeated
+        expect(@rows[1]).to have_strategy_repeated
       end
 
       it "all the others groups are marked as non-repeated" do
-        expect(@rows[0].objective_repeated).to be_false
-        expect(@rows[0].strategy_repeated).to be_false
-        expect(@rows[0].tactic_repeated).to be_false
-        expect(@rows[1].tactic_repeated).to be_false
+        expect(@rows[0]).to_not have_objective_repeated
+        expect(@rows[0]).to_not have_strategy_repeated
+        expect(@rows[0]).to_not have_tactic_repeated
+        expect(@rows[1]).to_not have_tactic_repeated
       end
 
       it "the groups in the rows are the ones in hierarchy" do

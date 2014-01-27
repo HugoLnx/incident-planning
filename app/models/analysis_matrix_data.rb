@@ -3,7 +3,7 @@ class AnalysisMatrixData
     @objectives = objectives
     @strategies = @objectives.map(&:childs).flatten
     @tactics = @strategies.map(&:childs).flatten
-    @last_row = {}
+    @previous_row = nil
   end
 
   def rows
@@ -46,26 +46,31 @@ private
     row[:strategy] = Groups::Strategy.new(strategy) if strategy
     row[:objective] = Groups::Objective.new(objective)
 
-    row[:tactic_repeated] = (row[:tactic] && row[:tactic] == @last_row[:tactic])
-    row[:strategy_repeated] = (row[:strategy] && row[:strategy] == @last_row[:strategy])
-    row[:objective_repeated] = (row[:objective] && row[:objective] == @last_row[:objective])
-
-    @last_row = row
-
-    yield AnalysisMatrixData::Row.new(row)
+    row = AnalysisMatrixData::Row.new(row, @previous_row)
+    @previous_row = row
+    yield row
   end
 
   class Row
     attr_reader :tactic, :strategy, :objective
-    attr_reader :tactic_repeated, :strategy_repeated, :objective_repeated
 
-    def initialize(row = {})
+    def initialize(row = {}, previous_row=nil)
       @objective = row[:objective]
       @strategy = row[:strategy]
       @tactic = row[:tactic]
-      @objective_repeated = row[:objective_repeated]
-      @strategy_repeated = row[:strategy_repeated]
-      @tactic_repeated = row[:tactic_repeated]
+      @previous = previous_row
+    end
+
+    def has_objective_repeated?
+      @previous && @objective && @objective == @previous.objective
+    end
+
+    def has_strategy_repeated?
+      @previous && @strategy && @strategy == @previous.strategy
+    end
+
+    def has_tactic_repeated?
+      @previous && @tactic && @tactic == @previous.tactic
     end
   end
 end
