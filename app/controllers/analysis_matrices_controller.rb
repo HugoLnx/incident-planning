@@ -3,7 +3,8 @@ class AnalysisMatricesController < ApplicationController
 
   def show
     dao = Dao::AnalysisMatrixDao.new(@cycle)
-    @matrix_data = AnalysisMatrixData.new(dao)
+    objectives = dao.find_all_objectives_including_hierarchy
+    @matrix_data = AnalysisMatrixData.new(objectives)
   end
 
 private

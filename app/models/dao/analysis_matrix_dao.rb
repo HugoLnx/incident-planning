@@ -4,8 +4,8 @@ module Dao
       @cycle = cycle
     end
 
-    def find_all_tactics_including_hierarchy
-      objectives = @cycle.groups.where(name: Model.objective.name).includes(
+    def find_all_objectives_including_hierarchy
+      @cycle.groups.where(name: Model.objective.name).includes(
         :text_expressions,
         childs: [
           :text_expressions,
@@ -15,10 +15,7 @@ module Dao
             {father: [:text_expressions, {father: :text_expressions}]}
           ]},
         ]
-      )
-      strategies = objectives.map(&:childs).flatten
-      tactics = strategies.map(&:childs).flatten
-      return tactics
+      ).load
     end
   end
 end

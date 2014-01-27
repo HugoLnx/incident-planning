@@ -1,33 +1,58 @@
 class AnalysisMatrixData
-  def initialize(dao)
-    @tactics = dao.find_all_tactics_including_hierarchy
+  def initialize(objectives)
+    @objectives = objectives
+    @strategies = @objectives.map(&:childs).flatten
+    @tactics = @strategies.map(&:childs).flatten
+    @last_row = {}
+  end
+
+  def rows
+    rows = []
+    self.each_row{|row| rows << row}
+    return rows
   end
 
   def each_row(&block)
-    current_objective = nil
-    current_strategy = nil
-    @tactics.each do |current_tactic|
-      row = {}
-      row[:tactic_repeated] = false
-      row[:stragegy_repeated] = false
-      row[:objective_repeated] = false
+    stacks = [@objectives.reverse]
+    while !stacks.empty? do
+      last_stack = stacks.last
+      if last_stack.last.childs.empty?
+        to_yield = stacks.map(&:last)
 
-      if current_tactic.father == current_strategy
-        row[:strategy_repeated] = true
+        yield_with *to_yield, &block
+
+        pop_consumed_groups(stacks)
+      else
+        stacks << last_stack.last.childs.reverse
       end
-      current_strategy = current_tactic.father
-
-      if current_strategy.father == current_objective
-        row[:objective_repeated] = true
-      end
-      current_objective = current_strategy.father
-
-      row[:tactic] = Groups::Tactic.new(current_tactic)
-      row[:strategy] = Groups::Strategy.new(current_strategy)
-      row[:objective] = Groups::Objective.new(current_objective)
-
-      yield AnalysisMatrixData::Row.new(row)
     end
+  end
+
+private
+
+  def pop_consumed_groups(stacks)
+    last_stack = stacks.last
+    last_stack.pop
+    while last_stack && last_stack.empty?
+      stacks.pop 
+      last_stack = stacks.last
+      last_stack && last_stack.pop
+    end
+  end
+
+  def yield_with(objective, strategy = nil, tactic = nil, &block)
+    row = {}
+    row[:tactic] = Groups::Tactic.new(tactic) if tactic
+    row[:strategy] = Groups::Strategy.new(strategy) if strategy
+    row[:objective] = Groups::Objective.new(objective)
+
+    row[:tactic_repeated] = (row[:tactic] && row[:tactic] == @last_row[:tactic])
+    row[:strategy_repeated] = (row[:strategy] && row[:strategy] == @last_row[:strategy])
+    row[:objective_repeated] = (row[:objective] && row[:objective] == @last_row[:objective])
+
+    @last_row = row
+
+    yield AnalysisMatrixData::Row.new(row)
   end
 
   class Row
