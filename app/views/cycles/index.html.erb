@@ -12,6 +12,7 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -24,6 +25,7 @@
         <td><%= cycle.from %></td>
         <td><%= cycle.to %></td>
         <td><%= cycle.closed %></td>
+        <td><%= link_to 'Analysis Matrix', incident_cycle_analysis_matrix_path(@incident, cycle) %></td>
         <td><%= link_to 'Show', incident_cycle_path(@incident, cycle) %></td>
         <td><%= link_to 'Edit', edit_incident_cycle_path(@incident, cycle) %></td>
         <td><%= link_to 'Destroy', incident_cycle_path(@incident, cycle), method: :delete, data: { confirm: 'Are you sure?' } %></td>
