@@ -29,13 +29,13 @@ module AnalysisMatricesHelper
       form = render partial: "new_tactic_form_cells", locals: {tactic: row.tactic}
       objective_cells = render_objective_cells(prev_row.objective, true)
       strategy_cells = render_strategy_cells(prev_row.strategy, true)
-      #yield AnalysisMatricesHelper::Row.new(objective_cells, strategy_cells, form)
+      yield AnalysisMatricesHelper::Row.new(objective_cells, strategy_cells, form)
     end
 
     if !row.objective_repeated
       form = render partial: "new_strategy_form_cells", locals: {strategy: prev_row.strategy}
-      objective_cells = render_objective_cells(row.objective, true)
-      #yield AnalysisMatricesHelper::Row.new(objective_cells, form, render_tactic_cells)
+      objective_cells = render_objective_cells(prev_row.objective, true)
+      yield AnalysisMatricesHelper::Row.new(objective_cells, form, render_tactic_cells)
     end
   end
 

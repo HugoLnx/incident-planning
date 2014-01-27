@@ -23,7 +23,7 @@ class CyclesController < ApplicationController
 
     respond_to do |format|
       if @cycle.save
-        format.html { redirect_to incident_cycles_path(@incident), notice: 'The cycle was successfully registered.' }
+        format.html { redirect_to incident_cycle_analysis_matrix_path(@incident, @cycle), notice: 'The cycle was successfully registered.' }
       else
         format.html { render action: 'new' }
       end
