@@ -51,6 +51,7 @@ group :test, :development do
   gem 'factory_girl_rails', "~> 4.3.0"
   gem 'capybara', "~> 2.2.1"
   gem 'poltergeist', "~> 1.5.0"
+  gem 'jasmine', "~> 2.0.0"
 end
 
 # Use ActiveModel has_secure_password
