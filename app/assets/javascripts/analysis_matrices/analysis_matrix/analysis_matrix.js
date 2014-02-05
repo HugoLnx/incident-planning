@@ -25,7 +25,7 @@
     var newRow = this.matrix.insertRow($tr, rowNumber);
 
     for(var i = 1; i <= _func.COLS; i++) {
-      newRow.pushCell(Matrix.Cell.newElement());
+      newRow.pushCell(new Matrix.Cell(Matrix.Cell.newElement()));
     }
 
     return newRow;

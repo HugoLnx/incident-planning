@@ -23,20 +23,20 @@ describe("Matrix.Row", function() {
 
     describe("when pushing a new cell", function() {
       beforeEach(function() {
-        var $td = $("<td>LostCell</td>");
-        this.row.pushCell($td);
+        var cell = Spec.Factories.Cell.build();
+        this.row.pushCell(cell);
         var $tds = this.row.$element.find("td");
 
-        this.$td = $td;
         this.$tds = $tds;
+        this.cell = cell;
       });
 
       it("insert <td> as last", function() {
-        expect(this.$tds.last()).toEqual(this.$td);
+        expect(this.$tds.last()).toEqual(this.cell.$element);
       });
 
       it("update cells array", function() {
-        expect(this.row.cells[1].$element).toEqual(this.$td);
+        expect(this.row.cells[1].$element).toEqual(this.cell.$element);
       });
 
       it("put row as father of cells", function() {

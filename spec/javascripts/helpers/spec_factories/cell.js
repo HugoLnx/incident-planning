@@ -5,7 +5,7 @@
 
   Factories.Cell = {
     buildPushingToRow: function(row, opts) {
-      var props = opts || {};
+      var opts = opts || {};
       var qnt = opts.qnt || 1;
 
       var cells = [];
@@ -24,7 +24,7 @@
     },
 
     build: function(opts) {
-      var props = opts || {};
+      var opts = opts || {};
       var qnt = opts.qnt || 1;
       var row = opts.row || undefined;
 

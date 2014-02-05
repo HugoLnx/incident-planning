@@ -28,11 +28,11 @@
 
   var prototype = Matrix.Row.prototype;
 
-  prototype.pushCell = function($td) {
-    this.$element.append($td);
-    var newCell = new Matrix.Cell($td, this);
-    this.cells.push(newCell);
+  prototype.pushCell = function(cell) {
+    this.$element.append(cell.$element);
+    cell.row = this;
+    this.cells.push(cell);
 
-    return newCell;
+    return cell;
   };
 }(jQuery, LNX_INCIDENT_PLANNING));
