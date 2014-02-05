@@ -29,11 +29,7 @@
   var prototype = Matrix.Row.prototype;
 
   prototype.pushCell = function($td) {
-    if (this.cells.length === 0) {
-      this.$element.append($td);
-    } else {
-      this.cells.slice(-1)[0].$element.after($td);
-    }
+    this.$element.append($td);
     var newCell = new Matrix.Cell($td);
     this.cells.push(newCell);
 
