@@ -18,10 +18,9 @@ describe("Matrix.Cell", function() {
     beforeEach(function() {
       var cells = Spec.Factories.Cell.buildInSameRow(3);
 
+      this.cellBefore = cells[0];
       this.cell = cells[1];
-      this.$td = this.cell.$element;
-      this.$tdBefore = cells[0].$element;
-      this.$tdAfter = cells[2].$element;
+      this.cellAfter = cells[2];
       this.row = this.cell.row;
     });
 
@@ -35,12 +34,12 @@ describe("Matrix.Cell", function() {
       });
 
       it("destroys yourself", function() {
-        expect(this.$td).not.toBeInDOM();
+        expect(this.cell.$element).not.toBeInDOM();
       });
 
       it("insert the new tds in the same place", function() {
-        expect(this.$tdBefore.next()).toEqual(this.$newTds.first());
-        expect(this.$tdAfter.prev()).toEqual(this.$newTds.last());
+        expect(this.cellBefore.$element.next()).toEqual(this.$newTds.first());
+        expect(this.cellAfter.$element.prev()).toEqual(this.$newTds.last());
       });
 
       it("insert the new cells in the same order", function() {
