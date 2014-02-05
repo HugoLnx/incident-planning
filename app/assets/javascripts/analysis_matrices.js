@@ -3,7 +3,6 @@
 
 var matrix;
 $(function(){
-  var Matrix = LNX_INCIDENT_PLANNING.Matrix.Matrix;
-  var AnalysisMatrix = LNX_INCIDENT_PLANNING.AnalysisMatrix.AnalysisMatrix;
-  matrix = AnalysisMatrix.buildFromTable($(".analysis-matrix"));
+  var AnalysisMatrixStarter = LNX_INCIDENT_PLANNING.AnalysisMatrix.AnalysisMatrixStarter;
+  matrix = new AnalysisMatrixStarter().start($(".analysis-matrix"));
 });
