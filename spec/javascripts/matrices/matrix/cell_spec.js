@@ -26,9 +26,9 @@ describe("Matrix.Cell", function() {
 
     describe("when replacing with others cells", function() {
       beforeEach(function() {
-        var $newTds = $("<td>One</td><td>Two</td>");
-        var cells = Matrix.Cell.buildAll($newTds);
+        var cells = Spec.Factories.Cell.buildInSameRow(2);
         this.cell.replaceWith(cells);
+        var $newTds = $($.map(cells, function(cell){return cell.$element[0];}));
 
         this.$newTds = $newTds;
       });
