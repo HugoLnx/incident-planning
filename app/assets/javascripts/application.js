@@ -18,5 +18,14 @@
 
 var LNX_INCIDENT_PLANNING = {
   Matrix: {},
-  AnalysisMatrix: {}
+  AnalysisMatrix: {
+    Actions: {}
+  },
+  Spec: {
+    Factories: {}
+  }
+};
+
+var LNX_UTILS = {
+  ArrayUtils: {}
 };

@@ -1,4 +1,5 @@
 //= require_tree ./analysis_matrices/
+//= require array_utils
 
 var matrix;
 $(function(){

@@ -40,6 +40,10 @@ describe("Matrix.Row", function() {
       it("update cells array", function() {
         expect(this.row.cells[1].$element).toEqual(this.$td);
       });
+
+      it("put row as father of cells", function() {
+        expect(this.row.cells[1].row).toEqual(this.row);
+      });
     });
   });
 });

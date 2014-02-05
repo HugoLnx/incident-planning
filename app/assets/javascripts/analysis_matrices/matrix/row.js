@@ -30,7 +30,7 @@
 
   prototype.pushCell = function($td) {
     this.$element.append($td);
-    var newCell = new Matrix.Cell($td);
+    var newCell = new Matrix.Cell($td, this);
     this.cells.push(newCell);
 
     return newCell;
