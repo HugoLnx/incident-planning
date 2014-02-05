@@ -13,4 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+
+"use strict"
+
+var LNX_INCIDENT_PLANNING = {
+  Matrix: {},
+  AnalysisMatrix: {}
+};
