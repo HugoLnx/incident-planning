@@ -7,6 +7,13 @@
     this.matrix = matrix;
   };
 
+  var func = AnalysisMatrix.AnalysisMatrix;
+
+  func.buildFromTable = function($table) {
+    var $trs = $table.find("tr").slice(2);
+    return new AnalysisMatrix.AnalysisMatrix(new Matrix.Matrix($table, $trs));
+  };
+
 
 
   var prototype = AnalysisMatrix.AnalysisMatrix.prototype;
