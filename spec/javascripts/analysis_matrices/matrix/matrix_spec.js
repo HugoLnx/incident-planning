@@ -58,6 +58,28 @@ describe("Matrix.Matrix", function() {
         expect(cellsFound[1]).toEqual(this.matrix.rows[1].cells[0]);
     });
 
+    it("discover row number", function() {
+      expect(this.matrix.rowNumber(this.matrix.rows[0])).toBe(0);
+      expect(this.matrix.rowNumber(this.matrix.rows[1])).toBe(1);
+      expect(this.matrix.rowNumber(this.matrix.rows[2])).toBe(2);
+    });
+
+    it("discover cell number", function() {
+      var cell1 = this.matrix.rows[0].cells[0];
+      var cell2 = this.matrix.rows[1].cells[0];
+
+      expect(this.matrix.cellNumber(cell1)).toBe(0);
+      expect(this.matrix.cellNumber(cell2)).toBe(0);
+    });
+
+    it("find cells by tds elements", function() {
+        var $tds = this.$trs.find("td");
+        var cellsFound = this.matrix.findCells($tds.slice(0, 2));
+        
+        expect(cellsFound[0]).toEqual(this.matrix.rows[0].cells[0]);
+        expect(cellsFound[1]).toEqual(this.matrix.rows[1].cells[0]);
+    });
+
     describe("when inserting a row with determined number", function() {
       beforeEach(function() {
         var $newTr = $("<tr class='data-row'><td>NewName</td></tr>");

@@ -30,6 +30,14 @@
     return newRow;
   };
 
+  _prototype.rowNumber = function(row) {
+    return this.rows.indexOf(row);
+  };
+
+  _prototype.cellNumber = function(cell) {
+    return cell.row.cells.indexOf(cell);
+  };
+
   _prototype.findRows = function($trs) {
     var rows = $(this.rows).filter(function() {
       return isWrapperOneOfElements(this, $trs)

@@ -19,7 +19,8 @@
 var LNX_INCIDENT_PLANNING = {
   Matrix: {},
   AnalysisMatrix: {
-    Actions: {}
+    Actions: {},
+    Templates: {}
   },
   Spec: {
     Factories: {}

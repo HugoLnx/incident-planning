@@ -60,7 +60,7 @@ $repeated_font_color: #999;
 }
 
 /* forms css  */
-.analysis-matrix button {
+.analysis-matrix .pre-button > button {
   border: none;
   background-color: rgba(0,0,0,0);
   width: 100%;
@@ -75,4 +75,8 @@ $repeated_font_color: #999;
 
 .analysis-matrix button:active {
   background-color: rgba(0,0,0,0.1);
+}
+
+.form.submit, td.submit-side {
+  height: 20px;
 }

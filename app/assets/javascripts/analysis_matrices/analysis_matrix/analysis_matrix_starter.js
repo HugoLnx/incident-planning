@@ -15,10 +15,9 @@
       var $td = $(this);
 
       var cell = matrix.matrix.findCells($td)[0];
-      Actions.AddStrategy.bindIn(cell);
+      Actions.AddStrategy.bindIn(matrix, cell, $table);
     });
 
     return matrix;
   };
 }(jQuery, LNX_INCIDENT_PLANNING));
-
