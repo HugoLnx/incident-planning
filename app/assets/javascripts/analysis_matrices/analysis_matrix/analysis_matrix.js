@@ -1,7 +1,7 @@
-(function($, context) {
+(function($, namespace) {
 
-  var Matrix = context.Matrix;
-  var AnalysisMatrix = context.AnalysisMatrix;
+  var Matrix = namespace.Matrix;
+  var AnalysisMatrix = namespace.AnalysisMatrix;
 
   AnalysisMatrix.AnalysisMatrix = function(matrix) {
     this.matrix = matrix;

@@ -1,5 +1,5 @@
-(function($, context) {
-  var Matrix = context.Matrix;
+(function($, namespace) {
+  var Matrix = namespace.Matrix;
 
   Matrix.Cell = function($element) {
     this.$element = $element;

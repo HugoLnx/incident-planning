@@ -1,5 +1,5 @@
-(function($, context) {
-  var Matrix = context.Matrix;
+(function($, namespace) {
+  var Matrix = namespace.Matrix;
 
   Matrix.Matrix = function($table, $data_trs) {
     this.rows = [];
