@@ -16,7 +16,8 @@ describe("Matrix.Cell", function() {
 
   describe("given a loaded cell", function() {
     beforeEach(function() {
-      var cells = Spec.Factories.Cell.buildInSameRow(3);
+      var row = Spec.Factories.Row.build();
+      var cells = Spec.Factories.Cell.buildPushingToRow(row, {qnt: 3});
 
       this.cellBefore = cells[0];
       this.cell = cells[1];
@@ -26,7 +27,7 @@ describe("Matrix.Cell", function() {
 
     describe("when replacing with others cells", function() {
       beforeEach(function() {
-        var cells = Spec.Factories.Cell.buildInSameRow(2);
+        var cells = Spec.Factories.Cell.build({qnt: 2});
         this.cell.replaceWith(cells);
         var $newTds = $($.map(cells, function(cell){return cell.$element[0];}));
 

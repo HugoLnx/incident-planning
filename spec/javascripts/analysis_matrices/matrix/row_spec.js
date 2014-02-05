@@ -1,11 +1,11 @@
-var Row = namespace().Matrix.Row;
-
 describe("Matrix.Row", function() {
+  var Row = namespace().Matrix.Row;
+  var Spec = namespace().Spec;
+
   describe("function methods", function() {
     describe("when building with cells", function() {
       it("build a row based on <tr> and his <td> children", function() {
-        loadFixtures("matrix.html");
-        var $tr = $("tr.data-row:first");
+        var $tr = $("<tr><td></td></tr>");
         var row = Row.buildWithCells($tr);
 
         expect(row.cells[0].$element).toEqual($tr.find("td"));
@@ -13,13 +13,11 @@ describe("Matrix.Row", function() {
     });
   });
 
-  describe("given a loaded row", function() {
+  describe("given a initialized row", function() {
     beforeEach(function() {
-      loadFixtures("matrix.html");
-      var $tr = $(".data-row:first");
-      var row = Row.buildWithCells($tr);
+      var row = Spec.Factories.Row.build({cells: 1});
       
-      this.$tr = $tr;
+      this.$tr = row.$element;
       this.row = row;
     });
 

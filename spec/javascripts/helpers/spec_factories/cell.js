@@ -4,17 +4,46 @@
   var Factories = namespace.Spec.Factories;
 
   Factories.Cell = {
-    buildInSameRow: function(number) {
-      var qnt = number || 1;
+    buildPushingToRow: function(row, opts) {
+      var props = opts || {};
+      var qnt = opts.qnt || 1;
 
-      var row = new Matrix.Row($("<tr>"));
-
+      var cells = [];
       for(var i = 1; i <= qnt; i++) {
-        row.pushCell($("<td>"));
+        var cell = buildOne(row);
+        cells.push(cell);
+        row.cells.push(cell);
+        row.$element.append(cell.$element);
       }
 
-      return row.cells;
+      if (cells.length === 1) {
+        return cells[0];
+      } else {
+        return cells;
+      }
+    },
+
+    build: function(opts) {
+      var props = opts || {};
+      var qnt = opts.qnt || 1;
+      var row = opts.row || undefined;
+
+      var instances = []
+      for(var i = 1; i <= qnt; i++) {
+        instances.push(buildOne(row));
+      }
+
+      if (instances.length === 1) {
+        return instances[0];
+      } else {
+        return instances;
+      }
     }
   };
+
+  function buildOne(row) {
+    var cell = new Matrix.Cell($("<td>"), row);
+    return cell
+  }
   
 }(jQuery, LNX_INCIDENT_PLANNING));
