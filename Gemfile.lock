@@ -1,3 +1,9 @@
+GIT
+  remote: git@github.com:HugoLnx/jasmine-jquery-rails.git
+  revision: ce36087202d8475014177f11dde8eeba9b6e21b5
+  specs:
+    jasmine-jquery-rails (2.0.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -183,6 +189,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.3.0)
   interactive_editor
   jasmine (~> 2.0.0)
+  jasmine-jquery-rails!
   jbuilder (~> 1.2)
   jquery-rails (~> 2.2.0)
   mysql2

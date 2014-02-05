@@ -52,6 +52,7 @@ group :test, :development do
   gem 'capybara', "~> 2.2.1"
   gem 'poltergeist', "~> 1.5.0"
   gem 'jasmine', "~> 2.0.0"
+  gem 'jasmine-jquery-rails', git: "git@github.com:HugoLnx/jasmine-jquery-rails.git"
 end
 
 # Use ActiveModel has_secure_password
