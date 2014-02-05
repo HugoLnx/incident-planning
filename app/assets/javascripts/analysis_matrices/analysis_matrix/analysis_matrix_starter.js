@@ -13,15 +13,8 @@
 
     $table.find(".form.strategy").each(function() {
       var $td = $(this);
-      var $tr = $td.parent("tr");
 
-      var row = $(matrix.matrix.rows).filter(function() {
-        return this.$element[0] === $tr[0];
-      })[0];
-
-      var cell = $(row.cells).filter(function() {
-        return this.$element[0] === $td[0];
-      })[0];
+      var cell = matrix.matrix.findCells($td)[0];
       Actions.AddStrategy.bindIn(cell);
     });
 

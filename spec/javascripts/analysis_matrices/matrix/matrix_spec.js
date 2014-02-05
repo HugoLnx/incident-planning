@@ -43,6 +43,21 @@ describe("Matrix.Matrix", function() {
       this.matrix = matrix;
     });
 
+    it("find rows by trs elements", function() {
+        var rowsFound = this.matrix.findRows(this.$trs.slice(0, 2));
+        
+        expect(rowsFound[0]).toEqual(this.matrix.rows[0]);
+        expect(rowsFound[1]).toEqual(this.matrix.rows[1]);
+    });
+
+    it("find cells by tds elements", function() {
+        var $tds = this.$trs.find("td");
+        var cellsFound = this.matrix.findCells($tds.slice(0, 2));
+        
+        expect(cellsFound[0]).toEqual(this.matrix.rows[0].cells[0]);
+        expect(cellsFound[1]).toEqual(this.matrix.rows[1].cells[0]);
+    });
+
     describe("when inserting a row with determined number", function() {
       beforeEach(function() {
         var $newTr = $("<tr class='data-row'><td>NewName</td></tr>");

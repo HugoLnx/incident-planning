@@ -14,8 +14,8 @@
     var row = new Matrix.Row($tr);
     $tr.find("td").each(function() {
       var $td = $(this);
-      var cell = new Matrix.Cell($td);
-      row.cells.push(cell);
+      var cell = new Matrix.Cell($td, row);
+      row.pushCell(cell);
     });
     return row;
   };
