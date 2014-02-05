@@ -7,29 +7,26 @@
     this.matrix = matrix;
   };
 
-  var func = AnalysisMatrix.AnalysisMatrix;
+  var _func = AnalysisMatrix.AnalysisMatrix;
 
-  func.buildFromTable = function($table) {
+  _func.COLS = 8;
+
+  _func.buildFromTable = function($table) {
     var $trs = $table.find("tr").slice(2);
     return new AnalysisMatrix.AnalysisMatrix(new Matrix.Matrix($table, $trs));
   };
 
 
 
-  var prototype = AnalysisMatrix.AnalysisMatrix.prototype;
+  var _prototype = AnalysisMatrix.AnalysisMatrix.prototype;
 
-  prototype.newRow = function(rowNumber) {
+  _prototype.newRow = function(rowNumber) {
     var $tr = Matrix.Row.newElement();
     var newRow = this.matrix.insertRow($tr, rowNumber);
 
-    newRow.pushCell(Matrix.Cell.newElement());
-    newRow.pushCell(Matrix.Cell.newElement());
-    newRow.pushCell(Matrix.Cell.newElement());
-    newRow.pushCell(Matrix.Cell.newElement());
-    newRow.pushCell(Matrix.Cell.newElement());
-    newRow.pushCell(Matrix.Cell.newElement());
-    newRow.pushCell(Matrix.Cell.newElement());
-    newRow.pushCell(Matrix.Cell.newElement());
+    for(var i = 1; i <= _func.COLS; i++) {
+      newRow.pushCell(Matrix.Cell.newElement());
+    }
 
     return newRow;
   };

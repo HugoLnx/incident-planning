@@ -18,4 +18,32 @@ describe("AnalysisMatrix.AnalysisMatrix", function() {
       });
     });
   });
+
+  describe("given a loaded matrix", function() {
+    beforeEach(function() {
+      var $table = $("matrix.html");
+      var matrix = AnalysisMatrix.buildFromTable($table);
+
+      this.$table = $table;
+      this.matrix = matrix;
+    });
+
+    describe("when creating a new row", function() {
+      beforeEach(function() {
+        var row = matrix.newRow(1);
+
+        this.row = row;
+      });
+
+      it("create a row with an cell to each column", function() {
+        expect(this.row.cells.length).toEqual(AnalysisMatrix.COLS);
+      });
+
+      it("create a td to each column", function() {
+        var $tr = this.row.$element;
+
+        expect($tr.find("td").length).toEqual(AnalysisMatrix.COLS);
+      });
+    });
+  });
 });
