@@ -4,7 +4,7 @@ module AnalysisMatricesHelper
 
     matrix_data.each_row do |row|
       form_rows = FormRows.new(row, previous_row)
-      form_rows.build_rows.each{|extra_row| yield row}
+      form_rows.build_rows.each{|extra_row| yield extra_row}
 
       objective_cells = ObjectiveCells.from(self, row)
       strategy_cells = StrategyCells.from(self, row)
@@ -16,7 +16,7 @@ module AnalysisMatricesHelper
     end
 
     form_rows = FormRows.new(nil, previous_row)
-    form_rows.build_rows.each{|extra_row| yield row}
+    form_rows.build_rows.each{|extra_row| yield extra_row}
   end
 
   class Row
