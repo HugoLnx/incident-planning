@@ -6,6 +6,10 @@ module Groups
       @group = group
     end
 
+    def group_id
+      @group.id
+    end
+
     def expression
       @group.text_expressions.find{|exp| exp.name == Model.objective.name}
     end

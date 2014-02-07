@@ -4,7 +4,7 @@ module AnalysisMatricesHelper
       if row.strategy
         StrategyCells::Show.new(context, row.strategy, row.has_strategy_repeated?)
       else
-        StrategyCells::New.new(context)
+        StrategyCells::New.new(context, row.objective.group_id)
       end
     end
 
@@ -34,12 +34,13 @@ module AnalysisMatricesHelper
     class New
       PARTIAL = "new_strategy_form_cells"
 
-      def initialize(context)
+      def initialize(context, father_id)
         @context = context
+        @father_id = father_id
       end
 
       def render
-        @context.render partial: PARTIAL
+        @context.render partial: PARTIAL, locals: {father_id: @father_id}
       end
     end
   end
