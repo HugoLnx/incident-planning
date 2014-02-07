@@ -7,6 +7,13 @@ module Concerns
       belongs_to :group
 
       scope :objectives, -> { where(name: Model.objective.name) }
+
+      validates_associated :group
+      validates_associated :cycle
+
+      validates :name, presence: true
+      validates :group_id, presence: true
+      validates :cycle_id, presence: true
     end
 
     module ClassMethods

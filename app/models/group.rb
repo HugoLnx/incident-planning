@@ -6,4 +6,8 @@ class Group < ActiveRecord::Base
   has_many :childs, class_name: ::Group, foreign_key: "father_id"
 
   belongs_to :cycle
+
+  validates :cycle_id, presence: true
+
+  validates_associated :cycle
 end

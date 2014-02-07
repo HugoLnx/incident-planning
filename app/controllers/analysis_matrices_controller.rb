@@ -10,9 +10,13 @@ class AnalysisMatricesController < ApplicationController
   def create
     strategy_params = params[:strategy].permit(:how, :why, :father_id)
 
-    p strategy_params
+    strategy_params[:cycle_id] = @cycle.id
 
-    render text: "success"
+    strategy = HighModels::Strategy.new(strategy_params)
+    saved = strategy.save
+
+    puts(saved ? "SUCCESS" : "FAIL")
+    render text: "HEY"
   end
 
 private

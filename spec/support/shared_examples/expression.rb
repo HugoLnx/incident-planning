@@ -7,4 +7,11 @@ shared_examples_for "Expression" do
       expect(objective.name).to be == Model.objective.name
     end
   end
+
+  context "when initializing a new strategy" do
+    it "sets his name properly" do
+      strategy = model.new_strategy
+      expect(strategy.name).to be == Model.strategy.name
+    end
+  end
 end
