@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20140124121347) do
   create_table "time_expressions", force: true do |t|
     t.datetime "when",       null: false
     t.string   "name",       null: false
-    t.integer  "group_id",   null: false
+    t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
