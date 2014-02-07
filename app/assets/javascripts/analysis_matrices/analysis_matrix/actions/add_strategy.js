@@ -14,21 +14,25 @@
       event.preventDefault();
 
       var template = Templates.NewStrategy.renderIn(matrix, cell);
-      bindFormEventsOn(template);
+
+      var fatherId = $(this).data("father_id");
+      bindFormEventsOn(template, fatherId);
     });
 
     return new Actions.AddStrategy(cell, $father);
   };
 
-  function bindFormEventsOn(template) {
+  function bindFormEventsOn(template, fatherId) {
     template.$submitTd.find("button").on("click", function(event) {
       event.preventDefault();
       var $form = $("<form>");
       $form.append(template.$inputsTds);
 
-      var params = $form.serialize();
-      params["authenticity_token"] = $("meta[name='csrf-token']").attr("content");
+      var authenticityToken = $("meta[name='csrf-token']").attr("content")
+      $form.append($("<input type='hidden'>").attr("name", "authenticity_token").val(authenticityToken))
+      $form.append($("<input type='hidden'>").attr("name", "strategy[father_id]").val(fatherId))
 
+      var params = $form.serialize();
       $.post(document.location.href, params, function() {
         document.location.reload();
       });

@@ -23,7 +23,9 @@
 
   function inputsHtml() {
     var html = '<td class="strategy form how"><input name="strategy[how]"/></td>';
-    html += '<td class="strategy form why"><input name="strategy[why]"/></td>';
+    html += '<td class="strategy form why">';
+    html +=   '<input name="strategy[why]"/>';
+    html += '</td>';
     return html;
   };
 
