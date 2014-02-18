@@ -2,10 +2,9 @@ module AnalysisMatricesHelper
   class FormRows
     attr_reader :row, :previous_row
 
-    def initialize(context, row=nil, previous_row=nil)
+    def initialize(row=nil, previous_row=nil)
       @row = row
       @previous_row = previous_row
-      @context = context
     end
 
     def build_rows
@@ -39,16 +38,16 @@ module AnalysisMatricesHelper
     end
 
     def new_tactic_row
-      tactic_cells = TacticCells::New.new(@context)
-      objective_cells = ObjectiveCells.from_previous(@context, previous_row)
-      strategy_cells = StrategyCells.from_previous(@context, previous_row)
+      tactic_cells = TacticCells::New.new
+      objective_cells = ObjectiveCells.from_previous(previous_row)
+      strategy_cells = StrategyCells.from_previous(previous_row)
       AnalysisMatricesHelper::Row.new(objective_cells, strategy_cells, tactic_cells)
     end
 
     def new_strategy_row
-      strategy_cells = StrategyCells::New.new(@context, previous_row.objective.group_id)
-      objective_cells = ObjectiveCells.from_previous(@context, previous_row)
-      tactic_cells = TacticCells.blank(@context)
+      strategy_cells = StrategyCells::New.new(previous_row.objective.group_id)
+      objective_cells = ObjectiveCells.from_previous(previous_row)
+      tactic_cells = TacticCells.blank
       AnalysisMatricesHelper::Row.new(objective_cells, strategy_cells, tactic_cells)
     end
   end

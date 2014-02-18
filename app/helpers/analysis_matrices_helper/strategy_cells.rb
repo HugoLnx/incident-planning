@@ -1,46 +1,44 @@
 module AnalysisMatricesHelper
   class StrategyCells
-    def self.from(context, row)
+    def self.from(row)
       if row.strategy
-        StrategyCells::Show.new(context, row.strategy, row.has_strategy_repeated?)
+        StrategyCells::Show.new(row.strategy, row.has_strategy_repeated?)
       else
-        StrategyCells::New.new(context, row.objective.group_id)
+        StrategyCells::New.new(row.objective.group_id)
       end
     end
 
-    def self.from_previous(context, row)
-      StrategyCells::Show.new(context, row.strategy, true)
+    def self.from_previous(row)
+      StrategyCells::Show.new(row.strategy, true)
     end
 
     class Show
       PARTIAL = "strategy_cells"
 
-      def initialize(context, strategy=nil, repeated=nil)
-        @context = context
+      def initialize(strategy=nil, repeated=nil)
         @strategy = strategy
         @repeated = repeated
       end
 
-      def render
+      def render(context: nil)
         texts = {
           how: @strategy && @strategy.how && @strategy.how.text,
           why: @strategy && @strategy.why && @strategy.why.text
         }
         repeated_class = @repeated ? "repeated" : ""
-        @context.render partial: PARTIAL, locals: {texts: texts, repeated: repeated_class}
+        context.render partial: PARTIAL, locals: {texts: texts, repeated: repeated_class}
       end
     end
 
     class New
       PARTIAL = "new_strategy_form_cells"
 
-      def initialize(context, father_id)
-        @context = context
+      def initialize(father_id)
         @father_id = father_id
       end
 
-      def render
-        @context.render partial: PARTIAL, locals: {father_id: @father_id}
+      def render(context: nil)
+        context.render partial: PARTIAL, locals: {father_id: @father_id}
       end
     end
   end

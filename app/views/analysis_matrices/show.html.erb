@@ -24,11 +24,11 @@
   <tbody>
     <% each_row @matrix_data do |row| %>
       <tr>
-        <%= row.objective_cells.render %>
+        <%= row.objective_cells.render(context: self) %>
 
-        <%= row.strategy_cells.render %>
+        <%= row.strategy_cells.render(context: self) %>
 
-        <%= row.tactic_cells.render %>
+        <%= row.tactic_cells.render(context: self) %>
       </tr>
     <% end %>
   </tbody>
