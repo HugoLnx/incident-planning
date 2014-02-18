@@ -1,4 +1,4 @@
-module AnalysisMatricesHelper
+module AnalysisMatrixRendererContainer
   class RowsIterator
     def initialize(matrix_data)
       @matrix_data = matrix_data
@@ -15,7 +15,7 @@ module AnalysisMatricesHelper
         strategy_cells = StrategyCells.from row
         tactic_cells = TacticCells.from row
 
-        yield AnalysisMatricesHelper::Row.new(objective_cells, strategy_cells, tactic_cells)
+        yield AnalysisMatrixRendererContainer::Row.new(objective_cells, strategy_cells, tactic_cells)
 
         previous_row = row
       end

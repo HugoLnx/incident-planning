@@ -1,4 +1,4 @@
-module AnalysisMatricesHelper
+module AnalysisMatrixRendererContainer
   class ObjectiveCells
     PARTIAL = "objective_cells"
 

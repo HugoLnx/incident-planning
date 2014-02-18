@@ -1,4 +1,4 @@
-module AnalysisMatricesHelper
+module AnalysisMatrixRendererContainer
   class TacticCells
     def self.from(row)
       if row.strategy.nil?

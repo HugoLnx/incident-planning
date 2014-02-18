@@ -1,4 +1,4 @@
-module AnalysisMatricesHelper
+module AnalysisMatrixRendererContainer
   class FormRows
     attr_reader :row, :previous_row
 
@@ -41,14 +41,14 @@ module AnalysisMatricesHelper
       tactic_cells = TacticCells::New.new
       objective_cells = ObjectiveCells.from_previous(previous_row)
       strategy_cells = StrategyCells.from_previous(previous_row)
-      AnalysisMatricesHelper::Row.new(objective_cells, strategy_cells, tactic_cells)
+      AnalysisMatrixRendererContainer::Row.new(objective_cells, strategy_cells, tactic_cells)
     end
 
     def new_strategy_row
       strategy_cells = StrategyCells::New.new(previous_row.objective.group_id)
       objective_cells = ObjectiveCells.from_previous(previous_row)
       tactic_cells = TacticCells.blank
-      AnalysisMatricesHelper::Row.new(objective_cells, strategy_cells, tactic_cells)
+      AnalysisMatrixRendererContainer::Row.new(objective_cells, strategy_cells, tactic_cells)
     end
   end
 end

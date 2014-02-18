@@ -1,4 +1,4 @@
-module AnalysisMatricesHelper
+module AnalysisMatrixRendererContainer
   class Row
     attr_reader :objective_cells, :strategy_cells, :tactic_cells
     
