@@ -3,7 +3,7 @@ module AnalysisMatricesHelper
     previous_row = nil
 
     matrix_data.each_row do |row|
-      form_rows = FormRows.new(row, previous_row)
+      form_rows = FormRows.new(self, row, previous_row)
       form_rows.build_rows.each{|extra_row| yield extra_row}
 
       objective_cells = ObjectiveCells.from(self, row)

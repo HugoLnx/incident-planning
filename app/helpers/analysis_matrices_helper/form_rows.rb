@@ -46,7 +46,7 @@ module AnalysisMatricesHelper
     end
 
     def new_strategy_row
-      strategy_cells = StrategyCells::New.new(@cotnext)
+      strategy_cells = StrategyCells::New.new(@context, previous_row.objective.group_id)
       objective_cells = ObjectiveCells.from_previous(@context, previous_row)
       tactic_cells = TacticCells.blank(@context)
       AnalysisMatricesHelper::Row.new(objective_cells, strategy_cells, tactic_cells)
