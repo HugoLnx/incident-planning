@@ -5,4 +5,14 @@ FactoryGirl.define do
     how "Throwing cleaning products in the sea"
     why "To clean the sea"
   end
+
+  factory :high_models_tactic, class: HighModels::Tactic do
+    father_id {create(:strategy_group).id}
+    cycle_id {create(:cycle).id}
+    who "The adhesive tape manager"
+    what "Put a adhesive tape in the leak point"
+    where "Under sea"
+    sequence(:when){"Anytime"}
+    response_action "petition"
+  end
 end

@@ -4,7 +4,10 @@ class TacticsController < ApplicationController
   def create
     tactic_params = params[:tactic].permit(:who, :what, :where, :when, :response_action, :father_id)
 
-    p tactic_params
+    tactic_params[:cycle_id] = @cycle.id
+
+    tactic = HighModels::Tactic.new(tactic_params)
+    tactic.save
 
     head :ok
   end
