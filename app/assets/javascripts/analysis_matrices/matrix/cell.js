@@ -27,12 +27,10 @@
 
   prototype.replaceWith = function(cells) {
     var $tds = $.map(cells, function(cell){
-      return cell.$element;
+      return cell.$element[0];
     });
 
-    var $tdAfter = this.$element.next();
-    this.$element.remove();
-    $tdAfter.before($tds);
+    this.$element.replaceWith($tds);
 
     var cellInx = this.row.cells.indexOf(this);
     utils.ArrayUtils.splice(this.row.cells, cellInx, 1, cells);
