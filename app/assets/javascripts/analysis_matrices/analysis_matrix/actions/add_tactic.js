@@ -16,27 +16,29 @@
       var template = Templates.NewTactic.renderIn(matrix, cell);
 
       var fatherId = $(this).data("father_id");
-      //bindFormEventsOn(template, fatherId);
+      bindFormEventsOn(template, fatherId);
     });
 
     return new Actions.AddStrategy(cell, $father);
   };
 
-  //function bindFormEventsOn(template, fatherId) {
-  //  template.$submitTd.find("button").on("click", function(event) {
-  //    event.preventDefault();
-  //    var $form = $("<form>");
-  //    $form.append(template.$inputsTds);
+  function bindFormEventsOn(template, fatherId) {
+    template.$submitTd.find("button").on("click", function(event) {
+      event.preventDefault();
 
-  //    var authenticityToken = $("meta[name='csrf-token']").attr("content")
-  //    $form.append($("<input type='hidden'>").attr("name", "authenticity_token").val(authenticityToken))
-  //    $form.append($("<input type='hidden'>").attr("name", "strategy[father_id]").val(fatherId))
+      var $form = $("<form>");
+      $form.append(template.$inputsTds);
 
-  //    var params = $form.serialize();
-  //    $.post(document.location.href, params, function() {
-  //      document.location.reload();
-  //    });
-  //  });
-  //}
+      var authenticityToken = $("meta[name='csrf-token']").attr("content")
+      $form.append($("<input type='hidden'>").attr("name", "authenticity_token").val(authenticityToken))
+      $form.append($("<input type='hidden'>").attr("name", "tactic[father_id]").val(fatherId))
+
+      var path = namespace.FROM_RAILS.AnalysisMatrix.create_tactic_path;
+      var params = $form.serialize();
+      $.post(path, params, function() {
+        document.location.reload();
+      });
+    });
+  }
 
 }(jQuery, LNX_INCIDENT_PLANNING));

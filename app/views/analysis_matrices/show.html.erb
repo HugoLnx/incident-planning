@@ -1,5 +1,11 @@
 <% content_for :js do %>
   <%= javascript_include_tag "analysis_matrices", "data-turbolinks-track" => true %>
+
+  <%= javascript_tag do %>
+    LNX_INCIDENT_PLANNING.FROM_RAILS.AnalysisMatrix = {
+      create_tactic_path: "<%= incident_cycle_tactics_path(@incident, @cycle) %>"
+    };
+  <% end %>
 <% end %>
 
 <table class="analysis-matrix" id="analysis-matrix">

@@ -4,6 +4,7 @@ IncidentPlanning::Application.routes.draw do
   resources :incidents do
     resources :cycles do
       resource :analysis_matrix
+      resources :tactics
     end
   end
 

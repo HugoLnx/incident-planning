@@ -24,7 +24,8 @@ var LNX_INCIDENT_PLANNING = {
   },
   Spec: {
     Factories: {}
-  }
+  },
+  FROM_RAILS: {}
 };
 
 var LNX_UTILS = {

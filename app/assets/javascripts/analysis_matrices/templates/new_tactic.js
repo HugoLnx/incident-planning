@@ -26,7 +26,7 @@
     html += '<td class="tactic form what"><input name="tactic[what]"/></td>';
     html += '<td class="tactic form where"><input name="tactic[where]"/></td>';
     html += '<td class="tactic form when"><input name="tactic[when]"/></td>';
-    html += '<td class="tactic form response-action"><input name="tactic[response-action]"/></td>';
+    html += '<td class="tactic form response-action"><input name="tactic[response_action]"/></td>';
     return html;
   };
 
