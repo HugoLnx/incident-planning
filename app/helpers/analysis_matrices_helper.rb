@@ -45,9 +45,9 @@ module AnalysisMatricesHelper
     render partial: partial, locals: {texts: texts, repeated: repeated_class}
   end
 
-  def render_new_tactic_cells
+  def render_new_tactic_cells(father_id)
     partial = "new_tactic_form_cells"
-    render partial: partial
+    render partial: partial, locals: {father_id: father_id}
   end
 
 private
