@@ -6,7 +6,7 @@ module AnalysisMatrixRendererContainer
       elsif row.tactic
         TacticCells::Show.new(row.tactic, row.has_tactic_repeated?)
       else
-        TacticCells::New.new
+        TacticCells::New.new(row.strategy.group_id)
       end
     end
 
@@ -26,8 +26,12 @@ module AnalysisMatrixRendererContainer
     end
 
     class New
+      def initialize(father_id)
+        @father_id = father_id
+      end
+
       def render_using(callbacks)
-        callbacks.call(:new_tactic)
+        callbacks.call(:new_tactic, @father_id)
       end
     end
   end

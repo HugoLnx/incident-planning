@@ -39,7 +39,7 @@ module AnalysisMatrixRendererContainer
     end
 
     def new_tactic_row
-      tactic_cells = TacticCells::New.new
+      tactic_cells = TacticCells::New.new(previous_row.strategy.group_id)
       objective_cells = ObjectiveCells.from_previous(previous_row)
       strategy_cells = StrategyCells.from_previous(previous_row)
       AnalysisMatrixRendererContainer::Row.from_cells(objective_cells, strategy_cells, tactic_cells, @callbacks)

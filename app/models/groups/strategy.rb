@@ -6,6 +6,10 @@ module Groups
       @group = group
     end
 
+    def group_id
+      @group.id
+    end
+
     def how
       @group.text_expressions.find{|exp| exp.name == Model.strategy_how.name}
     end

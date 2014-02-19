@@ -56,9 +56,13 @@ module AnalysisMatrixRendererContainer
     end
 
     context "when data have an objective with strategy" do
+      let :strategy do
+        build(:strategy_group, id: 7)
+      end
+
       let :objective do
         build(:objective_group, id: 9,
-          childs: [build(:strategy_group)])
+          childs: [strategy])
       end
 
       let :data do
@@ -94,7 +98,7 @@ module AnalysisMatrixRendererContainer
 
       context "when rendering tactic cells" do
         it "call new_tactic followed by show_tactic callbacks" do
-          expect(callback_new_tactic).to receive(:call).ordered
+          expect(callback_new_tactic).to receive(:call).ordered.with(strategy.id)
 
           expect(callback_show_tactic).to receive(:call).ordered do |tactic, repeated|
             expect(tactic).to be_nil
@@ -106,11 +110,14 @@ module AnalysisMatrixRendererContainer
     end
 
     context "when data have an objective with strategy with tactic" do
+      let :strategy do
+        build(:strategy_group, id: 7,
+            childs: [build(:tactic_group)])
+      end
+
       let :objective do
         build(:objective_group, id: 9,
-          childs: [build(:strategy_group,
-            childs: [build(:tactic_group)])
-          ]
+          childs: [strategy]
         )
       end
 
@@ -156,7 +163,7 @@ module AnalysisMatrixRendererContainer
             expect(repeated).to be_false
           end
 
-          expect(callback_new_tactic).to receive(:call).ordered
+          expect(callback_new_tactic).to receive(:call).with(strategy.id).ordered
 
           expect(callback_show_tactic).to receive(:call).ordered do |tactic, repeated|
             expect(tactic).to be_nil
