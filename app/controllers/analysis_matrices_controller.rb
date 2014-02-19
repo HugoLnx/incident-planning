@@ -15,8 +15,7 @@ class AnalysisMatricesController < ApplicationController
     strategy = HighModels::Strategy.new(strategy_params)
     saved = strategy.save
 
-    puts(saved ? "SUCCESS" : "FAIL")
-    render text: "HEY"
+    head :ok
   end
 
 private
