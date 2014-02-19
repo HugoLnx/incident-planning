@@ -1,7 +1,5 @@
 module AnalysisMatrixRendererContainer
   class ObjectiveCells
-    PARTIAL = "objective_cells"
-
     def initialize(objective=nil, repeated=nil)
       @objective = objective
       @repeated = repeated
@@ -15,10 +13,8 @@ module AnalysisMatrixRendererContainer
       ObjectiveCells.new(row.objective, true)
     end
 
-    def render(context: nil)
-      text = @objective && @objective.expression && @objective.expression.text
-      repeated_class = @repeated ? "repeated" : ""
-      context.render partial: PARTIAL, locals: {text: text, repeated: repeated_class}
+    def render_using(callbacks)
+      callbacks.call(:show_objective, @objective, @repeated)
     end
   end
 end

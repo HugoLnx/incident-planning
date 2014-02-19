@@ -13,32 +13,23 @@ module AnalysisMatrixRendererContainer
     end
 
     class Show
-      PARTIAL = "strategy_cells"
-
       def initialize(strategy=nil, repeated=nil)
         @strategy = strategy
         @repeated = repeated
       end
 
-      def render(context: nil)
-        texts = {
-          how: @strategy && @strategy.how && @strategy.how.text,
-          why: @strategy && @strategy.why && @strategy.why.text
-        }
-        repeated_class = @repeated ? "repeated" : ""
-        context.render partial: PARTIAL, locals: {texts: texts, repeated: repeated_class}
+      def render_using(callbacks)
+        callbacks.call(:show_strategy, @strategy, @repeated)
       end
     end
 
     class New
-      PARTIAL = "new_strategy_form_cells"
-
       def initialize(father_id)
         @father_id = father_id
       end
 
-      def render(context: nil)
-        context.render partial: PARTIAL, locals: {father_id: @father_id}
+      def render_using(callbacks)
+        callbacks.call(:new_strategy, @father_id)
       end
     end
   end
