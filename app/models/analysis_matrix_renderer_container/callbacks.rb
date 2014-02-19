@@ -5,7 +5,7 @@ module AnalysisMatrixRendererContainer
     end
 
     def call(name, *args)
-      @callbacks[name].call(*args)
+      @callbacks[name] && @callbacks[name].call(*args)
     end
   end
 end
