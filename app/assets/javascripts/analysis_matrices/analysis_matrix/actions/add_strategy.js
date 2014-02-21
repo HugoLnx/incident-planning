@@ -32,8 +32,9 @@
       $form.append($("<input type='hidden'>").attr("name", "authenticity_token").val(authenticityToken))
       $form.append($("<input type='hidden'>").attr("name", "strategy[father_id]").val(fatherId))
 
+      var path = namespace.FROM_RAILS.AnalysisMatrix.create_strategy_path;
       var params = $form.serialize();
-      $.post(document.location.href, params, function() {
+      $.post(path, params, function() {
         document.location.reload();
       });
     });

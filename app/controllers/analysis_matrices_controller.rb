@@ -7,17 +7,6 @@ class AnalysisMatricesController < ApplicationController
     @matrix_data = AnalysisMatrixData.new(objectives)
   end
 
-  def create
-    strategy_params = params[:strategy].permit(:how, :why, :father_id)
-
-    strategy_params[:cycle_id] = @cycle.id
-
-    strategy = HighModels::Strategy.new(strategy_params)
-    saved = strategy.save
-
-    head :ok
-  end
-
 private
   def set_incident_and_cycle
     @incident = Incident.find params[:incident_id]

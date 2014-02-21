@@ -3,6 +3,7 @@
 
   <%= javascript_tag do %>
     LNX_INCIDENT_PLANNING.FROM_RAILS.AnalysisMatrix = {
+      create_strategy_path: "<%= incident_cycle_strategies_path(@incident, @cycle) %>",
       create_tactic_path: "<%= incident_cycle_tactics_path(@incident, @cycle) %>"
     };
   <% end %>
