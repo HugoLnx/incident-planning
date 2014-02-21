@@ -55,6 +55,52 @@ describe HighModels::Strategy do
     end
   end
 
+  describe "when setting how text expression" do
+    context "if strategy haven't a how yet" do
+      before :each do
+        @strategy = build :high_models_strategy, cycle_id: 2, how: nil
+      end
+
+      describe "creates a text expression" do
+        before :each do
+          @strategy.how = "Text"
+          @text_expression = @strategy.how
+        end
+
+        it "with the text received" do
+          expect(@text_expression.text).to be == "Text"
+        end
+
+        it "with how expression's name" do
+          expect(@text_expression.name).to be == ::Model.strategy_how.name
+        end
+      end
+    end
+  end
+
+  describe "when setting why text expression" do
+    context "if strategy haven't a why yet" do
+      before :each do
+        @strategy = build :high_models_strategy, cycle_id: 2, why: nil
+      end
+
+      describe "creates a text expression" do
+        before :each do
+          @strategy.why = "Text"
+          @text_expression = @strategy.why
+        end
+
+        it "with the text received" do
+          expect(@text_expression.text).to be == "Text"
+        end
+
+        it "with why expression's name" do
+          expect(@text_expression.name).to be == ::Model.strategy_why.name
+        end
+      end
+    end
+  end
+
   describe "when checking if is valid" do
     context "returns true when" do
       specify "have all the parameters, valids father_id and cycle_id" do
