@@ -23,80 +23,30 @@ describe HighModels::Strategy do
 
   describe "when getting a group" do
     before :each do
-      @strategy = build :high_models_strategy, father_id: 1, cycle_id: 2
+      @strategy = build :high_models_strategy
       @group = @strategy.group
     end
 
     it "associate father and cycle to it" do
-      expect(@group.father_id).to be == 1
-      expect(@group.cycle_id).to be == 2
+      expect(@group.father_id).to be == @strategy.father_id
+      expect(@group.cycle_id).to be == @strategy.cycle_id
     end
   end
 
-  describe "when getting how text expression" do
-    before :each do
-      @strategy = build :high_models_strategy, cycle_id: 2
-      @how = @strategy.how
-    end
+  describe "text expression attributes" do
+    subject { build :high_models_strategy }
 
-    it "associate cycle to it" do
-      expect(@how.cycle_id).to be == 2
-    end
-  end
-
-  describe "when getting why text expression" do
-    before :each do
-      @strategy = build :high_models_strategy, cycle_id: 2
-      @why = @strategy.why
-    end
-
-    it "associate cycle to it" do
-      expect(@why.cycle_id).to be == 2
-    end
-  end
-
-  describe "when setting how text expression" do
-    context "if strategy haven't a how yet" do
-      before :each do
-        @strategy = build :high_models_strategy, cycle_id: 2, how: nil
-      end
-
-      describe "creates a text expression" do
-        before :each do
-          @strategy.how = "Text"
-          @text_expression = @strategy.how
-        end
-
-        it "with the text received" do
-          expect(@text_expression.text).to be == "Text"
-        end
-
-        it "with how expression's name" do
-          expect(@text_expression.name).to be == ::Model.strategy_how.name
-        end
+    describe "how" do
+      it_behaves_like "text expression attribute" do
+        let(:expression_name) {:how}
+        let(:model_name) {::Model.strategy_how.name}
       end
     end
-  end
 
-  describe "when setting why text expression" do
-    context "if strategy haven't a why yet" do
-      before :each do
-        @strategy = build :high_models_strategy, cycle_id: 2, why: nil
-      end
-
-      describe "creates a text expression" do
-        before :each do
-          @strategy.why = "Text"
-          @text_expression = @strategy.why
-        end
-
-        it "with the text received" do
-          expect(@text_expression.text).to be == "Text"
-        end
-
-        it "with why expression's name" do
-          expect(@text_expression.name).to be == ::Model.strategy_why.name
-        end
+    describe "why" do
+      it_behaves_like "text expression attribute" do
+        let(:expression_name) {:why}
+        let(:model_name) {::Model.strategy_why.name}
       end
     end
   end
@@ -194,10 +144,7 @@ describe HighModels::Strategy do
 
     context "if how is not valid" do
       before :each do
-        @strategy = HighModels::Strategy.new(
-          father_id: 1, cycle_id: 2,
-          how: "Something", why: "Doing something"
-        )
+        @strategy = build :high_models_strategy
 
         allow(@strategy.how).to receive(:save!) do
           raise ActiveRecord::RecordInvalid.new(@strategy.how)
@@ -209,10 +156,7 @@ describe HighModels::Strategy do
 
     context "if why is not valid" do
       before :each do
-        @strategy = HighModels::Strategy.new(
-          father_id: 1, cycle_id: 2,
-          how: "Something", why: "Doing something"
-        )
+        @strategy = build :high_models_strategy
 
         allow(@strategy.why).to receive(:save!) do
           raise ActiveRecord::RecordInvalid.new(@strategy.why)

@@ -7,7 +7,19 @@ class StrategiesController < ApplicationController
     strategy_params[:cycle_id] = @cycle.id
 
     strategy = HighModels::Strategy.new(strategy_params)
-    saved = strategy.save
+    strategy.save
+
+    head :ok
+  end
+
+  def update
+    new_params = params[:strategy].permit(:how, :why)
+
+    group_id = params[:group_id]
+
+    strategy = HighModels::Strategy.load(group_id)
+    strategy.update new_params
+    strategy.save
 
     head :ok
   end

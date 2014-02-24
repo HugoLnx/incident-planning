@@ -45,58 +45,41 @@ describe HighModels::Tactic do
     end
   end
 
-  describe "when getting who text expression" do
-    before :each do
-      @tactic = build :high_models_tactic, cycle_id: 2
-      @who = @tactic.who
+  describe "text_expression attributes" do
+    subject { build :high_models_tactic }
+    describe "who" do
+      let(:expression_name) {:who}
+      let(:model_name) {::Model.tactic_who.name}
+
+      it_behaves_like "text expression attribute"
     end
 
-    it "associate cycle to it" do
-      expect(@who.cycle_id).to be == 2
-    end
-  end
+    describe "what" do
+      let(:expression_name) {:what}
+      let(:model_name) {::Model.tactic_what.name}
 
-  describe "when getting what text expression" do
-    before :each do
-      @tactic = build :high_models_tactic, cycle_id: 2
-      @what = @tactic.what
+      it_behaves_like "text expression attribute"
     end
 
-    it "associate cycle to it" do
-      expect(@what.cycle_id).to be == 2
-    end
-  end
+    describe "where" do
+      let(:expression_name) {:where}
+      let(:model_name) {::Model.tactic_where.name}
 
-  describe "when getting where text expression" do
-    before :each do
-      @tactic = build :high_models_tactic, cycle_id: 2
-      @where = @tactic.where
+      it_behaves_like "text expression attribute"
     end
 
-    it "associate cycle to it" do
-      expect(@where.cycle_id).to be == 2
-    end
-  end
+    describe "when" do
+      let(:expression_name) {:when}
+      let(:model_name) {::Model.tactic_when.name}
 
-  describe "when getting when text expression" do
-    before :each do
-      @tactic = build :high_models_tactic, cycle_id: 2
-      @when = @tactic.when
+      it_behaves_like "text expression attribute"
     end
 
-    it "associate cycle to it" do
-      expect(@when.cycle_id).to be == 2
-    end
-  end
+    describe "response action" do
+      let(:expression_name) {:response_action}
+      let(:model_name) {::Model.tactic_response_action.name}
 
-  describe "when getting response_action text expression" do
-    before :each do
-      @tactic = build :high_models_tactic, cycle_id: 2
-      @response_action = @tactic.response_action
-    end
-
-    it "associate cycle to it" do
-      expect(@response_action.cycle_id).to be == 2
+      it_behaves_like "text expression attribute"
     end
   end
 
