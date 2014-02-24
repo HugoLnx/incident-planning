@@ -15,9 +15,9 @@ class StrategiesController < ApplicationController
   def update
     new_params = params[:strategy].permit(:how, :why)
 
-    group_id = params[:group_id]
+    group = Group.includes(:text_expressions).find(params[:group_id])
 
-    strategy = HighModels::Strategy.load(group_id)
+    strategy = HighModels::Strategy.set_from_group(group)
     strategy.update new_params
     strategy.save
 
