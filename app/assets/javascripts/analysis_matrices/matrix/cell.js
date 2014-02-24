@@ -41,10 +41,32 @@
     utils.ArrayUtils.splice(row.cells, firstCellInx, cells.length, newCells);
   };
 
+  func.extractData = function(cells) {
+    var data = {};
+    for(var i = 0; i<cells.length; i++) {
+      var cell = cells[i];
+      var text = cell.$element.text();
+      if (text !== "") {
+        data[cell.expressionName()] = text;
+      }
+    }
+    return data;
+  };
+
 
   var prototype = Matrix.Cell.prototype;
 
   prototype.replaceWith = function(cells) {
     Matrix.Cell.replaceWith([this], cells);
+  };
+
+  prototype.expressionName = function() {
+    var EXPRESSION_NAMES = ["objective", "how", "why", "who", "what", "where", "when", "response-action"];
+    for(var i = 0; i<EXPRESSION_NAMES.length; i++) {
+      var name = EXPRESSION_NAMES[i];
+      if (this.$element.hasClass(name)) {
+        return name;
+      }
+    }
   };
 }(jQuery, LNX_INCIDENT_PLANNING, LNX_UTILS));

@@ -27,10 +27,11 @@
       var opts = opts || {};
       var qnt = opts.qnt || 1;
       var row = opts.row || undefined;
+      var htmlOpts = opts.html || {};
 
       var instances = []
       for(var i = 1; i <= qnt; i++) {
-        instances.push(buildOne(row));
+        instances.push(buildOne(row, htmlOpts));
       }
 
       if (instances.length === 1) {
@@ -41,8 +42,13 @@
     }
   };
 
-  function buildOne(row) {
-    var cell = new Matrix.Cell($("<td>"), row);
+  function buildOne(row, htmlOpts) {
+    var htmlOpts = htmlOpts || {};
+    var $td = $("<td>");
+    $td.addClass(htmlOpts.class);
+    $td.text(htmlOpts.text);
+
+    var cell = new Matrix.Cell($td, row);
     return cell
   }
   
