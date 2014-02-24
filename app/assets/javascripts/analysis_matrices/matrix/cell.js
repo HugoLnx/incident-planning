@@ -21,18 +21,30 @@
     return cells;
   };
 
+  func.replaceWith = function(cells, newCells) {
+    var $newTds = $.map(newCells, function(cell){
+      return cell.$element[0];
+    });
+
+    var $oldTds =  $.map(cells, function(cell){
+      return cell.$element[0];
+    });
+
+    var lastOldTds = $oldTds.splice(0, $oldTds.length-1);
+    $(lastOldTds).remove()
+    var $firstOldTd = $($oldTds);
+
+    $firstOldTd.replaceWith($newTds);
+
+    var row = cells[0].row;
+    var firstCellInx = row.cells.indexOf(cells[0]);
+    utils.ArrayUtils.splice(row.cells, firstCellInx, cells.length, newCells);
+  };
 
 
   var prototype = Matrix.Cell.prototype;
 
   prototype.replaceWith = function(cells) {
-    var $tds = $.map(cells, function(cell){
-      return cell.$element[0];
-    });
-
-    this.$element.replaceWith($tds);
-
-    var cellInx = this.row.cells.indexOf(this);
-    utils.ArrayUtils.splice(this.row.cells, cellInx, 1, cells);
+    Matrix.Cell.replaceWith([this], cells);
   };
 }(jQuery, LNX_INCIDENT_PLANNING, LNX_UTILS));
