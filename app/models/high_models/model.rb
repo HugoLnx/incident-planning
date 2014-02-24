@@ -17,6 +17,13 @@ module HighModels
         @expressions_names ||= []
         @expressions_names << name
 
+        define_method :"update_#{name}" do |new_text|
+          exp = instance_variable_get("@#{name}")
+          if exp
+            exp.text = new_text
+          end
+        end
+
         define_method :"update_#{name}_reference" do |new_reference|
           instance_variable_set("@#{name}", new_reference)
         end
