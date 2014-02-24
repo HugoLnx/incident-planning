@@ -24,7 +24,7 @@ module HighModels
           end
         end
 
-        define_method :"update_#{name}_reference" do |new_reference|
+        define_method :"set_#{name}_reference" do |new_reference|
           instance_variable_set("@#{name}", new_reference)
         end
 

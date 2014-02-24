@@ -1,20 +1,8 @@
 shared_examples "text expression attribute" do
-  let(:update_reference_method) {:"update_#{expression_name}_reference"}
+  let(:set_reference_method) {:"set_#{expression_name}_reference"}
   let(:update_method) {:"update_#{expression_name}"}
   let(:setter_method) {:"#{expression_name}="}
   let(:getter_method) {expression_name}
-
-  describe "when updating the reference" do
-    before :each do
-      @new_expression = build(:text_expression, text: "Text")
-      subject.public_send(update_reference_method, @new_expression)
-      @getted_expression = subject.public_send(getter_method)
-    end
-
-    it "replace the old text expression by the new reference" do
-      expect(@getted_expression).to be == @new_expression
-    end
-  end
 
   describe "when updating" do
     before :each do
@@ -29,6 +17,18 @@ shared_examples "text expression attribute" do
 
     it "update the text" do
       expect(@getted_expression.text).to be == "New Text"
+    end
+  end
+
+  describe "when setting the reference" do
+    before :each do
+      @new_expression = build(:text_expression, text: "Text")
+      subject.public_send(set_reference_method, @new_expression)
+      @getted_expression = subject.public_send(getter_method)
+    end
+
+    it "replace the old text expression by the new reference" do
+      expect(@getted_expression).to be == @new_expression
     end
   end
 
