@@ -9,26 +9,33 @@
 
   var _func = Templates.NewStrategy;
 
-  _func.renderIn = function(matrix, cells) {
+  _func.renderIn = function(matrix, cells, initialValues) {
+    var defaultData = defaultData || {};
     var iRow = matrix.matrix.rowNumber(cells[0].row);
 
     var $submitRow = $(submitHtml());
     var row = matrix.matrix.insertRow($submitRow, iRow+1);
 
-    var $inputsTds = $(inputsHtml());
+    var $inputsTds = $(inputsHtml(initialValues));
     var inputCells = Matrix.Cell.buildAll($inputsTds);
     Matrix.Cell.replaceWith(cells, inputCells);
 
     return new Templates.NewStrategy($inputsTds, $submitRow.find(".submit"));
   };
 
-  function inputsHtml() {
-    var html = '<td class="strategy form how"><input name="strategy[how]"/></td>';
-    html += '<td class="strategy form why">';
-    html +=   '<input name="strategy[why]"/>';
-    html += '</td>';
+  function inputsHtml(values) {
+    var html = '';
+    html += inputHtml("how", values.how);
+    html += inputHtml("why", values.why);
     return html;
   };
+
+  function inputHtml(name, value) {
+    var html = '<td class="strategy form ' + name + '">';
+    html += '<input name="strategy[' + name + ']" value="' + value + '" />';
+    html += '</td>';
+    return html;
+  }
 
   function submitHtml() {
     var html = '<tr>';

@@ -13,7 +13,9 @@
     $td.on("dblclick", $father, function(event) {
       event.preventDefault();
 
-      var template = Templates.NewStrategy.renderIn(matrix, cells);
+      var currentData = Matrix.Cell.extractData(cells);
+
+      var template = Templates.NewStrategy.renderIn(matrix, cells, currentData);
 
       var updatePath = $(this).data("update_path");
       bindFormEventsOn(template, updatePath);
