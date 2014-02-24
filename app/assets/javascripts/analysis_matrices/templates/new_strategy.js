@@ -9,14 +9,15 @@
 
   var _func = Templates.NewStrategy;
 
-  _func.renderIn = function(matrix, cell) {
-    var iRow = matrix.matrix.rowNumber(cell.row);
+  _func.renderIn = function(matrix, cells) {
+    var iRow = matrix.matrix.rowNumber(cells[0].row);
 
     var $submitRow = $(submitHtml());
     var row = matrix.matrix.insertRow($submitRow, iRow+1);
 
     var $inputsTds = $(inputsHtml());
-    cell.replaceWith(Matrix.Cell.buildAll($inputsTds));
+    var inputCells = Matrix.Cell.buildAll($inputsTds);
+    Matrix.Cell.replaceWith(cells, inputCells);
 
     return new Templates.NewStrategy($inputsTds, $submitRow.find(".submit"));
   };

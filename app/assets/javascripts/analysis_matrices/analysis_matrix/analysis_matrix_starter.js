@@ -25,6 +25,13 @@
       Actions.AddTactic.bindIn(matrix, cell, $table);
     });
 
+    $table.find(".strategy.show.non-repeated").each(function() {
+      var $tds = $(this).add($(this).siblings(".strategy"));
+
+      var cells = matrix.matrix.findCells($tds);
+      Actions.UpdateStrategy.bindIn(matrix, $(this), cells, $table);
+    });
+
     return matrix;
   };
 }(jQuery, LNX_INCIDENT_PLANNING));

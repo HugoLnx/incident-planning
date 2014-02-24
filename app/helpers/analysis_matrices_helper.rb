@@ -12,7 +12,7 @@ module AnalysisMatricesHelper
   def render_show_objective_cells(objective, repeated)
     partial = "objective_cells"
     text = objective && objective.expression && objective.expression.text
-    repeated_class = repeated ? "repeated" : ""
+    repeated_class = repeated ? "repeated" : "non-repeated"
     render partial: partial, locals: {text: text, repeated: repeated_class}
   end
 
@@ -22,7 +22,7 @@ module AnalysisMatricesHelper
       how: strategy && strategy.how && strategy.how.text,
       why: strategy && strategy.why && strategy.why.text
     }
-    repeated_class = repeated ? "repeated" : ""
+    repeated_class = repeated ? "repeated" : "non-repeated"
     render partial: partial, locals: {texts: texts, repeated: repeated_class}
   end
 
