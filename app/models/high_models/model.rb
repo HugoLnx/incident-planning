@@ -17,6 +17,10 @@ module HighModels
         @expressions_names ||= []
         @expressions_names << name
 
+        define_method :"update_#{name}_reference" do |new_reference|
+          instance_variable_set("@#{name}", new_reference)
+        end
+
         define_method :"#{name}=" do |text|
           if text
             expression = ::TextExpression.new(name: expression_name, text: text)
