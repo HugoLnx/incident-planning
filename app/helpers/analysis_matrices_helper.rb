@@ -23,7 +23,13 @@ module AnalysisMatricesHelper
       why: strategy && strategy.why && strategy.why.text
     }
     repeated_class = repeated ? "repeated" : "non-repeated"
-    render partial: partial, locals: {texts: texts, repeated: repeated_class}
+
+    render partial: partial, locals: {
+      texts: texts,
+      repeated: repeated_class,
+      id: strategy.group_id,
+      update_path: incident_cycle_strategy_path(@incident, @cycle, strategy.group_id)
+    }
   end
 
   def render_new_strategy_cells(father_id)
