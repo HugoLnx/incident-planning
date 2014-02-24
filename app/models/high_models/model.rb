@@ -100,6 +100,15 @@ module HighModels
       end
     end
 
+    def set_from_group(group)
+      @group = group
+      @group.text_expressions.each do |exp|
+        instance_variable_set("@#{exp.name}", exp)
+      end
+      @cycle_id = group.cycle_id
+      @father_id = group.father_id
+    end
+
     module ClassMethods
     end
   end
