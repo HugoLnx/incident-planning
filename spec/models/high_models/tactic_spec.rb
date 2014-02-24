@@ -83,6 +83,44 @@ describe HighModels::Tactic do
     end
   end
 
+  describe "when set from a group" do
+    subject { build :high_models_tactic }
+
+    before :each do
+      @who = build(:text_expression, name: ::Model.tactic_who.name)
+      @what = build(:text_expression, name: ::Model.tactic_what.name)
+      @where = build(:text_expression, name: ::Model.tactic_where.name)
+      @when = build(:text_expression, name: ::Model.tactic_when.name)
+      @response_action = build(:text_expression, name: ::Model.tactic_response_action.name)
+
+      @group = create :group,
+        text_expressions: [@who, @what, @where, @when, @response_action],
+        father: create(:group)
+
+      subject.set_from_group @group
+    end
+
+    it "sets group" do
+      expect(subject.group).to be == @group
+    end
+
+    it "sets cycle_id to the one of the group" do
+      expect(subject.cycle_id).to be == @group.cycle_id
+    end
+
+    it "sets father_id to the one of the group" do
+      expect(subject.father_id).to be == @group.father_id
+    end
+
+    it "the reference of text_expressions is replaced by the ones in group" do
+      expect(subject.instance_variable_get(:@who)).to be == @who
+      expect(subject.instance_variable_get(:@what)).to be == @what
+      expect(subject.instance_variable_get(:@where)).to be == @where
+      expect(subject.instance_variable_get(:@when)).to be == @when
+      expect(subject.instance_variable_get(:@response_action)).to be == @response_action
+    end
+  end
+
   describe "when checking if is valid" do
     context "returns true when" do
       specify "have all the parameters, valids father_id and cycle_id" do

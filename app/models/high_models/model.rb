@@ -14,8 +14,8 @@ module HighModels
       def self.text_expression(name, options={})
         expression_name = options[:name]
 
-        @expressions_names ||= []
-        @expressions_names << name
+        @expressions_names ||= {}
+        @expressions_names.merge!(name => expression_name)
 
         define_method :"update_#{name}" do |new_text|
           exp = instance_variable_get("@#{name}")
@@ -51,14 +51,6 @@ module HighModels
       end
     end
 
-    def group_name
-      self.class.instance_variable_get(:@group_name)
-    end
-
-    def expressions_names
-      self.class.instance_variable_get(:@expressions_names)
-    end
-
     def initialize(*args)
       @group = ::Group.new
       @group.name = group_name
@@ -74,8 +66,8 @@ module HighModels
     def errors
       my_errors = super
       group.errors.each{|name, msg| my_errors.add(name, msg)}
-      expressions_names.each do |exp_name|
-        exp = public_send exp_name
+      expressions_names.each do |exp_id, _|
+        exp = public_send exp_id
         exp && exp.errors.each{|name, msg| my_errors.add(name, msg)}
       end
       my_errors
@@ -86,8 +78,8 @@ module HighModels
         return false unless valid?
         ActiveRecord::Base.transaction do
           group.save!
-          expressions_names.each do |exp_name|
-            exp = public_send exp_name
+          expressions_names.each do |exp_id, _|
+            exp = public_send exp_id
             if exp
               exp.group = group
               exp.save!
@@ -103,13 +95,30 @@ module HighModels
     def set_from_group(group)
       @group = group
       @group.text_expressions.each do |exp|
-        instance_variable_set("@#{exp.name}", exp)
+        exp_id = find_id_by_expression_name(exp.name)
+        instance_variable_set("@#{exp_id}", exp)
       end
       @cycle_id = group.cycle_id
       @father_id = group.father_id
     end
 
-    module ClassMethods
+  private
+    def group_name
+      self.class.instance_variable_get(:@group_name)
+    end
+
+    def expressions_names
+      self.class.instance_variable_get(:@expressions_names)
+    end
+
+    def find_id_by_expression_name(name_seek)
+      expressions_names.each_pair do |exp_id, exp_name|
+        if name_seek == exp_name
+          return exp_id
+        end
+      end
+
+      nil
     end
   end
 end

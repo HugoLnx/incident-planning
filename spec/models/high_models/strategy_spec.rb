@@ -52,6 +52,38 @@ describe HighModels::Strategy do
     end
   end
 
+  describe "when set from a group" do
+    subject { build :high_models_strategy }
+
+    before :each do
+      @how = build(:text_expression, name: "How")
+      @why = build(:text_expression, name: "Why")
+
+      @group = create :group,
+        text_expressions: [@how, @why],
+        father: create(:group)
+
+      subject.set_from_group @group
+    end
+
+    it "sets group" do
+      expect(subject.group).to be == @group
+    end
+
+    it "sets cycle_id to the one of the group" do
+      expect(subject.cycle_id).to be == @group.cycle_id
+    end
+
+    it "sets father_id to the one of the group" do
+      expect(subject.father_id).to be == @group.father_id
+    end
+
+    it "the reference of text_expressions is replaced by the ones in group" do
+      expect(subject.instance_variable_get(:@how)).to be == @how
+      expect(subject.instance_variable_get(:@why)).to be == @why
+    end
+  end
+
   describe "when checking if is valid" do
     context "returns true when" do
       specify "have all the parameters, valids father_id and cycle_id" do
