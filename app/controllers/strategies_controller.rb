@@ -17,7 +17,8 @@ class StrategiesController < ApplicationController
 
     group = Group.includes(:text_expressions).find(params[:id])
 
-    strategy = HighModels::Strategy.set_from_group(group)
+    strategy = HighModels::Strategy.new
+    strategy.set_from_group group
     strategy.update new_params
     strategy.save
 
