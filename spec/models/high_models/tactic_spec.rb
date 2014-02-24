@@ -87,11 +87,11 @@ describe HighModels::Tactic do
     subject { build :high_models_tactic }
 
     before :each do
-      @who = build(:text_expression, name: ::Model.tactic_who.name)
-      @what = build(:text_expression, name: ::Model.tactic_what.name)
-      @where = build(:text_expression, name: ::Model.tactic_where.name)
-      @when = build(:text_expression, name: ::Model.tactic_when.name)
-      @response_action = build(:text_expression, name: ::Model.tactic_response_action.name)
+      @who = build :tactic_who
+      @what = build :tactic_what
+      @where = build :tactic_where
+      @when = build :tactic_when
+      @response_action = build :tactic_response_action
 
       @group = create :group,
         text_expressions: [@who, @what, @where, @when, @response_action],

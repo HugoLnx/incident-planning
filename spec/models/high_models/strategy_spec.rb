@@ -56,8 +56,8 @@ describe HighModels::Strategy do
     subject { build :high_models_strategy }
 
     before :each do
-      @how = build(:text_expression, name: "How")
-      @why = build(:text_expression, name: "Why")
+      @how = build :strategy_how
+      @why = build :strategy_why
 
       @group = create :group,
         text_expressions: [@how, @why],
