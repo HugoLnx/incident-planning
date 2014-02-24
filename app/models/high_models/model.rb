@@ -45,6 +45,12 @@ module HighModels
       end
     end
 
+    def update(attributes = {})
+      attributes.each_pair do |attr, value|
+        public_send(:"update_#{attr}", value)
+      end
+    end
+
     def group_name
       self.class.instance_variable_get(:@group_name)
     end

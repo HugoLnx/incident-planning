@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe HighModels::Strategy do
-  it_behaves_like "ActiveModel"
+  subject {build :high_models_strategy}
+  it_behaves_like "High Model"
 
   describe "when initializing" do
     before :each do

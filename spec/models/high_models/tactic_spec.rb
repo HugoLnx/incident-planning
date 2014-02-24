@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe HighModels::Tactic do
-  it_behaves_like "ActiveModel"
+  it_behaves_like "High Model"
 
   describe "when initializing" do
     before :each do
