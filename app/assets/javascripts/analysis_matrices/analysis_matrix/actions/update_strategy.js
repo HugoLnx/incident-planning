@@ -15,14 +15,14 @@
 
       var template = Templates.NewStrategy.renderIn(matrix, cells);
 
-      var groupId = "999";//$(this).data("group_id");
-      bindFormEventsOn(template, groupId);
+      var updatePath = $(this).data("update_path");
+      bindFormEventsOn(template, updatePath);
     });
 
     return new Actions.UpdateStrategy(cells, $father);
   };
 
-  function bindFormEventsOn(template, groupId) {
+  function bindFormEventsOn(template, updatePath) {
     template.$submitTd.find("button").on("click", function(event) {
       event.preventDefault();
       var $form = $("<form>");
@@ -32,9 +32,8 @@
       $form.append($("<input type='hidden'>").attr("name", "authenticity_token").val(authenticityToken))
       $form.append($("<input type='hidden'>").attr("name", "_method").val("put"))
 
-      var path = "/hey/jude"//namespace.FROM_RAILS.AnalysisMatrix.update_strategy_path(groupId);
       var params = $form.serialize();
-      $.post(path, params, function() {
+      $.post(updatePath, params, function() {
         document.location.reload();
       });
     });
