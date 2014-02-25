@@ -13,21 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-
-"use strict"
-
-var LNX_INCIDENT_PLANNING = {
-  Matrix: {},
-  AnalysisMatrix: {
-    Actions: {},
-    Templates: {}
-  },
-  Spec: {
-    Factories: {}
-  },
-  FROM_RAILS: {}
-};
-
-var LNX_UTILS = {
-  ArrayUtils: {}
-};
+//= require namespaces
+//= require_tree ./backend_protocols/
