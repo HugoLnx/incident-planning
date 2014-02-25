@@ -15,7 +15,10 @@
 
       var currentData = Matrix.Cell.extractData(cells);
 
-      var template = Templates.NewStrategy.renderIn(matrix, cells, currentData);
+      var template = Templates.NewStrategy.renderIn(matrix, cells, {
+        defaultData: currentData,
+        submitButton: "Update"
+      });
 
       var updatePath = $(this).data("update_path");
       bindFormEventsOn(template, updatePath);

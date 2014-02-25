@@ -13,7 +13,9 @@
     cell.$element.on("click", $father, function(event) {
       event.preventDefault();
 
-      var template = Templates.NewStrategy.renderIn(matrix, [cell]);
+      var template = Templates.NewStrategy.renderIn(matrix, [cell], {
+        submitButton: "Create"
+      });
 
       var fatherId = $(this).data("father_id");
       bindFormEventsOn(template, fatherId);
