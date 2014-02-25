@@ -14,5 +14,6 @@ var LNX_INCIDENT_PLANNING = {
 };
 
 var LNX_UTILS = {
-  ArrayUtils: {}
+  ArrayUtils: {},
+  Ajax: {}
 };

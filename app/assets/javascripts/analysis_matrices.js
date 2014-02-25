@@ -1,5 +1,6 @@
 //= require_tree ./analysis_matrices/
 //= require array_utils
+//= require_tree ./ajax/
 
 var matrix;
 $(function(){
