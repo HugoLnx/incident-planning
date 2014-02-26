@@ -34,7 +34,7 @@ $repeated_font_color: #999;
   background-color: $strategy_color;
 }
 
-.strategy.form {
+.strategy.form, .strategy.add {
   background-color: darken($strategy_color, $form_dark_percent);
 }
 
