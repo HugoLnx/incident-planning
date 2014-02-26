@@ -61,10 +61,10 @@
   };
 
   prototype.expressionName = function() {
-    var EXPRESSION_NAMES = ["objective", "how", "why", "who", "what", "where", "when", "response-action"];
+    var EXPRESSION_NAMES = ["objective", "how", "why", "who", "what", "where", "when", "response_action"];
     for(var i = 0; i<EXPRESSION_NAMES.length; i++) {
       var name = EXPRESSION_NAMES[i];
-      if (this.$element.hasClass(name)) {
+      if (this.$element.hasClass(name.replace(/_/g, "-"))) {
         return name;
       }
     }

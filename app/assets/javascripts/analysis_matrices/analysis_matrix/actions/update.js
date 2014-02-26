@@ -22,6 +22,15 @@
     );
   };
 
+  _function.tacticAction = function() {
+    return new Actions.Update(
+      ".tactic.show.non-repeated",
+      ".tactic",
+      new Templates.NewTactic(),
+      BackendProtocols.Update.defaultProtocol()
+    );
+  };
+
   var _prototype = Actions.Update.prototype;
   _prototype.bindIn = function(matrix, $father) {
     var self = this;

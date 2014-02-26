@@ -12,6 +12,19 @@ class TacticsController < ApplicationController
     head :ok
   end
 
+  def update
+    new_params = params[:tactic].permit(:who, :what, :where, :when, :response_action)
+
+    group = Group.includes(:text_expressions).find(params[:id])
+
+    tactic = HighModels::Tactic.new
+    tactic.set_from_group group
+    tactic.update new_params
+    tactic.save
+
+    head :ok
+  end
+
 private
   def set_incident_and_cycle
     @incident = Incident.find params[:incident_id]

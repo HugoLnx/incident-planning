@@ -17,6 +17,8 @@
 
     Actions.Update.strategyAction().bindIn(matrix.matrix, $table);
 
+    Actions.Update.tacticAction().bindIn(matrix.matrix, $table);
+
     return matrix;
   };
 }(jQuery, LNX_INCIDENT_PLANNING));

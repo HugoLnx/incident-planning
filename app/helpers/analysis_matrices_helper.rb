@@ -12,7 +12,7 @@ module AnalysisMatricesHelper
   def render_show_objective_cells(objective, repeated)
     partial = "objective_cells"
     text = objective && objective.expression && objective.expression.text
-    repeated_class = repeated ? "repeated" : "non-repeated"
+    repeated_class = repeated_class(repeated)
     render partial: partial, locals: {text: text, repeated: repeated_class}
   end
 
@@ -22,12 +22,14 @@ module AnalysisMatricesHelper
       how: strategy && strategy.how && strategy.how.text,
       why: strategy && strategy.why && strategy.why.text
     }
-    repeated_class = repeated ? "repeated" : "non-repeated"
+    repeated_class = repeated_class(repeated)
+
+    update_path = strategy && incident_cycle_strategy_path(@incident, @cycle, strategy.group_id)
 
     render partial: partial, locals: {
       texts: texts,
       repeated: repeated_class,
-      update_path: incident_cycle_strategy_path(@incident, @cycle, strategy.group_id)
+      update_path: update_path
     }
   end
 
@@ -39,6 +41,8 @@ module AnalysisMatricesHelper
   def render_show_tactic_cells(tactic, repeated)
     partial = "tactic_cells"
 
+    update_path = tactic && incident_cycle_tactic_path(@incident, @cycle, tactic.group_id)
+
     texts = {
       who:   tactic && tactic.who   && tactic.who.text,
       what:  tactic && tactic.what  && tactic.what.text,
@@ -46,13 +50,22 @@ module AnalysisMatricesHelper
       when:  tactic && tactic.when  && tactic.when.time,
       response_action: tactic && tactic.response_action && tactic.response_action.text
     }
-    repeated_class = repeated ? "repeated" : ""
-    render partial: partial, locals: {texts: texts, repeated: repeated_class}
+
+    repeated_class = repeated_class(repeated)
+    render partial: partial, locals: {
+      texts: texts,
+      repeated: repeated_class,
+      update_path: update_path
+    }
   end
 
   def render_new_tactic_cells(father_id)
     partial = "new_tactic_form_cells"
     render partial: partial, locals: {father_id: father_id}
+  end
+
+  def repeated_class(is_repeated)
+    is_repeated ? "repeated" : "non-repeated"
   end
 
 private
