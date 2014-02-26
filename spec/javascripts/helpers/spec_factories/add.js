@@ -11,6 +11,7 @@
       var attr_name = opts.father_id_data_attr_name || "attr_name";
       var method = opts.method || "post";
       var path = opts.path || "/whatever/path";
+      var railsProtocol = opts.rails_protocol;
 
       var addProtocol = new Add({
         form_father_id_param_name: param_name,
@@ -18,6 +19,10 @@
         method: method,
         path: path
       });
+
+      if (railsProtocol) {
+        addProtocol._railsProtocol = railsProtocol;
+      }
 
       return addProtocol;
     }

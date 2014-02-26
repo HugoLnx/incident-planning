@@ -23,40 +23,25 @@ describe("AnalysisMatrix.BackendProtocols.Add", function() {
         expect(params.id_param).toEqual("123");
       });
 
-      it("adds param specific to the http method", function() {
-        var addProtocol = Factories.Add.build({method: "PUT"});
-        var params = addProtocol.params($([]));
-        expect(params._method).toEqual("PUT");
-      });
+      it("adds params from rails protocol", function() {
+        var rails = Factories.Rails.build({method: "PUT"});
+        spyOn(rails, 'params').and.returnValue({rails_param: "rails_value"});
 
-      it("adds authenticity token param", function() {
-        var addProtocol = Factories.Add.build();
-        var token = new AuthenticityToken("token");
-        spyOn(AuthenticityToken, "getFromMetatag").and.returnValue(token);
+        var addProtocol = Factories.Add.build({rails_protocol: rails});
 
         var params = addProtocol.params($([]));
-        expect(params.authenticity_token).toEqual("token");
+        expect(params.rails_param).toEqual("rails_value");
       });
     });
 
     describe("when getting http method for browser", function() {
-      describe("for get", function() {
-        it("returns GET", function() {
-          var addProtocol = Factories.Add.build({method: "get"});
-          expect(addProtocol.httpMethodForBrowser()).toEqual("GET");
-        });
-      });
+      it("deletagets do rails protocol", function() {
+        var rails = Factories.Rails.build();
+        spyOn(rails, 'httpMethodForBrowser').and.returnValue("GET");
 
-      describe("anything different from get", function() {
-        it("returns POST", function() {
-          var addProtocolPost = Factories.Add.build({method: "post"})
-          var addProtocolPut = Factories.Add.build({method: "put"})
-          var addProtocolDelete = Factories.Add.build({method: "delete"})
+        var addProtocol = Factories.Add.build({rails_protocol: rails});
 
-          expect(addProtocolPost.httpMethodForBrowser()).toEqual("POST");
-          expect(addProtocolPut.httpMethodForBrowser()).toEqual("POST");
-          expect(addProtocolDelete.httpMethodForBrowser()).toEqual("POST");
-        });
+        expect(addProtocol.httpMethodForBrowser()).toEqual("GET");
       });
     });
   });
