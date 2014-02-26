@@ -1,7 +1,6 @@
 (function($, namespace) {
   var BackendProtocols = namespace.AnalysisMatrix.BackendProtocols;
   var Rails = namespace.BackendProtocols.Rails;
-  var AuthenticityToken = namespace.BackendProtocols.AuthenticityToken;
 
   BackendProtocols.Add = function(opts) {
     this._form_father_id_param_name = opts.form_father_id_param_name;
@@ -14,21 +13,19 @@
   var _function = BackendProtocols.Add;
 
   _function.strategyProtocol = function() {
-    var method = "post";
     return new BackendProtocols.Add({
       form_father_id_param_name: "strategy[father_id]",
       father_id_data_attr_name: "father_id",
-      method: method,
+      method: "post",
       path: namespace.FROM_RAILS.AnalysisMatrix.create_strategy_path
     });
   };
 
   _function.tacticProtocol = function() {
-    var method = "post";
     return new BackendProtocols.Add({
       form_father_id_param_name: "tactic[father_id]",
       father_id_data_attr_name: "father_id",
-      method: method,
+      method: "post",
       path: namespace.FROM_RAILS.AnalysisMatrix.create_tactic_path
     });
   };

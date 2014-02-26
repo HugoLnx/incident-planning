@@ -1,7 +1,6 @@
 describe("AnalysisMatrix.BackendProtocols.Add", function() {
   var Factories = namespace().Spec.Factories;
   var Add = namespace().AnalysisMatrix.BackendProtocols.Add;
-  var AuthenticityToken = namespace().BackendProtocols.AuthenticityToken;
 
   describe("given an instance", function() {
     describe("when getting the url path to the service", function() {
