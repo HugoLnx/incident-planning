@@ -15,7 +15,8 @@
     return new BackendProtocols.Add({
       form_father_id_param_name: "strategy[father_id]",
       father_id_data_attr_name: "father_id",
-      method: "post"
+      method: "post",
+      path: namespace.FROM_RAILS.AnalysisMatrix.create_strategy_path
     });
   };
 
