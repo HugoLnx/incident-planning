@@ -11,12 +11,7 @@
   _prototype.start = function($table) {
     var matrix = AnalysisMatrix.AnalysisMatrix.buildFromTable($table);
 
-    $table.find(".form.strategy").each(function() {
-      var $td = $(this);
-
-      var cell = matrix.matrix.findCells($td)[0];
-      Actions.AddStrategy.bindIn(matrix, cell, $table);
-    });
+    Actions.Add.strategyAction().bindIn(matrix.matrix, $table);
 
     $table.find(".form.tactic").each(function() {
       var $td = $(this);

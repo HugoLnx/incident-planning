@@ -2,27 +2,24 @@
   var Matrix = namespace.Matrix;
   var Templates = namespace.AnalysisMatrix.Templates;
 
-  Templates.NewStrategy = function($inputsTds, $submitTd) {
-    this.$inputsTds = $inputsTds;
-    this.$submitTd = $submitTd;
-  };
+  Templates.NewStrategy = function(){};
 
-  var _func = Templates.NewStrategy;
+  var _prototype = Templates.NewStrategy.prototype;
 
-  _func.renderIn = function(matrix, cells, opts) {
+  _prototype.renderIn = function(matrix, cells, opts) {
     var opts = opts || {};
     var defaultData = opts.defaultData || {};
     var submitName = opts.submitButton;
-    var iRow = matrix.matrix.rowNumber(cells[0].row);
+    var iRow = matrix.rowNumber(cells[0].row);
 
     var $submitRow = $(submitHtml(submitName));
-    var row = matrix.matrix.insertRow($submitRow, iRow+1);
+    var row = matrix.insertRow($submitRow, iRow+1);
 
     var $inputsTds = $(inputsHtml(defaultData));
     var inputCells = Matrix.Cell.buildAll($inputsTds);
     Matrix.Cell.replaceWith(cells, inputCells);
 
-    return new Templates.NewStrategy($inputsTds, $submitRow.find(".submit"));
+    return new Templates.FormRendered($inputsTds.find("input"), $submitRow.find(".submit button"));
   };
 
   function inputsHtml(values) {
