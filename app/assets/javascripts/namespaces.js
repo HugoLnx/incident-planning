@@ -4,7 +4,8 @@ var LNX_INCIDENT_PLANNING = {
   Matrix: {},
   AnalysisMatrix: {
     Actions: {},
-    Templates: {}
+    Templates: {},
+    BackendProtocols: {}
   },
   Spec: {
     Factories: {}
