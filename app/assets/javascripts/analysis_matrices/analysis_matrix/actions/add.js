@@ -20,6 +20,14 @@
     );
   };
 
+  _function.tacticAction = function() {
+    return new Actions.Add(
+      ".tactic.add",
+      new Templates.NewTactic(),
+      BackendProtocols.Add.tacticProtocol()
+    );
+  };
+
   var _prototype = Actions.Add.prototype;
   _prototype.bindIn = function(matrix, $father) {
     var self = this;

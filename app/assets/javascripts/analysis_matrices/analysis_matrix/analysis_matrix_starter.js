@@ -13,12 +13,7 @@
 
     Actions.Add.strategyAction().bindIn(matrix.matrix, $table);
 
-    $table.find(".form.tactic").each(function() {
-      var $td = $(this);
-
-      var cell = matrix.matrix.findCells($td)[0];
-      Actions.AddTactic.bindIn(matrix, cell, $table);
-    });
+    Actions.Add.tacticAction().bindIn(matrix.matrix, $table);
 
     $table.find(".strategy.show.non-repeated").each(function() {
       var $tds = $(this).add($(this).siblings(".strategy"));

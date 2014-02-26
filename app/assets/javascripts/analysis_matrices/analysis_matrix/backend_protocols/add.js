@@ -20,6 +20,15 @@
     });
   };
 
+  _function.tacticProtocol = function() {
+    return new BackendProtocols.Add({
+      form_father_id_param_name: "tactic[father_id]",
+      father_id_data_attr_name: "father_id",
+      method: "post",
+      path: namespace.FROM_RAILS.AnalysisMatrix.create_tactic_path
+    });
+  };
+
   var _prototype = BackendProtocols.Add.prototype;
   _prototype.path = function() {
     return this._path;
