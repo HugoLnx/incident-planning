@@ -10,11 +10,13 @@
       var param_name = opts.form_father_id_param_name || "param_name";
       var attr_name = opts.father_id_data_attr_name || "attr_name";
       var method = opts.method || "post";
+      var path = opts.path || "/whatever/path";
 
       var addProtocol = new Add({
         form_father_id_param_name: param_name,
         father_id_data_attr_name: attr_name,
-        method: method
+        method: method,
+        path: path
       });
 
       return addProtocol;

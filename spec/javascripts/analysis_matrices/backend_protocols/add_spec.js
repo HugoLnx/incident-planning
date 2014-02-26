@@ -4,6 +4,13 @@ describe("AnalysisMatrix.BackendProtocols.Add", function() {
   var AuthenticityToken = namespace().BackendProtocols.AuthenticityToken;
 
   describe("given an instance", function() {
+    describe("when getting the url path to the service", function() {
+      it("just returns the path received in constructor", function() {
+        var addProtocol = Factories.Add.build({path: "/any/path"});
+        expect(addProtocol.path()).toEqual("/any/path");
+      });
+    });
+
     describe("when getting params to request controller", function() {
       it("adds father_id extracted from the element", function() {
         var addProtocol = Factories.Add.build({

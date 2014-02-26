@@ -3,9 +3,10 @@
   var AuthenticityToken = namespace.BackendProtocols.AuthenticityToken;
 
   BackendProtocols.Add = function(opts) {
-    this.form_father_id_param_name = opts.form_father_id_param_name;
-    this.father_id_data_attr_name = opts.father_id_data_attr_name;
-    this.method = opts.method.toUpperCase();
+    this._form_father_id_param_name = opts.form_father_id_param_name;
+    this._father_id_data_attr_name = opts.father_id_data_attr_name;
+    this._method = opts.method.toUpperCase();
+    this._path = opts.path;
   };
 
   var _function = BackendProtocols.Add;
@@ -19,8 +20,12 @@
   };
 
   var _prototype = BackendProtocols.Add.prototype;
+  _prototype.path = function() {
+    return this._path;
+  };
+
   _prototype.httpMethodForBrowser = function() {
-    if (this.method == "GET") {
+    if (this._method == "GET") {
       return "GET";
     } else {
       return "POST";
@@ -38,14 +43,14 @@
   };
 
   function fatherIdParam(self, $element) {
-    var father_id = $element.attr("data-"+self.father_id_data_attr_name);
+    var father_id = $element.attr("data-"+self._father_id_data_attr_name);
     var param = {};
-    param[self.form_father_id_param_name] = father_id;
+    param[self._form_father_id_param_name] = father_id;
     return param;
   }
 
   function methodParam(self) {
-    return {_method: self.method};
+    return {_method: self._method};
   }
 
   function authenticityTokenParam() {
