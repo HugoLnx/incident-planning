@@ -15,12 +15,7 @@
 
     Actions.Add.tacticAction().bindIn(matrix.matrix, $table);
 
-    $table.find(".strategy.show.non-repeated").each(function() {
-      var $tds = $(this).add($(this).siblings(".strategy"));
-
-      var cells = matrix.matrix.findCells($tds);
-      Actions.UpdateStrategy.bindIn(matrix, $(this), cells, $table);
-    });
+    Actions.Update.strategyAction().bindIn(matrix.matrix, $table);
 
     return matrix;
   };
