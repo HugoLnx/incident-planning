@@ -51,7 +51,7 @@ $repeated_font_color: #999;
   background-color: $tactic_color;
 }
 
-.tactic.form {
+.tactic.form, .tactic.add {
   background-color: darken($tactic_color, $form_dark_percent);
 }
 
