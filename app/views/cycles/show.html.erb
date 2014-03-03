@@ -1,33 +1,38 @@
+<%- content_for :css do %>
+  <style>
+    .incident-name, .cycle {
+      float: left;
+      margin-right: 20px;
+    }
+
+    .from {
+      clear: left;
+    }
+  </style>
+<% end -%>
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Incident:</strong>
-  <%= @cycle.incident_id %>
+<h1>Incident Objectives</h1>
+
+<p class="incident-name">
+  <strong>Incident Name:</strong>
+  <%= @cycle.incident.name %>
 </p>
 
-<p>
-  <strong>Number:</strong>
+<p class="cycle">
+  <strong>Cycle:</strong>
   <%= @cycle.number %>
+  <em>(<%= cycle_closed_name(@cycle.closed) %>)</em>
 </p>
 
-<p>
-  <strong>Current object:</strong>
-  <%= @cycle.current_object %>
-</p>
-
-<p>
+<p class="from">
   <strong>From:</strong>
-  <%= @cycle.from %>
+  <%= format_date @cycle.from %>
 </p>
 
 <p>
   <strong>To:</strong>
-  <%= @cycle.to %>
-</p>
-
-<p>
-  <strong>Priorities:</strong>
-	<pre><%= @cycle.priorities %>	</pre>
+  <%= format_date @cycle.to %>
 </p>
 
 <p>
@@ -36,8 +41,8 @@
 </p>
 
 <p>
-  <strong>Closed:</strong>
-  <%= @cycle.closed %>
+  <strong>Priorities:</strong>
+	<pre><%= @cycle.priorities %></pre>
 </p>
 
 <%= link_to 'Edit', edit_incident_cycle_path(@incident, @cycle) %> |
