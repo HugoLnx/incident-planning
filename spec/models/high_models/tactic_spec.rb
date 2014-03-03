@@ -167,70 +167,82 @@ describe HighModels::Tactic do
     end
   end
 
-  describe "when saving" do
+  describe "when critical saving" do
+    def save_tactic
+      begin
+        @tactic.save!
+      rescue ActiveRecord::ActiveRecordError
+      end
+    end
     shared_examples "a valid saving" do
       it "saves the group" do
-        @tactic.save
+        save_tactic
         expect(@tactic.group).to be_persisted
       end
 
       it "saves the who" do
-        @tactic.save
+        save_tactic
         expect(@tactic.who).to be_persisted
       end
 
       it "saves the what" do
-        @tactic.save
+        save_tactic
         expect(@tactic.what).to be_persisted
       end
 
       it "saves the where" do
-        @tactic.save
+        save_tactic
         expect(@tactic.where).to be_persisted
       end
 
       it "saves the when" do
-        @tactic.save
+        save_tactic
         expect(@tactic.when).to be_persisted
       end
 
       it "saves the response_action" do
-        @tactic.save
+        save_tactic
         expect(@tactic.response_action).to be_persisted
       end
 
-      it "returns true" do
-        expect(@tactic.save).to be_true
+      it "doesn't raise an error" do
+        expect{@tactic.save!}.to_not raise_error
       end
     end
 
     shared_examples "an invalid saving" do
       it "does not save group" do
+        save_tactic
         expect(@tactic.group).to_not be_persisted
       end
 
       it "does not save who expression" do
+        save_tactic
         expect(@tactic.who).to_not be_persisted
       end
 
       it "does not save what expression" do
+        save_tactic
         expect(@tactic.what).to_not be_persisted
       end
 
       it "does not save where expression" do
+        save_tactic
         expect(@tactic.where).to_not be_persisted
       end
 
       it "does not save when expression" do
+        save_tactic
         expect(@tactic.when).to_not be_persisted
       end
 
       it "does not save response_action expression" do
+        save_tactic
         expect(@tactic.response_action).to_not be_persisted
       end
 
-      it "returns false" do
-        expect(@tactic.save).to be_false
+      it "raise an error" do
+        expect{@tactic.save!}.to raise_error ActiveRecord::ActiveRecordError
       end
     end
 

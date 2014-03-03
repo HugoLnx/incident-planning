@@ -73,10 +73,10 @@ module HighModels
       my_errors
     end
 
-    def save
-      begin
-        return false unless valid?
-        ActiveRecord::Base.transaction do
+    def save!
+      raise ActiveRecord::RecordInvalid.new(self) unless valid?
+      ActiveRecord::Base.transaction(requires_new: true) do
+        restore_models_if_raise(ActiveRecord::ActiveRecordError) do
           group.save!
           expressions_names.each do |exp_id, _|
             exp = public_send exp_id
@@ -86,6 +86,12 @@ module HighModels
             end
           end
         end
+      end
+    end
+
+    def save
+      begin
+        self.save!
         return true
       rescue ActiveRecord::ActiveRecordError
         return false
@@ -103,6 +109,26 @@ module HighModels
     end
 
   private
+
+    def restore_models_if_raise(exception_klass, &block)
+      group_clone = @group.clone
+      exp_clones = {}
+      expressions_names.each do |exp_id, _|
+        exp = public_send exp_id
+        exp_clones.merge!({exp_id => exp && exp.clone})
+      end
+
+      begin
+        yield
+      rescue exception_klass => e
+        @group = group_clone
+        exp_clones.each do |exp_id, clone|
+          instance_variable_set(:"@#{exp_id}", clone)
+        end
+        raise e
+      end
+    end
+
     def group_name
       self.class.instance_variable_get(:@group_name)
     end

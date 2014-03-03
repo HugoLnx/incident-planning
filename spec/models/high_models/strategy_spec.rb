@@ -115,43 +115,53 @@ describe HighModels::Strategy do
     end
   end
 
-  describe "when saving" do
+  describe "when critical saving" do
+    def save_strategy
+      begin
+        @strategy.save!
+      rescue ActiveRecord::ActiveRecordError
+      end
+    end
+
     shared_examples "a valid saving" do
       it "saves the group" do
-        @strategy.save
+        save_strategy
         expect(@strategy.group).to be_persisted
       end
 
       it "saves the how" do
-        @strategy.save
+        save_strategy
         expect(@strategy.how).to be_persisted
       end
 
       it "saves the why" do
-        @strategy.save
+        save_strategy
         expect(@strategy.why).to be_persisted
       end
 
-      it "returns true" do
-        expect(@strategy.save).to be_true
+      it "does not raise error" do
+        expect{@strategy.save!}.to_not raise_error
       end
     end
 
     shared_examples "an invalid saving" do
       it "does not save group" do
+        save_strategy
         expect(@strategy.group).to_not be_persisted
       end
 
       it "does not save how expression" do
+        save_strategy
         expect(@strategy.how).to_not be_persisted
       end
 
       it "does not save why expression" do
+        save_strategy
         expect(@strategy.why).to_not be_persisted
       end
 
-      it "returns false" do
-        expect(@strategy.save).to be_false
+      it "raise an ActiveRecordError" do
+        expect{@strategy.save!}.to raise_error ActiveRecord::ActiveRecordError
       end
     end
 
