@@ -25,6 +25,16 @@ class TacticsController < ApplicationController
     head :ok
   end
 
+  def destroy
+    group = Group.includes(:text_expressions).find(params[:id])
+
+    tactic = HighModels::Tactic.new
+    tactic.set_from_group group
+    tactic.destroy
+
+    head :ok
+  end
+
 private
   def set_incident_and_cycle
     @incident = Incident.find params[:incident_id]
