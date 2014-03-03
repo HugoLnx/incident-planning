@@ -127,7 +127,7 @@ describe("Matrix.Cell", function() {
       it("if have a response-action class", function() {
         var name = "response-action";
         var cell = Spec.Factories.Cell.build({html: {class: name}});
-        expect(cell.expressionName()).toEqual(name);
+        expect(cell.expressionName()).toEqual("response_action");
       });
     });
 
