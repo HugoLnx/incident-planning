@@ -10,16 +10,17 @@
     var opts = opts || {};
     var defaultData = opts.defaultData || {};
     var submitName = opts.submitButton;
+    var withDelete = opts.withDelete || false;
     var iRow = matrix.rowNumber(cells[0].row);
 
-    var $submitRow = $(submitHtml(submitName));
+    var $submitRow = $(submitHtml(submitName, withDelete));
     var row = matrix.insertRow($submitRow, iRow+1);
 
     var $inputsTds = $(inputsHtml(defaultData));
     var inputCells = Matrix.Cell.buildAll($inputsTds);
     Matrix.Cell.replaceWith(cells, inputCells);
 
-    return new Templates.FormRendered($inputsTds.find("input"), $submitRow.find(".submit button"));
+    return new Templates.FormRendered($inputsTds.find("input"), $submitRow.find(".submit .update-btn"));
   };
 
   function inputsHtml(values) {
@@ -36,10 +37,15 @@
     return html;
   }
 
-  function submitHtml(buttonName) {
+  function submitHtml(buttonName, withDelete) {
     var html = '<tr>';
     html += '<td class="objective submit-side"></td>';
-    html += '<td colspan="2" class="strategy form submit"><button>' + buttonName + '</button></td>';
+    html += '<td colspan="2" class="strategy form submit">';
+    html +=   '<button class="update-btn">' + buttonName + '</button>';
+    if (withDelete) {
+      html +=   '<button class="delete-btn">Delete</button>';
+    }
+    html += '</td>';
     html += '<td colspan="5" class="tactic submit-side"></td>';
     html += '</tr>';
     return html;

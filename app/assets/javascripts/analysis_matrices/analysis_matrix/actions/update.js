@@ -43,7 +43,8 @@
 
       var form = self.template.renderIn(matrix, cells, {
         defaultData: self.backendProtocol.currentData(cells),
-        submitButton: "Update"
+        submitButton: "Update",
+        withDelete: true
       });
 
       bindOnSubmit(form, self.backendProtocol, $td);
