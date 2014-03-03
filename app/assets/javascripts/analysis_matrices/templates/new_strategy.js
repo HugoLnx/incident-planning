@@ -20,7 +20,10 @@
     var inputCells = Matrix.Cell.buildAll($inputsTds);
     Matrix.Cell.replaceWith(cells, inputCells);
 
-    return new Templates.FormRendered($inputsTds.find("input"), $submitRow.find(".submit .update-btn"));
+    var $inputs = $inputsTds.find("input");
+    var $submit = $submitRow.find(".submit .update-btn");
+    var $deleteBtn = $submitRow.find(".submit .delete-btn");
+    return new Templates.FormRendered($inputs, $submit, $deleteBtn);
   };
 
   function inputsHtml(values) {

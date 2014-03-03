@@ -5,11 +5,12 @@
   var BackendProtocols = namespace.AnalysisMatrix.BackendProtocols;
   var Ajax = LNX_UTILS.Ajax;
 
-  Actions.Update = function(targetsSelector, siblingsSelector, template, backendProtocol) {
+  Actions.Update = function(targetsSelector, siblingsSelector, template) {
     this.targetsSelector = targetsSelector;
     this.siblingsSelector = siblingsSelector;
     this.template = template;
-    this.backendProtocol = backendProtocol;
+    this.updateProtocol = BackendProtocols.Update.defaultProtocol();
+    this.deleteProtocol = BackendProtocols.Delete.defaultProtocol();
   };
 
   var _function = Actions.Update;
@@ -17,8 +18,7 @@
     return new Actions.Update(
       ".strategy.show.non-repeated",
       ".strategy",
-      new Templates.NewStrategy(),
-      BackendProtocols.Update.defaultProtocol()
+      new Templates.NewStrategy()
     );
   };
 
@@ -26,8 +26,7 @@
     return new Actions.Update(
       ".tactic.show.non-repeated",
       ".tactic",
-      new Templates.NewTactic(),
-      BackendProtocols.Update.defaultProtocol()
+      new Templates.NewTactic()
     );
   };
 
@@ -42,28 +41,41 @@
       var cells = matrix.findCells($tds);
 
       var form = self.template.renderIn(matrix, cells, {
-        defaultData: self.backendProtocol.currentData(cells),
+        defaultData: self.updateProtocol.currentData(cells),
         submitButton: "Update",
         withDelete: true
       });
 
-      bindOnSubmit(form, self.backendProtocol, $td);
+      bindOnSubmit(form, self.updateProtocol, $td);
+      bindOnDeleteBtn(form.$deleteBtn(), self.deleteProtocol, $td);
     });
   };
 
-  function bindOnSubmit(form, backendProtocol, $td) {
+  function bindOnSubmit(form, updateProtocol, $td) {
     form.$submit().on("click", function() {
-      var ajax = new Ajax.AjaxRequestBuilder();
-      ajax.addParamsFromInputs(form.$inputs());
+      var request = new Ajax.AjaxRequestBuilder();
+      request.addParamsFromInputs(form.$inputs());
 
-      ajax.addParams(backendProtocol.params());
+      sendAjaxUsing(request, updateProtocol, $td);
+    });
+  }
 
-      $.ajax({
-        url: backendProtocol.path($td),
-        data: ajax.paramsToUrl(),
-        method: backendProtocol.httpMethodForBrowser(),
-        success: function(){document.location.reload();}
-      });
+  function bindOnDeleteBtn($deleteBtn, deleteProtocol, $td) {
+    $deleteBtn.on("click", function() {
+      var request = new Ajax.AjaxRequestBuilder();
+
+      sendAjaxUsing(request, deleteProtocol, $td);
+    });
+  }
+
+  function sendAjaxUsing(request, backendProtocol, $td) {
+    request.addParams(backendProtocol.params());
+
+    $.ajax({
+      url: backendProtocol.path($td),
+      data: request.paramsToUrl(),
+      method: backendProtocol.httpMethodForBrowser(),
+      success: function(){document.location.reload();}
     });
   }
 }(jQuery, LNX_INCIDENT_PLANNING));

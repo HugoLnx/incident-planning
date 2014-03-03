@@ -25,11 +25,13 @@ module AnalysisMatricesHelper
     repeated_class = repeated_class(repeated)
 
     update_path = strategy && incident_cycle_strategy_path(@incident, @cycle, strategy.group_id)
+    delete_path = update_path
 
     render partial: partial, locals: {
       texts: texts,
       repeated: repeated_class,
-      update_path: update_path
+      update_path: update_path,
+      delete_path: delete_path
     }
   end
 
