@@ -39,7 +39,9 @@ module HighModels
 
         define_method name do
           expression = instance_variable_get("@#{name}")
-          expression && expression.cycle_id = cycle_id
+          if expression && !expression.destroyed?
+            expression.cycle_id = cycle_id
+          end
           expression
         end
       end
@@ -58,8 +60,10 @@ module HighModels
     end
 
     def group
-      @group.father_id = father_id
-      @group.cycle_id = cycle_id
+      if !@group.destroyed?
+        @group.father_id = father_id
+        @group.cycle_id = cycle_id
+      end
       @group
     end
 
@@ -75,15 +79,13 @@ module HighModels
 
     def save!
       raise ActiveRecord::RecordInvalid.new(self) unless valid?
-      ActiveRecord::Base.transaction(requires_new: true) do
-        restore_models_if_raise(ActiveRecord::ActiveRecordError) do
-          group.save!
-          expressions_names.each do |exp_id, _|
-            exp = public_send exp_id
-            if exp
-              exp.group = group
-              exp.save!
-            end
+      rollback_on_error do
+        group.save!
+        expressions_names.each do |exp_id, _|
+          exp = public_send exp_id
+          if exp
+            exp.group = group
+            exp.save!
           end
         end
       end
@@ -92,6 +94,28 @@ module HighModels
     def save
       begin
         self.save!
+        return true
+      rescue ActiveRecord::ActiveRecordError
+        return false
+      end
+    end
+
+    def destroy!
+      rollback_on_error do
+        @group.destroy!
+        expressions_names.each do |exp_id, _|
+          exp = public_send exp_id
+          if exp
+            exp.group = group
+            exp.destroy!
+          end
+        end
+      end
+    end
+
+    def destroy
+      begin
+        self.destroy!
         return true
       rescue ActiveRecord::ActiveRecordError
         return false
@@ -109,6 +133,11 @@ module HighModels
     end
 
   private
+    def rollback_on_error(&block)
+      ActiveRecord::Base.transaction(requires_new: true) do
+        restore_models_if_raise(ActiveRecord::ActiveRecordError, &block)
+      end
+    end
 
     def restore_models_if_raise(exception_klass, &block)
       group_clone = @group.clone

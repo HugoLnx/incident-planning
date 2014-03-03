@@ -19,6 +19,24 @@ shared_examples "High Model" do
     end
   end
 
+  describe "when destroying" do
+    context "if critical destroying raise error" do
+      it 'returns false' do
+        allow(subject).to receive(:destroy!) do
+          raise ActiveRecord::RecordNotDestroyed
+        end
+        expect(subject.destroy).to be_false
+      end
+    end
+
+    context "if critical saving doesn't raise error" do
+      it 'returns false' do
+        allow(subject).to receive(:destroy!)
+        expect(subject.destroy).to be_true
+      end
+    end
+  end
+
   context "when updating" do
     before :each do
       allow(subject).to receive(:update_how)

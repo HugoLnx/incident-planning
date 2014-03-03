@@ -209,4 +209,82 @@ describe HighModels::Strategy do
       it_behaves_like "an invalid saving"
     end
   end
+  
+  describe "when critical destroying" do
+    before :each do
+      @strategy = create :high_models_strategy
+    end
+
+    def destroy_strategy
+      begin
+        @strategy.destroy!
+      rescue ActiveRecord::ActiveRecordError
+      end
+    end
+
+    shared_examples "destroys all models" do
+      it "destroys the group" do
+        destroy_strategy
+        expect(@strategy.group).to be_destroyed
+      end
+
+      it "destroys how expression" do
+        destroy_strategy
+        expect(@strategy.how).to be_destroyed
+      end
+
+      it "destroys why expression" do
+        destroy_strategy
+        expect(@strategy.why).to be_destroyed
+      end
+    end
+
+    shared_examples "any model is destroyed" do
+      it "doesn't destroy the group" do
+        destroy_strategy
+        expect(@strategy.group).to_not be_destroyed
+      end
+
+      it "doesn't destroy how expression" do
+        destroy_strategy
+        expect(@strategy.how).to_not be_destroyed
+      end
+
+      it "doesn't destroy why expression" do
+        destroy_strategy
+        expect(@strategy.why).to_not be_destroyed
+      end
+    end
+
+    context "when all associations can be destroyed" do
+      include_examples "destroys all models"
+    end
+
+    context "when group can't be destroyed" do
+      before :each do
+        allow(@strategy.group).to receive(:destroy!)
+          .and_raise(ActiveRecord::RecordNotDestroyed)
+      end
+
+      include_examples "any model is destroyed"
+    end
+
+    context "when how can't be destroyed" do
+      before :each do
+        allow(@strategy.how).to receive(:destroy!)
+          .and_raise(ActiveRecord::RecordNotDestroyed)
+      end
+
+      include_examples "any model is destroyed"
+    end
+
+    context "when why can't be destroyed" do
+      before :each do
+        allow(@strategy.why).to receive(:destroy!)
+          .and_raise(ActiveRecord::RecordNotDestroyed)
+      end
+
+      include_examples "any model is destroyed"
+    end
+  end
 end
