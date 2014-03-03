@@ -44,6 +44,7 @@ module AnalysisMatricesHelper
     partial = "tactic_cells"
 
     update_path = tactic && incident_cycle_tactic_path(@incident, @cycle, tactic.group_id)
+    delete_path = update_path
 
     texts = {
       who:   tactic && tactic.who   && tactic.who.text,
@@ -57,7 +58,8 @@ module AnalysisMatricesHelper
     render partial: partial, locals: {
       texts: texts,
       repeated: repeated_class,
-      update_path: update_path
+      update_path: update_path,
+      delete_path: delete_path
     }
   end
 
