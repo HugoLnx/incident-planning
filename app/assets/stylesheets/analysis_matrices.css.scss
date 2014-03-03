@@ -1,82 +1,114 @@
-$objective_color: #ccf;
-$strategy_color: #fcc;
-$tactic_color: #cfc;
+$objective_color: #c0c0c0;
+$strategy_color: #d0d0d0;
+$tactic_color: #e0e0e0;
 
 $form_dark_percent: 10%;
-$repeated_desaturate_percent: 80%;
 $header_dark_percent: 30%;
-$repeated_font_color: #999;
+$add_light_percent: 2%;
+$repeated_light_percent: 5%;
+
+$repeated_font_color: black;
+$repeated_font_light_percent: 60%;
 
 .analysis-matrix {
   border-collapse: collapse;
-}
-
-.analysis-matrix td {
-  height: 90px;
-  width: 90px;
+  width: 100%;
   text-align: center;
 }
 
-.objective {
-  background-color: $objective_color;
-}
+/* COLUMNS SIZE */
+.analysis-matrix {
+  td {
+    height: 90px;
+  }
 
-.objective.header {
-  background-color: darken($objective_color, $header_dark_percent);
-}
+  td.objective {
+    width: 30%; /* 30*1 = 30% */
+  }
 
-.objective.repeated {
-  background-color: desaturate($objective_color, $repeated_desaturate_percent);
-  color: $repeated_font_color;
-}
+  td.strategy {
+    width: 15%; /* 15*2 = 30% */
+  }
 
-.strategy {
-  background-color: $strategy_color;
-}
+  td.tactic {
+    width: 8%; /* 8*5 = 40% */
+  }
 
-.strategy.form, .strategy.add {
-  background-color: darken($strategy_color, $form_dark_percent);
-}
+/* OBJECTIVES COLORS */
+  .objective {
+    background-color: $objective_color;
+  }
 
-.strategy.header {
-  background-color: darken($strategy_color, $header_dark_percent);
-}
+  .objective.header {
+    background-color: darken($objective_color, $header_dark_percent);
+  }
 
-.strategy.repeated {
-  background-color: desaturate($strategy_color, $repeated_desaturate_percent);
-  color: $repeated_font_color;
-}
+  .objective.repeated {
+    background-color: lighten($objective_color, $repeated_light_percent);
+  }
 
-.tactic {
-  background-color: $tactic_color;
-}
+/* STRATEGIES COLORS */
+  .strategy {
+    background-color: $strategy_color;
+  }
 
-.tactic.form, .tactic.add {
-  background-color: darken($tactic_color, $form_dark_percent);
-}
+  .strategy.form {
+    background-color: darken($strategy_color, $form_dark_percent);
+  }
+  
+  .strategy.add {
+    background-color: lighten($strategy_color, $add_light_percent);
+  }
 
-.tactic.header {
-  background-color: darken($tactic_color, $header_dark_percent);
-}
+  .strategy.header {
+    background-color: darken($strategy_color, $header_dark_percent);
+  }
 
-/* forms css  */
-.analysis-matrix .pre-button > button {
-  border: none;
-  background-color: rgba(0,0,0,0);
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-}
+  .strategy.repeated {
+    background-color: lighten($strategy_color, $repeated_light_percent);
+  }
 
-.analysis-matrix button:hover {
-  background-color: rgba(0,0,0,0.2);
-}
+/* TACTICS COLORS */
+  .tactic {
+    background-color: $tactic_color;
+  }
 
-.analysis-matrix button:active {
-  background-color: rgba(0,0,0,0.1);
-}
+  .tactic.form {
+    background-color: darken($tactic_color, $form_dark_percent);
+  }
+  
+  .tactic.add {
+    background-color: lighten($tactic_color, $add_light_percent);
+  }
 
-.form.submit, td.submit-side {
-  height: 20px;
+  .tactic.header {
+    background-color: darken($tactic_color, $header_dark_percent);
+  }
+
+/* REPEATED FONT COLOR */
+  .repeated {
+    color: lighten($repeated_font_color, $repeated_font_light_percent);
+  }
+
+/* FORMS  */
+  .pre-button > button {
+    border: none;
+    background-color: rgba(0,0,0,0);
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  button:hover {
+    background-color: rgba(0,0,0,0.2);
+  }
+
+  button:active {
+    background-color: rgba(0,0,0,0.1);
+  }
+
+  .form.submit, td.submit-side {
+    height: 20px;
+  }
 }
