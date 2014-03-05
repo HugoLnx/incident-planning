@@ -1,16 +1,34 @@
-<h1>Listing cycles</h1>
+<%- content_for :css do %>
+	<style>
+		.incident-infos .info {
+			float: left;
+			margin-right: 20px;
+		}
 
-<table>
+		#cycles {
+			clear: left;
+		}
+	</style>
+<% end -%>
+<h1>Incident Cycles</h1>
+
+<div class="incident-infos">
+	<p class="info">
+		<strong>Incident Name:</strong> <%= @incident.name %>
+	</p>
+	<p class="info">
+		<strong>Initial Time:</strong> <%= @cycles.empty? ? "none" : format_date(@cycles.first.from) %>
+		<a href="#" class="anchor-button disabled">Edit</a>
+	</p>
+</div>
+
+<table class="index-table" id="cycles">
   <thead>
     <tr>
-      <th>Incident</th>
-      <th>Number</th>
-      <th>Current object</th>
+      <th>Cycle</th>
       <th>From</th>
       <th>To</th>
-      <th>Closed</th>
-      <th></th>
-      <th></th>
+      <th>Status</th>
       <th></th>
       <th></th>
     </tr>
@@ -19,16 +37,12 @@
   <tbody>
     <% @cycles.each do |cycle| %>
       <tr>
-        <td><%= cycle.incident_id %></td>
         <td><%= cycle.number %></td>
-        <td><%= cycle.current_object %></td>
-        <td><%= cycle.from %></td>
-        <td><%= cycle.to %></td>
-        <td><%= cycle.closed %></td>
-        <td><%= link_to 'Analysis Matrix', incident_cycle_analysis_matrix_path(@incident, cycle) %></td>
-        <td><%= link_to 'Show', incident_cycle_path(@incident, cycle) %></td>
-        <td><%= link_to 'Edit', edit_incident_cycle_path(@incident, cycle) %></td>
-        <td><%= link_to 'Destroy', incident_cycle_path(@incident, cycle), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= format_date cycle.from %></td>
+        <td><%= format_date cycle.to %></td>
+        <td><%= cycle_closed_name cycle.closed %></td>
+        <td><%= link_to 'Objectives', incident_cycle_path(@incident, cycle) %></td>
+        <td><%= link_to 'Tactics Matrix', incident_cycle_analysis_matrix_path(@incident, cycle) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -36,4 +50,4 @@
 
 <br>
 
-<%= link_to 'New Cycle', new_incident_cycle_path(@incident) %>
+<%= link_to 'New Cycle', new_incident_cycle_path(@incident), class: "anchor-button" %>
