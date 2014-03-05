@@ -8,8 +8,7 @@
     "group": {
       "name": "Strategy",
       "expressions": [
-        {"name": "How", "approval-roles": ["Minor Chief"], "approval-roles": ["Chief", "Manager"]},
-        {"name": "Why", "optional": true, "approval-roles": ["Chief", "Manager"]}
+        {"name": "How", "approval-roles": ["Minor Chief"], "approval-roles": ["Chief", "Manager"]}
       ],
 
       "group": {

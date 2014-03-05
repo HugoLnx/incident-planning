@@ -1,5 +1,5 @@
-<td data-delete_path="<%= delete_path %>" data-update_path="<%= update_path %>" class="<%= repeated %> show tactic who"><%= texts[:who] %></td>
-<td data-delete_path="<%= delete_path %>" data-update_path="<%= update_path %>" class="<%= repeated %> show tactic what"><%= texts[:what] %></td>
-<td data-delete_path="<%= delete_path %>" data-update_path="<%= update_path %>" class="<%= repeated %> show tactic where"><%= texts[:where] %></td>
-<td data-delete_path="<%= delete_path %>" data-update_path="<%= update_path %>" class="<%= repeated %> show tactic when"><%= texts[:when] %></td>
-<td data-delete_path="<%= delete_path %>" data-update_path="<%= update_path %>" class="<%= repeated %> show tactic response-action"><%= texts[:response_action] %></td>
+<% texts.each do |name, text| %>
+  <td data-delete_path="<%= delete_path %>" data-update_path="<%= update_path %>" class="<%= repeated %> show tactic <%= name %>">
+    <%= text %>
+  </td>
+<% end %>

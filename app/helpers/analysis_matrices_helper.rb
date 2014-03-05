@@ -18,10 +18,7 @@ module AnalysisMatricesHelper
 
   def render_show_strategy_cells(strategy, repeated)
     partial = "strategy_cells"
-    texts = {
-      how: strategy && strategy.how && strategy.how.text,
-      why: strategy && strategy.why && strategy.why.text
-    }
+    texts = texts_to_show_cells(strategy, ::Model.strategy)
     repeated_class = repeated_class(repeated)
 
     update_path = strategy && incident_cycle_strategy_path(@incident, @cycle, strategy.group_id)
@@ -37,7 +34,11 @@ module AnalysisMatricesHelper
 
   def render_new_strategy_cells(father_id)
     partial = "new_strategy_form_cells"
-    render partial: partial, locals: {father_id: father_id}
+    expressions_size = ::Model.strategy.expressions.size
+    render partial: partial, locals: {
+      father_id: father_id,
+      expressions_size: expressions_size
+    }
   end
 
   def render_show_tactic_cells(tactic, repeated)
@@ -46,15 +47,9 @@ module AnalysisMatricesHelper
     update_path = tactic && incident_cycle_tactic_path(@incident, @cycle, tactic.group_id)
     delete_path = update_path
 
-    texts = {
-      who:   tactic && tactic.who   && tactic.who.text,
-      what:  tactic && tactic.what  && tactic.what.text,
-      where: tactic && tactic.where && tactic.where.text,
-      when:  tactic && tactic.when  && tactic.when.time,
-      response_action: tactic && tactic.response_action && tactic.response_action.text
-    }
-
+    texts = texts_to_show_cells(tactic, ::Model.tactic)
     repeated_class = repeated_class(repeated)
+
     render partial: partial, locals: {
       texts: texts,
       repeated: repeated_class,
@@ -65,7 +60,11 @@ module AnalysisMatricesHelper
 
   def render_new_tactic_cells(father_id)
     partial = "new_tactic_form_cells"
-    render partial: partial, locals: {father_id: father_id}
+    expressions_size = ::Model.tactic.expressions.size
+    render partial: partial, locals: {
+      father_id: father_id,
+      expressions_size: expressions_size
+    }
   end
 
   def repeated_class(is_repeated)
@@ -73,6 +72,18 @@ module AnalysisMatricesHelper
   end
 
 private
+  def texts_to_show_cells(group, model)
+    texts = {}
+
+    model.expressions.each do |expression_model|
+      name = expression_model.name.downcase.gsub(/ /, "_")
+      expression = group && group.public_send(name)
+      texts.merge!(name => expression && expression.text)
+    end
+
+    texts
+  end
+
   def get_proc(helper_name)
     method(helper_name).to_proc
   end

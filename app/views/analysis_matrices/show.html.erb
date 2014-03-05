@@ -15,17 +15,16 @@
   <thead>
     <tr>
       <th rowspan="2" class="header objective">Objectives</th>
-      <th class="header strategy" colspan="2">Strategies</th>
-      <th class="header tactic" colspan="5">Tatics</th>
+      <th class="header strategy" colspan="<%= @strategy.expressions.size %>">Strategies</th>
+      <th class="header tactic" colspan="<%= @tactic.expressions.size %>">Tatics</th>
     </tr>
     <tr>
-      <th class="header strategy">How</th>
-      <th class="header strategy">Why</th>
-      <th class="header tactic">Who</th>
-      <th class="header tactic">What</th>
-      <th class="header tactic">Where</th>
-      <th class="header tactic">When</th>
-      <th class="header tactic">Response Action</th>
+      <% @strategy.expressions.each do |exp| %>
+        <th class="header strategy"><%= exp.name %></th>
+      <% end %>
+      <% @tactic.expressions.each do |exp| %>
+        <th class="header tactic"><%= exp.name %></th>
+      <% end %>
     </tr>
   </thead>
 

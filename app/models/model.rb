@@ -15,10 +15,6 @@ module Model
     strategy.expressions.find{|expression| expression.name == "How"}
   end
 
-  def self.strategy_why
-    strategy.expressions.find{|expression| expression.name == "Why"}
-  end
-
   def self.tactic_who
     tactic.expressions.find{|expression| expression.name == "Who"}
   end
