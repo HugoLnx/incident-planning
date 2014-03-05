@@ -76,7 +76,7 @@ private
     texts = {}
 
     model.expressions.each do |expression_model|
-      name = expression_model.name.downcase.gsub(/ /, "_")
+      name = expression_model.pretty_name
       expression = group && group.public_send(name)
       texts.merge!(name => expression && expression.text)
     end

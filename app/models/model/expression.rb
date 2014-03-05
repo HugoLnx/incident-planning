@@ -23,5 +23,9 @@ module Model
         self.name
       end
     end
+
+    def pretty_name
+      @name.downcase.gsub(/ /, "_")
+    end
   end
 end
