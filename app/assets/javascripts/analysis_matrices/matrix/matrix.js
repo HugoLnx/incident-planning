@@ -1,4 +1,4 @@
-(function($, namespace) {
+(function($, namespace, utils) {
   var Matrix = namespace.Matrix;
 
   Matrix.Matrix = function($table, $data_trs) {
@@ -29,6 +29,17 @@
     this.rows.splice(rowNumber, 0, newRow);
     return newRow;
   };
+
+  _prototype.removeRow = function(rowOrNumber) {
+    if (typeof rowOrNumber === "number") {
+      var number = rowOrNumber;
+    } else {
+      var number = this.rowNumber(rowOrNumber);
+    }
+    var row = utils.ArrayUtils.deleteAt(this.rows, number);
+    row.$element.remove();
+    return row;
+  }
 
   _prototype.rowNumber = function(row) {
     return this.rows.indexOf(row);
@@ -75,4 +86,4 @@
     return false;
   }
 
-}(jQuery, LNX_INCIDENT_PLANNING));
+}(jQuery, LNX_INCIDENT_PLANNING, LNX_UTILS));

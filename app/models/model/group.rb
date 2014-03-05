@@ -29,6 +29,7 @@ module Model
     def to_hash
       {
         name: @name,
+        pretty_name: @name.downcase,
         expressions: @expressions.map(&:to_hash)
       }
     end

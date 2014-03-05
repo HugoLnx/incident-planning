@@ -18,7 +18,7 @@
     return new Actions.Update(
       ".strategy.show.non-repeated",
       ".strategy",
-      new Templates.NewStrategy()
+      new Templates.FormTemplate.editStrategy()
     );
   };
 
@@ -26,7 +26,7 @@
     return new Actions.Update(
       ".tactic.show.non-repeated",
       ".tactic",
-      new Templates.NewTactic()
+      new Templates.FormTemplate.editTactic()
     );
   };
 
@@ -40,14 +40,14 @@
       var $tds = $td.add($(this).siblings(self.siblingsSelector));
       var cells = matrix.findCells($tds);
 
-      var form = self.template.renderIn(matrix, cells, {
-        defaultData: self.updateProtocol.currentData(cells),
-        submitButton: "Update",
-        withDelete: true
-      });
+      var initialData = self.updateProtocol.currentData(cells);
+      var form = self.template.evaluate(initialData);
+      var renderer = new Templates.FormRenderer(matrix);
 
       bindOnSubmit(form, self.updateProtocol, $td);
       bindOnDeleteBtn(form.$deleteBtn(), self.deleteProtocol, $td);
+
+      renderer.render(form, {replacing: cells});
     });
   };
 

@@ -120,7 +120,24 @@ describe("Matrix.Matrix", function() {
           expect(this.matrix.rows[3].$element).toEqual(this.$newTr);
         });
       });
+    });
 
+    describe("when removing a row", function() {
+      beforeEach(function() {
+        this.oldSecondRow = this.matrix.rows[1];
+        this.oldThirdRow = this.matrix.rows[2];
+        this.removedRow = this.matrix.removeRow(1);
+        this.newSecondRow = this.matrix.rows[1];
+      });
+
+      it("remove from rows array", function() {
+        expect(this.removedRow).toEqual(this.oldSecondRow);
+        expect(this.newSecondRow).toEqual(this.oldThirdRow);
+      });
+
+      it("remove tr element from DOM", function() {
+        expect(this.oldSecondRow.$element).not.toBeInDOM()
+      });
     });
   });
 

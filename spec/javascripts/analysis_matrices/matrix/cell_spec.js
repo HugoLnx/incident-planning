@@ -11,6 +11,14 @@ describe("Matrix.Cell", function() {
         expect(cells[0].$element).toEqual($tds.first());
         expect(cells[1].$element).toEqual($tds.last());
       });
+
+      it("can set the row of all cells", function() {
+        var $tds = $("<td id='one'></td><td id='two'></td>");
+        var row = "mockRow"
+        var cells = Matrix.Cell.buildAll($tds, row);
+
+        expect(cells[0].row).toEqual(row);
+      });
     });
 
 

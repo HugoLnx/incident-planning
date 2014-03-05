@@ -15,7 +15,7 @@
   _function.strategyAction = function() {
     return new Actions.Add(
       ".strategy.add",
-      new Templates.NewStrategy(),
+      Templates.FormTemplate.newStrategy(),
       BackendProtocols.Add.strategyProtocol()
     );
   };
@@ -23,7 +23,7 @@
   _function.tacticAction = function() {
     return new Actions.Add(
       ".tactic.add",
-      new Templates.NewTactic(),
+      Templates.FormTemplate.newTactic(),
       BackendProtocols.Add.tacticProtocol()
     );
   };
@@ -37,11 +37,12 @@
       var $td = $(this);
       var cell = matrix.findCells($td)[0];
 
-      var form = self.template.renderIn(matrix, [cell], {
-        submitButton: "Create"
-      });
+      var form = self.template.evaluate();
+      var renderer = new Templates.FormRenderer(matrix);
 
       bindOnSubmit(form, self.backendProtocol, $td);
+
+      renderer.render(form, {replacing: [cell]});
     });
   };
 

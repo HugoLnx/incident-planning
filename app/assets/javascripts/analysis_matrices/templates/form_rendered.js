@@ -1,24 +1,35 @@
 (function($, namespace) {
   var Templates = namespace.AnalysisMatrix.Templates;
 
-  Templates.FormRendered = function($inputs, $submit, $deleteBtn) {
-    this._$inputs = $inputs;
-    this._$submit = $submit;
-    this._$deleteBtn = $deleteBtn;
+  Templates.FormRendered = function($inputsTds, $submitRow) {
+    this._$inputsTds = $inputsTds;
+    this._$submitRow = $submitRow;
   };
 
   var _prototype = Templates.FormRendered.prototype;
 
+  _prototype.$inputsTds = function() {
+    return this._$inputsTds;
+  };
+
+  _prototype.$submitRow = function() {
+    return this._$submitRow;
+  };
+
   _prototype.$inputs = function() {
-    return this._$inputs;
+    return this._$inputsTds.find("input");
   };
 
   _prototype.$submit = function() {
-    return this._$submit;
+    return this._$submitRow.find(".submit .update-btn");
   };
 
   _prototype.$deleteBtn = function() {
-    return this._$deleteBtn;
+    return this._$submitRow.find(".submit .delete-btn");
+  };
+
+  _prototype.$cancelBtn = function() {
+    return this._$submitRow.find(".submit .cancel-btn");
   };
 
 }(jQuery, LNX_INCIDENT_PLANNING));

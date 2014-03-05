@@ -14,9 +14,9 @@
     return $("<td>");
   };
 
-  func.buildAll = function($tds) {
+  func.buildAll = function($tds, row) {
     var cells = $tds.map(function() {
-      return new Matrix.Cell($(this));
+      return new Matrix.Cell($(this), row);
     });
     return cells;
   };
