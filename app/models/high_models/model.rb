@@ -126,7 +126,7 @@ module HighModels
       @group = group
       @group.text_expressions.each do |exp|
         exp_id = find_id_by_expression_name(exp.name)
-        instance_variable_set("@#{exp_id}", exp)
+        exp_id && instance_variable_set("@#{exp_id}", exp)
       end
       @cycle_id = group.cycle_id
       @father_id = group.father_id
