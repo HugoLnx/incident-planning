@@ -13,11 +13,6 @@ FactoryGirl.define do
       name Model.strategy_how.name
     end
 
-    factory :strategy_why do
-      association :group, factory: :strategy_group
-      name Model.strategy_why.name
-    end
-
     factory :tactic_who do
       association :group, factory: :tactic_group
       name Model.tactic_who.name

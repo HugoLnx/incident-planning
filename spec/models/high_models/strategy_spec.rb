@@ -6,7 +6,7 @@ describe HighModels::Strategy do
 
   describe "when initializing" do
     before :each do
-      @strategy = build :high_models_strategy, how: "How", why: "Why", cycle_id: 1
+      @strategy = build :high_models_strategy, how: "How", cycle_id: 1
     end
 
     it "initialize a group with strategy name and cycle_id" do
@@ -14,11 +14,9 @@ describe HighModels::Strategy do
       expect(@strategy.group.cycle_id).to be == 1
     end
 
-    it "initialize how and why text expressions" do
+    it "initialize how text expression" do
       expect(@strategy.how.name).to be == Model.strategy_how.name
-      expect(@strategy.why.name).to be == Model.strategy_why.name
       expect(@strategy.how.text).to be == "How"
-      expect(@strategy.why.text).to be == "Why"
     end
   end
 
@@ -43,13 +41,6 @@ describe HighModels::Strategy do
         let(:model_name) {::Model.strategy_how.name}
       end
     end
-
-    describe "why" do
-      it_behaves_like "text expression attribute" do
-        let(:expression_name) {:why}
-        let(:model_name) {::Model.strategy_why.name}
-      end
-    end
   end
 
   describe "when set from a group" do
@@ -57,10 +48,9 @@ describe HighModels::Strategy do
 
     before :each do
       @how = build :strategy_how
-      @why = build :strategy_why
 
       @group = create :group,
-        text_expressions: [@how, @why],
+        text_expressions: [@how],
         father: create(:group)
 
       subject.set_from_group @group
@@ -80,7 +70,6 @@ describe HighModels::Strategy do
 
     it "the reference of text_expressions is replaced by the ones in group" do
       expect(subject.instance_variable_get(:@how)).to be == @how
-      expect(subject.instance_variable_get(:@why)).to be == @why
     end
   end
 
@@ -88,11 +77,6 @@ describe HighModels::Strategy do
     context "returns true when" do
       specify "have all the parameters, valids father_id and cycle_id" do
         @strategy = build :high_models_strategy
-        expect(@strategy.save).to be_true
-      end
-
-      specify "haven't why" do
-        @strategy = build :high_models_strategy, why: nil
         expect(@strategy.save).to be_true
       end
     end
@@ -134,11 +118,6 @@ describe HighModels::Strategy do
         expect(@strategy.how).to be_persisted
       end
 
-      it "saves the why" do
-        save_strategy
-        expect(@strategy.why).to be_persisted
-      end
-
       it "does not raise error" do
         expect{@strategy.save!}.to_not raise_error
       end
@@ -153,11 +132,6 @@ describe HighModels::Strategy do
       it "does not save how expression" do
         save_strategy
         expect(@strategy.how).to_not be_persisted
-      end
-
-      it "does not save why expression" do
-        save_strategy
-        expect(@strategy.why).to_not be_persisted
       end
 
       it "raise an ActiveRecordError" do
@@ -196,18 +170,6 @@ describe HighModels::Strategy do
 
       it_behaves_like "an invalid saving"
     end
-
-    context "if why is not valid" do
-      before :each do
-        @strategy = build :high_models_strategy
-
-        allow(@strategy.why).to receive(:save!) do
-          raise ActiveRecord::RecordInvalid.new(@strategy.why)
-        end
-      end
-
-      it_behaves_like "an invalid saving"
-    end
   end
   
   describe "when critical destroying" do
@@ -232,11 +194,6 @@ describe HighModels::Strategy do
         destroy_strategy
         expect(@strategy.how).to be_destroyed
       end
-
-      it "destroys why expression" do
-        destroy_strategy
-        expect(@strategy.why).to be_destroyed
-      end
     end
 
     shared_examples "any model is destroyed" do
@@ -248,11 +205,6 @@ describe HighModels::Strategy do
       it "doesn't destroy how expression" do
         destroy_strategy
         expect(@strategy.how).to_not be_destroyed
-      end
-
-      it "doesn't destroy why expression" do
-        destroy_strategy
-        expect(@strategy.why).to_not be_destroyed
       end
     end
 
@@ -272,15 +224,6 @@ describe HighModels::Strategy do
     context "when how can't be destroyed" do
       before :each do
         allow(@strategy.how).to receive(:destroy!)
-          .and_raise(ActiveRecord::RecordNotDestroyed)
-      end
-
-      include_examples "any model is destroyed"
-    end
-
-    context "when why can't be destroyed" do
-      before :each do
-        allow(@strategy.why).to receive(:destroy!)
           .and_raise(ActiveRecord::RecordNotDestroyed)
       end
 
