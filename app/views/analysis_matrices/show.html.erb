@@ -6,6 +6,8 @@
       create_strategy_path: "<%= incident_cycle_strategies_path(@incident, @cycle) %>",
       create_tactic_path: "<%= incident_cycle_tactics_path(@incident, @cycle) %>"
     };
+
+    LNX_INCIDENT_PLANNING.FROM_RAILS.Model = <%= raw ::Model.to_json %>;
   <% end %>
 <% end %>
 

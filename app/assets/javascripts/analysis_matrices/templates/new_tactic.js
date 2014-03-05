@@ -1,6 +1,7 @@
 (function($, namespace) {
   var Matrix = namespace.Matrix;
   var Templates = namespace.AnalysisMatrix.Templates;
+  var Model = namespace.Model;
 
   Templates.NewTactic = function() { };
 
@@ -28,11 +29,11 @@
 
   function inputsHtml(values) {
     var html = ""
-    html += inputHtml("who", values.who || "");
-    html += inputHtml("what", values.what || "");
-    html += inputHtml("where", values.where || "");
-    html += inputHtml("when", values.when || "");
-    html += inputHtml("response_action", values.response_action || "");
+    $.each(Model.get().tactic.expressions, function() {
+      var exp = this;
+      var name = exp.pretty_name;
+      html += inputHtml(name, values[name] || "");
+    });
     return html;
   };
 
@@ -47,8 +48,8 @@
   function submitHtml(submitName, withDelete) {
     var html = '<tr>';
     html += '<td class="objective submit-side"></td>';
-    html += '<td colspan="2" class="strategy submit-side"></td>';
-    html += '<td colspan="5" class="tactic form submit">';
+    html += '<td colspan="' + Model.get().strategy.expressions.length + '" class="strategy submit-side"></td>';
+    html += '<td colspan="' + Model.get().tactic.expressions.length + '" class="tactic form submit">';
     html +=   '<button class="update-btn">' + submitName + '</button>';
     if (withDelete) {
       html +=   '<button class="delete-btn">Delete</button>';

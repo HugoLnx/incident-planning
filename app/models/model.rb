@@ -1,14 +1,18 @@
 module Model
+  def self.root
+    Model::Dao.new.root_group
+  end
+
   def self.objective
-    Model::Dao.new.root_group.expressions.first
+    self.root.expressions.first
   end
 
   def self.strategy
-    Model::Dao.new.root_group.child
+    self.root.child
   end
 
   def self.tactic
-    Model::Dao.new.root_group.child.child
+    self.root.child.child
   end
 
   def self.strategy_how
@@ -33,5 +37,14 @@ module Model
 
   def self.tactic_response_action
     tactic.expressions.find{|expression| expression.name == "Response Action"}
+  end
+
+  def self.to_json
+    groups = {
+      objective: self.root.to_hash,
+      strategy: self.strategy.to_hash,
+      tactic: self.tactic.to_hash
+    }
+    ActiveSupport::JSON.encode groups
   end
 end

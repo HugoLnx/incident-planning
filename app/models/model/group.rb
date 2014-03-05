@@ -25,5 +25,12 @@ module Model
 
       groups.map(&:name).join("/")
     end
+
+    def to_hash
+      {
+        name: @name,
+        expressions: @expressions.map(&:to_hash)
+      }
+    end
   end
 end

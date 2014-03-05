@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require namespaces
+//= require model
 //= require_tree ./backend_protocols/

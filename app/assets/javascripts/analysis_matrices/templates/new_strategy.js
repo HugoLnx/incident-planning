@@ -1,6 +1,7 @@
 (function($, namespace) {
   var Matrix = namespace.Matrix;
   var Templates = namespace.AnalysisMatrix.Templates;
+  var Model = namespace.Model;
 
   Templates.NewStrategy = function(){};
 
@@ -28,8 +29,11 @@
 
   function inputsHtml(values) {
     var html = '';
-    html += inputHtml("how", values.how || "");
-    html += inputHtml("why", values.why || "");
+    $.each(Model.get().strategy.expressions, function() {
+      var exp = this;
+      var name = exp.pretty_name;
+      html += inputHtml(name, values[name] || "");
+    });
     return html;
   };
 
@@ -41,15 +45,17 @@
   }
 
   function submitHtml(buttonName, withDelete) {
+    var strategy_exps = Model.get().strategy.expressions.length;
+    var tactic_exps = Model.get().tactic.expressions.length;
     var html = '<tr>';
     html += '<td class="objective submit-side"></td>';
-    html += '<td colspan="2" class="strategy form submit">';
+    html += '<td colspan="' + strategy_exps + '" class="strategy form submit">';
     html +=   '<button class="update-btn">' + buttonName + '</button>';
     if (withDelete) {
       html +=   '<button class="delete-btn">Delete</button>';
     }
     html += '</td>';
-    html += '<td colspan="5" class="tactic submit-side"></td>';
+    html += '<td colspan="' + tactic_exps + '" class="tactic submit-side"></td>';
     html += '</tr>';
     return html;
   };

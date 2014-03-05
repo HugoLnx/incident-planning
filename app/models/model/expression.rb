@@ -27,5 +27,14 @@ module Model
     def pretty_name
       @name.downcase.gsub(/ /, "_")
     end
+
+    def to_hash
+      {
+        name: @name,
+        pretty_name: pretty_name,
+        optional: @optional,
+        type: @type
+      }
+    end
   end
 end

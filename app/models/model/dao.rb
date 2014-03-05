@@ -9,8 +9,12 @@ module Model
     end
 
     def root_group
-      hash = @json_parser.decode File.read(@path)
+      hash = @json_parser.decode json
       @group_parser.parse hash
+    end
+
+    def json
+      File.read @path
     end
   end
 end
