@@ -2,7 +2,7 @@ class StrategiesController < ApplicationController
   before_filter :set_incident_and_cycle
 
   def create
-    strategy_params = params[:strategy].permit(:how, :why, :father_id)
+    strategy_params = params[:strategy].permit(:how, :father_id)
 
     strategy_params[:cycle_id] = @cycle.id
 
@@ -13,7 +13,7 @@ class StrategiesController < ApplicationController
   end
 
   def update
-    new_params = params[:strategy].permit(:how, :why)
+    new_params = params[:strategy].permit(:how)
 
     group = Group.includes(:text_expressions).find(params[:id])
 
