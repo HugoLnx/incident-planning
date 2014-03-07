@@ -11,7 +11,7 @@ FactoryGirl.define do
     who "The adhesive tape manager"
     what "Put a adhesive tape in the leak point"
     where "Under sea"
-    sequence(:when){"Anytime"}
+    sequence(:when){"22/03/1993 01:30"}
     response_action "petition"
   end
 end

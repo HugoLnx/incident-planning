@@ -28,14 +28,19 @@ FactoryGirl.define do
       name Model.tactic_where.name
     end
 
-    factory :tactic_when do
-      association :group, factory: :tactic_group
-      name Model.tactic_when.name
-    end
-
     factory :tactic_response_action do
       association :group, factory: :tactic_group
       name Model.tactic_response_action.name
+    end
+  end
+
+  factory :time_expression do
+    cycle
+    sequence(:when) {"22/03/1993 10:50"}
+
+    factory :tactic_when do
+      association :group, factory: :tactic_group
+      name Model.tactic_when.name
     end
   end
 end

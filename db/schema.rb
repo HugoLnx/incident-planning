@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140124121347) do
+ActiveRecord::Schema.define(version: 20140306193339) do
 
   create_table "cycles", force: true do |t|
     t.integer  "incident_id",                    null: false
@@ -62,8 +62,10 @@ ActiveRecord::Schema.define(version: 20140124121347) do
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "cycle_id"
   end
 
+  add_index "time_expressions", ["cycle_id"], name: "index_time_expressions_on_cycle_id", using: :btree
   add_index "time_expressions", ["group_id"], name: "index_time_expressions_on_group_id", using: :btree
 
 end

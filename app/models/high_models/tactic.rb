@@ -5,7 +5,7 @@ module HighModels
     text_expression :who, name: ::Model.tactic_who.name
     text_expression :what, name: ::Model.tactic_what.name
     text_expression :where, name: ::Model.tactic_where.name
-    text_expression :when, name: ::Model.tactic_when.name
+    time_expression :when, name: ::Model.tactic_when.name
     text_expression :response_action, name: ::Model.tactic_response_action.name
 
     group_name ::Model.tactic.name

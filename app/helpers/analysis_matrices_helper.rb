@@ -78,7 +78,7 @@ private
     model.expressions.each do |expression_model|
       name = expression_model.pretty_name
       expression = group && group.public_send(name)
-      texts.merge!(name => expression && expression.text)
+      texts.merge!(name => expression && expression.info_as_str)
     end
 
     texts

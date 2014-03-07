@@ -6,11 +6,6 @@ describe HighModels::Tactic do
   describe "when initializing" do
     before :each do
       @tactic = build :high_models_tactic,
-        who: "Who",
-        what: "What",
-        where: "Where",
-        when: "When",
-        response_action: "ResAct",
         cycle_id: 1
     end
 
@@ -25,11 +20,6 @@ describe HighModels::Tactic do
       expect(@tactic.where.name).to be == Model.tactic_where.name
       expect(@tactic.when.name).to be == Model.tactic_when.name
       expect(@tactic.response_action.name).to be == Model.tactic_response_action.name
-      expect(@tactic.who.text).to be == "Who"
-      expect(@tactic.what.text).to be == "What"
-      expect(@tactic.where.text).to be == "Where"
-      expect(@tactic.when.text).to be == "When"
-      expect(@tactic.response_action.text).to be == "ResAct"
     end
   end
 
@@ -47,6 +37,7 @@ describe HighModels::Tactic do
 
   describe "text_expression attributes" do
     subject { build :high_models_tactic }
+
     describe "who" do
       let(:expression_name) {:who}
       let(:model_name) {::Model.tactic_who.name}
@@ -68,18 +59,22 @@ describe HighModels::Tactic do
       it_behaves_like "text expression attribute"
     end
 
-    describe "when" do
-      let(:expression_name) {:when}
-      let(:model_name) {::Model.tactic_when.name}
-
-      it_behaves_like "text expression attribute"
-    end
-
     describe "response action" do
       let(:expression_name) {:response_action}
       let(:model_name) {::Model.tactic_response_action.name}
 
       it_behaves_like "text expression attribute"
+    end
+  end
+
+  describe "time_expression attributes", only: true do
+    subject { build :high_models_tactic }
+
+    describe "when" do
+      let(:expression_name) {:when}
+      let(:model_name) {::Model.tactic_when.name}
+
+      it_behaves_like "time expression attribute"
     end
   end
 
@@ -94,7 +89,8 @@ describe HighModels::Tactic do
       @response_action = build :tactic_response_action
 
       @group = create :group,
-        text_expressions: [@who, @what, @where, @when, @response_action],
+        text_expressions: [@who, @what, @where, @response_action],
+        time_expressions: [@when],
         father: create(:group)
 
       subject.set_from_group @group
@@ -307,8 +303,7 @@ describe HighModels::Tactic do
 
     context "if who is not valid" do
       before :each do
-        @tactic = build :high_models_tactic,
-          when: "Sometime"
+        @tactic = build :high_models_tactic
 
         allow(@tactic.when).to receive(:save!) do
           raise ActiveRecord::RecordInvalid.new(@tactic.when)

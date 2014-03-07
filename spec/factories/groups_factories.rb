@@ -5,6 +5,7 @@ FactoryGirl.define do
     childs []
     ignore do
       text_expressions []
+      time_expressions []
     end
     father nil
 
@@ -20,10 +21,12 @@ FactoryGirl.define do
     end
 
     after :create do |group, evaluator|
-      group.text_expressions = evaluator.text_expressions
-      evaluator.text_expressions.each do |expression|
-        expression.group_id = group.id
-        expression.cycle_id = group.cycle_id
+      [:text_expressions, :time_expressions].each do |attr|
+        group.public_send(:"#{attr}=", evaluator.public_send(attr))
+        evaluator.public_send(attr).each do |expression|
+          expression.group_id = group.id
+          expression.cycle_id = group.cycle_id
+        end
       end
     end
 

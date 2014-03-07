@@ -45,6 +45,42 @@ module HighModels
           expression
         end
       end
+
+      def self.time_expression(name, options={})
+        expression_name = options[:name]
+
+        @expressions_names ||= {}
+        @expressions_names.merge!(name => expression_name)
+
+        define_method :"update_#{name}" do |new_time_str|
+          exp = instance_variable_get("@#{name}")
+          if exp
+            exp.when = DateTime.strptime(new_time_str, TimeExpression::TIME_PARSING_FORMAT)
+          end
+        end
+
+        define_method :"set_#{name}_reference" do |new_reference|
+          instance_variable_set("@#{name}", new_reference)
+        end
+
+        define_method :"#{name}=" do |time_str|
+          if time_str
+            date = DateTime.strptime(time_str, TimeExpression::TIME_PARSING_FORMAT)
+            expression = ::TimeExpression.new(name: expression_name, when: date)
+            instance_variable_set("@#{name}", expression)
+          else
+            instance_variable_set("@#{name}", nil)
+          end
+        end
+
+        define_method name do
+          expression = instance_variable_get("@#{name}")
+          if expression && !expression.destroyed?
+            expression.cycle_id = cycle_id
+          end
+          expression
+        end
+      end
     end
 
     def update(attributes = {})
@@ -124,7 +160,7 @@ module HighModels
 
     def set_from_group(group)
       @group = group
-      @group.text_expressions.each do |exp|
+      @group.expressions.each do |exp|
         exp_id = find_id_by_expression_name(exp.name)
         exp_id && instance_variable_set("@#{exp_id}", exp)
       end

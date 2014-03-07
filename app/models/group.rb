@@ -10,4 +10,8 @@ class Group < ActiveRecord::Base
   validates :cycle_id, presence: true
 
   validates_associated :cycle
+
+  def expressions
+    self.text_expressions + self.time_expressions
+  end
 end
