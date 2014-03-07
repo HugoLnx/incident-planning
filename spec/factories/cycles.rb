@@ -2,11 +2,12 @@
 
 FactoryGirl.define do
   factory :cycle do
-    incident_id 1
+    incident
     number 1
     current_object 1
     from "2014-01-17"
     to "2014-01-17"
     closed false
+    groups []
   end
 end

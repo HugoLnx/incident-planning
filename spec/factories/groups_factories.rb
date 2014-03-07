@@ -32,6 +32,7 @@ FactoryGirl.define do
 
     factory :objective_group do
       name Model.objective.name
+      text_expressions{[build(:objective, group: nil)]}
     end
 
     factory :strategy_group do
