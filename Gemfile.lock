@@ -198,7 +198,7 @@ DEPENDENCIES
   compass-colors
   compass-rails (~> 1.1.2)
   database_cleaner (~> 1.2.0)
-  devise
+  devise (~> 3.2.3)
   factory_girl_rails (~> 4.3.0)
   interactive_editor
   jasmine (~> 2.0.0)
