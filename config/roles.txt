@@ -1,4 +1,4 @@
-Planning Chief
-Operational Chief
-Ninja Chief
-No Chief
+00: Planning Chief
+01: Operational Chief
+02: Ninja Chief
+03: No Chief
