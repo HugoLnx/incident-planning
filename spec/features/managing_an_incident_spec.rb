@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 =begin
-  To prepare a plans about the incident
+  In order to prepare a plans about the incident
   I want to manage him
   As a Incident Commander
 =end
