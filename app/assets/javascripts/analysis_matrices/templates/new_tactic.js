@@ -38,8 +38,7 @@
   };
 
   function inputHtml(name, value) {
-    var class_name = name.replace(/_/g, "-");
-    var html = '<td class="tactic form ' + class_name + '">';
+    var html = '<td class="tactic form ' + name + '">';
     html += '<input name="tactic[' + name + ']" value="' + value + '" />';
     html += '</td>';
     return html;
