@@ -1,5 +1,3 @@
 <% texts.each do |name, text| %>
-<td data-update_path="<%= update_path %>" data-delete_path="<%= delete_path %>" class="<%= repeated %> strategy <%= name %> show">
-  <%= text %>
-</td>
+<td data-update_path="<%= update_path %>" data-delete_path="<%= delete_path %>" class="<%= repeated %> strategy <%= name %> show"><%= text %></td>
 <% end %>
