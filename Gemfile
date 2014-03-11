@@ -55,7 +55,7 @@ group :test, :development do
   gem 'poltergeist', "~> 1.5.0"
   gem 'selenium-webdriver', '~> 2.40.0'
   gem 'jasmine', "~> 2.0.0"
-  gem 'jasmine-jquery-rails', git: "git@github.com:HugoLnx/jasmine-jquery-rails.git"
+  gem 'jasmine-jquery-rails'
 end
 
 # Use ActiveModel has_secure_password
