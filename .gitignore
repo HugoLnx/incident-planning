@@ -17,3 +17,4 @@
 /*.log
 /TODO*
 /RecentTODO*
+config/database.yml
