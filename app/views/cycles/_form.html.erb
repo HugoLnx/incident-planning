@@ -1,17 +1,10 @@
-<%- content_for :css do %>
-  <style>
-    #cycle_objectives_text, #cycle_priorities {
-      display: block;
-    }
-  </style>
-<% end -%>
 <%= simple_form_for([@incident, @cycle]) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :from, as: :datetime %>
-    <%= f.input :to, as: :datetime %>
     <%= f.input :number, as: :integer %>
+    <%= f.input :from, as: :datetime %>
+		<%= f.input :to, as: :datetime %>
 
     <%= objectives_text_input f %>
     <%= f.input :priorities, as: :text, input_html: {cols: 100, rows: 10} %>
