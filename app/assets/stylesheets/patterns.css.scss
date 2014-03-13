@@ -1,0 +1,23 @@
+$small_size: 10px;
+$medium_size: 20px;
+$big_size: 35px;
+
+// Control line
+.control-line {
+	display: block;
+}
+
+.control-line.small-padding {
+	padding-top: $small_size;
+	padding-bottom: $small_size;
+}
+
+.control-line.medium-padding {
+	padding-top: $medium_size;
+	padding-bottom: $medium_size;
+}
+
+.control-line.big-padding {
+	padding-top: $big_size;
+	padding-bottom: $big_size;
+}
