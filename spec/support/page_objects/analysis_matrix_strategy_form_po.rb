@@ -12,5 +12,9 @@ module PageObjects
     def press_create
       @submits_tr.click_on "Create"
     end
+
+    def press_update
+      @submits_tr.click_on "Update"
+    end
   end
 end

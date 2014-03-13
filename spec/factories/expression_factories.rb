@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :text_expression do
-    sequence(:text) {|i| "Expression Text #{i}"}
+    sequence(:text) {|i| "Expression #{name} #{i}"}
     cycle
 
     factory :objective do

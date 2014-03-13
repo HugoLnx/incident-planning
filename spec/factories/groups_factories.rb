@@ -37,10 +37,18 @@ FactoryGirl.define do
 
     factory :strategy_group do
       name Model.strategy.name
+      text_expressions{[build(:strategy_how, group: nil)]}
     end
 
     factory :tactic_group do
       name Model.tactic.name
+      text_expressions{[
+        build(:tactic_who, group: nil),
+        build(:tactic_what, group: nil),
+        build(:tactic_where, group: nil),
+        build(:tactic_when, group: nil),
+        build(:tactic_response_action, group: nil)
+      ]}
     end
   end
 end
