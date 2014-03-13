@@ -1,8 +1,9 @@
 module PageObjects
   class AnalysisMatrixPO
-    def initialize(session, routing_helpers)
-      @session = session
-      @routing = routing_helpers
+    def initialize(user_knowledge)
+      @user = user_knowledge
+      @session = user_knowledge.session
+      @routing = user_knowledge.routing
     end
 
     def path(cycle)
@@ -17,7 +18,7 @@ module PageObjects
       objs_elements = all_non_repeated_objective_elements
       obj_element = objs_elements[index]
       row_element = find_row_of(obj_element)
-      AnalysisMatrixRowPO.new(row_element)
+      AnalysisMatrixRowPO.new(@user, row_element)
     end
 
     def cell_of_strategy(index, from_objective: nil)
@@ -33,7 +34,7 @@ module PageObjects
         element = rows_elements[index-1]
       end
 
-      AnalysisMatrixCellPO.new(element)
+      AnalysisMatrixCellPO.new(@user, element)
     end
   private
     def all_non_repeated_objective_elements

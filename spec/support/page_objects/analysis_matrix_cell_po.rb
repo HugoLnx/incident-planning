@@ -2,7 +2,8 @@ module PageObjects
   class AnalysisMatrixCellPO
     attr_reader :element
 
-    def initialize(element)
+    def initialize(user, element)
+      @user = user
       @element = element
     end
 
@@ -10,7 +11,7 @@ module PageObjects
       row_element = @element.find(:xpath, "..")
       @element.native.double_click
       form_element = row_element.find ".strategy.form"
-      AnalysisMatrixStrategyFormPO.new(form_element)
+      AnalysisMatrixStrategyFormPO.new(@user, form_element)
     end
   end
 end
