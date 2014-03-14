@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140306193339) do
+ActiveRecord::Schema.define(version: 20140314010040) do
 
   create_table "cycles", force: true do |t|
     t.integer  "incident_id",                    null: false
@@ -67,5 +67,23 @@ ActiveRecord::Schema.define(version: 20140306193339) do
 
   add_index "time_expressions", ["cycle_id"], name: "index_time_expressions_on_cycle_id", using: :btree
   add_index "time_expressions", ["group_id"], name: "index_time_expressions_on_group_id", using: :btree
+
+  create_table "users", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
