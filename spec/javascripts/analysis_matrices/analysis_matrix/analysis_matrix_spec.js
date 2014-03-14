@@ -30,7 +30,7 @@ describe("AnalysisMatrix.AnalysisMatrix", function() {
 
     describe("when creating a new row", function() {
       beforeEach(function() {
-        var row = matrix.newRow(1);
+        var row = this.matrix.newRow(1);
 
         this.row = row;
       });
