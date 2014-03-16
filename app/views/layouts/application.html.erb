@@ -10,10 +10,27 @@
 </head>
 <body>
 
-  <p class="notice"><%= flash[:notice] %></p>
-  <p class="alert"><%= flash[:alert] %></p>
+	<header>
+		<nav class="main-nav">
+			<ul>
+				<li><%= link_to "List of Incidents", incidents_path %></li>
+				<%- if user_signed_in? %>
+					<li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+					<li><%= link_to "Edit Profile", edit_user_registration_path %></li>
+				<% else %>
+					<li><%= link_to "Sign in", new_user_session_path %></li>
+					<li><%= link_to "Sign up", new_user_registration_path %></li>
+				<% end -%>
+			</ul>
+		</nav>
+	</header>
 
-<%= yield %>
+	<section class="main-content">
+		<p class="notice"><%= flash[:notice] %></p>
+		<p class="alert"><%= flash[:alert] %></p>
+
+		<%= yield %>
+	</section>
 
 </body>
 </html>
