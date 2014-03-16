@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140314010558) do
+ActiveRecord::Schema.define(version: 20140316194526) do
 
   create_table "cycles", force: true do |t|
     t.integer  "incident_id",                    null: false
@@ -51,10 +51,12 @@ ActiveRecord::Schema.define(version: 20140314010558) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "group_id"
+    t.integer  "owner_id"
   end
 
   add_index "text_expressions", ["cycle_id"], name: "index_text_expressions_on_cycle_id", using: :btree
   add_index "text_expressions", ["group_id"], name: "index_text_expressions_on_group_id", using: :btree
+  add_index "text_expressions", ["owner_id"], name: "index_text_expressions_on_owner_id", using: :btree
 
   create_table "time_expressions", force: true do |t|
     t.datetime "when",       null: false
@@ -63,10 +65,12 @@ ActiveRecord::Schema.define(version: 20140314010558) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "cycle_id"
+    t.integer  "owner_id"
   end
 
   add_index "time_expressions", ["cycle_id"], name: "index_time_expressions_on_cycle_id", using: :btree
   add_index "time_expressions", ["group_id"], name: "index_time_expressions_on_group_id", using: :btree
+  add_index "time_expressions", ["owner_id"], name: "index_time_expressions_on_owner_id", using: :btree
 
   create_table "user_roles", force: true do |t|
     t.integer "user_id", null: false

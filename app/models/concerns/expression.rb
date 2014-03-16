@@ -5,6 +5,7 @@ module Concerns
     included do
       belongs_to :cycle
       belongs_to :group
+      belongs_to :owner, class_name: "User"
 
       scope :objectives, -> { where(name: Model.objective.name) }
 
@@ -14,6 +15,7 @@ module Concerns
       validates :name, presence: true
       validates :group_id, presence: true
       validates :cycle_id, presence: true
+      validates :owner_id, presence: true
     end
 
     module ClassMethods

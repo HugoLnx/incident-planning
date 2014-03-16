@@ -8,6 +8,8 @@ require 'spec_helper'
 
 feature "Managing an incident" do
   background do
+    user = create :user
+    DeviseSteps.new(page, routing_helpers).sign_in user
     @new_incident_page = NewIncidentPO.new(page, routing_helpers)
     @new_incident_page.visit
     @form = @new_incident_page.incident_form

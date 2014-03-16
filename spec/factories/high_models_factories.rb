@@ -3,6 +3,7 @@ FactoryGirl.define do
     father_id {create(:objective_group).id}
     cycle_id {create(:cycle).id}
     how "Throwing cleaning products in the sea"
+    owner {create(:user)}
   end
 
   factory :high_models_tactic, class: HighModels::Tactic do
@@ -13,5 +14,6 @@ FactoryGirl.define do
     where "Under sea"
     sequence(:when){"22/03/1993 01:30"}
     response_action "petition"
+    owner {create(:user)}
   end
 end

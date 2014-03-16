@@ -8,6 +8,8 @@ require 'spec_helper'
 
 feature "Analysis Matrix basic operations", :js do
   background do
+    user = create :user
+    DeviseSteps.new(page, routing_helpers).sign_in user
     @page = AnalysisMatrixPO.new(@user_knowledge)
     @page.visit cycle
   end

@@ -35,6 +35,60 @@ describe HighModels::Tactic do
     end
   end
 
+  describe "when setting the owner" do
+    subject {build :high_models_tactic}
+
+    shared_examples 'general' do
+      context "if expression doesn't have an owner" do
+        before :each do
+          subject_expression.owner = nil
+          subject.owner = build :user
+        end
+
+        it "sets expressions owner" do
+          expect(subject_expression.owner).to be == subject.owner
+        end
+      end
+
+      context "if expression already have an owner" do
+        before :each do
+          @expression_old_owner = create :user
+          subject_expression.owner = @expression_old_owner
+          subject.owner = build :user
+        end
+
+        it "how's owner keeps the same" do
+          expect(subject_expression.owner).to be == @expression_old_owner
+        end
+      end
+    end
+
+    context "influence on who" do
+      let(:subject_expression) {subject.who}
+      include_examples 'general'
+    end
+
+    context "influence on what" do
+      let(:subject_expression) {subject.what}
+      include_examples 'general'
+    end
+
+    context "influence on where" do
+      let(:subject_expression) {subject.where}
+      include_examples 'general'
+    end
+
+    context "influence on when" do
+      let(:subject_expression) {subject.when}
+      include_examples 'general'
+    end
+
+    context "influence on response action" do
+      let(:subject_expression) {subject.response_action}
+      include_examples 'general'
+    end
+  end
+
   describe "text_expression attributes" do
     subject { build :high_models_tactic }
 

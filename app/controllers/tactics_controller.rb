@@ -3,6 +3,7 @@ class TacticsController < ApplicationController
 
   def create
     tactic_params = params[:tactic].permit(:who, :what, :where, :when, :response_action, :father_id)
+    tactic_params[:owner] = current_user
 
     tactic_params[:cycle_id] = @cycle.id
 
@@ -17,7 +18,7 @@ class TacticsController < ApplicationController
 
     group = Group.includes(:text_expressions).find(params[:id])
 
-    tactic = HighModels::Tactic.new
+    tactic = HighModels::Tactic.new owner: current_user
     tactic.set_from_group group
     tactic.update new_params
     tactic.save

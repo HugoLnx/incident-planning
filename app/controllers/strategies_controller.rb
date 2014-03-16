@@ -4,10 +4,12 @@ class StrategiesController < ApplicationController
   def create
     strategy_params = params[:strategy].permit(:how, :father_id)
 
+    strategy_params[:owner] = current_user
+
     strategy_params[:cycle_id] = @cycle.id
 
     strategy = HighModels::Strategy.new(strategy_params)
-    strategy.save
+    strategy.save!
 
     head :ok
   end
@@ -17,10 +19,10 @@ class StrategiesController < ApplicationController
 
     group = Group.includes(:text_expressions).find(params[:id])
 
-    strategy = HighModels::Strategy.new
+    strategy = HighModels::Strategy.new owner: current_user
     strategy.set_from_group group
     strategy.update new_params
-    strategy.save
+    strategy.save!
 
     head :ok
   end

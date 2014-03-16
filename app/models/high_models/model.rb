@@ -6,6 +6,7 @@ module HighModels
       include ActiveModel::Model
 
       attr_accessor :father_id, :cycle_id
+      attr_reader :owner
 
       def self.group_name(name)
         @group_name = name
@@ -20,6 +21,9 @@ module HighModels
         define_method :"update_#{name}" do |new_text|
           exp = instance_variable_get("@#{name}")
           if exp
+            if exp.text != new_text
+              exp.owner = self.owner
+            end
             exp.text = new_text
           end
         end
@@ -30,7 +34,7 @@ module HighModels
 
         define_method :"#{name}=" do |text|
           if text
-            expression = ::TextExpression.new(name: expression_name, text: text)
+            expression = ::TextExpression.new(name: expression_name, text: text, owner: self.owner)
             instance_variable_set("@#{name}", expression)
           else
             instance_variable_set("@#{name}", nil)
@@ -55,7 +59,11 @@ module HighModels
         define_method :"update_#{name}" do |new_time_str|
           exp = instance_variable_get("@#{name}")
           if exp
-            exp.when = DateTime.strptime(new_time_str, TimeExpression::TIME_PARSING_FORMAT)
+            new_time = DateTime.strptime(new_time_str, TimeExpression::TIME_PARSING_FORMAT)
+            if exp.when != new_time
+              exp.owner = self.owner
+            end
+            exp.when = new_time
           end
         end
 
@@ -66,7 +74,7 @@ module HighModels
         define_method :"#{name}=" do |time_str|
           if time_str
             date = DateTime.strptime(time_str, TimeExpression::TIME_PARSING_FORMAT)
-            expression = ::TimeExpression.new(name: expression_name, when: date)
+            expression = ::TimeExpression.new(name: expression_name, when: date, owner: self.owner)
             instance_variable_set("@#{name}", expression)
           else
             instance_variable_set("@#{name}", nil)
@@ -83,16 +91,24 @@ module HighModels
       end
     end
 
+    def initialize(*args)
+      @group = ::Group.new
+      @group.name = group_name
+      super
+    end
+
     def update(attributes = {})
       attributes.each_pair do |attr, value|
         public_send(:"update_#{attr}", value)
       end
     end
 
-    def initialize(*args)
-      @group = ::Group.new
-      @group.name = group_name
-      super
+    def owner=(user)
+      @owner = user
+      expressions_names.each do |exp_id, _|
+        exp = public_send exp_id
+        exp && exp.owner.nil? && exp.owner = @owner
+      end
     end
 
     def group

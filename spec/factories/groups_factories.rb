@@ -46,8 +46,10 @@ FactoryGirl.define do
         build(:tactic_who, group: nil),
         build(:tactic_what, group: nil),
         build(:tactic_where, group: nil),
-        build(:tactic_when, group: nil),
         build(:tactic_response_action, group: nil)
+      ]}
+      time_expressions{[
+        build(:tactic_when, group: nil)
       ]}
     end
   end

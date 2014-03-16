@@ -7,16 +7,43 @@ shared_examples "text expression attribute" do
   describe "when updating" do
     before :each do
       @old_expression = subject.public_send(getter_method)
-      subject.public_send(update_method, "New Text")
+      subject.public_send(update_method, new_text)
       @getted_expression = subject.public_send(getter_method)
     end
 
-    it "maintain the reference" do
-      expect(@getted_expression).to be == @old_expression
+    shared_examples 'general update' do
+      it "maintain the reference" do
+        expect(@getted_expression).to be == @old_expression
+      end
+
+      it "update the text" do
+        expect(@getted_expression.text).to be == new_text
+      end
     end
 
-    it "update the text" do
-      expect(@getted_expression.text).to be == "New Text"
+    context "if text change" do
+      let(:new_text) {@old_expression.text + "A"}
+
+      it "update the owner" do
+        expect(@getted_expression.owner).to be == subject.owner
+      end
+
+      include_examples 'general update'
+    end
+
+    context "if text doesn't change" do
+      let(:new_text) {@old_expression.text}
+
+      before :each do
+        subject.public_send(update_method, new_text)
+        @getted_expression = subject.public_send(getter_method)
+      end
+
+      it "owner remains the same" do
+        expect(@getted_expression.owner).to be == @old_expression.owner
+      end
+
+      include_examples 'general update'
     end
   end
 
@@ -45,6 +72,10 @@ shared_examples "text expression attribute" do
 
       it "with how expression's name" do
         expect(@text_expression.name).to be == model_name
+      end
+
+      it "with model owner" do
+        expect(@text_expression.owner).to be == subject.owner
       end
     end
 

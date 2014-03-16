@@ -6,7 +6,10 @@ describe HighModels::Strategy do
 
   describe "when initializing" do
     before :each do
-      @strategy = build :high_models_strategy, how: "How", cycle_id: 1
+      @strategy = build :high_models_strategy, 
+        how: "How",
+        cycle_id: 1,
+        owner: create(:user)
     end
 
     it "initialize a group with strategy name and cycle_id" do
@@ -17,6 +20,7 @@ describe HighModels::Strategy do
     it "initialize how text expression" do
       expect(@strategy.how.name).to be == Model.strategy_how.name
       expect(@strategy.how.text).to be == "How"
+      expect(@strategy.how.owner).to be == @strategy.owner
     end
   end
 
@@ -29,6 +33,32 @@ describe HighModels::Strategy do
     it "associate father and cycle to it" do
       expect(@group.father_id).to be == @strategy.father_id
       expect(@group.cycle_id).to be == @strategy.cycle_id
+    end
+  end
+
+  describe "when setting the owner" do
+    subject {build :high_models_strategy}
+    context "if how doesn't have an owner" do
+      before :each do
+        subject.how.owner = nil
+        subject.owner = build :user
+      end
+
+      it "sets how owner" do
+        expect(subject.how.owner).to be == subject.owner
+      end
+    end
+
+    context "if how already have an owner" do
+      before :each do
+        @how_old_owner = create :user
+        subject.how.owner = @how_old_owner
+        subject.owner = build :user
+      end
+
+      it "how's owner keeps the same" do
+        expect(subject.how.owner).to be == @how_old_owner
+      end
     end
   end
 
@@ -53,6 +83,7 @@ describe HighModels::Strategy do
         text_expressions: [@how],
         father: create(:group)
 
+      @old_owner = subject.owner
       subject.set_from_group @group
     end
 
@@ -70,6 +101,10 @@ describe HighModels::Strategy do
 
     it "the reference of text_expressions is replaced by the ones in group" do
       expect(subject.instance_variable_get(:@how)).to be == @how
+    end
+
+    it "doesn't change the owner" do
+      expect(subject.owner).to be == @old_owner
     end
   end
 
