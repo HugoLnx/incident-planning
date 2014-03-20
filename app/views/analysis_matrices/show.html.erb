@@ -11,14 +11,14 @@
   <% end %>
 <% end %>
 
-<h1>Tactics Matrix</h1>
+<h1>Tactics Planning Matrix</h1>
 
 <table class="analysis-matrix" id="analysis-matrix">
   <thead>
     <tr>
-      <th rowspan="2" class="header objective">Objectives</th>
-      <th class="header strategy" colspan="<%= @strategy.expressions.size %>">Strategies</th>
-      <th class="header tactic" colspan="<%= @tactic.expressions.size %>">Tatics</th>
+      <th rowspan="2" class="header objective">OBJECTIVES</th>
+      <th class="header strategy" colspan="<%= @strategy.expressions.size %>">STRATEGIES</th>
+      <th class="header tactic" colspan="<%= @tactic.expressions.size %>">TACTICS</th>
     </tr>
     <tr>
       <% @strategy.expressions.each do |exp| %>

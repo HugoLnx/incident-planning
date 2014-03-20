@@ -1,11 +1,11 @@
 $objective_color: #c0c0c0;
-$strategy_color: #d0d0d0;
-$tactic_color: #e0e0e0;
+$strategy_color: #c0c0c0;
+$tactic_color: #c0c0c0;
 
-$form_dark_percent: 10%;
-$header_dark_percent: 30%;
-$add_light_percent: 0%;
-$repeated_light_percent: 5%;
+$form_dark_percent: 5%;
+$header_dark_percent: 15%;
+$add_light_percent: 15%;
+$repeated_light_percent: 15%;
 
 $repeated_font_color: black;
 $repeated_font_light_percent: 60%;
@@ -16,10 +16,11 @@ $repeated_font_light_percent: 60%;
   text-align: center;
 }
 
-/* COLUMNS SIZE */
 .analysis-matrix {
+  
+/* COLUMNS SIZE */
   td {
-    height: 90px;
+    height: 50px;
   }
 
   td.objective {
@@ -94,4 +95,10 @@ $repeated_font_light_percent: 60%;
   .form.submit, td.submit-side {
     height: 20px;
   }
+
+/* BORDERS */
+  th {
+    border: solid 1px black;
+  }
 }
+    
