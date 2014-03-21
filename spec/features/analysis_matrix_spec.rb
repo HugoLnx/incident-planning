@@ -36,6 +36,7 @@ feature "Analysis Matrix basic operations", :js do
     scenario "I can update the strategy" do
       cell = @page.cell_of_strategy(0, from_objective: 0)
       form = cell.double_click
+      expect(form.get_how_value).to be == Groups::Strategy.new(strategy).how.text
 
       form.fill_how "New How"
       new_page = form.press_update
