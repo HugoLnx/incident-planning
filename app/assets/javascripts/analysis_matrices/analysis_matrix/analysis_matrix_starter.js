@@ -19,6 +19,17 @@
 
     Actions.Update.tacticAction().bindIn(matrix.matrix, $table);
 
+    $(".analysis-matrix").on("click", ".objective.non-repeated", function(event) {
+      $(this).find(".metadata").dialog({
+        title: "Objective",
+        position: {
+          my: "left top",
+          at: "left bottom",
+          of: this
+        }
+      });
+    });
+
     return matrix;
   };
 }(jQuery, LNX_INCIDENT_PLANNING));

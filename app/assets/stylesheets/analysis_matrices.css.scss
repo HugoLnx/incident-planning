@@ -1,3 +1,5 @@
+//= require dialog/jquery-ui-1.10.4.dialog.min
+
 $objective_color: #c0c0c0;
 $strategy_color: #c0c0c0;
 $tactic_color: #c0c0c0;
@@ -89,6 +91,11 @@ $repeated_font_light_percent: 60%;
 /* REPEATED FONT COLOR */
   .repeated {
     color: lighten($repeated_font_color, $repeated_font_light_percent);
+  }
+
+/* METADATA */
+  .metadata {
+    display: none;
   }
 
 /* FORMS  */

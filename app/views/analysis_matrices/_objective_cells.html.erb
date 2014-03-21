@@ -1,1 +1,7 @@
-<td class="<%= repeated %> objective"><%= text %></td>
+<td class="<%= repeated %> objective">
+	<%= text %>
+	<div class="metadata">
+		<p class="expression">Expression: <%= text %></p>
+		<p class="owner">Owner: <%= metadata[:owner_email] %></p>
+	</div>
+</td>

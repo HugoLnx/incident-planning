@@ -13,7 +13,14 @@ module AnalysisMatricesHelper
     partial = "objective_cells"
     text = objective && objective.expression && objective.expression.text
     repeated_class = repeated_class(repeated)
-    render partial: partial, locals: {text: text, repeated: repeated_class}
+    metadata = {
+      owner_email: objective && objective.expression && objective.expression.owner && objective.expression.owner.email
+    }
+    render partial: partial, locals: {
+      text: text,
+      repeated: repeated_class,
+      metadata: metadata
+    }
   end
 
   def render_show_strategy_cells(strategy, repeated)
