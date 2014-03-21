@@ -20,12 +20,16 @@
     Actions.Update.tacticAction().bindIn(matrix.matrix, $table);
 
     $(".analysis-matrix").on("click", ".objective.non-repeated", function(event) {
-      $(this).find(".metadata").dialog({
+      $(this).find(".metadata").clone().dialog({
         title: "Objective",
+        hide: true,
         position: {
           my: "left top",
           at: "left bottom",
           of: this
+        },
+        close: function() {
+          $(this).remove();
         }
       });
     });
