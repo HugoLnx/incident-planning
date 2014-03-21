@@ -11,11 +11,9 @@ module AnalysisMatricesHelper
 
   def render_show_objective_cells(objective, repeated)
     partial = "objective_cells"
-    text = objective && objective.expression && objective.expression.text
+    text = text_from objective.expression
     repeated_class = repeated_class(repeated)
-    metadata = {
-      owner_email: objective && objective.expression && objective.expression.owner && objective.expression.owner.email
-    }
+    metadata = metadata_from(objective.expression)
     render partial: partial, locals: {
       text: text,
       repeated: repeated_class,
@@ -25,14 +23,14 @@ module AnalysisMatricesHelper
 
   def render_show_strategy_cells(strategy, repeated)
     partial = "strategy_cells"
-    texts = texts_to_show_cells(strategy, ::Model.strategy)
+    infos = show_cells_info_from(strategy, ::Model.strategy)
     repeated_class = repeated_class(repeated)
 
     update_path = strategy && incident_cycle_strategy_path(@incident, @cycle, strategy.group_id)
     delete_path = update_path
 
     render partial: partial, locals: {
-      texts: texts,
+      expressions: infos,
       repeated: repeated_class,
       update_path: update_path,
       delete_path: delete_path
@@ -54,11 +52,11 @@ module AnalysisMatricesHelper
     update_path = tactic && incident_cycle_tactic_path(@incident, @cycle, tactic.group_id)
     delete_path = update_path
 
-    texts = texts_to_show_cells(tactic, ::Model.tactic)
+    infos = show_cells_info_from(tactic, ::Model.tactic)
     repeated_class = repeated_class(repeated)
 
     render partial: partial, locals: {
-      texts: texts,
+      expressions: infos,
       repeated: repeated_class,
       update_path: update_path,
       delete_path: delete_path
@@ -79,16 +77,30 @@ module AnalysisMatricesHelper
   end
 
 private
-  def texts_to_show_cells(group, model)
-    texts = {}
+
+  def show_cells_info_from(group, model)
+    infos = {}
 
     model.expressions.each do |expression_model|
       name = expression_model.pretty_name
       expression = group && group.public_send(name)
-      texts.merge!(name => expression && expression.info_as_str)
+      infos.merge!(name => {
+        metadata: metadata_from(expression),
+        text: text_from(expression)
+      })
     end
 
-    texts
+    infos
+  end
+
+  def metadata_from(expression)
+    return {
+      owner_email: expression && expression.owner && expression.owner.email
+    }
+  end
+
+  def text_from(expression)
+    expression && expression.info_as_str
   end
 
   def get_proc(helper_name)
