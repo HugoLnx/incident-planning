@@ -1,4 +1,8 @@
-//= require dialog/jquery-ui-1.10.4.dialog.min
+@import "themes/jquery.ui.smoothness";
+
+@import "jquery.ui.core";
+@import "jquery.ui.theme";
+@import "jquery.ui.dialog";
 
 $objective_color: #c0c0c0;
 $strategy_color: #c0c0c0;

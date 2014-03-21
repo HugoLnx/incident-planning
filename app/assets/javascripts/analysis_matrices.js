@@ -1,5 +1,5 @@
 //= require_tree ./analysis_matrices/
-//= require dialog/jquery-ui-1.10.4.dialog.min
+//= require jquery.ui.dialog
 //= require array_utils
 //= require_tree ./ajax/
 
