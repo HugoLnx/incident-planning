@@ -11,14 +11,14 @@ module PageObjects
     end
 
     def press_create
-      how_value = @inputs_tr.find(:xpath, ".//*[@name='strategy[how]']").value
+      how_value = get_how_value
       @submits_tr.click_on "Create"
       wait_until{@user.session.has_text? how_value}
       AnalysisMatrixPO.new(@user)
     end
 
     def press_update
-      how_value = @inputs_tr.find(:xpath, ".//*[@name='strategy[how]']").value
+      how_value = get_how_value
       @submits_tr.click_on "Update"
       wait_until{@user.session.has_text? how_value}
       AnalysisMatrixPO.new(@user)
@@ -28,6 +28,10 @@ module PageObjects
       @submits_tr.click_on "Delete"
       wait_until{@user.session.has_no_css? ".strategy.form"}
       AnalysisMatrixPO.new(@user)
+    end
+
+    def get_how_value
+      @inputs_tr.find(:xpath, ".//*[@name='strategy[how]']").value
     end
 
     def press_cancel
