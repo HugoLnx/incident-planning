@@ -1,6 +1,8 @@
 (function($) {
+  var HOLD_WAIT_DEFAULT = 500;
+
   $.fn.onHold = function(delegateSelector, whatToDo, miliseconds) {
-    var miliseconds = miliseconds || 1000;
+    var miliseconds = miliseconds || HOLD_WAIT_DEFAULT;
 
     this.on("mousedown", delegateSelector, function(event) {
       var timeoutId = 0;
