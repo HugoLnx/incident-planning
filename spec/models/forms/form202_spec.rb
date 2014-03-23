@@ -54,6 +54,9 @@ describe Forms::Form202 do
       expect(form.priorities).to be == "hey priorities"
       expect(form.objectives).to be == objectives
     end
+
+    it "update objectives properly from objectives_text="
+    it "update owner from the changed objectives"
   end
 
   context "when check if is persisted" do
@@ -156,6 +159,16 @@ describe Forms::Form202 do
         expect(form.objectives[0].cycle).to be == form.cycle
         expect(form.objectives[1].cycle).to be == form.cycle
         expect(form.objectives[2].cycle).to be == form.cycle
+      end
+
+      it "associate objectives with their owner" do
+        objectives = 3.times.map{build(:objective)}
+        form = build :form202, objectives: objectives
+        form.save
+
+        expect(form.objectives[0].owner).to be == form.owner
+        expect(form.objectives[1].owner).to be == form.owner
+        expect(form.objectives[2].owner).to be == form.owner
       end
     end
 

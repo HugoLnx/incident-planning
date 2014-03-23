@@ -6,5 +6,6 @@ FactoryGirl.define do
     incident
     objectives nil
     objectives_text nil
+    association(:owner, factory: :user)
   end
 end

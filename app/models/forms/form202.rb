@@ -2,7 +2,7 @@ module Forms
   class Form202
     include ActiveModel::Model
 
-    attr_accessor :from, :to, :number, :priorities, :incident, :objectives, :objectives_as_str, :cycle
+    attr_accessor :from, :to, :number, :priorities, :incident, :objectives, :objectives_as_str, :cycle, :owner
 
     def self.model_name
       ActiveModel::Name.new(::Cycle)
@@ -69,6 +69,7 @@ module Forms
           cycle.save!
           objectives && objectives.each do |objective|
             objective.cycle = cycle
+            objective.owner = owner
             Expressions::Objective.save!(objective)
           end
         end

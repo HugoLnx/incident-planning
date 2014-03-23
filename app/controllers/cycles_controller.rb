@@ -20,6 +20,7 @@ class CyclesController < ApplicationController
   def create
     @cycle = Forms::Form202.new(cycle_params)
     @cycle.incident = @incident
+    @cycle.owner = current_user
 
     respond_to do |format|
       if @cycle.save
