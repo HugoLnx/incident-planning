@@ -6,7 +6,7 @@
       var _expression_model_prettyname = _expression_model_name.toLowerCase();
       var selector = "." + _expression_model_prettyname + ".non-repeated";
 
-      $(_$father).on("click", selector, function(event) {
+      $(_$father).onHold(selector, function(event) {
         $(this).find(".metadata").clone().dialog({
           title: _expression_model_name,
           hide: true,

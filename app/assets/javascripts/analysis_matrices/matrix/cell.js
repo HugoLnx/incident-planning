@@ -45,7 +45,7 @@
     var data = {};
     for(var i = 0; i<cells.length; i++) {
       var cell = cells[i];
-      var text = cell.$element.text();
+      var text = cell.text();
       if (text !== "") {
         data[cell.expressionName()] = text;
       }
@@ -68,5 +68,9 @@
         return name;
       }
     }
+  };
+
+  prototype.text = function() {
+    return this.$element.find(".expression-text").text();
   };
 }(jQuery, LNX_INCIDENT_PLANNING, LNX_UTILS));

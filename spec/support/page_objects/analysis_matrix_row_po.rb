@@ -8,7 +8,7 @@ module PageObjects
     end
 
     def press_add_strategy
-      @element.click_on "ADD STRATEGY"
+      @element.click_on "Add Strategy"
       form_element = @element.find "td.strategy.form"
       AnalysisMatrixStrategyFormPO.new(@user, form_element)
     end

@@ -1,4 +1,4 @@
 <td class="<%= repeated %> objective">
-	<%= text %>
+	<%= render partial: "expression_text", locals: {text: text} %>
 	<%= render partial: "metadata", locals: {text: text, metadata: metadata} %>
 </td>

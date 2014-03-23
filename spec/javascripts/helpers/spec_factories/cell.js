@@ -44,9 +44,13 @@
 
   function buildOne(row, htmlOpts) {
     var htmlOpts = htmlOpts || {};
-    var $td = $("<td>");
-    $td.addClass(htmlOpts.class);
-    $td.text(htmlOpts.text);
+    var $textElement = $("<p>")
+      .addClass("expression-text")
+      .text(htmlOpts.text);
+
+    var $td = $("<td>")
+      .addClass(htmlOpts.class)
+      .append($textElement);
 
     var cell = new Matrix.Cell($td, row);
     return cell

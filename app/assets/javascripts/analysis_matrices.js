@@ -1,6 +1,7 @@
 //= require_tree ./analysis_matrices/
 //= require jquery.ui.dialog
 //= require array_utils
+//= require on_hold
 //= require_tree ./ajax/
 
 var matrix;

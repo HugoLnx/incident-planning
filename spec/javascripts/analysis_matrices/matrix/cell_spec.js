@@ -76,6 +76,13 @@ describe("Matrix.Cell", function() {
         });
       });
     });
+
+    describe("when getting cell text", function() {
+      it("gets content of expression text element", function() {
+        var cell = Spec.Factories.Cell.build({html: {class: "how", text: "value1"}});
+        expect(cell.text()).toEqual("value1");
+      });
+    });
   });
 
   describe("given a loaded cell", function() {
