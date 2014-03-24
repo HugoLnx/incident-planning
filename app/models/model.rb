@@ -39,6 +39,11 @@ module Model
     tactic.expressions.find{|expression| expression.name == "Response Action"}
   end
 
+  def self.find_expression_by_name(name)
+    expressions = root.expressions + strategy.expressions + tactic.expressions
+    expressions.find{|expression| expression.name == name}
+  end
+
   def self.to_json
     groups = {
       objective: self.root.to_hash,

@@ -12,7 +12,7 @@ FactoryGirl.define do
       sequence(:name){|i| "ExpressionName #{i}"}
       type Model::Expression::TYPES.time
       sequence(:optional){|i| [true, false].sample}
-      approval_roles "Chief"
+      approval_roles [0]
       father nil
     end
 

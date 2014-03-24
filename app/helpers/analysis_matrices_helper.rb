@@ -17,7 +17,8 @@ module AnalysisMatricesHelper
     render partial: partial, locals: {
       text: text,
       repeated: repeated_class,
-      metadata: metadata
+      metadata: metadata,
+      can_approve: check_can_approve(objective.expression)
     }
   end
 
@@ -86,7 +87,8 @@ private
       expression = group && group.public_send(name)
       infos.merge!(name => {
         metadata: metadata_from(expression),
-        text: text_from(expression)
+        text: text_from(expression),
+        can_approve: check_can_approve(expression)
       })
     end
 
@@ -103,6 +105,10 @@ private
 
   def text_from(expression)
     expression && expression.info_as_str
+  end
+
+  def check_can_approve(expression)
+    expression && expression.needs_role_approval?(current_user.roles_ids)
   end
 
   def get_proc(helper_name)

@@ -3,4 +3,7 @@
   <p class="owner">Owner: <%= metadata[:owner_email] %></p>
   <p class="source">Source: <%= metadata[:source] %></p>
   <p class="status">Status: <%= metadata[:status] %></p>
+  <% if can_approve %>
+    <button>Approve</button>
+  <% end %>
 </div>

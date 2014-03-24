@@ -49,6 +49,14 @@ module Concerns
         SOURCES_NAMES[self.source]
       end
 
+      def needs_role_approval?(roles_ids=[])
+        if roles_ids.is_a? Fixnum
+          roles_ids = [roles_ids]
+        end
+        expression_model = ::Model.find_expression_by_name(self.name)
+        expression_model.approval_roles.any?{|approval_role| roles_ids.include? approval_role}
+      end
+
     private
       def defaults
         if !self.persisted?
