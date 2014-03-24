@@ -3,6 +3,8 @@
   var Templates = namespace.AnalysisMatrix.Templates;
   var Model = namespace.Model;
 
+  var TIME_TYPE_ID = 1
+
   Templates.FormTemplate = function(opts) {
     var opts = opts || {};
     this.submitName = opts.submitButton;
@@ -62,14 +64,19 @@
     $.each(self.groupModel.expressions, function() {
       var exp = this;
       var expName = exp.pretty_name;
-      html += inputHtml(groupName, expName, values[expName] || "");
+      if (exp.type === TIME_TYPE_ID) {
+        var placeholder = "dd/mm/yyyy hh:mm"
+      }
+      html += inputHtml(groupName, expName, values[expName], placeholder);
     });
     return html;
   };
 
-  function inputHtml(groupName, expName, value) {
+  function inputHtml(groupName, expName, value, placeholder) {
+    var value = value || "";
+    var placeholder = placeholder || "";
     var html = '<td class="' + groupName + ' form ' + expName + '">';
-    html += '<input name="' + groupName + '[' + expName + ']" value="' + value + '" />';
+    html += '<input name="' + groupName + '[' + expName + ']" value="' + value + '" placeholder="' + placeholder + '" />';
     html += '</td>';
     return html;
   }
