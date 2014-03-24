@@ -121,7 +121,7 @@ describe HighModels::Tactic do
     end
   end
 
-  describe "time_expression attributes", only: true do
+  describe "time_expression attributes" do
     subject { build :high_models_tactic }
 
     describe "when" do

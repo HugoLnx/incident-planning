@@ -57,31 +57,41 @@ shared_examples "time expression attribute" do
     end
   end
 
-  describe "when setting" do
-    describe "initialize a new datetime" do
-      before :each do
+  describe "when setting with string" do
+    context "if in format 'dd/mm/yyyy hh:mm'" do
+      describe "initialize a new datetime" do
+        before :each do
+          subject.public_send(setter_method, valid_date_str)
+          @expression = subject.public_send(getter_method)
+        end
+
+        it "parsing the string received" do
+          expect(@expression.when).to be == DateTime.new(1993, 3, 22, 10, 30)
+        end
+
+        it "with expression model name" do
+          expect(@expression.name).to be == model_name
+        end
+
+        it "with model owner" do
+          expect(@expression.owner).to be == subject.owner
+        end
+      end
+
+      it "replace the old text expression" do
+        old_exp = subject.public_send(getter_method)
         subject.public_send(setter_method, valid_date_str)
-        @expression = subject.public_send(getter_method)
-      end
-
-      it "parsing the string in format 'dd/mm/yyyy hh:mm' received" do
-        expect(@expression.when).to be == DateTime.new(1993, 3, 22, 10, 30)
-      end
-
-      it "with expression model name" do
-        expect(@expression.name).to be == model_name
-      end
-
-      it "with model owner" do
-        expect(@expression.owner).to be == subject.owner
+        new_exp = subject.public_send(getter_method)
+        expect(new_exp).to_not be == old_exp
       end
     end
 
-    it "replace the old text expression" do
-      old_exp = subject.public_send(getter_method)
-      subject.public_send(setter_method, valid_date_str)
-      new_exp = subject.public_send(getter_method)
-      expect(new_exp).to_not be == old_exp
+    context "if string have an invalid format" do
+      it 'sets expression to nil' do
+        subject.public_send(setter_method, "invalid format")
+        expression = subject.public_send(getter_method)
+        expect(expression).to be_nil
+      end
     end
   end
 

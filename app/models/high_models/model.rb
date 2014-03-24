@@ -72,8 +72,11 @@ module HighModels
         end
 
         define_method :"#{name}=" do |time_str|
-          if time_str
-            date = DateTime.strptime(time_str, TimeExpression::TIME_PARSING_FORMAT)
+          begin
+            date = time_str && DateTime.strptime(time_str, TimeExpression::TIME_PARSING_FORMAT)
+          rescue ArgumentError 
+          end
+          if date
             expression = ::TimeExpression.new(name: expression_name, when: date, owner: self.owner)
             instance_variable_set("@#{name}", expression)
           else
