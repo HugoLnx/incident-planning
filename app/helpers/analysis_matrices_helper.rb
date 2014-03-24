@@ -95,7 +95,9 @@ private
 
   def metadata_from(expression)
     return {
-      owner_email: expression && expression.owner && expression.owner.email
+      owner_email: expression && expression.owner && expression.owner.email,
+      source: expression && expression.source_name,
+      status: expression && expression.status_name
     }
   end
 
