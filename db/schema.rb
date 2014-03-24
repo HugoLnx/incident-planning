@@ -45,14 +45,14 @@ ActiveRecord::Schema.define(version: 20140324010907) do
   end
 
   create_table "text_expressions", force: true do |t|
-    t.string   "name",                 null: false
-    t.string   "text",                 null: false
-    t.integer  "cycle_id",             null: false
+    t.string   "name",                             null: false
+    t.string   "text",                             null: false
+    t.integer  "cycle_id",                         null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "group_id"
     t.integer  "owner_id"
-    t.integer  "source",     limit: 8, null: false
+    t.integer  "source",     limit: 8, default: 0, null: false
   end
 
   add_index "text_expressions", ["cycle_id"], name: "index_text_expressions_on_cycle_id", using: :btree
@@ -60,14 +60,14 @@ ActiveRecord::Schema.define(version: 20140324010907) do
   add_index "text_expressions", ["owner_id"], name: "index_text_expressions_on_owner_id", using: :btree
 
   create_table "time_expressions", force: true do |t|
-    t.datetime "when",                 null: false
-    t.string   "name",                 null: false
+    t.datetime "when",                             null: false
+    t.string   "name",                             null: false
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "cycle_id"
     t.integer  "owner_id"
-    t.integer  "source",     limit: 8, null: false
+    t.integer  "source",     limit: 8, default: 0, null: false
   end
 
   add_index "time_expressions", ["cycle_id"], name: "index_time_expressions_on_cycle_id", using: :btree
