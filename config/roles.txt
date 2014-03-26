@@ -1,9 +1,9 @@
 00: Objective Chief
 01: Objective Chief 2
-03: Objective Chief 3
-04: Strategy Chief
-05: Strategy Chief 2
-06: Strategy Chief 3
-07: Tactic Chief
-08: Tactic Chief 2
-09: Tactic Chief 3
+02: Objective Chief 3
+03: Strategy Chief
+04: Strategy Chief 2
+05: Strategy Chief 3
+06: Tactic Chief
+07: Tactic Chief 2
+08: Tactic Chief 3
