@@ -24,6 +24,8 @@ module Concerns
       belongs_to :group
       belongs_to :owner, class_name: "User"
 
+      has_many :approvals, as: :expression
+
       scope :objectives, -> { where(name: Model.objective.name) }
 
       validates_associated :group
@@ -55,6 +57,12 @@ module Concerns
         end
         expression_model = ::Model.find_expression_by_name(self.name)
         expression_model.approval_roles.any?{|approval_role| roles_ids.include? approval_role}
+      end
+
+      def roles_needing_to_approve
+        expression_model = ::Model.find_expression_by_name(self.name)
+        approving_roles = self.approvals.map{|a| a.user_role.role_id}
+        expression_model.approval_roles - approving_roles
       end
 
     private

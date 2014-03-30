@@ -10,8 +10,7 @@ shared_examples_for "Expression" do
 
   context "when verifying if needs role approval" do
     before :each do
-      expression_model = build :expression, approval_roles: [0, 1]
-      allow(Model).to receive(:find_expression_by_name).and_return(expression_model)
+      mock_expression_model approval_roles: [0, 1]
       @expression = build :text_expression
     end
 
@@ -43,6 +42,30 @@ shared_examples_for "Expression" do
     it 'sets source to zero (Proposed)' do
       expression = model.new
       expect(expression.source).to be == Concerns::Expression::SOURCES.proposed()
+    end
+  end
+
+  describe "when getting the roles missing to approval" do
+    context "gets all approval roles if expression have no approvals yet" do
+      it "gets two roles from expression model approval roles" do
+        roles_ids = [0, 1]
+        mock_expression_model approval_roles: roles_ids
+        expression = build :text_expression
+
+        expect(expression.roles_needing_to_approve).to be == roles_ids
+      end
+    end
+
+    context "doesn't include roles that already approved that expression" do
+      it "ignore two approving roles from expression model approval roles" do
+        mock_expression_model approval_roles: [0, 1, 2]
+        expression = create :objective
+
+        create :approval, user_role: create(:user_role, role_id: 0), expression: expression
+        create :approval, user_role: create(:user_role, role_id: 1), expression: expression
+
+        expect(expression.roles_needing_to_approve).to be == [2]
+      end
     end
   end
 end
