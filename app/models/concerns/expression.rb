@@ -59,10 +59,19 @@ module Concerns
         expression_model.approval_roles.any?{|approval_role| roles_ids.include? approval_role}
       end
 
-      def roles_needing_to_approve
-        expression_model = ::Model.find_expression_by_name(self.name)
+      def roles_missing_approvement
         approving_roles = self.approvals.map{|a| a.user_role.role_id}
-        expression_model.approval_roles - approving_roles
+        roles_needed_to_approve - approving_roles
+      end
+
+      def roles_needed_to_approve
+        expression_model = ::Model.find_expression_by_name(self.name)
+        expression_model.approval_roles
+      end
+
+      def user_that_approved_as(role_id)
+        approval = self.approvals.joins(:user_role).where('user_roles.role_id' => role_id).first
+        approval && approval.user_role.user
       end
 
     private

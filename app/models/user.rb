@@ -30,4 +30,8 @@ class User < ActiveRecord::Base
   def user_role(role_id)
     user_roles.find{|user_role| user_role.role_id == role_id}
   end
+
+  def human_id
+    email
+  end
 end

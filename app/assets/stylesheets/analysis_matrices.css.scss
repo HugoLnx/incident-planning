@@ -97,11 +97,6 @@ $repeated_font_light_percent: 60%;
     color: lighten($repeated_font_color, $repeated_font_light_percent);
   }
 
-/* METADATA */
-  .metadata {
-    display: none;
-  }
-
 /* FORMS  */
   .form.submit, td.submit-side {
     height: 20px;
@@ -113,3 +108,18 @@ $repeated_font_light_percent: 60%;
   }
 }
     
+
+
+/* METADATA */
+.metadata {
+  display: none;
+
+  .label {
+    font-weight: bold;
+  }
+
+  /* APPROVEMENTS */
+  .approvements .approvement {
+    text-indent: 15px;
+  }
+}

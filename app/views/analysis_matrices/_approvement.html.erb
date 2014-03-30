@@ -1,0 +1,9 @@
+<% if user_human_id %>
+  <p class="approvement approved">
+    <span class="role"><%= role %></span>: <span class="user"><%= user_human_id %></span>
+  </p>
+<% else %>
+  <p class="approvement not-approved">
+    <span class="role"><%= role %></span>: <span class="user">Not approved yet</span>
+  </p>
+<% end %>

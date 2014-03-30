@@ -94,21 +94,33 @@ private
   end
 
   def render_metadata_partial_for(expression)
-    metadata = metadata_from expression
-    text = text_from expression
-    can_approve = check_can_approve expression
-    approval = Approval.new(expression: expression)
+    metadata_locals = metadata_locals_from expression
 
-    render partial: "metadata", locals: {text: text, metadata: metadata, can_approve: can_approve, approval: approval}
+    render partial: "metadata", locals: metadata_locals
   end
 
-  def metadata_from(expression)
+  def metadata_locals_from(expression)
     return {
-      owner_email: expression && expression.owner && expression.owner.email,
+      text: text_from(expression),
+      can_approve: check_can_approve(expression),
+      approval: Approval.new(expression: expression),
+      owner_human_id: expression && expression.owner && expression.owner.human_id,
+      approvements: approvements_from(expression),
       source: expression && expression.source_name,
       status: expression && expression.status_name,
       expression_id: expression && expression.id
     }
+  end
+
+  def approvements_from(expression)
+    return [] if expression.nil?
+    expression.roles_needed_to_approve.map do |role|
+      user = expression.user_that_approved_as role
+      {
+        user_human_id: user && user.human_id,
+        role: ::Roles::Dao.new.find_by_id(role).name
+      }
+    end
   end
 
   def text_from(expression)

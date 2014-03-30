@@ -6,7 +6,7 @@ class Approval < ActiveRecord::Base
   def self.build_all_to(user, approve: nil)
     expression = approve || raise(ArgumentError.new, "approving parameter is mandatory")
 
-    roles_user_can_approve = user.roles_ids & expression.roles_needing_to_approve
+    roles_user_can_approve = user.roles_ids & expression.roles_missing_approvement
 
     roles_user_can_approve.map do |role_id|
       approving_user_role = user.user_role(role_id)

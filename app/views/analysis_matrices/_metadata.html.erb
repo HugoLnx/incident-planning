@@ -1,8 +1,15 @@
 <div class="metadata">
-  <p class="expression">Expression: <%= text %></p>
-  <p class="owner">Owner: <%= metadata[:owner_email] %></p>
-  <p class="source">Source: <%= metadata[:source] %></p>
-  <p class="status">Status: <%= metadata[:status] %></p>
+	<p class="expression"><span class="label">Expression</span>: <%= text %></p>
+  <p class="owner"><span class="label">Owner</span>: <%= owner_human_id %></p>
+  <p class="source"><span class="label">Source</span>: <%= source %></p>
+		<p class="status"><span class="label">Status</span>: <%= status %></p>
+
+	<p class="label">Approvements</p>
+	<div class="approvements">
+		<% approvements.each do |approvement| %>
+			<%= render partial: "approvement", locals: approvement %>
+		<% end %>
+	</div>
 
   <% if can_approve %>
 		<%= form_for approval do |f| %>
