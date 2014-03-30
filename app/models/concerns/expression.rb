@@ -38,6 +38,7 @@ module Concerns
       validates :owner_id, presence: true
 
       after_initialize :defaults
+      around_save :reset_callback, if: :content_changed?
 
       def status
         missing_approvement = roles_missing_approvement
@@ -88,10 +89,29 @@ module Concerns
         approval && approval.user_role.user
       end
 
+      def reset
+        self.approvals.destroy_all
+        childs = self.group.childs
+        while !childs.empty?
+          current_group = childs.pop
+          childs += current_group.childs
+          current_group.text_expressions.includes(:approvals).each{|exp| exp.approvals.destroy_all}
+          current_group.time_expressions.includes(:approvals).each{|exp| exp.approvals.destroy_all}
+        end
+      end
+
     private
       def defaults
         if !self.persisted?
           self.source ||= 0
+        end
+      end
+
+      def reset_callback(&block)
+        updating = self.persisted?
+        yield
+        if updating
+          reset
         end
       end
     end

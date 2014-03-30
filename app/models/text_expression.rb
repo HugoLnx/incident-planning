@@ -4,4 +4,8 @@ class TextExpression < ActiveRecord::Base
   def info_as_str
     text
   end
+
+  def content_changed?
+    text_changed?
+  end
 end

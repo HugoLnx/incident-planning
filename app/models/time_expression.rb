@@ -6,4 +6,8 @@ class TimeExpression < ActiveRecord::Base
   def info_as_str
     self.when.strftime TIME_PARSING_FORMAT
   end
+
+  def content_changed?
+    when_changed?
+  end
 end
