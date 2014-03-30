@@ -8,7 +8,7 @@ shared_examples_for "Expression" do
     end
   end
 
-  context "when verifying if needs role approval" do
+  context "when verifying if permits role approval" do
     before :each do
       mock_expression_model approval_roles: [0, 1]
       @expression = build :text_expression
@@ -16,24 +16,74 @@ shared_examples_for "Expression" do
 
     context "returns true" do
       specify 'when the role is included in expression approval roles' do
-        expect(@expression.needs_role_approval?(0)).to be true
-        expect(@expression.needs_role_approval?(1)).to be true
+        expect(@expression.permits_role_approval?(0)).to  be == true
+        expect(@expression.permits_role_approval?(1)).to  be == true
       end
 
       specify 'when one of the roles is included in expression approval roles' do
-        expect(@expression.needs_role_approval?([0, 1])).to be true
-        expect(@expression.needs_role_approval?([0, 2])).to be true
-        expect(@expression.needs_role_approval?([1, 4])).to be true
+        expect(@expression.permits_role_approval?([0, 1])).to  be == true
+        expect(@expression.permits_role_approval?([0, 2])).to  be == true
+        expect(@expression.permits_role_approval?([1, 4])).to  be == true
       end
     end
 
     context "returns false" do
       specify "if role id isn't included in expression approval roles" do
-        expect(@expression.needs_role_approval?(3)).to be false
+        expect(@expression.permits_role_approval?(3)).to  be == false
       end
 
       specify "if all role ids aren't included in expression approval roles" do
-        expect(@expression.needs_role_approval?([3, 5])).to be false
+        expect(@expression.permits_role_approval?([3, 5])).to  be == false
+      end
+    end
+  end
+
+  describe "when verifying if already have needed role approval" do
+    context "verifies if all of roles passed that have permission to approve already did it" do
+      it "returns true because the unique role passed that have permission already approved" do
+        mock_expression_model approval_roles: [0]
+        expression = build :objective
+
+        create :approval, expression: expression, user_role: create(:user_role, role_id: 0)
+        
+        expect(expression.already_had_needed_role_approval?([0, 1])).to  be == true
+      end
+
+      it "returns true because all roles passed have permission and already approved" do
+        mock_expression_model approval_roles: [0, 1]
+        expression = build :objective
+
+        create :approval, expression: expression, user_role: create(:user_role, role_id: 0)
+        create :approval, expression: expression, user_role: create(:user_role, role_id: 1)
+        
+        expect(expression.already_had_needed_role_approval?([0, 1])).to  be == true
+      end
+
+      it "returns false because roles passed was an empty array" do
+        expression = build :objective
+        expect(expression.already_had_needed_role_approval?([])).to  be == false
+      end
+
+      it "returns false because any role passed have permission" do
+        mock_expression_model approval_roles: [0, 1]
+        expression = build :objective
+        expect(expression.already_had_needed_role_approval?([2,3])).to  be == false
+      end
+
+      it "returns false because the all roles passed have permission and doesn't approved yet" do
+        mock_expression_model approval_roles: [0, 1]
+        expression = build :objective
+        
+        expect(expression.already_had_needed_role_approval?([0, 1])).to  be == false
+      end
+
+      it "returns false because one of the roles passed have permission and doesn't approved yet" do
+        mock_expression_model approval_roles: [0, 1]
+        expression = build :objective
+
+        create :approval, expression: expression, user_role: create(:user_role, role_id: 0)
+        
+        expect(expression.already_had_needed_role_approval?([0, 1])).to  be == false
       end
     end
   end

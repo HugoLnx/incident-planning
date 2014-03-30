@@ -102,7 +102,8 @@ private
   def metadata_locals_from(expression)
     return {
       text: text_from(expression),
-      can_approve: check_can_approve(expression),
+      user_permitted_to_approve: check_permitted_to_approve(expression),
+      already_approved_by_user: check_already_approved_by_user(expression),
       approval: Approval.new(expression: expression),
       owner_human_id: expression && expression.owner && expression.owner.human_id,
       approvements: approvements_from(expression),
@@ -127,8 +128,12 @@ private
     expression && expression.info_as_str
   end
 
-  def check_can_approve(expression)
-    expression && expression.needs_role_approval?(current_user.roles_ids)
+  def check_permitted_to_approve(expression)
+    expression && expression.permits_role_approval?(current_user.roles_ids)
+  end
+
+  def check_already_approved_by_user(expression)
+    expression && expression.already_had_needed_role_approval?(current_user.roles_ids)
   end
 
   def get_proc(helper_name)

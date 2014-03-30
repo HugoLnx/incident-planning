@@ -11,11 +11,13 @@
 		<% end %>
 	</div>
 
-  <% if can_approve %>
+  <% if user_permitted_to_approve && !already_approved_by_user %>
 		<%= form_for approval do |f| %>
 			<%= f.hidden_field :expression_id %>
 			<%= f.hidden_field :expression_type %>
 			<button>Approve</button>
 		<% end %>
+	<% elsif already_approved_by_user %>
+			<button disabled>Approve</button>
   <% end %>
 </div>

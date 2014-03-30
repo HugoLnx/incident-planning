@@ -51,12 +51,19 @@ module Concerns
         SOURCES_NAMES[self.source]
       end
 
-      def needs_role_approval?(roles_ids=[])
+      def permits_role_approval?(roles_ids=[])
         if roles_ids.is_a? Fixnum
           roles_ids = [roles_ids]
         end
-        expression_model = ::Model.find_expression_by_name(self.name)
-        expression_model.approval_roles.any?{|approval_role| roles_ids.include? approval_role}
+        !(roles_needed_to_approve & roles_ids).empty?
+      end
+
+      def already_had_needed_role_approval?(roles_ids=[])
+        permitted_roles = roles_ids & roles_needed_to_approve
+        return false if permitted_roles.empty?
+
+        approving_roles = self.approvals.map{|a| a.user_role.role_id}
+        (permitted_roles - approving_roles).empty?
       end
 
       def roles_missing_approvement
