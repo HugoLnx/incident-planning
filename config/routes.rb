@@ -11,6 +11,8 @@ IncidentPlanning::Application.routes.draw do
     end
   end
 
+  resource :approvals, only: %i{create}
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

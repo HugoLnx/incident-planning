@@ -26,4 +26,8 @@ class User < ActiveRecord::Base
   def roles_ids
     user_roles.map(&:role_id)
   end
+
+  def user_role(role_id)
+    user_roles.find{|user_role| user_role.role_id == role_id}
+  end
 end

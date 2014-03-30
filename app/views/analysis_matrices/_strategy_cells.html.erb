@@ -1,6 +1,6 @@
 <% expressions.each do |name, info| %>
 	<td data-update_path="<%= update_path %>" data-delete_path="<%= delete_path %>" class="<%= repeated %> strategy <%= name %> show">
 	  <%= render partial: "expression_text", locals: {text: info[:text]} %>
-		<%= render partial: "metadata", locals: info %>
+		<%= info[:metadata_partial] %>
 	</td>
 <% end %>

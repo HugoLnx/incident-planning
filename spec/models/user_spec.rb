@@ -59,4 +59,28 @@ describe User do
       end
     end
   end
+
+  describe "when getting an specific user role" do
+    before :each do
+      user = create :user
+      @user_roles = 3.times.map do |i|
+        create :user_role, user: user, role_id: i
+      end
+      @user = User.includes(:user_roles).find user.id
+    end
+
+    context "find the user roles by role id" do
+      it "find the first user role" do
+        expect(@user.user_role(0)).to be == @user_roles[0]
+      end
+
+      it "find a middle one user role" do
+        expect(@user.user_role(1)).to be == @user_roles[1]
+      end
+
+      it "find the last user role" do
+        expect(@user.user_role(2)).to be == @user_roles[2]
+      end
+    end
+  end
 end

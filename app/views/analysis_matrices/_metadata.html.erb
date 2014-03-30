@@ -3,7 +3,12 @@
   <p class="owner">Owner: <%= metadata[:owner_email] %></p>
   <p class="source">Source: <%= metadata[:source] %></p>
   <p class="status">Status: <%= metadata[:status] %></p>
+
   <% if can_approve %>
-    <button>Approve</button>
+		<%= form_for approval do |f| %>
+			<%= f.hidden_field :expression_id %>
+			<%= f.hidden_field :expression_type %>
+			<button>Approve</button>
+		<% end %>
   <% end %>
 </div>

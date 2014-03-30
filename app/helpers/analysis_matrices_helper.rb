@@ -13,12 +13,11 @@ module AnalysisMatricesHelper
     partial = "objective_cells"
     text = text_from objective.expression
     repeated_class = repeated_class(repeated)
-    metadata = metadata_from(objective.expression)
+    metadata_partial = render_metadata_partial_for(objective.expression)
     render partial: partial, locals: {
       text: text,
       repeated: repeated_class,
-      metadata: metadata,
-      can_approve: check_can_approve(objective.expression)
+      metadata_partial: metadata_partial
     }
   end
 
@@ -86,20 +85,29 @@ private
       name = expression_model.pretty_name
       expression = group && group.public_send(name)
       infos.merge!(name => {
-        metadata: metadata_from(expression),
-        text: text_from(expression),
-        can_approve: check_can_approve(expression)
+        metadata_partial: render_metadata_partial_for(expression),
+        text: text_from(expression)
       })
     end
 
     infos
   end
 
+  def render_metadata_partial_for(expression)
+    metadata = metadata_from expression
+    text = text_from expression
+    can_approve = check_can_approve expression
+    approval = Approval.new(expression: expression)
+
+    render partial: "metadata", locals: {text: text, metadata: metadata, can_approve: can_approve, approval: approval}
+  end
+
   def metadata_from(expression)
     return {
       owner_email: expression && expression.owner && expression.owner.email,
       source: expression && expression.source_name,
-      status: expression && expression.status_name
+      status: expression && expression.status_name,
+      expression_id: expression && expression.id
     }
   end
 
