@@ -308,9 +308,7 @@ describe HighModels::Tactic do
       before :each do
         @tactic = build :high_models_tactic
 
-        allow(@tactic.group).to receive(:save!) do
-          raise ActiveRecord::RecordInvalid.new(@tactic.group)
-        end
+        InvalidSavingStubber.new(self).stub(@tactic.group)
       end
 
       it_behaves_like "an invalid saving"
@@ -321,9 +319,7 @@ describe HighModels::Tactic do
         @tactic = build :high_models_tactic,
           who: "Someone"
 
-        allow(@tactic.who).to receive(:save!) do
-          raise ActiveRecord::RecordInvalid.new(@tactic.who)
-        end
+        InvalidSavingStubber.new(self).stub(@tactic.who)
       end
 
       it_behaves_like "an invalid saving"
@@ -334,9 +330,7 @@ describe HighModels::Tactic do
         @tactic = build :high_models_tactic,
           what: "Something"
 
-        allow(@tactic.what).to receive(:save!) do
-          raise ActiveRecord::RecordInvalid.new(@tactic.what)
-        end
+        InvalidSavingStubber.new(self).stub(@tactic.what)
       end
 
       it_behaves_like "an invalid saving"
@@ -347,9 +341,7 @@ describe HighModels::Tactic do
         @tactic = build :high_models_tactic,
           where: "Somewhere"
 
-        allow(@tactic.where).to receive(:save!) do
-          raise ActiveRecord::RecordInvalid.new(@tactic.where)
-        end
+        InvalidSavingStubber.new(self).stub(@tactic.where)
       end
 
       it_behaves_like "an invalid saving"
@@ -359,9 +351,7 @@ describe HighModels::Tactic do
       before :each do
         @tactic = build :high_models_tactic
 
-        allow(@tactic.when).to receive(:save!) do
-          raise ActiveRecord::RecordInvalid.new(@tactic.when)
-        end
+        InvalidSavingStubber.new(self).stub(@tactic.when)
       end
 
       it_behaves_like "an invalid saving"
@@ -372,9 +362,7 @@ describe HighModels::Tactic do
         @tactic = build :high_models_tactic,
           response_action: "Response"
 
-        allow(@tactic.response_action).to receive(:save!) do
-          raise ActiveRecord::RecordInvalid.new(@tactic.response_action)
-        end
+        InvalidSavingStubber.new(self).stub(@tactic.response_action)
       end
 
       it_behaves_like "an invalid saving"

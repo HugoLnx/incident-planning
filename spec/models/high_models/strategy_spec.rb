@@ -186,9 +186,7 @@ describe HighModels::Strategy do
       before :each do
         @strategy = build :high_models_strategy
 
-        allow(@strategy.group).to receive(:save!) do
-          raise ActiveRecord::RecordInvalid.new(@strategy.group)
-        end
+        InvalidSavingStubber.new(self).stub(@strategy.group)
       end
 
       it_behaves_like "an invalid saving"
@@ -198,9 +196,7 @@ describe HighModels::Strategy do
       before :each do
         @strategy = build :high_models_strategy
 
-        allow(@strategy.how).to receive(:save!) do
-          raise ActiveRecord::RecordInvalid.new(@strategy.how)
-        end
+        InvalidSavingStubber.new(self).stub(@strategy.how)
       end
 
       it_behaves_like "an invalid saving"
