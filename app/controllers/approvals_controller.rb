@@ -2,6 +2,7 @@ class ApprovalsController < ApplicationController
   def create
     expression = PolymorphicFinder.find(approval_params[:expression_id], approval_params[:expression_type])
     approvals = Approval.build_all_to(current_user, approve: expression)
+    approvals = ApprovalCollection.new(approvals)
 
     respond_to do |format|
       if approvals.save
