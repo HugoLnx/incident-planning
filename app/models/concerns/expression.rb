@@ -40,7 +40,14 @@ module Concerns
       after_initialize :defaults
 
       def status
-        STATUS.to_be_approved()
+        missing_approvement = roles_missing_approvement
+        if missing_approvement.empty?
+          STATUS.approved()
+        elsif missing_approvement == roles_needed_to_approve
+          STATUS.to_be_approved()
+        else
+          STATUS.partial_approval()
+        end
       end
 
       def status_name

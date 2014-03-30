@@ -175,4 +175,46 @@ shared_examples_for "Expression" do
       end
     end
   end
+
+  describe "when getting status" do
+    context "is to be approved if any approval role approved yet" do
+      it "get to be approved because have two approval roles without approve" do
+        mock_expression_model approval_roles: [1, 0]
+        expression = create :objective
+        expect(expression.status).to be == described_class::STATUS.to_be_approved()
+      end
+    end
+
+    context "is partial approval if any approval roles has been approved, but not all" do
+      it "gets partial approval because have three approval roles and two of them have approves" do
+        mock_expression_model approval_roles: [2, 1, 0]
+        expression = create :objective
+
+        create :approval, expression: expression, user_role: create(:user_role, role_id: 0)
+        create :approval, expression: expression, user_role: create(:user_role, role_id: 1)
+
+        expect(expression.status).to be == described_class::STATUS.partial_approval()
+      end
+    end
+
+    context "is approved if all approval roles has been approved" do
+      it "gets approved because every three approval roles has been approved" do
+        mock_expression_model approval_roles: [2, 1, 0]
+        expression = create :objective
+
+        create :approval, expression: expression, user_role: create(:user_role, role_id: 0)
+        create :approval, expression: expression, user_role: create(:user_role, role_id: 1)
+        create :approval, expression: expression, user_role: create(:user_role, role_id: 2)
+
+        expect(expression.status).to be == described_class::STATUS.approved()
+      end
+
+      it "gets approved because have no approval roles" do
+        mock_expression_model approval_roles: []
+        expression = create :objective
+        expect(expression.status).to be == described_class::STATUS.approved()
+      end
+
+    end
+  end
 end
