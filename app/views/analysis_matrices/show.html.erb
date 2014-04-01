@@ -1,6 +1,4 @@
 <% content_for :js do %>
-  <%= javascript_include_tag "analysis_matrices", "data-turbolinks-track" => true %>
-
   <%= javascript_tag do %>
     LNX_INCIDENT_PLANNING.FROM_RAILS.AnalysisMatrix = {
       create_strategy_path: "<%= incident_cycle_strategies_path(@incident, @cycle) %>",
@@ -8,7 +6,10 @@
     };
 
     LNX_INCIDENT_PLANNING.FROM_RAILS.Model = <%= raw ::Model.to_json %>;
+    LNX_INCIDENT_PLANNING.FROM_RAILS.environment = <%= raw ::Rails.env.inspect %>;
   <% end %>
+
+  <%= javascript_include_tag "analysis_matrices", "data-turbolinks-track" => true %>
 <% end %>
 
 <h1>Tactics Planning Matrix</h1>
