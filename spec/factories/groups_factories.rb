@@ -26,6 +26,7 @@ FactoryGirl.define do
         evaluator.public_send(attr).each do |expression|
           expression.group_id = group.id
           expression.cycle_id = group.cycle_id
+          expression.save
         end
       end
     end

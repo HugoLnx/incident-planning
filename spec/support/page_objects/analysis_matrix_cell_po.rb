@@ -7,11 +7,18 @@ module PageObjects
       @element = element
     end
 
+    def row_parent
+      @element.find(:xpath, "..")
+    end
+
     def double_click
-      row_element = @element.find(:xpath, "..")
       @element.native.double_click
-      form_element = row_element.find ".strategy.form"
-      AnalysisMatrixStrategyFormPO.new(@user, form_element)
+    end
+
+    def show_metadata
+      @element.click
+      metadata_dialog = @element.session.all(".ui-dialog .metadata").last
+      AnalysisMatrixMetadataDialogPO.new(@user, metadata_dialog)
     end
   end
 end
