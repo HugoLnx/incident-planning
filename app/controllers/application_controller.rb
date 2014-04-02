@@ -5,4 +5,5 @@ class ApplicationController < ActionController::Base
   
   include AuthorizationFrontController
   include DevisePatchController
+  include BackRefererController
 end
