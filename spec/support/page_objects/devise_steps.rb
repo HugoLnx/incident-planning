@@ -10,7 +10,7 @@ module PageObjects
       @session.fill_in "user_email", with: user.email
       @session.fill_in "user_email", with: user.email
       @session.fill_in "user_password", with: user.password
-      @session.click_button "Sign in"
+      @session.click_button I18n.t("auth.login")
     end
   end
 end
