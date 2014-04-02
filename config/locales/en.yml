@@ -29,3 +29,6 @@ en:
   errors:
     messages:
       date_format: "must have the format '%{dateformat}'"
+  auth:
+    login: "Login"
+    logout: "Logout"

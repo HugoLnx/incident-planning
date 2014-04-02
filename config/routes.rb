@@ -1,7 +1,7 @@
 IncidentPlanning::Application.routes.draw do
   devise_for :users
 
-  root to: "incidents#index"
+  root to: "incidents#index", path_names: {sign_in: 'login', sign_out: 'logout'}
 
   resources :incidents do
     resources :cycles do
