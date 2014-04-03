@@ -12,7 +12,7 @@ describe Approval do
           expression = create :objective
           mock_expression_model approval_roles: [2, 3, 4]
 
-          approvals = Approval.build_all_to(user, approve: expression)
+          approvals = Approval.build_all_to(user, approve: expression, positive: true)
           expect(approvals).to be_empty
         end
 
@@ -25,7 +25,7 @@ describe Approval do
           expression = create :objective
           mock_expression_model approval_roles: [0, 1]
 
-          approvals = Approval.build_all_to(user, approve: expression)
+          approvals = Approval.build_all_to(user, approve: expression, positive: true)
 
           approved_user_roles = approvals.map(&:user_role)
           expect(approved_user_roles).to include user.user_roles[0]
@@ -46,7 +46,7 @@ describe Approval do
           expression = create :objective
           mock_expression_model approval_roles: [0, 1, 2, 3]
 
-          approvals = Approval.build_all_to(user, approve: expression)
+          approvals = Approval.build_all_to(user, approve: expression, positive: true)
 
           approved_user_roles = approvals.map(&:user_role)
           expect(approved_user_roles).to include user.user_roles[0]
