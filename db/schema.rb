@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140330031241) do
+ActiveRecord::Schema.define(version: 20140403004722) do
 
   create_table "approvals", force: true do |t|
     t.integer  "user_role_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20140330031241) do
     t.string   "expression_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "positive",        null: false
   end
 
   add_index "approvals", ["expression_id"], name: "index_approvals_on_expression_id", using: :btree
