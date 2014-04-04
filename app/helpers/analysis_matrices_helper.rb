@@ -114,14 +114,14 @@ private
       already_approved_by_user: check_already_approved_by_user(expression),
       approval: Approval.new(expression: expression),
       owner_human_id: expression && expression.owner && expression.owner.human_id,
-      approvements: approvements_from(expression),
+      approvals_infos: approvals_infos_from(expression),
       source: expression && expression.source_name,
       status: expression && expression.status_name,
       expression_id: expression && expression.id
     }
   end
 
-  def approvements_from(expression)
+  def approvals_infos_from(expression)
     return [] if expression.nil?
     approval_expert = ExpressionApprovalExpert.new(expression)
     expression.roles_needed_to_approve.map do |needed_role|

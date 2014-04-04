@@ -6,8 +6,8 @@
 
 	<p class="approvals-label">Approval Events</p>
 	<ul class="approvals">
-		<% approvements.each do |approvement| %>
-			<%= render partial: "approvement", locals: approvement %>
+		<% approvals_infos.each do |approval_info| %>
+			<%= render partial: "approval", locals: approval_info %>
 		<% end %>
 	</ul>
 
