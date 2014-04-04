@@ -121,22 +121,22 @@ describe "ExpressionApprovalExpert" do
     end
   end
 
-  describe "when getting user that approved as a specific role" do
-    context "return user if any user approved as the role" do
-      it "gets user because he already approved that expression as the role passed" do
+  describe "when getting the approval made by an specific role" do
+    context "return approval if any user approved as the role" do
+      it "gets approval because some user already approved that expression as the role passed" do
         user = create :user
         user_role = create(:user_role, user: user, role_id: 0)
         user.reload
 
-        create :approval, user_role: user_role, expression: @expression
+        approval = create :approval, user_role: user_role, expression: @expression
 
-        expect(@subject.user_that_approved_as(0)).to be == user
+        expect(@subject.approval_made_by_role(0)).to be == approval
       end
     end
 
     context "return nil if none user approved as the role" do
       it "gets nil because nobody approved that expression yet" do
-        expect(@subject.user_that_approved_as(0)).to be == nil
+        expect(@subject.approval_made_by_role(0)).to be == nil
       end
 
       it "gets nil because nobody with the passed role approved that expression" do
@@ -146,29 +146,8 @@ describe "ExpressionApprovalExpert" do
 
         create :approval, user_role: user_role, expression: @expression
 
-        expect(@subject.user_that_approved_as(1)).to be == nil
+        expect(@subject.approval_made_by_role(1)).to be == nil
       end
     end
   end
 end
-=begin
-
-spec ExpressionApprovalSpecialist
-  @expression
-
-def permits_role_approval?(roles_ids=[])
-def already_had_needed_role_approval?(roles_ids=[])
-def roles_missing_approvement
-def roles_needed_to_approve
-def user_that_approved_as(role_id)
-  
-
-
-IMPACT
-  Approve button appears?
-  What Approvals will be created?
-
-
-  Approval/Rejection doesn't overrides each other.
-
-=end

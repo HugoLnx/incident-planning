@@ -1,9 +1,14 @@
 <% if user_human_id %>
-  <p class="approvement approved">
-    <span class="role"><%= role %></span>: <span class="user"><%= user_human_id %></span>
-  </p>
+	<li class="approval <%= approval_class positive %>">
+		<p class="approval-role-status">
+			<span class="approval-role-name"><%= role %></span>: <span class="approval-status"><%= approval_text(positive) %></span>
+		</p>
+		<p class="approval-user">by <span class="approval-user-human-id"><%= user_human_id %></span></p>
+	</li>
 <% else %>
-  <p class="approvement not-approved">
-    <span class="role"><%= role %></span>: <span class="user">Not approved yet</span>
-  </p>
+	<li class="approval missing-approval">
+		<p class="approval-role-status">
+			<span class="approval-role-name"><%= role %></span>: <span class="approval-status">Not Approved Yet</span>
+		</p>
+	</li>
 <% end %>

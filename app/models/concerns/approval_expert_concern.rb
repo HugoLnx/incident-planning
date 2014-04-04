@@ -9,8 +9,7 @@ module Concerns
         :permits_role_approval?,
         :already_had_needed_role_approval?,
         :roles_missing_approvement,
-        :roles_needed_to_approve,
-        :user_that_approved_as
+        :roles_needed_to_approve
 
       after_initialize do |expression|
         @approval_expert = ExpressionApprovalExpert.new(expression)

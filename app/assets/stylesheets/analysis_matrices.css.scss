@@ -114,13 +114,32 @@ $repeated_font_light_percent: 60%;
 .metadata {
   display: none;
 
-  .label {
+  /* APPROVALS */
+  .approvals-label {
     font-weight: bold;
+    margin: 0;
   }
 
-  /* APPROVEMENTS */
-  .approvements .approvement {
-    text-indent: 15px;
+  .approvals {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .approval {
+      text-indent: 5px;
+      margin-top: 5px;
+
+      .approval-role-status {
+        margin: 0;
+        padding: 0;
+      }
+
+      .approval-user {
+        text-indent: 20px;
+        margin: 0;
+        padding: 0;
+      }
+    }
   }
 
   .approve-form {

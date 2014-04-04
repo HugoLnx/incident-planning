@@ -76,6 +76,14 @@ module AnalysisMatricesHelper
     is_repeated ? "repeated" : "non-repeated"
   end
 
+  def approval_class(positive)
+    positive ? "approved" : "rejected"
+  end
+
+  def approval_text(positive)
+    positive ? "Approved" : "Rejected"
+  end
+
 private
 
   def show_cells_info_from(group, model)
@@ -115,11 +123,14 @@ private
 
   def approvements_from(expression)
     return [] if expression.nil?
-    expression.roles_needed_to_approve.map do |role|
-      user = expression.user_that_approved_as role
+    approval_expert = ExpressionApprovalExpert.new(expression)
+    expression.roles_needed_to_approve.map do |needed_role|
+      approval = approval_expert.approval_made_by_role(needed_role)
+      user = approval && approval.user_role.user
       {
         user_human_id: user && user.human_id,
-        role: ::Roles::Dao.new.find_by_id(role).name
+        role: ::Roles::Dao.new.find_by_id(needed_role).name,
+        positive: approval && approval.positive
       }
     end
   end

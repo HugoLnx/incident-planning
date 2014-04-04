@@ -4,12 +4,12 @@
   <p class="source"><span class="label">Source</span>: <%= source %></p>
 		<p class="status"><span class="label">Status</span>: <%= status %></p>
 
-	<p class="label">Approvements</p>
-	<div class="approvements">
+	<p class="approvals-label">Approval Events</p>
+	<ul class="approvals">
 		<% approvements.each do |approvement| %>
 			<%= render partial: "approvement", locals: approvement %>
 		<% end %>
-	</div>
+	</ul>
 
   <% if user_permitted_to_approve && !already_approved_by_user %>
     <%= form_for approval, html: {class: "approve-form"} do |f| %>

@@ -27,8 +27,7 @@ class ExpressionApprovalExpert
     @expression.expression_model.approval_roles
   end
 
-  def user_that_approved_as(role_id)
-    approval = @expression.approvals.find{|approval| approval.user_role.role_id == role_id}
-    approval && approval.user_role.user
+  def approval_made_by_role(role_id)
+    @expression.approvals.find{|approval| approval.user_role.role_id == role_id}
   end
 end
