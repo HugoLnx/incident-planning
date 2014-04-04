@@ -3,6 +3,7 @@ require 'capybara/poltergeist'
 require "timeout"
 
 Capybara.javascript_driver = :poltergeist
+Capybara.default_wait_time = 5
 
 def wait_until
   Timeout.timeout(Capybara.default_wait_time) do
