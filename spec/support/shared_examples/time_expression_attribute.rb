@@ -7,41 +7,64 @@ shared_examples "time expression attribute" do
   let(:valid_date_str) {"22/03/1993 10:30"}
 
   describe "when updating" do
-    before :each do
-      @old_expression = subject.public_send(getter_method)
-      new_date_str = new_date.strftime(TimeExpression::TIME_PARSING_FORMAT)
-      subject.public_send(update_method, new_date_str)
-      @getted_expression = subject.public_send(getter_method)
+    context "if valid string passed" do
+      before :each do
+        @old_expression = subject.public_send(getter_method)
+        new_date_str = new_date.strftime(TimeExpression::TIME_PARSING_FORMAT)
+        @updated = subject.public_send(update_method, new_date_str)
+        @getted_expression = subject.public_send(getter_method)
+      end
+
+      shared_examples 'update general' do
+        it "maintain the reference" do
+          expect(@getted_expression).to be == @old_expression
+        end
+
+        it "update the time" do
+          expect(@getted_expression.when).to be == new_date
+        end
+      end
+
+      context "if time change" do
+        let(:new_date) {@old_expression.when >> 1}
+
+        it 'update the owner' do
+          expect(@getted_expression.owner).to be == subject.owner
+        end
+
+        it "return true" do
+          expect(@updated).to be true
+        end
+
+        include_examples "update general"
+      end
+
+      context "if time doesn't change" do
+        let(:new_date) {@old_expression.when}
+
+        it 'the owner remains the same' do
+          expect(@getted_expression.owner).to be == @old_expression.owner
+        end
+
+        it "return false" do
+          expect(@updated).to be false
+        end
+
+        include_examples "update general"
+      end
     end
 
-    shared_examples 'update general' do
-      it "maintain the reference" do
-        expect(@getted_expression).to be == @old_expression
+    context "if invalid string was passed" do
+      it "doesn't raise error" do
+        expect do
+          subject.public_send(update_method, "invalid format")
+        end.to_not raise_error
       end
 
-      it "update the time" do
-        expect(@getted_expression.when).to be == new_date
+      it "return false" do
+        updated = subject.public_send(update_method, "invalid format")
+        expect(updated).to be false
       end
-    end
-
-    context "if time change" do
-      let(:new_date) {@old_expression.when >> 1}
-
-      it 'update the owner' do
-        expect(@getted_expression.owner).to be == subject.owner
-      end
-
-      include_examples "update general"
-    end
-
-    context "if time doesn't change" do
-      let(:new_date) {@old_expression.when}
-
-      it 'the owner remains the same' do
-        expect(@getted_expression.owner).to be == @old_expression.owner
-      end
-
-      include_examples "update general"
     end
   end
 

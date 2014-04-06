@@ -57,14 +57,20 @@ module HighModels
         @expressions_names.merge!(name => expression_name)
 
         define_method :"update_#{name}" do |new_time_str|
+          updated = false
           exp = instance_variable_get("@#{name}")
           if exp
-            new_time = DateTime.strptime(new_time_str, TimeExpression::TIME_PARSING_FORMAT)
-            if exp.when != new_time
+            begin
+              new_time = DateTime.strptime(new_time_str, TimeExpression::TIME_PARSING_FORMAT)
+            rescue ArgumentError 
+            end
+            if new_time && exp.when != new_time
+              updated = true
               exp.owner = self.owner
             end
             exp.when = new_time
           end
+          updated
         end
 
         define_method :"set_#{name}_reference" do |new_reference|
