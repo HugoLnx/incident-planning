@@ -8,7 +8,7 @@ require 'spec_helper'
 
 feature "Tactics Matrix: Editing expressions", :js do
   background do
-    user = create :user
+    user = create :user_god
     DeviseSteps.new(page, routing_helpers).sign_in user
     @page = AnalysisMatrixPO.new(@user_knowledge)
     @page.visit cycle

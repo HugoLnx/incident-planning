@@ -25,7 +25,8 @@ module AnalysisMatricesHelper
     partial = "strategy_cells"
     infos = show_cells_info_from(strategy, ::Model.strategy)
     repeated_class = repeated_class(repeated)
-    editable = !repeated
+    permission = GroupPermission.new(::Model.strategy)
+    editable = !repeated && permission.to_update?(current_user)
 
     update_path = strategy && incident_cycle_strategy_path(@incident, @cycle, strategy.group_id)
     delete_path = update_path
@@ -59,7 +60,8 @@ module AnalysisMatricesHelper
 
     infos = show_cells_info_from(tactic, ::Model.tactic)
     repeated_class = repeated_class(repeated)
-    editable = !repeated
+    permission = GroupPermission.new(::Model.tactic)
+    editable = !repeated && permission.to_update?(current_user)
 
     render partial: partial, locals: {
       expressions: infos,
