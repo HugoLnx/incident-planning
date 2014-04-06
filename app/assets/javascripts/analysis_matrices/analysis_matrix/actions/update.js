@@ -16,7 +16,7 @@
   var _function = Actions.Update;
   _function.strategyAction = function() {
     return new Actions.Update(
-      ".strategy.show.non-repeated",
+      ".strategy.editable",
       ".strategy",
       new Templates.FormTemplate.editStrategy()
     );
@@ -24,7 +24,7 @@
 
   _function.tacticAction = function() {
     return new Actions.Update(
-      ".tactic.show.non-repeated",
+      ".tactic.editable",
       ".tactic",
       new Templates.FormTemplate.editTactic()
     );

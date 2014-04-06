@@ -25,6 +25,7 @@ module AnalysisMatricesHelper
     partial = "strategy_cells"
     infos = show_cells_info_from(strategy, ::Model.strategy)
     repeated_class = repeated_class(repeated)
+    editable = !repeated
 
     update_path = strategy && incident_cycle_strategy_path(@incident, @cycle, strategy.group_id)
     delete_path = update_path
@@ -33,7 +34,8 @@ module AnalysisMatricesHelper
       expressions: infos,
       repeated: repeated_class,
       update_path: update_path,
-      delete_path: delete_path
+      delete_path: delete_path,
+      editable: editable
     }
   end
 
@@ -57,12 +59,14 @@ module AnalysisMatricesHelper
 
     infos = show_cells_info_from(tactic, ::Model.tactic)
     repeated_class = repeated_class(repeated)
+    editable = !repeated
 
     render partial: partial, locals: {
       expressions: infos,
       repeated: repeated_class,
       update_path: update_path,
-      delete_path: delete_path
+      delete_path: delete_path,
+      editable: editable
     }
   end
 
@@ -88,6 +92,10 @@ module AnalysisMatricesHelper
 
   def approval_text(positive)
     positive ? "Approved" : "Rejected"
+  end
+
+  def editable_class(editable)
+    editable ? "editable" : "non-editable"
   end
 
 private
