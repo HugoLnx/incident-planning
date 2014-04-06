@@ -8,8 +8,7 @@ module Model
           "name" => "ExpressionName",
           "type" => "time",
           "optional" => true,
-          "approval-roles" => %w{Role1 Role2},
-          "creator-roles" => %w{Role3 Role4}
+          "approval-roles" => %w{Role1 Role2}
         }
 
         parser = build :expression_parser
@@ -19,7 +18,6 @@ module Model
         expect(expression.type).to be == Expression::TYPES.time
         expect(expression.optional).to be == true
         expect(expression.approval_roles).to be == %w{Role1 Role2}
-        expect(expression.creator_roles).to be == %w{Role3 Role4}
       end
 
       context 'when type key does not exist in hash' do

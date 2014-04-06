@@ -4,7 +4,6 @@ module Model
     TYPE_KEY = "type"
     OPTIONAL_KEY = "optional"
     APPROVAL_ROLES_KEY = "approval-roles"
-    CREATOR_ROLES_KEY = "creator-roles"
 
     DEFAULT_TYPE = Expression::TYPES.text
 
@@ -17,9 +16,8 @@ module Model
       end
       optional = hash[OPTIONAL_KEY]
       approval_roles = hash[APPROVAL_ROLES_KEY]
-      creator_roles = hash[CREATOR_ROLES_KEY]
 
-      Expression.new(name, type, optional, approval_roles, creator_roles, father)
+      Expression.new(name, type, optional, approval_roles, father)
     end
 
     def parse_all(hashes, father = nil)
