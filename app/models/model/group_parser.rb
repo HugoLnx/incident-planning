@@ -2,6 +2,7 @@ module Model
   class GroupParser
     GROUP_KEY = "group"
     NAME_KEY = "name"
+    CREATOR_ROLES_KEY = "creator-roles"
     EXPRESSIONS_KEY = "expressions"
 
     def initialize(expression_parser)
@@ -15,6 +16,7 @@ module Model
 
       name = group_hash[NAME_KEY]
       group = Model::Group.new(name)
+      group.creator_roles = group_hash[CREATOR_ROLES_KEY]
       group.father = father
       group.child = parse(group_hash, group)
       parse_expressions(group_hash, group)

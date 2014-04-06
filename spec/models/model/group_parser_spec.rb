@@ -10,6 +10,14 @@ module Model
       expect(group.name).to be == "GroupName"
     end
 
+    it "parse hash of a group with creator roles" do
+      hash = {"group" => {"creator-roles" => [0, 1, 2]}}
+
+      parser = build :group_parser
+      group = parser.parse hash
+      expect(group.creator_roles).to be == [0, 1, 2]
+    end
+
     context "hash with a chain of groups" do
       before :each do
         hash = {

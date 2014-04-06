@@ -7,12 +7,14 @@
 
     "group": {
       "name": "Strategy",
+      "creator-roles": [0, 1, 2],
       "expressions": [
         {"name": "How", "approval-roles": [3, 4, 5]}
       ],
 
       "group": {
         "name": "Tactic",
+        "creator-roles": [3, 4, 5],
         "expressions": [
           {"name": "Who", "approval-roles": [6, 7, 8]},
 

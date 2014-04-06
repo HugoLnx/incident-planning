@@ -2,9 +2,10 @@ FactoryGirl.define do
   factory :model_group, class: Model::Group do
     ignore do
       sequence(:name){|i| "GroupName #{i}"}
+      creator_roles [0, 1]
     end
 
-    initialize_with{ new(name)}
+    initialize_with{new(name, creator_roles)}
   end
 
   factory :expression, class: Model::Expression do

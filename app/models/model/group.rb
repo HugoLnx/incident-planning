@@ -1,11 +1,12 @@
 module Model
   class Group
-    attr_accessor :name, :child, :expressions, :father
+    attr_accessor :name, :creator_roles, :child, :expressions, :father
 
-    def initialize(name, child = nil, father = nil, expressions = [])
+    def initialize(name, creator_roles = nil, child = nil, father = nil, expressions = [])
       @name = name
       @child = child
       @father = father
+      @creator_roles = creator_roles || []
       @expressions = expressions || []
     end
 
