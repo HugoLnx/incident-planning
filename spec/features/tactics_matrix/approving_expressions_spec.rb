@@ -8,8 +8,7 @@ require 'spec_helper'
 
 feature "Tactics Matrix: Approving expressions", :js do
   background do
-    @user = create :user
-    9.times {|i| create :user_role, user: @user, role_id: i}
+    @user = create :user_god
 
     DeviseSteps.new(page, routing_helpers).sign_in @user
     @page = AnalysisMatrixPO.new(@user_knowledge)
@@ -29,15 +28,11 @@ feature "Tactics Matrix: Approving expressions", :js do
       @page = metadata_dialog.click_approve
 
       expect(@page.notice).to have_text "Expression was sucessfuly approved."
-      expect(Approval.count).to be == 3
+      expect(Approval.count).to be == 1
 
       approvals = Approval.all
       expect(approvals[0].user_role.user).to be == @user
-      expect(approvals[1].user_role.user).to be == @user
-      expect(approvals[2].user_role.user).to be == @user
       expect(approvals[0].user_role.role_id).to be == 0
-      expect(approvals[1].user_role.role_id).to be == 1
-      expect(approvals[2].user_role.role_id).to be == 2
     end
   end
 
@@ -61,9 +56,9 @@ feature "Tactics Matrix: Approving expressions", :js do
       expect(approvals[0].user_role.user).to be == @user
       expect(approvals[1].user_role.user).to be == @user
       expect(approvals[2].user_role.user).to be == @user
-      expect(approvals[0].user_role.role_id).to be == 3
-      expect(approvals[1].user_role.role_id).to be == 4
-      expect(approvals[2].user_role.role_id).to be == 5
+      expect(approvals[0].user_role.role_id).to be == 0
+      expect(approvals[1].user_role.role_id).to be == 1
+      expect(approvals[2].user_role.role_id).to be == 2
     end
   end
 
@@ -83,12 +78,19 @@ feature "Tactics Matrix: Approving expressions", :js do
         @page = metadata_dialog.click_approve
 
         expect(@page.notice).to have_text "Expression was sucessfuly approved."
-        expect(Approval.count).to_not be == 0
+        expect(Approval.count).to be == 3
 
         approvals = Approval.all
         approvals.each do |approval|
           expect(approval.user_role.user).to be == @user
         end
+
+        expect(approvals[0].user_role.user).to be == @user
+        expect(approvals[1].user_role.user).to be == @user
+        expect(approvals[2].user_role.user).to be == @user
+        expect(approvals[0].user_role.role_id).to be == 1
+        expect(approvals[1].user_role.role_id).to be == 2
+        expect(approvals[2].user_role.role_id).to be == 3
       end
     end
 
