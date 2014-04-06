@@ -17,4 +17,12 @@ class Approval < ActiveRecord::Base
       )
     end
   end
+
+  def approval?
+    positive
+  end
+  
+  def rejection?
+    !positive
+  end
 end

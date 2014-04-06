@@ -54,6 +54,42 @@ shared_examples_for "Expression" do
         expect(expression.status).to be == described_class::STATUS.approved()
       end
     end
+
+    context "is partial rejected if have any approval roles has rejected, but not all" do
+      it "gets partial rejected because two of three approval roles has rejected" do
+        mock_expression_model approval_roles: [2, 1, 0]
+        expression = create :objective
+
+        create :approval, positive: false, expression: expression, user_role: create(:user_role, role_id: 0)
+        create :approval, positive: false, expression: expression, user_role: create(:user_role, role_id: 1)
+
+        expect(expression.status).to be == described_class::STATUS.partial_rejection
+      end
+
+      it "gets partial rejected because two of three approval roles has rejected and the other approved" do
+        mock_expression_model approval_roles: [2, 1, 0]
+        expression = create :objective
+
+        create :approval, positive: false, expression: expression, user_role: create(:user_role, role_id: 0)
+        create :approval, positive: false, expression: expression, user_role: create(:user_role, role_id: 1)
+        create :approval, positive: true, expression: expression, user_role: create(:user_role, role_id: 2)
+
+        expect(expression.status).to be == described_class::STATUS.partial_rejection
+      end
+    end
+
+    context "is rejected if all approval roles has rejected" do
+      it "gets rejected because all three approval roles rejected" do
+        mock_expression_model approval_roles: [2, 1, 0]
+        expression = create :objective
+
+        create :approval, positive: false, expression: expression, user_role: create(:user_role, role_id: 0)
+        create :approval, positive: false, expression: expression, user_role: create(:user_role, role_id: 1)
+        create :approval, positive: false, expression: expression, user_role: create(:user_role, role_id: 2)
+
+        expect(expression.status).to be == described_class::STATUS.rejected
+      end
+    end
   end
 
   describe "when reseting itself" do

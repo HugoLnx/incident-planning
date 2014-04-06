@@ -42,13 +42,27 @@ module Concerns
       around_save :reset_callback, if: :content_changed?
 
       def status
-        missing_approvement = roles_missing_approvement
-        if missing_approvement.empty?
-          STATUS.approved()
-        elsif missing_approvement == roles_needed_to_approve
-          STATUS.to_be_approved()
+        roles_needed = roles_needed_to_approve
+        if roles_needed.empty?
+          return STATUS.approved
+        end
+
+        missing_approval = roles_missing_approvement
+        if missing_approval.empty?
+          if approvals.all?(&:approval?)
+            return STATUS.approved
+          elsif approvals.all?(&:rejection?)
+            return STATUS.rejected
+          end
+        end
+
+        nobody_approved = missing_approval == roles_needed
+        if nobody_approved
+          STATUS.to_be_approved
+        elsif approvals.any?(&:rejection?)
+          STATUS.partial_rejection
         else
-          STATUS.partial_approval()
+          STATUS.partial_approval
         end
       end
 
