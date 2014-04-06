@@ -2,24 +2,24 @@
   "group": {
     "name": "Objective",
     "expressions": [
-      {"name": "Objective", "approval-roles": [0, 1, 2]}
+      {"name": "Objective", "approval-roles": [0, 1, 2], "creator-roles": [3, 4, 5]}
     ],
 
     "group": {
       "name": "Strategy",
       "expressions": [
-        {"name": "How", "approval-roles": [3, 4, 5]}
+        {"name": "How", "approval-roles": [3, 4, 5], "creator-roles": [6, 7, 8]}
       ],
 
       "group": {
         "name": "Tactic",
         "expressions": [
-          {"name": "Who", "approval-roles": [6, 7, 8]},
+          {"name": "Who", "approval-roles": [6, 7, 8], "creator-roles": [3, 4, 5]},
 
-          {"name": "What", "approval-roles": [6, 7, 8]},
-          {"name": "Where", "optional": true, "approval-roles": [6, 7]},
-          {"name": "When", "type": "time", "optional": true, "approval-roles": [7, 8]},
-          {"name": "Response Action", "type": "external", "approval-roles": [6, 8]}
+          {"name": "What", "approval-roles": [6, 7, 8], "creator-roles": [3, 4, 5]},
+          {"name": "Where", "optional": true, "approval-roles": [6, 7], "creator-roles": [3, 4]},
+          {"name": "When", "type": "time", "optional": true, "approval-roles": [7, 8], "creator-roles": [4, 5]},
+          {"name": "Response Action", "type": "external", "approval-roles": [6, 8], "creator-roles": [3, 5]}
         ]
       }
     }

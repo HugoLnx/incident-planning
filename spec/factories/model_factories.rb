@@ -13,10 +13,11 @@ FactoryGirl.define do
       type Model::Expression::TYPES.time
       sequence(:optional){|i| [true, false].sample}
       approval_roles [0]
+      creator_roles [0]
       father nil
     end
 
-    initialize_with{ new(name, type, optional, approval_roles, father) }
+    initialize_with{ new(name, type, optional, approval_roles, creator_roles, father) }
   end
 
   factory :expression_parser, class: Model::ExpressionParser do
@@ -28,7 +29,8 @@ FactoryGirl.define do
       sequence(:name){|i| "ExpressionName#{i}"}
       type Model::Expression::TYPES.time
       optional true
-      approval_roles %w{Role1 Role2}
+      approval_roles %w{RoleApproval1 RoleApproval2}
+      creator_roles %w{RoleCreator1 RoleCreator2}
     end
 
     initialize_with do
@@ -36,7 +38,8 @@ FactoryGirl.define do
         "name" => name,
         "type" => type,
         "optional" => optional,
-        "approval-roles" => approval_roles
+        "approval-roles" => approval_roles,
+        "creator-roles" => creator_roles,
       }
     end
   end
