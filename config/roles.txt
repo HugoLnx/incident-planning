@@ -1,9 +1,7 @@
-00: Objective Chief
-01: Objective Chief 2
-02: Objective Chief 3
-03: Strategy Chief
-04: Strategy Chief 2
-05: Strategy Chief 3
-06: Tactic Chief
-07: Tactic Chief 2
-08: Tactic Chief 3
+00: Incident Commander
+01: Planning Chief
+02: Operations Chief
+03: Logistics Chief
+04: Planning Expert
+05: Operations Expert
+06: Logistics Expert
