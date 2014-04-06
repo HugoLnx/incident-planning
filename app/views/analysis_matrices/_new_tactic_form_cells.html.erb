@@ -1,3 +1,7 @@
 <td colspan="<%= expressions_size %>" data-father_id="<%= father_id %>" class="tactic add pre-button">
-  <button>Add Tactic</button>
+  <%- if disabled %>
+    <button disabled>Add Tactic</button>
+  <% else %>
+    <button>Add Tactic</button>
+  <% end -%>
 </td>

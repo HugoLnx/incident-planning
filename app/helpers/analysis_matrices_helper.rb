@@ -39,10 +39,13 @@ module AnalysisMatricesHelper
 
   def render_new_strategy_cells(father_id)
     partial = "new_strategy_form_cells"
-    expressions_size = ::Model.strategy.expressions.size
+    strategy_model = ::Model.strategy
+    expressions_size = strategy_model.expressions.size
+    permission = GroupPermission.new(strategy_model)
     render partial: partial, locals: {
       father_id: father_id,
-      expressions_size: expressions_size
+      expressions_size: expressions_size,
+      disabled: !permission.to_create?(current_user)
     }
   end
 
@@ -65,10 +68,13 @@ module AnalysisMatricesHelper
 
   def render_new_tactic_cells(father_id)
     partial = "new_tactic_form_cells"
-    expressions_size = ::Model.tactic.expressions.size
+    tactic_model = ::Model.tactic
+    expressions_size = tactic_model.expressions.size
+    permission = GroupPermission.new(tactic_model)
     render partial: partial, locals: {
       father_id: father_id,
-      expressions_size: expressions_size
+      expressions_size: expressions_size,
+      disabled: !permission.to_create?(current_user)
     }
   end
 
