@@ -28,3 +28,14 @@
     }
   }
 }
+/*
+ * A relação que realmente é utilizada está localizada em "config/roles.txt".
+ * Existe o risco desta listagem estar desatualizada.
+ *   00: Incident Commander
+ *   01: Planning Chief
+ *   02: Operations Chief
+ *   03: Logistics Chief
+ *   04: Planning Expert
+ *   05: Operations Expert
+ *   06: Logistics Expert
+*/
