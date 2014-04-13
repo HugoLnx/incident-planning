@@ -54,6 +54,31 @@ shared_examples "time expression attribute" do
       end
     end
 
+    context "if an empty string was passed" do
+      it "doesn't raise error" do
+        expect do
+          subject.public_send(update_method, "")
+        end.to_not raise_error
+      end
+
+      it "time expression is destroyed (this probably will be better when saving in a near future)" do
+        time_expression = subject.public_send(getter_method)
+        subject.public_send(update_method, "")
+        expect(time_expression).to be_destroyed
+      end
+
+      it "time expression reference is set to nil" do
+        subject.public_send(update_method, "")
+        time_expression = subject.public_send(getter_method)
+        expect(time_expression).to be nil
+      end
+
+      it "return true" do
+        updated = subject.public_send(update_method, "")
+        expect(updated).to be true
+      end
+    end
+
     context "if invalid string was passed" do
       it "doesn't raise error" do
         expect do

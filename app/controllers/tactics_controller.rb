@@ -16,7 +16,7 @@ class TacticsController < ApplicationController
   def update
     new_params = params[:tactic].permit(:who, :what, :where, :when, :response_action)
 
-    group = Group.includes(:text_expressions).find(params[:id])
+    group = Group.includes(:text_expressions, :time_expressions).find(params[:id])
 
     tactic = HighModels::Tactic.new owner: current_user
     tactic.set_from_group group

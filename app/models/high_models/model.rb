@@ -57,20 +57,33 @@ module HighModels
         @expressions_names.merge!(name => expression_name)
 
         define_method :"update_#{name}" do |new_time_str|
-          updated = false
-          exp = instance_variable_get("@#{name}")
-          if exp
-            begin
-              new_time = DateTime.strptime(new_time_str, TimeExpression::TIME_PARSING_FORMAT)
-            rescue ArgumentError 
-            end
-            if new_time && exp.when != new_time
-              updated = true
-              exp.owner = self.owner
-            end
-            exp.when = new_time
+          error_raised = false
+          begin
+            new_time = DateTime.strptime(new_time_str || "", TimeExpression::TIME_PARSING_FORMAT)
+          rescue ArgumentError 
+            error_raised = true
           end
-          updated
+
+          valid_new_time = !error_raised || new_time_str == ""
+          if valid_new_time
+            updated = true
+            exp = instance_variable_get("@#{name}")
+            if exp && new_time.nil?
+              exp.destroy!
+              exp = nil
+            elsif !exp || exp.when != new_time
+              exp ||= ::TimeExpression.new(name: expression_name)
+              exp.owner = self.owner
+              exp.when = new_time
+            else
+              updated = false
+            end
+
+            self.instance_variable_set("@#{name}", exp)
+            updated
+          else
+            false
+          end
         end
 
         define_method :"set_#{name}_reference" do |new_reference|
@@ -128,8 +141,10 @@ module HighModels
       @group
     end
 
-    def errors
+    def my_errors
+      puts "MY ERRORS"
       my_errors = super
+      p my_errors
       group.errors.each{|name, msg| my_errors.add(name, msg)}
       expressions_names.each do |exp_id, _|
         exp = public_send exp_id
