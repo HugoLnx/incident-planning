@@ -11,17 +11,18 @@ module AnalysisMatrixRendererContainer
     end
 
     def self.blank
-      TacticCells::Show.new
+      TacticCells::Show.new(blank: true)
     end
 
     class Show
-      def initialize(tactic=nil, repeated=nil)
+      def initialize(tactic=nil, repeated=nil, blank: false)
         @tactic = tactic
         @repeated = repeated
+        @blank = blank
       end
 
       def render_using(callbacks)
-        callbacks.call(:show_tactic, @tactic, @repeated)
+        callbacks.call(:show_tactic, @tactic, @repeated, @blank)
       end
     end
 

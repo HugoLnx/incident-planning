@@ -12,11 +12,11 @@ module AnalysisMatricesHelper
   def render_show_objective_cells(objective, repeated)
     partial = "objective_cells"
     text = text_from objective.expression
-    repeated_class = repeated_class(repeated)
+    type_class = type_class(repeated)
     metadata_partial = render_metadata_partial_for(objective.expression)
     render partial: partial, locals: {
       text: text,
-      repeated: repeated_class,
+      type_class: type_class,
       metadata_partial: metadata_partial
     }
   end
@@ -24,7 +24,7 @@ module AnalysisMatricesHelper
   def render_show_strategy_cells(strategy, repeated)
     partial = "strategy_cells"
     infos = show_cells_info_from(strategy, ::Model.strategy)
-    repeated_class = repeated_class(repeated)
+    type_class = type_class(repeated)
     permission = GroupPermission.new(::Model.strategy)
     editable = !repeated && permission.to_update?(current_user)
 
@@ -33,7 +33,7 @@ module AnalysisMatricesHelper
 
     render partial: partial, locals: {
       expressions: infos,
-      repeated: repeated_class,
+      type_class: type_class,
       update_path: update_path,
       delete_path: delete_path,
       editable: editable
@@ -52,20 +52,20 @@ module AnalysisMatricesHelper
     }
   end
 
-  def render_show_tactic_cells(tactic, repeated)
+  def render_show_tactic_cells(tactic, repeated, blank)
     partial = "tactic_cells"
 
     update_path = tactic && incident_cycle_tactic_path(@incident, @cycle, tactic.group_id)
     delete_path = update_path
 
     infos = show_cells_info_from(tactic, ::Model.tactic)
-    repeated_class = repeated_class(repeated)
+    type_class = type_class(repeated, blank)
     permission = GroupPermission.new(::Model.tactic)
     editable = !repeated && permission.to_update?(current_user)
 
     render partial: partial, locals: {
       expressions: infos,
-      repeated: repeated_class,
+      type_class: type_class,
       update_path: update_path,
       delete_path: delete_path,
       editable: editable
@@ -84,7 +84,8 @@ module AnalysisMatricesHelper
     }
   end
 
-  def repeated_class(is_repeated)
+  def type_class(is_repeated, is_blank=false)
+    return "blank" if is_blank
     is_repeated ? "repeated" : "non-repeated"
   end
 

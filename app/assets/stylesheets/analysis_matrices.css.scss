@@ -92,6 +92,10 @@ $repeated_font_light_percent: 60%;
     background-color: darken($tactic_color, $header_dark_percent);
   }
 
+  .tactic.blank {
+    background-color: lighten($tactic_color, $repeated_light_percent);
+  }
+
 /* REPEATED FONT COLOR */
   .repeated {
     color: lighten($repeated_font_color, $repeated_font_light_percent);
