@@ -75,7 +75,7 @@
   function inputHtml(groupName, expName, value, placeholder) {
     var value = value || "";
     var placeholder = placeholder || "";
-    var html = '<td class="' + groupName + ' form ' + expName + '">';
+    var html = '<td class="' + groupName + ' form inputs ' + expName + '">';
     html += '<input name="' + groupName + '[' + expName + ']" value="' + value + '" placeholder="' + placeholder + '" />';
     html += '</td>';
     return html;
@@ -84,7 +84,7 @@
   function submitHtml(self) {
     var html = '<tr>';
 
-    html += '<td class="objective submit-side"></td>';
+    html += '<td class="objective blank submit-side"></td>';
     html += buttonsCellsHtml(self, Model.get().strategy);
     html += buttonsCellsHtml(self, Model.get().tactic);
 
@@ -99,7 +99,7 @@
       html += '<td colspan="' + expressionsLength + '" class="' + cellsGroupModel.pretty_name + ' form submit">';
       html += buttonsHtml(self.submitName, self.withDelete);
     } else {
-      html += '<td colspan="' + expressionsLength + '" class="' + cellsGroupModel.pretty_name + ' form submit-side">';
+      html += '<td colspan="' + expressionsLength + '" class="' + cellsGroupModel.pretty_name + ' form submit-side blank">';
     }
 
     html += '</td>';

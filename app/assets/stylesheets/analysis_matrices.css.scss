@@ -50,7 +50,7 @@ $repeated_font_light_percent: 60%;
     background-color: darken($objective_color, $header_dark_percent);
   }
 
-  .objective.repeated {
+  .objective.repeated, .objective.blank {
     background-color: lighten($objective_color, $repeated_light_percent);
   }
 
@@ -71,7 +71,7 @@ $repeated_font_light_percent: 60%;
     background-color: darken($strategy_color, $header_dark_percent);
   }
 
-  .strategy.repeated {
+  .strategy.repeated, .strategy.blank {
     background-color: lighten($strategy_color, $repeated_light_percent);
   }
 
@@ -138,6 +138,40 @@ $repeated_font_light_percent: 60%;
 
   .objective.non-repeated {
     border: solid black 1px;
+  }
+
+/* DYNAMIC FORM */
+  /* TO TACTIC FORM */
+  .tactic.submit {
+    border-left: solid black 3px;
+    border-right: solid black 1px;
+    border-bottom: solid black 1px;
+  }
+
+  .tactic.form.who {
+    border-left: solid black 3px;
+  }
+
+  .tactic.form.response_action {
+    border-right: solid black 1px;
+  }
+
+  .strategy.submit-side {
+    border-left: solid black 3px;
+  }
+
+  /* TO STRATEGY FORM */
+  .strategy.inputs {
+    border-top: solid black 1px;
+  }
+
+  .strategy.submit {
+    border-bottom: solid black 1px;
+  }
+
+  .strategy.submit, .strategy.form {
+    border-left: solid black 3px;
+    border-right: solid black 3px;
   }
 }
     
