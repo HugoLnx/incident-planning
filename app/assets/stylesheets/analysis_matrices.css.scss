@@ -106,9 +106,38 @@ $repeated_font_light_percent: 60%;
     height: 20px;
   }
 
-/* BORDERS */
+/* HEADER BORDERS */
   th {
     border: solid 1px black;
+  }
+
+/* VERTICAL GROUPING BORDERS */
+  .tactic.who.non-repeated {
+    border-left: solid black 3px;
+  }
+
+  .strategy.non-repeated, .strategy.repeated {
+    border-left: solid black 3px;
+  }
+
+/* HORIZONTAL GROUPING BORDER */
+  .tactic.non-repeated {
+    border-top: solid black 1px;
+    border-bottom: solid black 1px;
+  }
+
+  .tactic.response_action.non-repeated {
+    border-right: solid black 1px;
+  }
+
+  .strategy.non-repeated {
+    border-top: solid black 1px;
+    border-bottom: solid black 1px;
+    border-right: solid black 1px;
+  }
+
+  .objective.non-repeated {
+    border: solid black 1px;
   }
 }
     
@@ -149,4 +178,5 @@ $repeated_font_light_percent: 60%;
   .approve-form {
     float: left;
   }
+
 }
