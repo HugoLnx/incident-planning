@@ -4,9 +4,12 @@
 @import "jquery.ui.theme";
 @import "jquery.ui.dialog";
 
-$objective_color: #c0c0c0;
-$strategy_color: #c0c0c0;
-$tactic_color: #c0c0c0;
+$to_be_approved_color: #ff8;
+$partial_approval_color: #88f;
+$approved_color: #8f8;
+$partial_rejection_color: #c0c0c0;
+$rejected_color: #f88;
+$expression_color: #c0c0c0;
 
 $form_dark_percent: 5%;
 $header_dark_percent: 15%;
@@ -41,60 +44,35 @@ $repeated_font_light_percent: 60%;
     width: 8%; /* 8*5 = 40% */
   }
 
-/* OBJECTIVES COLORS */
-  .objective {
-    background-color: $objective_color;
+/* BACKGROUND COLORS */
+  .header {
+    background-color: darken($expression_color, $header_dark_percent);
   }
 
-  .objective.header {
-    background-color: darken($objective_color, $header_dark_percent);
-  }
-
-  .objective.repeated, .objective.blank {
-    background-color: lighten($objective_color, $repeated_light_percent);
-  }
-
-/* STRATEGIES COLORS */
-  .strategy {
-    background-color: $strategy_color;
-  }
-
-  .strategy.form {
-    background-color: darken($strategy_color, $form_dark_percent);
+  .form {
+    background-color: darken($expression_color, $form_dark_percent);
   }
   
-  .strategy.add {
-    background-color: lighten($strategy_color, $add_light_percent);
+  .add {
+    background-color: lighten($expression_color, $add_light_percent);
   }
 
-  .strategy.header {
-    background-color: darken($strategy_color, $header_dark_percent);
+  @mixin background-colors($color, $selector: "") {
+    .non-repeated#{$selector} {
+      background-color: $color;
+    }
+
+    .repeated#{$selector}, .blank#{$selector} {
+      background-color: lighten($color, $repeated_light_percent);
+    }
   }
 
-  .strategy.repeated, .strategy.blank {
-    background-color: lighten($strategy_color, $repeated_light_percent);
-  }
-
-/* TACTICS COLORS */
-  .tactic {
-    background-color: $tactic_color;
-  }
-
-  .tactic.form {
-    background-color: darken($tactic_color, $form_dark_percent);
-  }
-  
-  .tactic.add {
-    background-color: lighten($tactic_color, $add_light_percent);
-  }
-
-  .tactic.header {
-    background-color: darken($tactic_color, $header_dark_percent);
-  }
-
-  .tactic.blank {
-    background-color: lighten($tactic_color, $repeated_light_percent);
-  }
+  @include background-colors($expression_color);
+  @include background-colors($to_be_approved_color, ".to-be-approved");
+  @include background-colors($partial_approval_color, ".partial-approval");
+  @include background-colors($approved_color, ".approved");
+  @include background-colors($partial_rejection_color, ".partial-rejection");
+  @include background-colors($rejected_color, ".rejected");
 
 /* REPEATED FONT COLOR */
   .repeated {

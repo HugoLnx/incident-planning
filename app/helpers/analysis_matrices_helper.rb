@@ -17,6 +17,7 @@ module AnalysisMatricesHelper
     render partial: partial, locals: {
       text: text,
       type_class: type_class,
+      status_class: status_class(objective.expression),
       metadata_partial: metadata_partial
     }
   end
@@ -113,9 +114,26 @@ private
         metadata_partial: render_metadata_partial_for(expression),
         text: text_from(expression)
       })
+      infos[name][:status_class] = status_class(expression)
     end
 
     infos
+  end
+
+  def status_class(expression)
+    return "" if expression.nil?
+    case expression.status
+    when Concerns::Expression::STATUS.to_be_approved
+      return "to-be-approved"
+    when Concerns::Expression::STATUS.partial_approval
+      return "partial-approval"
+    when Concerns::Expression::STATUS.approved
+      return "approved"
+    when Concerns::Expression::STATUS.partial_rejection
+      return "partial-rejection"
+    when Concerns::Expression::STATUS.rejected
+      return "rejected"
+    end
   end
 
   def render_metadata_partial_for(expression)
