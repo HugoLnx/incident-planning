@@ -2,18 +2,20 @@
 	<%= javascript_include_tag :new_cycle %>
 <% end -%>
 
-<% content_for :metatags do %>
-	<meta name="restorable_cycle_objectives_text" content="<%= @last_cycle.objectives_text %>" />
-	<meta name="restorable_cycle_priorities" content="<%= @last_cycle.priorities %>" />
+<% if @last_cycle %>
+  <% content_for :metatags do %>
+    <meta name="restorable_cycle_objectives_text" content="<%= @last_cycle.objectives_text %>" />
+    <meta name="restorable_cycle_priorities" content="<%= @last_cycle.priorities %>" />
+  <% end %>
 <% end %>
 
 
-<h1>New Cycle - Incident Objectives</h1>
+<h2>New Cycle - Incident Objectives</h2>
 
 <div class="control-line">
 	<strong>Incident:</strong> <span><%= @incident.name %></span>
 </div>
 
-<%= render 'form' %>
+<%= render partial: 'confirmation_form', locals: {form202: @cycle} %>
 
 <%= link_to 'Back', incident_cycles_path(@incident) %>

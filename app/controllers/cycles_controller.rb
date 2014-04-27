@@ -10,8 +10,13 @@ class CyclesController < ApplicationController
   end
 
   def new
-    @cycle = Forms::Form202.new
-    @last_cycle = Forms::Form202.new_from(@incident.cycles.last)
+    if params.has_key?(:cycle)
+      @cycle = Forms::Form202.new cycle_params
+    else
+      @cycle = Forms::Form202.new
+    end
+    last_cycle = @incident.cycles.last
+    @last_cycle = Forms::Form202.new_from(last_cycle) if last_cycle
   end
 
   def edit
@@ -25,7 +30,7 @@ class CyclesController < ApplicationController
 
     respond_to do |format|
       if @cycle.save
-        format.html { redirect_to incident_cycle_analysis_matrix_path(@incident, @cycle), notice: 'The cycle was successfully registered.' }
+        format.html { redirect_to incident_cycles_path(@incident), notice: 'The cycle was successfully registered.' }
       else
         format.html { render action: 'new' }
       end
@@ -56,6 +61,7 @@ class CyclesController < ApplicationController
   private
     def set_cycle
       @cycle = Cycle.find(params[:id])
+      @form202 = Forms::Form202.new_from(@cycle)
     end
 
     def set_incident
@@ -64,9 +70,6 @@ class CyclesController < ApplicationController
 
     def cycle_params
       cycle_params = params.require(:cycle).permit(:number, :from, :to, :objectives_text, :priorities)
-      flatter = StandardLib::HashFlatter.new(cycle_params)
-      flatter.flatten("from"){|values| DateTime.new(*values.map(&:to_i))}
-      flatter.flatten("to"){|values| DateTime.new(*values.map(&:to_i))}
-      flatter.hash
+      Forms::Form202.normalize(cycle_params)
     end
 end

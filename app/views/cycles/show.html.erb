@@ -2,16 +2,6 @@
 
 <h1>Incident Objectives</h1>
 
-<%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle} %>
-
-<p>
-  <strong>Objectives:</strong>
-	<pre><%= @cycle.text_expressions.objectives.load.map(&:text).join("\n") %></pre>
-</p>
-
-<p>
-  <strong>Priorities:</strong>
-	<pre><%= @cycle.priorities %></pre>
-</p>
+<%= render partial: "cycle", locals: {form202: @form202, incident: @incident} %>
 
 <%= link_to 'Back', incident_cycles_path %>

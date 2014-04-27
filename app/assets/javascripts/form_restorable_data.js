@@ -8,15 +8,19 @@
       $.extend(defaultOpts, opts);
 
       var opts = defaultOpts;
-      var $input = this;
-      var $btn = $("<button>").text(opts.label);
-      $input.before($btn);
+      var $meta = $("meta[name=\"" + opts.metatag_name + "\"]");
 
-      $btn.on("click", function(event) {
-        event.preventDefault();
+      if ($meta.length !==0) {
+        var $input = this;
+        var $btn = $("<button>").text(opts.label);
+        $input.before($btn);
 
-        var restoredText = $("meta[name=\"" + opts.metatag_name + "\"]").attr("content");
-        $input.val(restoredText);
-      });
+        $btn.on("click", function(event) {
+          event.preventDefault();
+
+          var restoredText = $meta.attr("content");
+          $input.val(restoredText);
+        });
+      }
     };
 }(jQuery));

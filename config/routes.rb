@@ -4,7 +4,13 @@ IncidentPlanning::Application.routes.draw do
   root to: "incidents#index"
 
   resources :incidents do
+    resource :cycle_confirmation, only: :show do
+      post :show
+    end
     resources :cycles do
+      collection do
+        post "/new", to: "cycles#new"
+      end
       resource :analysis_matrix
       resources :tactics
       resources :strategies
