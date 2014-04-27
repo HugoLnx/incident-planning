@@ -1,6 +1,6 @@
 <%- content_for :css do %>
   <style>
-    .incident-name, .cycle, .from, .to {
+    .incident-name, .cycle, .status, .from, .to {
       float: left;
       margin-right: 20px;
 			margin-top: 0;
@@ -21,7 +21,11 @@
 <p class="cycle">
   <strong>Cycle:</strong>
   <%= cycle.number %>
-  <em>(<%= cycle_closed_name(cycle.closed) %>)</em>
+</p>
+
+<p class="status">
+  <strong>Status:</strong>
+  <%= cycle_closed_name(cycle.closed).upcase %>
 </p>
 
 <p class="from">
