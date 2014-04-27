@@ -12,7 +12,25 @@
   <%= javascript_include_tag "analysis_matrices", "data-turbolinks-track" => true %>
 <% end %>
 
+<% content_for :css do %>
+<style>
+  .btn-show-dialog {
+	  display: none;
+  }
+</style>
+<% end %>
+
 <h1>Tactics Planning Matrix</h1>
+
+<%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle} %>
+
+<button class="btn-show-dialog" data-dialog-id="cycle-priorities">Show Priorities</button>
+<div>
+	<p class="dialog-title">Priorities</p>
+	<pre id="cycle-priorities">
+	<%= @cycle.priorities %>
+	</pre>
+</div>
 
 <table class="analysis-matrix" id="analysis-matrix">
   <thead>

@@ -1,39 +1,8 @@
-<%- content_for :css do %>
-  <style>
-    .incident-name, .cycle {
-      float: left;
-      margin-right: 20px;
-    }
-
-    .from {
-      clear: left;
-    }
-  </style>
-<% end -%>
 <p id="notice"><%= notice %></p>
 
 <h1>Incident Objectives</h1>
 
-<p class="incident-name">
-  <strong>Incident Name:</strong>
-  <%= @cycle.incident.name %>
-</p>
-
-<p class="cycle">
-  <strong>Cycle:</strong>
-  <%= @cycle.number %>
-  <em>(<%= cycle_closed_name(@cycle.closed) %>)</em>
-</p>
-
-<p class="from">
-  <strong>From:</strong>
-  <%= format_date @cycle.from %>
-</p>
-
-<p>
-  <strong>To:</strong>
-  <%= format_date @cycle.to %>
-</p>
+<%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle} %>
 
 <p>
   <strong>Objectives:</strong>

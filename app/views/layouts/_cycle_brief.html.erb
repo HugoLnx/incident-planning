@@ -1,0 +1,37 @@
+<%- content_for :css do %>
+  <style>
+    .incident-name, .cycle, .from, .to {
+      float: left;
+      margin-right: 20px;
+			margin-top: 0;
+			margin-bottom: 0;
+    }
+
+    .from, .post-to {
+      clear: left;
+    }
+  </style>
+<% end -%>
+
+<p class="incident-name">
+  <strong>Incident Name:</strong>
+  <%= cycle.incident.name %>
+</p>
+
+<p class="cycle">
+  <strong>Cycle:</strong>
+  <%= cycle.number %>
+  <em>(<%= cycle_closed_name(cycle.closed) %>)</em>
+</p>
+
+<p class="from">
+  <strong>From:</strong>
+  <%= format_date cycle.from %>
+</p>
+
+<p class="to">
+  <strong>To:</strong>
+  <%= format_date cycle.to %>
+</p>
+
+<div class="post-to"></div>
