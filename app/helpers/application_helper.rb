@@ -1,6 +1,6 @@
 module ApplicationHelper
   def cycle_closed_name(is_closed)
-    is_closed ? "closed" : "open"
+    is_closed ? "CLOSED" : "OPEN"
   end
 
   def format_date(date)

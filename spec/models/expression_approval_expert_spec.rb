@@ -40,7 +40,8 @@ describe "ExpressionApprovalExpert" do
       it "returns true because the unique role passed that have permission already approved" do
         mock_expression_model approval_roles: [0]
 
-        create :approval, expression: @expression, user_role: create(:user_role, role_id: 0)
+        user_role = create(:user_role, role_id: 0)
+        create :approval, expression: @expression, user: user_role.user, role_id: user_role.role_id
         
         expect(@subject.already_had_needed_role_approval?([0, 1])).to be == true
       end
@@ -48,8 +49,10 @@ describe "ExpressionApprovalExpert" do
       it "returns true because all roles passed have permission and already approved" do
         mock_expression_model approval_roles: [0, 1]
 
-        create :approval, expression: @expression, user_role: create(:user_role, role_id: 0)
-        create :approval, expression: @expression, user_role: create(:user_role, role_id: 1)
+        user_role = create(:user_role, role_id: 0)
+        create :approval, expression: @expression, user: user_role.user, role_id: user_role.role_id
+        user_role = create(:user_role, role_id: 1)
+        create :approval, expression: @expression, user: user_role.user, role_id: user_role.role_id
         
         expect(@subject.already_had_needed_role_approval?([0, 1])).to be == true
       end
@@ -72,7 +75,8 @@ describe "ExpressionApprovalExpert" do
       it "returns false because one of the roles passed have permission and doesn't approved yet" do
         mock_expression_model approval_roles: [0, 1]
 
-        create :approval, expression: @expression, user_role: create(:user_role, role_id: 0)
+        user_role = create(:user_role, role_id: 0)
+        create :approval, expression: @expression, user: user_role.user, role_id: user_role.role_id
         
         expect(@subject.already_had_needed_role_approval?([0, 1])).to be == false
       end
@@ -94,8 +98,11 @@ describe "ExpressionApprovalExpert" do
       it "ignore two approving roles from expression model approval roles" do
         mock_expression_model approval_roles: [0, 1, 2]
 
-        create :approval, user_role: create(:user_role, role_id: 0), expression: @expression
-        create :approval, user_role: create(:user_role, role_id: 1), expression: @expression
+        user_role = create(:user_role, role_id: 0)
+        create :approval, user: user_role.user, role_id: user_role.role_id, expression: @expression
+
+        user_role = create(:user_role, role_id: 1)
+        create :approval, user: user_role.user, role_id: user_role.role_id, expression: @expression
 
         expect(@subject.roles_missing_approvement).to be == [2]
       end
@@ -113,8 +120,10 @@ describe "ExpressionApprovalExpert" do
       it 'gets two roles even they have approved the expression' do
         mock_expression_model approval_roles: [0, 1]
 
-        create :approval, user_role: create(:user_role, role_id: 0), expression: @expression
-        create :approval, user_role: create(:user_role, role_id: 1), expression: @expression
+        user_role =  create(:user_role, role_id: 0)
+        create :approval, user: user_role.user, role_id: user_role.role_id, expression: @expression
+        user_role =  create(:user_role, role_id: 1)
+        create :approval, user: user_role.user, role_id: user_role.role_id, expression: @expression
 
         expect(@subject.roles_needed_to_approve).to be == [0, 1]
       end
@@ -128,7 +137,7 @@ describe "ExpressionApprovalExpert" do
         user_role = create(:user_role, user: user, role_id: 0)
         user.reload
 
-        approval = create :approval, user_role: user_role, expression: @expression
+        approval = create :approval, user: user_role.user, role_id: user_role.role_id, expression: @expression
 
         expect(@subject.approval_made_by_role(0)).to be == approval
       end
@@ -144,7 +153,7 @@ describe "ExpressionApprovalExpert" do
         user_role = create(:user_role, user: user, role_id: 0)
         user.reload
 
-        create :approval, user_role: user_role, expression: @expression
+        create :approval, user: user_role.user, role_id: user_role.role_id, expression: @expression
 
         expect(@subject.approval_made_by_role(1)).to be == nil
       end

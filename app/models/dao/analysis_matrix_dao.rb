@@ -6,7 +6,7 @@ module Dao
 
     def find_all_objectives_including_hierarchy
       expressions_includes = {
-        approvals: [:user_role]
+        approvals: [:user]
       }
       @cycle.groups.where(name: Model.objective.name).includes(
         text_expressions: expressions_includes,

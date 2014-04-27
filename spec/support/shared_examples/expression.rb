@@ -29,8 +29,11 @@ shared_examples_for "Expression" do
         mock_expression_model approval_roles: [2, 1, 0]
         expression = create :objective
 
-        create :approval, expression: expression, user_role: create(:user_role, role_id: 0)
-        create :approval, expression: expression, user_role: create(:user_role, role_id: 1)
+        user_role = create(:user_role, role_id: 0)
+        create :approval, expression: expression, user_id: user_role.user_id, role_id: user_role.role_id
+
+        user_role = create(:user_role, role_id: 1)
+        create :approval, expression: expression, user_id: user_role.user_id, role_id: user_role.role_id
 
         expect(expression.status).to be == described_class::STATUS.partial_approval()
       end
@@ -41,9 +44,12 @@ shared_examples_for "Expression" do
         mock_expression_model approval_roles: [2, 1, 0]
         expression = create :objective
 
-        create :approval, expression: expression, user_role: create(:user_role, role_id: 0)
-        create :approval, expression: expression, user_role: create(:user_role, role_id: 1)
-        create :approval, expression: expression, user_role: create(:user_role, role_id: 2)
+        user_role = create(:user_role, role_id: 0)
+        create :approval, expression: expression, user_id: user_role.user_id, role_id: user_role.role_id
+        user_role = create(:user_role, role_id: 1)
+        create :approval, expression: expression, user_id: user_role.user_id, role_id: user_role.role_id
+        user_role = create(:user_role, role_id: 2)
+        create :approval, expression: expression, user_id: user_role.user_id, role_id: user_role.role_id
 
         expect(expression.status).to be == described_class::STATUS.approved()
       end
@@ -60,8 +66,11 @@ shared_examples_for "Expression" do
         mock_expression_model approval_roles: [2, 1, 0]
         expression = create :objective
 
-        create :approval, positive: false, expression: expression, user_role: create(:user_role, role_id: 0)
-        create :approval, positive: false, expression: expression, user_role: create(:user_role, role_id: 1)
+        user_role = create(:user_role, role_id: 0)
+        create :approval, positive: false, expression: expression, user_id: user_role.user_id, role_id: user_role.role_id
+
+        user_role = create(:user_role, role_id: 1)
+        create :approval, positive: false, expression: expression, user_id: user_role.user_id, role_id: user_role.role_id
 
         expect(expression.status).to be == described_class::STATUS.partial_rejection
       end
@@ -70,9 +79,12 @@ shared_examples_for "Expression" do
         mock_expression_model approval_roles: [2, 1, 0]
         expression = create :objective
 
-        create :approval, positive: false, expression: expression, user_role: create(:user_role, role_id: 0)
-        create :approval, positive: false, expression: expression, user_role: create(:user_role, role_id: 1)
-        create :approval, positive: true, expression: expression, user_role: create(:user_role, role_id: 2)
+        user_role = create(:user_role, role_id: 0)
+        create :approval, positive: false, expression: expression, user_id: user_role.user_id, role_id: user_role.role_id
+        user_role = create(:user_role, role_id: 1)
+        create :approval, positive: false, expression: expression, user_id: user_role.user_id, role_id: user_role.role_id
+        user_role = create(:user_role, role_id: 2)
+        create :approval, positive: true, expression: expression, user_id: user_role.user_id, role_id: user_role.role_id
 
         expect(expression.status).to be == described_class::STATUS.partial_rejection
       end
@@ -83,9 +95,12 @@ shared_examples_for "Expression" do
         mock_expression_model approval_roles: [2, 1, 0]
         expression = create :objective
 
-        create :approval, positive: false, expression: expression, user_role: create(:user_role, role_id: 0)
-        create :approval, positive: false, expression: expression, user_role: create(:user_role, role_id: 1)
-        create :approval, positive: false, expression: expression, user_role: create(:user_role, role_id: 2)
+        user_role = create(:user_role, role_id: 0)
+        create :approval, positive: false, expression: expression, user_id: user_role.user_id, role_id: user_role.role_id
+        user_role = create(:user_role, role_id: 1)
+        create :approval, positive: false, expression: expression, user_id: user_role.user_id, role_id: user_role.role_id
+        user_role = create(:user_role, role_id: 2)
+        create :approval, positive: false, expression: expression, user_id: user_role.user_id, role_id: user_role.role_id
 
         expect(expression.status).to be == described_class::STATUS.rejected
       end
@@ -98,10 +113,13 @@ shared_examples_for "Expression" do
         mock_expression_model approval_roles: [2, 1, 0]
         expression = create :objective
 
+        user_role1 = create(:user_role, role_id: 0)
+        user_role2 = create(:user_role, role_id: 1)
+        user_role3 = create(:user_role, role_id: 2)
         approvals = [
-          create(:approval, expression: expression, user_role: create(:user_role, role_id: 0)),
-          create(:approval, expression: expression, user_role: create(:user_role, role_id: 1)),
-          create(:approval, expression: expression, user_role: create(:user_role, role_id: 2))
+          create(:approval, expression: expression, user_id: user_role1.user_id, role_id: user_role1.role_id),
+          create(:approval, expression: expression, user_id: user_role2.user_id, role_id: user_role2.role_id),
+          create(:approval, expression: expression, user_id: user_role3.user_id, role_id: user_role3.role_id)
         ]
 
         expression.reset
@@ -131,8 +149,11 @@ shared_examples_for "Expression" do
 
         (tactics_groups + strategies_groups + [objective_group]).each do |group|
           group.expressions.each do |exp|
-            create :approval, expression: exp, user_role: create(:user_role, role_id: 0)
-            create :approval, expression: exp, user_role: create(:user_role, role_id: 1)
+            user_role = create(:user_role, role_id: 0)
+            create :approval, expression: exp, user_id: user_role.user_id, role_id: user_role.role_id
+
+            user_role = create(:user_role, role_id: 1)
+            create :approval, expression: exp, user_id: user_role.user_id, role_id: user_role.role_id
           end
         end
 

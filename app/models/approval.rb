@@ -1,7 +1,6 @@
 class Approval < ActiveRecord::Base
   belongs_to :expression, polymorphic: true
-  belongs_to :user_role
-
+  belongs_to :user
 
   def self.build_all_to(user, positive: nil, approve: nil)
     expression = approve || raise(ArgumentError.new, "approving parameter is mandatory")
@@ -11,7 +10,8 @@ class Approval < ActiveRecord::Base
     roles_user_can_approve.map do |role_id|
       approving_user_role = user.user_role(role_id)
       Approval.new(
-        user_role: approving_user_role,
+        user_id: approving_user_role.user_id,
+        role_id: approving_user_role.role_id,
         expression: expression,
         positive: positive
       )

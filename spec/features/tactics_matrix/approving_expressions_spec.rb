@@ -31,8 +31,8 @@ feature "Tactics Matrix: Approving expressions", :js do
       expect(Approval.count).to be == 1
 
       approvals = Approval.all
-      expect(approvals[0].user_role.user).to be == @user
-      expect(approvals[0].user_role.role_id).to be == 0
+      expect(approvals[0].user).to be == @user
+      expect(approvals[0].role_id).to be == 0
     end
   end
 
@@ -53,12 +53,12 @@ feature "Tactics Matrix: Approving expressions", :js do
       expect(Approval.count).to be == 3
 
       approvals = Approval.all
-      expect(approvals[0].user_role.user).to be == @user
-      expect(approvals[1].user_role.user).to be == @user
-      expect(approvals[2].user_role.user).to be == @user
-      expect(approvals[0].user_role.role_id).to be == 0
-      expect(approvals[1].user_role.role_id).to be == 1
-      expect(approvals[2].user_role.role_id).to be == 2
+      expect(approvals[0].user).to be == @user
+      expect(approvals[1].user).to be == @user
+      expect(approvals[2].user).to be == @user
+      expect(approvals[0].role_id).to be == 0
+      expect(approvals[1].role_id).to be == 1
+      expect(approvals[2].role_id).to be == 2
     end
   end
 
@@ -82,15 +82,15 @@ feature "Tactics Matrix: Approving expressions", :js do
 
         approvals = Approval.all
         approvals.each do |approval|
-          expect(approval.user_role.user).to be == @user
+          expect(approval.user).to be == @user
         end
 
-        expect(approvals[0].user_role.user).to be == @user
-        expect(approvals[1].user_role.user).to be == @user
-        expect(approvals[2].user_role.user).to be == @user
-        expect(approvals[0].user_role.role_id).to be == 1
-        expect(approvals[1].user_role.role_id).to be == 2
-        expect(approvals[2].user_role.role_id).to be == 3
+        expect(approvals[0].user).to be == @user
+        expect(approvals[1].user).to be == @user
+        expect(approvals[2].user).to be == @user
+        expect(approvals[0].role_id).to be == 1
+        expect(approvals[1].role_id).to be == 2
+        expect(approvals[2].role_id).to be == 3
       end
     end
 

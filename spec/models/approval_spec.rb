@@ -27,11 +27,11 @@ describe Approval do
 
           approvals = Approval.build_all_to(user, approve: expression, positive: true)
 
-          approved_user_roles = approvals.map(&:user_role)
+          approved_user_roles = approvals.map{|a| UserRole.where(user_id: a.user_id, role_id: a.role_id).first}
           expect(approved_user_roles).to include user.user_roles[0]
           expect(approved_user_roles).to include user.user_roles[1]
-          expect(approvals[0].user_role.user).to be == user
-          expect(approvals[1].user_role.user).to be == user
+          expect(approvals[0].user).to be == user
+          expect(approvals[1].user).to be == user
           expect(approvals[0].expression).to be == expression
           expect(approvals[1].expression).to be == expression
           expect(approvals.size).to be == 2
@@ -48,11 +48,11 @@ describe Approval do
 
           approvals = Approval.build_all_to(user, approve: expression, positive: true)
 
-          approved_user_roles = approvals.map(&:user_role)
+          approved_user_roles = approvals.map{|a| UserRole.where(user_id: a.user_id, role_id: a.role_id).first}
           expect(approved_user_roles).to include user.user_roles[0]
           expect(approved_user_roles).to include user.user_roles[1]
-          expect(approvals[0].user_role.user).to be == user
-          expect(approvals[1].user_role.user).to be == user
+          expect(approvals[0].user).to be == user
+          expect(approvals[1].user).to be == user
           expect(approvals[0].expression).to be == expression
           expect(approvals[1].expression).to be == expression
           expect(approvals.size).to be == 2

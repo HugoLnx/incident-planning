@@ -161,7 +161,7 @@ private
     approval_expert = ExpressionApprovalExpert.new(expression)
     expression.roles_needed_to_approve.map do |needed_role|
       approval = approval_expert.approval_made_by_role(needed_role)
-      user = approval && approval.user_role.user
+      user = approval && approval.user
       {
         user_human_id: user && user.human_id,
         role: ::Roles::Dao.new.find_by_id(needed_role).name,

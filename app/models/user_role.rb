@@ -2,7 +2,6 @@ class UserRole < ActiveRecord::Base
   self.table_name = :user_roles
 
   belongs_to :user
-  has_many :approvals, dependent: :destroy
 
   validate :role_available
 

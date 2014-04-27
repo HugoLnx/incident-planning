@@ -2,7 +2,8 @@
 
 FactoryGirl.define do
   factory :approval do
-    user_role
+    user
+    role_id 1
     positive true
     association(:expression, factory: :objective)
   end

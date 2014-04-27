@@ -14,12 +14,12 @@ class ExpressionApprovalExpert
     permitted_roles = roles_ids & roles_needed_to_approve
     return false if permitted_roles.empty?
 
-    approving_roles = @expression.approvals.map{|a| a.user_role.role_id}
+    approving_roles = @expression.approvals.map{|a| a.role_id}
     (permitted_roles - approving_roles).empty?
   end
 
   def roles_missing_approvement
-    approving_roles = @expression.approvals.map{|a| a.user_role.role_id}
+    approving_roles = @expression.approvals.map{|a| a.role_id}
     roles_needed_to_approve - approving_roles
   end
 
@@ -28,6 +28,6 @@ class ExpressionApprovalExpert
   end
 
   def approval_made_by_role(role_id)
-    @expression.approvals.find{|approval| approval.user_role.role_id == role_id}
+    @expression.approvals.find{|approval| approval.role_id == role_id}
   end
 end

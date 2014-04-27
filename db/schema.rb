@@ -11,20 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140403004722) do
+ActiveRecord::Schema.define(version: 20140427025326) do
 
   create_table "approvals", force: true do |t|
-    t.integer  "user_role_id"
     t.integer  "expression_id"
     t.string   "expression_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "positive",        null: false
+    t.integer  "user_id"
+    t.integer  "role_id"
   end
 
   add_index "approvals", ["expression_id"], name: "index_approvals_on_expression_id", using: :btree
   add_index "approvals", ["expression_type"], name: "index_approvals_on_expression_type", using: :btree
-  add_index "approvals", ["user_role_id"], name: "index_approvals_on_user_role_id", using: :btree
+  add_index "approvals", ["role_id"], name: "index_approvals_on_role_id", using: :btree
+  add_index "approvals", ["user_id"], name: "index_approvals_on_user_id", using: :btree
 
   create_table "cycles", force: true do |t|
     t.integer  "incident_id",                    null: false
