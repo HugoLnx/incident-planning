@@ -5,7 +5,7 @@ class ApprovalCollection
 
   def_delegators :@approvals, :[], :each
 
-  def initialize(approvals)
+  def initialize(approvals=[])
     @approvals = approvals
   end
 
@@ -18,5 +18,13 @@ class ApprovalCollection
     rescue ActiveRecord::ActiveRecordError
       return false
     end
+  end
+  
+  def +(approval_collection)
+    ApprovalCollection.new(self.to_a + approval_collection.to_a)
+  end
+
+  def to_a
+    @approvals
   end
 end

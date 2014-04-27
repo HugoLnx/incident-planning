@@ -32,6 +32,12 @@
 	</pre>
 </div>
 
+<% if current_user.can_approve_all_objectives_at_once? %>
+	<%= form_tag incident_cycle_objectives_approvals_path(@incident, @cycle) do %>
+		<button id="btn-approve-objectives">Approve all objectives</button>
+	<% end %>
+<% end %>
+
 <table class="analysis-matrix" id="analysis-matrix">
   <thead>
     <tr>

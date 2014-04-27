@@ -7,7 +7,9 @@ IncidentPlanning::Application.routes.draw do
     resource :cycle_confirmation, only: :show do
       post :show
     end
+
     resources :cycles do
+      resources :objectives_approvals, only: :create
       collection do
         post "/new", to: "cycles#new"
       end

@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   has_many :user_roles, dependent: :destroy
   validates_associated :user_roles
 
+  INCIDENT_COMMANDER_ID = 0
+
   def roles_ids=(roles_ids)
     valids_size = 0
     roles_ids.each.with_index do |role_id, i|
@@ -33,5 +35,9 @@ class User < ActiveRecord::Base
 
   def human_id
     email
+  end
+  
+  def can_approve_all_objectives_at_once?
+    is_incident_commander = !user_role(INCIDENT_COMMANDER_ID).nil?
   end
 end
