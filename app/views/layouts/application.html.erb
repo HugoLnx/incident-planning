@@ -6,6 +6,7 @@
   <%= yield :css %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= yield :js %>
+  <%= yield :metatags %>
   <%= csrf_meta_tags %>
 </head>
 <body>

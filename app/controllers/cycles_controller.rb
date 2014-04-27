@@ -11,6 +11,7 @@ class CyclesController < ApplicationController
 
   def new
     @cycle = Forms::Form202.new
+    @last_cycle = Forms::Form202.new_from(@incident.cycles.last)
   end
 
   def edit
