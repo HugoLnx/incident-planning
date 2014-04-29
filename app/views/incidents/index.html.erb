@@ -14,7 +14,7 @@
       <tr>
         <td><%= link_to incident.name, incident_cycles_path(incident) %></td>
         <td><%= cycle_closed_name incident.closed? %></td>
-        <td><%= link_to 'Delete', incident, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', incident, method: :delete, data: { confirm: 'Are you sure?' }, class: "anchor-button" %></td>
       </tr>
     <% end %>
   </tbody>
