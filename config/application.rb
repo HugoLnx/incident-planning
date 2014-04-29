@@ -26,6 +26,6 @@ module IncidentPlanning
     config.autoload_paths << Rails.root.join("app", "models", "**")
     config.autoload_paths << Rails.root.join("app", "models", "**", "*.rb")
 
-    config.assets.precompile += ["analysis_matrices.js"]
+    config.assets.precompile += ["analysis_matrices.js", "new_cycle.js"]
   end
 end
