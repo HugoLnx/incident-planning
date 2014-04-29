@@ -14,8 +14,8 @@
   <% else %>
 
     <%= f.input :number, as: :integer %>
-    <%= f.input :from, as: :datetime, order: [:day, :month, :year] %>
-    <%= f.input :to, as: :datetime, order: [:day, :month, :year] %>
+    <%= f.input :from, as: :datetime %>
+    <%= f.input :to, as: :datetime %>
 
     <%= objectives_text_input f, form202 %>
     <%= f.input :priorities, as: :text, input_html: {cols: 100, rows: 10} %>
