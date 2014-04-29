@@ -13,7 +13,8 @@
 
   <% else %>
 
-    <%= f.input :number, as: :integer %>
+		<%= f.input :number, as: :integer, disabled: true, input_html: {id: "disabled_cycle_number"} %>
+    <%= f.input :number, as: :hidden %>
     <%= f.input :from, as: :datetime, order: [:day, :month, :year] %>
     <%= f.input :to, as: :datetime, order: [:day, :month, :year] %>
 

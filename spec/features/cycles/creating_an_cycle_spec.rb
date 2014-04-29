@@ -23,14 +23,12 @@ feature "Cycles: Creating cycles to an incident" do
       form = @page.form
       expect(form.element).to_not have_button "Copy from previous cycle"
 
-      filled_number = 1
       filled_from = DateTime.new(2014, 5, 27, 10, 30)
       filled_to = filled_from.next_day(1)
       filled_objectives = build_list(:objective, 5)
       filled_priorities = "Priority 1, Priority 2"
 
       expect do
-        form.fill_number 1
         form.fill_from filled_from
         form.fill_to filled_to
         form.fill_objectives filled_objectives
@@ -44,7 +42,7 @@ feature "Cycles: Creating cycles to an incident" do
 
 
       cycle = Cycle.last
-      expect(cycle.number).to be == filled_number
+      expect(cycle.number).to be == 1
       expect(cycle.from).to be == filled_from
       expect(cycle.to).to be == filled_to
       expect(cycle.priorities).to be == filled_priorities
@@ -56,14 +54,12 @@ feature "Cycles: Creating cycles to an incident" do
     scenario "I can cancel the creation on confirmation page" do
       form = @page.form
 
-      filled_number = 1
       filled_from = DateTime.new(2014, 5, 27, 10, 30)
       filled_to = filled_from.next_day(1)
       filled_objectives = build_list(:objective, 5)
       filled_priorities = "Priority 1, Priority 2"
 
       expect do
-        form.fill_number 1
         form.fill_from filled_from
         form.fill_to filled_to
         form.fill_objectives filled_objectives
@@ -95,14 +91,12 @@ feature "Cycles: Creating cycles to an incident" do
       form = @page.form
       expect(form.element).to have_button "Copy from previous cycle"
 
-      filled_number = 1
       filled_from = DateTime.new(2014, 5, 27, 10, 30)
       filled_to = filled_from.next_day(1)
       filled_objectives = build_list(:objective, 5)
       filled_priorities = "Priority 1, Priority 2"
 
       expect do
-        form.fill_number 1
         form.fill_from filled_from
         form.fill_to filled_to
         form.fill_objectives filled_objectives
@@ -116,7 +110,7 @@ feature "Cycles: Creating cycles to an incident" do
 
 
       cycle = Cycle.last
-      expect(cycle.number).to be == filled_number
+      expect(cycle.number).to be == 2
       expect(cycle.from).to be == filled_from
       expect(cycle.to).to be == filled_to
       expect(cycle.priorities).to be == filled_priorities

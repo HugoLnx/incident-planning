@@ -5,10 +5,6 @@ module PageObjects
       @form = element
     end
 
-    def fill_number(number)
-      @form.fill_in "cycle_number", with: number.to_s
-    end
-
     def fill_from(datetime)
       fill_datetime_with_preffix(datetime, "cycle_from")
     end

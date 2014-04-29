@@ -13,7 +13,7 @@ class CyclesController < ApplicationController
     if params.has_key?(:cycle)
       @cycle = Forms::Form202.new cycle_params
     else
-      @cycle = Forms::Form202.new
+      @cycle = Forms::Form202.new number: Cycle.next_number_to(@incident)
     end
     last_cycle = @incident.cycles.last
     @last_cycle = Forms::Form202.new_from(last_cycle) if last_cycle
