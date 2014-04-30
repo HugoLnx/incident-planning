@@ -16,6 +16,6 @@
 	<strong>Incident:</strong> <span><%= @incident.name %></span>
 </div>
 
-<%= render partial: 'confirmation_form', locals: {form202: @cycle} %>
+<%= render partial: 'confirmation_form', locals: {form202: @cycle, from_is_mandatory: @from_is_mandatory} %>
 
 <%= link_to 'Back', incident_cycles_path(@incident) %>

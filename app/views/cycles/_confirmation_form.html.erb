@@ -1,7 +1,7 @@
 <%= confirmation_form([@incident, form202], confirm_only: [:create], confirm_url: incident_cycle_confirmation_path(@incident)) do |f| %> 
   <%= f.error_notification %>
 
-  <%= render partial: "form_inputs", locals: {f: f, form202: form202} %>
+  <%= render partial: "form_inputs", locals: {f: f, form202: form202, from_is_mandatory: from_is_mandatory} %>
 
   <div class="form-actions">
     <%= f.button :submit %>

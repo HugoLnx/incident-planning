@@ -15,7 +15,12 @@
 
 		<%= f.input :number, as: :integer, disabled: true, input_html: {id: "disabled_cycle_number"} %>
     <%= f.input :number, as: :hidden %>
-    <%= f.input :from, as: :datetime, order: [:day, :month, :year] %>
+    <%= f.input :from, as: :datetime, order: [:day, :month, :year], disabled: from_is_mandatory %>
+    <% if from_is_mandatory %>
+      <div style="display:none">
+        <%= f.input :from, as: :datetime %>
+      </div>
+    <% end %>
     <%= f.input :to, as: :datetime, order: [:day, :month, :year] %>
 
     <%= objectives_text_input f, form202 %>
