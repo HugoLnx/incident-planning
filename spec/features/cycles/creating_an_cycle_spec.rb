@@ -97,7 +97,6 @@ feature "Cycles: Creating cycles to an incident" do
       filled_priorities = "Priority 1, Priority 2"
 
       expect do
-        form.fill_from filled_from
         form.fill_to filled_to
         form.fill_objectives filled_objectives
         form.fill_priorities filled_priorities
@@ -111,7 +110,6 @@ feature "Cycles: Creating cycles to an incident" do
 
       cycle = Cycle.last
       expect(cycle.number).to be == 2
-      expect(cycle.from).to be == filled_from
       expect(cycle.to).to be == filled_to
       expect(cycle.priorities).to be == filled_priorities
       cycle_texts = cycle.text_expressions.objectives.map(&:text)
