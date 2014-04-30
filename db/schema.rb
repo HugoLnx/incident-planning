@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140427025326) do
+ActiveRecord::Schema.define(version: 20140430123440) do
 
   create_table "approvals", force: true do |t|
     t.integer  "expression_id"
@@ -29,15 +29,16 @@ ActiveRecord::Schema.define(version: 20140427025326) do
   add_index "approvals", ["user_id"], name: "index_approvals_on_user_id", using: :btree
 
   create_table "cycles", force: true do |t|
-    t.integer  "incident_id",                    null: false
-    t.integer  "number",                         null: false
-    t.integer  "current_object",                 null: false
-    t.datetime "from",                           null: false
-    t.datetime "to",                             null: false
-    t.boolean  "closed",         default: false
+    t.integer  "incident_id",                                null: false
+    t.integer  "number",                                     null: false
+    t.integer  "current_object",                             null: false
+    t.datetime "from",                                       null: false
+    t.datetime "to",                                         null: false
+    t.boolean  "closed",                     default: false
     t.text     "priorities"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "priorities_approval_status"
   end
 
   add_index "cycles", ["incident_id"], name: "index_cycles_on_incident_id", using: :btree

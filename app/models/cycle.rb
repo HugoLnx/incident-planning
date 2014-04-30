@@ -29,4 +29,12 @@ class Cycle < ActiveRecord::Base
   def datetimes_difference
     to - from
   end
+
+  def approved?
+    (text_expressions.objectives).all?{|exp| exp.status == TextExpression::STATUS.approved}
+  end
+
+  def priorities_approved?
+    priorities_approval_status
+  end
 end

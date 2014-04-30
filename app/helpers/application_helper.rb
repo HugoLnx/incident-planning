@@ -3,6 +3,10 @@ module ApplicationHelper
     is_closed ? "CLOSED" : "OPEN"
   end
 
+  def cycle_approval_status_name(is_approved)
+    is_approved ? "APPROVED" : "TO BE APPROVED"
+  end
+
   def format_date(date)
     return "" if date.nil?
     date.strftime "%d/%m/%Y %H:%M"

@@ -1,7 +1,11 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Incident Objectives</h1>
 
 <%= render partial: "cycle", locals: {form202: @form202, incident: @incident} %>
+
+<% if current_user.can_approve_all_objectives_at_once? && !@cycle.approved? %>
+	<%= form_tag incident_cycle_objectives_approvals_path(@incident, @cycle) do %>
+		<button id="btn-approve-objectives">Approve all objectives</button>
+	<% end %>
+<% end %>
 
 <%= link_to 'Back', incident_cycles_path %>

@@ -12,7 +12,7 @@ class ObjectivesApprovalsController < ApplicationController
 
     respond_to do |format|
       if approvals.save
-        format.html {redirect_to incident_cycle_analysis_matrix_path(@incident, @cycle), notice: "Objectives were sucessfuly approved."}
+        format.html {redirect_to incident_cycle_path(@incident, @cycle), notice: "Objectives were sucessfuly approved."}
       else
         format.html {render status: :not_implemented, text: "Error, approvals were not saved and this case was not treated yet"}
       end

@@ -24,19 +24,7 @@
 
 <%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
 
-<button class="btn-show-dialog" data-dialog-id="cycle-priorities">Show Priorities</button>
-<div>
-	<p class="dialog-title">Priorities</p>
-	<pre id="cycle-priorities">
-	<%= @cycle.priorities %>
-	</pre>
-</div>
-
-<% if current_user.can_approve_all_objectives_at_once? %>
-	<%= form_tag incident_cycle_objectives_approvals_path(@incident, @cycle) do %>
-		<button id="btn-approve-objectives">Approve all objectives</button>
-	<% end %>
-<% end %>
+<%= render partial: "show_priorities", locals: {cycle: @cycle} %>
 
 <table class="analysis-matrix" id="analysis-matrix">
   <thead>

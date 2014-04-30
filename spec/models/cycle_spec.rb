@@ -1,6 +1,49 @@
 require "spec_helper"
 
 describe Cycle do
+  describe "instance behavior" do
+    describe "when checking if are approved" do
+      context "is approved if all objectives are already approved" do
+        it "returns true if the cycle have three already approved objectives" do
+          objectives = create_list(:objective, 3)
+          cycle = create :cycle,
+            text_expressions: objectives
+
+          mock_expression_model approval_roles: [4]
+          objectives.each{|obj| create :approval, role_id: 4, positive: true, expression: obj}
+
+          expect(cycle).to be_approved
+        end
+
+        it "returns true if the cycle have three already approved objectives, and one strategy to be approved" do
+          objectives = create_list(:objective, 3)
+          cycle = create :cycle,
+            text_expressions: objectives
+          create :strategy_how, cycle: cycle
+          cycle.reload
+
+          mock_expression_model approval_roles: [4]
+          objectives.each{|obj| create :approval, role_id: 4, positive: true, expression: obj}
+
+          expect(cycle).to be_approved
+        end
+      end
+
+      context "isn't approved if any objectives are already approved" do
+        it "returns false if the cycle have two already approved objectives, and one objective to be approved" do
+          objectives = create_list(:objective, 3)
+          cycle = create :cycle,
+            text_expressions: objectives
+
+          mock_expression_model approval_roles: [4]
+          objectives[0..-2].each{|obj| create :approval, role_id: 4, positive: true, expression: obj}
+
+          expect(cycle).to_not be_approved
+        end
+      end
+    end
+  end
+
   describe "module behaviors" do
     describe "when checking if next cycle of incident have mandatory 'from'" do
       it "returns true if the incident have previous cycles" do

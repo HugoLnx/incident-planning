@@ -10,6 +10,7 @@ IncidentPlanning::Application.routes.draw do
 
     resources :cycles do
       resources :objectives_approvals, only: :create
+      resources :priorities_approvals, only: :create
       collection do
         post "/new", to: "cycles#new"
       end

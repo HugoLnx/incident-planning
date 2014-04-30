@@ -40,4 +40,8 @@ class User < ActiveRecord::Base
   def can_approve_all_objectives_at_once?
     is_incident_commander = !user_role(INCIDENT_COMMANDER_ID).nil?
   end
+  
+  def can_approve_priorities?
+    is_incident_commander = !user_role(INCIDENT_COMMANDER_ID).nil?
+  end
 end
