@@ -50,7 +50,9 @@
 <br>
 
 <%= link_to 'New Cycle', new_incident_cycle_path(@incident), class: "anchor-button" %>
-<%= link_to 'Delete last cycle', incident_cycle_path(@incident, @incident.cycles.last), method: "delete", class: "anchor-button" %>
+<% if !@cycles.empty? %>
+  <%= link_to 'Delete last cycle', incident_cycle_path(@incident, @cycles.last), method: "delete", class: "anchor-button" %>
+<% end %>
 
 <div class="control-line medium-padding">
 	<%= link_to 'Back', incidents_path %>
