@@ -15,7 +15,7 @@
 
 <p class="incident-name">
   <strong>Incident Name:</strong>
-  <%= incident.name %>
+  <%= link_to incident.name, incident_cycles_path(incident) %>
 </p>
 
 <p class="cycle">
