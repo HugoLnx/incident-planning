@@ -10,6 +10,7 @@ FactoryGirl.define do
       after(:create) do |user|
         (0..6).each do |i|
           create :user_role, user: user, role_id: i
+          user.reload
         end
       end
     end

@@ -3,15 +3,8 @@ class ObjectivesApprovalsController < ApplicationController
   before_action :set_incident
 
   def create
-    objectives = @cycle.text_expressions.objectives.includes(:approvals)
-    approvals = ApprovalCollection.new
-    objectives.each do |objective|
-      new_approvals = Approval.build_all_to(current_user, positive: true, approve: objective)
-      approvals += new_approvals
-    end
-
     respond_to do |format|
-      if approvals.save
+      if @cycle.approve_all_objectives(current_user)
         format.html {redirect_to incident_cycle_path(@incident, @cycle), notice: "Objectives were sucessfuly approved."}
       else
         format.html {render status: :not_implemented, text: "Error, approvals were not saved and this case was not treated yet"}

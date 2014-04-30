@@ -9,11 +9,16 @@ class ApprovalCollection
     @approvals = approvals
   end
 
+  def save!
+    ActiveRecord::Base.transaction(requires_new: true) do
+      @approvals.each(&:save!)
+    end
+  end
+
   def save
     begin
-      ActiveRecord::Base.transaction do
-        @approvals.each(&:save!)
-      end
+      self.save!
+
       return true
     rescue ActiveRecord::ActiveRecordError
       return false

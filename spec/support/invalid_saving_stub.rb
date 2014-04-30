@@ -9,6 +9,12 @@ class InvalidSavingStubber
     @example.allow(record).to @example.receive(:save!) do
       raise ActiveRecord::RecordInvalid.new(record)
     end
+
+    @example.allow(record).to @example.receive(:update).and_return(false)
+
+    @example.allow(record).to @example.receive(:update!) do
+      raise ActiveRecord::RecordInvalid.new(record)
+    end
   end
 
   def stub_all(records)

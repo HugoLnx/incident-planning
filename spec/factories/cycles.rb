@@ -8,6 +8,7 @@ FactoryGirl.define do
     from "2014-01-17"
     to "2014-01-17"
     closed false
+    priorities_approval_status false
     groups []
   end
 end

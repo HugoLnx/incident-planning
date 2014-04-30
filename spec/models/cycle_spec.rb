@@ -2,12 +2,66 @@ require "spec_helper"
 
 describe Cycle do
   describe "instance behavior" do
+    describe "when approving all objectives at once" do
+      before :each do
+        @user = create :user_god
+        @objectives = create_list(:objective, 3)
+        @cycle = create :cycle,
+          text_expressions: @objectives
+
+        mock_expression_model approval_roles: [1, 2, 3]
+      end
+
+      it "approve all objectives of that cycle" do
+        @cycle.approve_all_objectives(@user)
+
+        expect(@objectives[0].status).to be == TextExpression::STATUS.approved
+        expect(@objectives[1].status).to be == TextExpression::STATUS.approved
+        expect(@objectives[2].status).to be == TextExpression::STATUS.approved
+      end
+
+      it "approve priorities of that cycle" do
+        @cycle.approve_all_objectives(@user)
+
+        expect(@cycle.priorities_approved?).to be == true
+      end
+
+      it "doesn't save approvals if cycle updating goes wrong" do
+        InvalidSavingStubber.new(self).stub(@cycle)
+
+        @cycle.approve_all_objectives(@user)
+
+        expect(@objectives[0].status).to_not be_eql TextExpression::STATUS.approved
+        expect(@objectives[1].status).to_not be_eql TextExpression::STATUS.approved
+        expect(@objectives[2].status).to_not be_eql TextExpression::STATUS.approved
+      end
+
+      it "doesn't update cycle priorities status if any objective approval wasn't saved" do
+        approval = Approval.new
+        allow(Approval).to receive(:new) do |args|
+          approval.attributes = args
+          InvalidSavingStubber.new(self).stub(approval)
+          approval
+        end
+
+        @cycle.approve_all_objectives(@user)
+
+        expect(@cycle.priorities_approved?).to be == false
+      end
+
+      it "returns true when the approval was successful" do
+        expect(@cycle.approve_all_objectives(@user)).to be == true
+      end
+    end
+
+
     describe "when checking if are approved" do
-      context "is approved if all objectives are already approved" do
-        it "returns true if the cycle have three already approved objectives" do
+      context "is approved if all objectives and the priorities are already approved " do
+        it "returns true if the cycle have three already approved objectives and the priorities approved" do
           objectives = create_list(:objective, 3)
           cycle = create :cycle,
-            text_expressions: objectives
+            text_expressions: objectives,
+            priorities_approval_status: true
 
           mock_expression_model approval_roles: [4]
           objectives.each{|obj| create :approval, role_id: 4, positive: true, expression: obj}
@@ -15,10 +69,12 @@ describe Cycle do
           expect(cycle).to be_approved
         end
 
-        it "returns true if the cycle have three already approved objectives, and one strategy to be approved" do
+        it "returns true if the cycle have priorities approved and three already approved objectives, and one strategy to be approved" do
           objectives = create_list(:objective, 3)
           cycle = create :cycle,
-            text_expressions: objectives
+            text_expressions: objectives,
+            priorities_approval_status: true
+
           create :strategy_how, cycle: cycle
           cycle.reload
 
@@ -30,13 +86,27 @@ describe Cycle do
       end
 
       context "isn't approved if any objectives are already approved" do
-        it "returns false if the cycle have two already approved objectives, and one objective to be approved" do
+        it "returns false if the cycle have priorities approved, two already approved objectives, and one objective to be approved" do
+          objectives = create_list(:objective, 3)
+          cycle = create :cycle,
+            text_expressions: objectives,
+            priorities_approval_status: true
+
+
+          mock_expression_model approval_roles: [4]
+          objectives[0..-2].each{|obj| create :approval, role_id: 4, positive: true, expression: obj}
+
+          expect(cycle).to_not be_approved
+        end
+
+        it "returns false if the cycle have priorities to be approved, and three approved objectives" do
           objectives = create_list(:objective, 3)
           cycle = create :cycle,
             text_expressions: objectives
 
+
           mock_expression_model approval_roles: [4]
-          objectives[0..-2].each{|obj| create :approval, role_id: 4, positive: true, expression: obj}
+          objectives.each{|obj| create :approval, role_id: 4, positive: true, expression: obj}
 
           expect(cycle).to_not be_approved
         end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140430123440) do
+ActiveRecord::Schema.define(version: 20140430135702) do
 
   create_table "approvals", force: true do |t|
     t.integer  "expression_id"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20140430123440) do
     t.text     "priorities"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "priorities_approval_status"
+    t.boolean  "priorities_approval_status", default: false, null: false
   end
 
   add_index "cycles", ["incident_id"], name: "index_cycles_on_incident_id", using: :btree

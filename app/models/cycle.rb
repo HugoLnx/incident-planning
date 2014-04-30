@@ -31,10 +31,33 @@ class Cycle < ActiveRecord::Base
   end
 
   def approved?
-    (text_expressions.objectives).all?{|exp| exp.status == TextExpression::STATUS.approved}
+    is_objectives_approved = (text_expressions.objectives).all?{|exp| exp.status == TextExpression::STATUS.approved}
+    is_objectives_approved && priorities_approved?
   end
 
   def priorities_approved?
     priorities_approval_status
+  end
+
+  def approve_all_objectives!(user)
+    objectives = text_expressions.objectives.includes(:approvals)
+    approvals = ApprovalCollection.new
+    objectives.each do |objective|
+      new_approvals = Approval.build_all_to(user, positive: true, approve: objective)
+      approvals += new_approvals
+    end
+
+    ActiveRecord::Base.transaction(requires_new: true) do
+      approvals.save! && self.update!(priorities_approval_status: true)
+    end
+  end
+
+  def approve_all_objectives(user)
+    begin
+      self.approve_all_objectives!(user)
+      return true
+    rescue ActiveRecord::ActiveRecordError
+      return false
+    end
   end
 end
