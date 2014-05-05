@@ -24,6 +24,7 @@
       $dialogElement.dialog({
           title: $dialogElement.data("dialog-title"),
           hide: true,
+          closeText: "",
           position: {
             my: "left top",
             at: "left bottom",

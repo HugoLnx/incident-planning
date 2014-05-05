@@ -17,6 +17,7 @@
         $(this).find(".metadata").clone().dialog({
           title: _expression_model_name,
           hide: true,
+          closeText: "",
           position: {
             my: "left top",
             at: "left bottom",
