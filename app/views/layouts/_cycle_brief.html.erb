@@ -1,41 +1,50 @@
 <%- content_for :css do %>
   <style>
-    .incident-name, .cycle, .status, .from, .to {
+		.cycle-brief .incident-name,
+		.cycle-brief .cycle,
+		.cycle-brief .status,
+		.cycle-brief .from,
+		.cycle-brief .to
+		{
       float: left;
       margin-right: 20px;
 			margin-top: 0;
 			margin-bottom: 0;
     }
 
-    .from, .post-to {
+		.cycle-brief .from,
+		.cycle-brief .post-to
+		{
       clear: left;
     }
   </style>
 <% end -%>
 
-<p class="incident-name">
-  <strong>Incident Name:</strong>
-  <%= link_to incident.name, incident_cycles_path(incident) %>
-</p>
+<div class="cycle-brief">
+	<p class="incident-name">
+		<strong>Incident Name:</strong>
+		<%= link_to incident.name, incident_cycles_path(incident) %>
+	</p>
 
-<p class="cycle">
-  <strong>Cycle:</strong>
-  <%= cycle.number %>
-</p>
+	<p class="cycle">
+		<strong>Cycle:</strong>
+		<%= cycle.number %>
+	</p>
 
-<p class="status">
-  <strong>Status:</strong>
-  <%= cycle_closed_name(cycle.closed) %>
-</p>
+	<p class="status">
+		<strong>Status:</strong>
+		<%= cycle_closed_name(cycle.closed) %>
+	</p>
 
-<p class="from">
-  <strong>From:</strong>
-  <%= format_date cycle.from %>
-</p>
+	<p class="from">
+		<strong>From:</strong>
+		<%= format_date cycle.from %>
+	</p>
 
-<p class="to">
-  <strong>To:</strong>
-  <%= format_date cycle.to %>
-</p>
+	<p class="to">
+		<strong>To:</strong>
+		<%= format_date cycle.to %>
+	</p>
 
-<div class="post-to"></div>
+	<div class="post-to"></div>
+</div>
