@@ -5,6 +5,8 @@ class Cycle < ActiveRecord::Base
   has_many :time_expressions
   has_many :groups, class_name: ::Group
 
+  default_scope {order "number ASC"}
+
   def self.next_have_ending_mandatory?(incident)
     incident.cycles.exists?
   end
