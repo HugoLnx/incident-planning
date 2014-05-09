@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140430135702) do
+ActiveRecord::Schema.define(version: 20140509233237) do
 
   create_table "approvals", force: true do |t|
     t.integer  "expression_id"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20140430135702) do
   add_index "text_expressions", ["owner_id"], name: "index_text_expressions_on_owner_id", using: :btree
 
   create_table "time_expressions", force: true do |t|
-    t.datetime "when",                             null: false
+    t.datetime "when"
     t.string   "name",                             null: false
     t.integer  "group_id"
     t.datetime "created_at"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20140430135702) do
     t.integer  "cycle_id"
     t.integer  "owner_id"
     t.integer  "source",     limit: 8, default: 0, null: false
+    t.string   "text"
   end
 
   add_index "time_expressions", ["cycle_id"], name: "index_time_expressions_on_cycle_id", using: :btree

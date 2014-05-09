@@ -6,7 +6,7 @@ shared_examples "time expression attribute" do
 
   let(:valid_date_str) {"22/03/1993 10:30"}
 
-  describe "when updating" do
+  describe "when updating", only: true do
     context "if valid string passed" do
       before :each do
         @old_expression = subject.public_send(getter_method)
@@ -61,16 +61,16 @@ shared_examples "time expression attribute" do
         end.to_not raise_error
       end
 
-      it "time expression is destroyed (this probably will be better when saving in a near future)" do
+      it "when is set to nil" do
         time_expression = subject.public_send(getter_method)
         subject.public_send(update_method, "")
-        expect(time_expression).to be_destroyed
+        expect(time_expression.when).to be_nil
       end
 
-      it "time expression reference is set to nil" do
-        subject.public_send(update_method, "")
+      it "text is set to empty string" do
         time_expression = subject.public_send(getter_method)
-        expect(time_expression).to be nil
+        subject.public_send(update_method, "")
+        expect(time_expression.text).to be == ""
       end
 
       it "return true" do
@@ -86,14 +86,26 @@ shared_examples "time expression attribute" do
         end.to_not raise_error
       end
 
-      it "return false" do
+      it "when is set to nil" do
+        time_expression = subject.public_send(getter_method)
+        subject.public_send(update_method, "invalid format")
+        expect(time_expression.when).to be_nil
+      end
+
+      it "text is set to string passed" do
+        time_expression = subject.public_send(getter_method)
+        subject.public_send(update_method, "invalid format")
+        expect(time_expression.text).to be == "invalid format"
+      end
+
+      it "return true" do
         updated = subject.public_send(update_method, "invalid format")
-        expect(updated).to be false
+        expect(updated).to be true
       end
     end
   end
 
-  describe "when setting the reference" do
+  describe "when setting the reference", only: true do
     before :each do
       @new_expression = build(:time_expression)
       subject.public_send(set_reference_method, @new_expression)
@@ -105,7 +117,7 @@ shared_examples "time expression attribute" do
     end
   end
 
-  describe "when setting with string" do
+  describe "when setting with string", only: true do
     context "if in format 'dd/mm/yyyy hh:mm'" do
       describe "initialize a new datetime" do
         before :each do
@@ -126,24 +138,36 @@ shared_examples "time expression attribute" do
         end
       end
 
-      it "replace the old text expression" do
+      it "replace the old time expression" do
         old_exp = subject.public_send(getter_method)
         subject.public_send(setter_method, valid_date_str)
         new_exp = subject.public_send(getter_method)
         expect(new_exp).to_not be == old_exp
       end
+
+      it "set text to nil" do
+        subject.public_send(setter_method, valid_date_str)
+        new_exp = subject.public_send(getter_method)
+        expect(new_exp.text).to be_nil
+      end
     end
 
     context "if string have an invalid format" do
-      it 'sets expression to nil' do
+      it 'sets text to the string passed' do
         subject.public_send(setter_method, "invalid format")
         expression = subject.public_send(getter_method)
-        expect(expression).to be_nil
+        expect(expression.text).to be == "invalid format"
+      end
+
+      it 'sets when to nil' do
+        subject.public_send(setter_method, "invalid format")
+        expression = subject.public_send(getter_method)
+        expect(expression.when).to be_nil
       end
     end
   end
 
-  describe "when getting" do
+  describe "when getting", only: true do
     before :each do
       @expression = subject.public_send(getter_method)
     end

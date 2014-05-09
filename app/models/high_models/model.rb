@@ -64,26 +64,21 @@ module HighModels
             error_raised = true
           end
 
-          valid_new_time = !error_raised || new_time_str == ""
-          if valid_new_time
-            updated = true
-            exp = instance_variable_get("@#{name}")
-            if exp && new_time.nil?
-              exp.destroy!
-              exp = nil
-            elsif !exp || exp.when != new_time
-              exp ||= ::TimeExpression.new(name: expression_name)
-              exp.owner = self.owner
-              exp.when = new_time
-            else
-              updated = false
-            end
-
-            self.instance_variable_set("@#{name}", exp)
-            updated
+          updated = true
+          exp = instance_variable_get("@#{name}")
+          if exp && new_time.nil?
+            exp.when = nil
+            exp.text = new_time_str || ""
+          elsif !exp || exp.when != new_time
+            exp ||= ::TimeExpression.new(name: expression_name)
+            exp.owner = self.owner
+            exp.when = new_time
           else
-            false
+            updated = false
           end
+
+          self.instance_variable_set("@#{name}", exp)
+          updated
         end
 
         define_method :"set_#{name}_reference" do |new_reference|
@@ -95,12 +90,15 @@ module HighModels
             date = time_str && DateTime.strptime(time_str, TimeExpression::TIME_PARSING_FORMAT)
           rescue ArgumentError 
           end
+          expression = ::TimeExpression.new(name: expression_name, owner: self.owner)
           if date
-            expression = ::TimeExpression.new(name: expression_name, when: date, owner: self.owner)
-            instance_variable_set("@#{name}", expression)
+            expression.when = date
+            expression.text = nil
           else
-            instance_variable_set("@#{name}", nil)
+            expression.when = nil
+            expression.text = time_str || ""
           end
+          instance_variable_set("@#{name}", expression)
         end
 
         define_method name do

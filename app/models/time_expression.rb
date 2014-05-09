@@ -4,7 +4,11 @@ class TimeExpression < ActiveRecord::Base
   TIME_PARSING_FORMAT = "%d/%m/%Y %H:%M"
 
   def info_as_str
-    self.when.strftime TIME_PARSING_FORMAT
+    if self.when
+      self.when.strftime TIME_PARSING_FORMAT
+    else
+      self.text
+    end
   end
 
   def content_changed?
