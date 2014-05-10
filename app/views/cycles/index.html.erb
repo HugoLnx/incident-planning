@@ -27,9 +27,9 @@
       <th>Cycle</th>
       <th>From</th>
       <th>To</th>
-      <th>Status</th>
-      <th>Approval Status</th>
+      <th>Cycle Status</th>
       <th></th>
+      <th>Approval Status</th>
       <th></th>
     </tr>
   </thead>
@@ -41,8 +41,8 @@
         <td><%= format_date cycle.from %></td>
         <td><%= format_date cycle.to %></td>
         <td><%= cycle_closed_name cycle.closed %></td>
-        <td><%= cycle_approval_status_name cycle.approved? %></td>
         <td><%= link_to 'Objectives', incident_cycle_path(@incident, cycle) %></td>
+        <td><%= cycle_approval_status_name cycle.approved? %></td>
         <td><%= link_to 'Tactics Matrix', incident_cycle_analysis_matrix_path(@incident, cycle) %></td>
       </tr>
     <% end %>

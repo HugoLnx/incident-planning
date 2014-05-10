@@ -2,14 +2,8 @@
   <style>
     .confirm-form, .cancel-form {
       display: inline-block;
-      float: right;
+      float: left;
       margin-right: 20px;
-    }
-
-    @media screen and (min-width: 800px) {
-      .float-container {
-        width: 800px;
-      }
     }
 
     h2 {
@@ -17,7 +11,7 @@
     }
 
     .post-forms {
-      clear: left;
+      clear: both;
     }
   </style>
 <% end %>
@@ -26,17 +20,11 @@
   <meta name="viewport" content="width=device-width" />
 <% end %>
 
-<h2>Incident Objectives Confirmation</h2>
+<h2>Confirmation - Incident Objectives</h2>
+
+<%= render partial: "cycles/cycle", locals: {form202: @form202, incident: @incident} %>
 
 <div class="float-container">
-  <%= simple_form_for([@incident, @form202], url: new_incident_cycle_path(@incident), html: {class: "cancel-form"}) do |f| %>
-    <%= render partial: "cycles/form_inputs", locals: {f: f, form202: @form202, all_hidden: true} %>
-
-    <div class="form-actions">
-      <%= f.button :submit, "Cancel" %>
-    </div>
-  <% end %>
-
   <%= simple_form_for([@incident, @form202], html: {class: "confirm-form"}) do |f| %>
     <%= render partial: "cycles/form_inputs", locals: {f: f, form202: @form202, all_hidden: true} %>
 
@@ -45,7 +33,13 @@
     </div>
   <% end %>
 
+  <%= simple_form_for([@incident, @form202], url: new_incident_cycle_path(@incident), html: {class: "cancel-form"}) do |f| %>
+    <%= render partial: "cycles/form_inputs", locals: {f: f, form202: @form202, all_hidden: true} %>
+
+    <div class="form-actions">
+      <%= f.button :submit, "Cancel" %>
+    </div>
+  <% end %>
+
   <div class="post-forms"></div>
 <div>
-
-<%= render partial: "cycles/cycle", locals: {form202: @form202, incident: @incident} %>
