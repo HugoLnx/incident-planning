@@ -4,6 +4,7 @@
   var Templates = namespace.AnalysisMatrix.Templates;
   var BackendProtocols = namespace.AnalysisMatrix.BackendProtocols;
   var Ajax = LNX_UTILS.Ajax;
+  var ExpressionRecognizer = namespace.AnalysisMatrix.ExpressionRecognizer;
 
   Actions.Update = function(targetsSelector, siblingsSelector, template) {
     this.targetsSelector = targetsSelector;
@@ -44,12 +45,26 @@
       var form = self.template.evaluate(initialData);
       var renderer = new Templates.FormRenderer(matrix);
 
+      bindOnExpressionSuggestion(form);
       bindOnSubmit(form, self.updateProtocol, $td);
       bindOnDeleteBtn(form.$deleteBtn(), self.deleteProtocol, $td);
 
       renderer.render(form, {replacing: cells});
     });
   };
+
+  function bindOnExpressionSuggestion(form) {
+    form.$inputsTds().find("input").each(function() {
+      var $input = $(this);
+
+      var expressionName = ExpressionRecognizer.getPrettyNameFromInput($input);
+      var source = "/expression_suggestions/" + expressionName;
+
+      $input.autocomplete({
+        source: source
+      });
+    });
+  }
 
   function bindOnSubmit(form, updateProtocol, $td) {
     form.$submit().on("click", function() {

@@ -1,5 +1,6 @@
 (function($, namespace, utils) {
   var Matrix = namespace.Matrix;
+  var ExpressionRecognizer = namespace.AnalysisMatrix.ExpressionRecognizer;
 
   Matrix.Cell = function($element, row) {
     this.$element = $element;
@@ -61,13 +62,7 @@
   };
 
   prototype.expressionName = function() {
-    var EXPRESSION_NAMES = ["objective", "how", "why", "who", "what", "where", "when", "response_action"];
-    for(var i = 0; i<EXPRESSION_NAMES.length; i++) {
-      var name = EXPRESSION_NAMES[i];
-      if (this.$element.hasClass(name)) {
-        return name;
-      }
-    }
+    return ExpressionRecognizer.getNameFromTd(this.$element);
   };
 
   prototype.text = function() {

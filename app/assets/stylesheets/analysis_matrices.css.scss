@@ -3,6 +3,7 @@
 @import "jquery.ui.core";
 @import "jquery.ui.theme";
 @import "jquery.ui.dialog";
+@import "jquery.ui.autocomplete";
 
 $to_be_approved_color: #ccf;
 $partial_approval_color: #bfb;
@@ -156,8 +157,13 @@ $repeated_font_light_percent: 60%;
     border-left: solid black 3px;
     border-right: solid black 3px;
   }
+
 }
-    
+
+/* TO AUTOCOMPLETE */
+ul.ui-autocomplete {
+  list-style: none;
+}
 
 
 /* METADATA */
