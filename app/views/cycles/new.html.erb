@@ -2,6 +2,10 @@
 	<%= javascript_include_tag :new_cycle %>
 <% end -%>
 
+<%- content_for :css do %>
+	<%= stylesheet_link_tag :new_cycle %>
+<% end -%>
+
 <% if @last_cycle %>
   <% content_for :metatags do %>
     <meta name="restorable_cycle_objectives_text" content="<%= @last_cycle.objectives_text %>" />
@@ -12,7 +16,7 @@
 
 <h2>New Cycle - Incident Objectives</h2>
 
-<div class="control-line">
+<div class="incident-name">
 	<strong>Incident Name:</strong> <span><%= @incident.name %></span>
 </div>
 
