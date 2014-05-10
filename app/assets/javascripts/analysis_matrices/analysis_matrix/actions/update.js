@@ -53,6 +53,7 @@
     });
   };
 
+  // TODO: ESSE TRECHO DE CÓDIGO ESTÁ REPETIDO NO app/assets/javascripts/analysis_matrices/analysis_matrix/actions/add.js
   function bindOnExpressionSuggestion(form) {
     form.$inputsTds().find("input").each(function() {
       var $input = $(this);

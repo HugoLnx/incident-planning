@@ -4,6 +4,7 @@
   var Templates = namespace.AnalysisMatrix.Templates;
   var BackendProtocols = namespace.AnalysisMatrix.BackendProtocols;
   var Ajax = LNX_UTILS.Ajax;
+  var ExpressionRecognizer = namespace.AnalysisMatrix.ExpressionRecognizer;
 
   Actions.Add = function(targetsSelector, template, backendProtocol) {
     this.targetsSelector = targetsSelector;
@@ -40,11 +41,26 @@
       var form = self.template.evaluate();
       var renderer = new Templates.FormRenderer(matrix);
 
+      bindOnExpressionSuggestion(form);
       bindOnSubmit(form, self.backendProtocol, $td);
 
       renderer.render(form, {replacing: [cell]});
     });
   };
+
+  // TODO: ESSE TRECHO DE CÓDIGO ESTÁ REPETIDO NO app/assets/javascripts/analysis_matrices/analysis_matrix/actions/update.js
+  function bindOnExpressionSuggestion(form) {
+    form.$inputsTds().find("input").each(function() {
+      var $input = $(this);
+
+      var expressionName = ExpressionRecognizer.getPrettyNameFromInput($input);
+      var source = "/expression_suggestions/" + expressionName;
+
+      $input.autocomplete({
+        source: source
+      });
+    });
+  }
 
   function bindOnSubmit(form, backendProtocol, $td) {
     form.$submit().on("click", function() {
