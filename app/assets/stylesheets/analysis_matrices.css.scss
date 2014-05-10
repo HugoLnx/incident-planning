@@ -4,17 +4,17 @@
 @import "jquery.ui.theme";
 @import "jquery.ui.dialog";
 
-$to_be_approved_color: #ff8;
-$partial_approval_color: #88f;
+$to_be_approved_color: #ccf;
+$partial_approval_color: #bfb;
 $approved_color: #8f8;
-$partial_rejection_color: #c0c0c0;
-$rejected_color: #f88;
+$partial_rejection_color: #fd6;
+$rejected_color: #fd6;
 $expression_color: #c0c0c0;
 
 $form_dark_percent: 5%;
 $header_dark_percent: 15%;
 $add_light_percent: 15%;
-$repeated_light_percent: 15%;
+$repeated_light_percent: 6%;
 
 $repeated_font_color: black;
 $repeated_font_light_percent: 60%;
