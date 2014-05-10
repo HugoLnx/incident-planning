@@ -47,39 +47,6 @@ describe TacticsController do
 
   describe "PUT #update" do
     context "attribute 'when'" do
-      context "tactic have no 'when'" do
-        before :each do
-          @cycle = create :cycle
-          @group = create :tactic_group,
-            time_expressions: [],
-            cycle: @cycle,
-            father: create(:strategy_group)
-          @cycle.groups << @group
-        end
-
-        let(:valid_params) do
-          {
-            tactic: valid_expression_params,
-            cycle_id: @cycle.id,
-            incident_id: @cycle.incident.id,
-            id: @group.id
-          }
-        end
-
-        it "create a new one if value was passed" do
-          put :update, valid_params
-          time_expression = TimeExpression.first
-          expect(time_expression).not_to be nil
-          expect(time_expression.when).to be == valid_date
-        end
-
-        it "doesn't create if no value was passed" do
-          put :update, valid_params.merge({tactic: valid_expression_params.merge({when: ""})})
-          time_expression = TimeExpression.first
-          expect(time_expression).to be nil
-        end
-      end
-
       context "tactic have a 'when'" do
         before :each do
           @cycle = create :cycle
@@ -107,11 +74,11 @@ describe TacticsController do
           expect(new_exp.when).to be == valid_date
         end
 
-        it "destroy the old if no value was passed" do
-          old_exp = @group.time_expressions.first
+        it "update the text if no value was passed" do
           put :update, valid_params.merge({tactic: valid_expression_params.merge({when: ""})})
-          @group.reload
-          expect(@group.time_expressions.count).to be_zero
+          time_expression = TimeExpression.first
+          expect(time_expression.when).to be_nil
+          expect(time_expression.text).to be == ""
         end
       end
     end

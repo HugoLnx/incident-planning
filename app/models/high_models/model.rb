@@ -59,7 +59,7 @@ module HighModels
         define_method :"update_#{name}" do |new_time_str|
           error_raised = false
           begin
-            new_time = DateTime.strptime(new_time_str || "", TimeExpression::TIME_PARSING_FORMAT)
+            new_time = DateTime.strptime(new_time_str, TimeExpression::TIME_PARSING_FORMAT)
           rescue ArgumentError 
             error_raised = true
           end

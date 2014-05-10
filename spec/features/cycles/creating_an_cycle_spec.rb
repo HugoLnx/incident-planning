@@ -41,7 +41,7 @@ feature "Cycles: Creating cycles to an incident" do
       end.to change{Cycle.count}.by(1)
 
 
-      cycle = Cycle.last
+      cycle = Cycle.where(priorities: "Priority 1, Priority 2").first
       expect(cycle.number).to be == 1
       expect(cycle.from).to be == filled_from
       expect(cycle.to).to be == filled_to
@@ -91,7 +91,7 @@ feature "Cycles: Creating cycles to an incident" do
       form = @page.form
       expect(form.element).to have_button "Copy from previous cycle"
 
-      filled_from = DateTime.new(2014, 5, 27, 10, 30)
+      filled_from = form.from
       filled_to = filled_from.next_day(1)
       filled_objectives = build_list(:objective, 5)
       filled_priorities = "Priority 1, Priority 2"
@@ -106,7 +106,6 @@ feature "Cycles: Creating cycles to an incident" do
 
         expect(index_page.notice).to have_text "The cycle was successfully registered."
       end.to change{Cycle.count}.by(1)
-
 
       cycle = Cycle.last
       expect(cycle.number).to be == 2

@@ -13,10 +13,10 @@
 
   <% else %>
 
-		<%= f.input :number, as: :integer, label: "Cycle", disabled: true, input_html: {id: "disabled_cycle_number"} %>
+		<%= f.input :number, as: :integer, label: "Cycle", disabled: true, input_html: {class: "disabled_cycle_number"} %>
     <%= f.input :number, as: :hidden %>
     <% if from_is_mandatory %>
-      <%= f.input :from, as: :datetime, order: [:day, :month, :year], disabled: true, input_html: {id: "disabled_cycle_from"} %>
+      <%= f.input :from, as: :datetime, order: [:day, :month, :year], disabled: true, input_html: {class: "disabled_cycle_from"} %>
       <div style="display:none">
         <%= f.input :from, as: :datetime %>
       </div>
