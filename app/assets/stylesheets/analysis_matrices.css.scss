@@ -32,17 +32,22 @@ $repeated_font_light_percent: 60%;
     height: 50px;
   }
 
+	/* width = 22 + 22 + 32 + 24 = 100% */
   td.objective {
-    width: 30%; /* 30*1 = 30% */
+    width: 22%; /* 22*1 = 22% */
   }
 
   td.strategy {
-    width: 30%; /* 30*1 = 30% */
+    width: 22%; /* 22*1 = 22% */
   }
 
-  td.tactic {
-    width: 8%; /* 8*5 = 40% */
+  td.tactic.who, .tactic.where, .tactic.when, .tactic.response_action {
+    width: 8%; /* 8*4 = 32% */
   }
+
+	td.tactic.what {
+		width: 24%; /* 24*1 = 24% */
+	}
 
 /* BACKGROUND COLORS */
   .header {
