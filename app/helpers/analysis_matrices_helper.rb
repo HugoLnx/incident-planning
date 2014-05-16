@@ -9,23 +9,29 @@ module AnalysisMatricesHelper
     }).each_row(&block)
   end
 
-  def render_show_objective_cells(objective, repeated)
+  def render_show_objective_cells(objective, repeated, last_child, last_repetition)
     partial = "objective_cells"
     text = text_from objective.expression
     type_class = type_class(repeated)
+    last_child_class = last_child_class(last_child)
+    last_repetition_class = last_repetition_class(last_repetition)
     metadata_partial = render_metadata_partial_for(objective.expression)
     render partial: partial, locals: {
       text: text,
       type_class: type_class,
+      last_child_class: last_child_class,
+      last_repetition_class: last_repetition_class,
       status_class: status_class(objective.expression),
       metadata_partial: metadata_partial
     }
   end
 
-  def render_show_strategy_cells(strategy, repeated)
+  def render_show_strategy_cells(strategy, repeated, last_child, last_repetition)
     partial = "strategy_cells"
     infos = show_cells_info_from(strategy, ::Model.strategy)
     type_class = type_class(repeated)
+    last_child_class = last_child_class(last_child)
+    last_repetition_class = last_repetition_class(last_repetition)
     permission = GroupPermission.new(::Model.strategy)
     editable = !repeated && permission.to_update?(current_user)
 
@@ -35,6 +41,8 @@ module AnalysisMatricesHelper
     render partial: partial, locals: {
       expressions: infos,
       type_class: type_class,
+      last_child_class: last_child_class,
+      last_repetition_class: last_repetition_class,
       update_path: update_path,
       delete_path: delete_path,
       editable: editable
@@ -53,13 +61,15 @@ module AnalysisMatricesHelper
     }
   end
 
-  def render_show_tactic_cells(tactic, repeated, blank)
+  def render_show_tactic_cells(tactic, repeated, last_child, last_repetition, blank)
     partial = "tactic_cells"
 
     update_path = tactic && incident_cycle_tactic_path(@incident, @cycle, tactic.group_id)
     delete_path = update_path
 
     infos = show_cells_info_from(tactic, ::Model.tactic)
+    last_child_class = last_child_class(last_child)
+    last_repetition_class = last_repetition_class(last_repetition)
     type_class = type_class(repeated, blank)
     permission = GroupPermission.new(::Model.tactic)
     editable = !repeated && permission.to_update?(current_user)
@@ -67,6 +77,8 @@ module AnalysisMatricesHelper
     render partial: partial, locals: {
       expressions: infos,
       type_class: type_class,
+      last_child_class: last_child_class,
+      last_repetition_class: last_repetition_class,
       update_path: update_path,
       delete_path: delete_path,
       editable: editable
@@ -88,6 +100,14 @@ module AnalysisMatricesHelper
   def type_class(is_repeated, is_blank=false)
     return "blank" if is_blank
     is_repeated ? "repeated" : "non-repeated"
+  end
+
+  def last_child_class(is_last_child)
+    is_last_child ? "last-child" : "non-last-child"
+  end
+
+  def last_repetition_class(is_last_repetition)
+    is_last_repetition ? "last-repetition" : "non-last-repetition"
   end
 
   def approval_class(positive)

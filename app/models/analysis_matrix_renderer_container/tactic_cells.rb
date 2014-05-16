@@ -4,7 +4,12 @@ module AnalysisMatrixRendererContainer
       if row.strategy.nil?
         self.blank
       elsif row.tactic
-        TacticCells::Show.new(row.tactic, row.has_tactic_repeated?)
+        TacticCells::Show.new(
+          row.tactic,
+          row.has_tactic_repeated?,
+          last_child: row.has_tactic_as_last_child?,
+          last_repetition: true
+        )
       else
         TacticCells::New.new(row.strategy.group_id)
       end
@@ -15,14 +20,16 @@ module AnalysisMatrixRendererContainer
     end
 
     class Show
-      def initialize(tactic=nil, repeated=nil, blank: false)
+      def initialize(tactic=nil, repeated=nil, last_child: false, last_repetition: false, blank: false)
         @tactic = tactic
         @repeated = repeated
+        @last_child = last_child
+        @last_repetition = last_repetition
         @blank = blank
       end
 
       def render_using(callbacks)
-        callbacks.call(:show_tactic, @tactic, @repeated, @blank)
+        callbacks.call(:show_tactic, @tactic, @repeated, @last_child, @last_repetition, @blank)
       end
     end
 

@@ -23,6 +23,18 @@ describe AnalysisMatrixData do
       it "the objective is non-repeated" do
         expect(@rows.first).to_not have_objective_repeated
       end
+
+      it "only the objective is last child" do
+        expect(@rows.first).to have_objective_as_last_child
+        expect(@rows.first).to_not have_strategy_as_last_child
+        expect(@rows.first).to_not have_tactic_as_last_child
+      end
+
+      it "only the objective is last repetition" do
+        expect(@rows.first).to have_objective_as_last_repetition
+        expect(@rows.first).to_not have_strategy_as_last_repetition
+        expect(@rows.first).to_not have_tactic_as_last_repetition
+      end
     end
 
     context "with two strategies that have no tactics" do
@@ -64,6 +76,24 @@ describe AnalysisMatrixData do
       it "all strategies is marked as non-repeated" do
         expect(@rows[0]).to_not have_strategy_repeated
         expect(@rows[1]).to_not have_strategy_repeated
+      end
+
+      it "only the objective and the second strategy are last childs" do
+        expect(@rows[0]).to have_objective_as_last_child
+        expect(@rows[0]).to_not have_strategy_as_last_child
+        expect(@rows[0]).to_not have_tactic_as_last_child
+        expect(@rows[1]).to have_objective_as_last_child
+        expect(@rows[1]).to have_strategy_as_last_child
+        expect(@rows[1]).to_not have_tactic_as_last_child
+      end
+
+      it "only the second row objective and both strategies are last repetitions" do
+        expect(@rows[0]).to_not have_objective_as_last_repetition
+        expect(@rows[0]).to have_strategy_as_last_repetition
+        expect(@rows[0]).to_not have_tactic_as_last_repetition
+        expect(@rows[1]).to have_objective_as_last_repetition
+        expect(@rows[1]).to have_strategy_as_last_repetition
+        expect(@rows[1]).to_not have_tactic_as_last_repetition
       end
     end
 
@@ -108,6 +138,24 @@ describe AnalysisMatrixData do
         expect(@rows[1].objective.group).to be == @rows[0].objective.group
         expect(@rows[1].strategy.group).to be == @rows[0].strategy.group
         expect(@rows[1].tactic.group).to be == @tactics[1]
+      end
+
+      it "only the objective, the strategy and the last tactic are last childs in both rows" do
+        expect(@rows[0]).to have_objective_as_last_child
+        expect(@rows[0]).to have_strategy_as_last_child
+        expect(@rows[0]).to_not have_tactic_as_last_child
+        expect(@rows[1]).to have_objective_as_last_child
+        expect(@rows[1]).to have_strategy_as_last_child
+        expect(@rows[1]).to have_tactic_as_last_child
+      end
+
+      it "only the second row objective, the second row strategy and both tactics are last repetitions" do
+        expect(@rows[0]).to_not have_objective_as_last_repetition
+        expect(@rows[0]).to_not have_strategy_as_last_repetition
+        expect(@rows[0]).to have_tactic_as_last_repetition
+        expect(@rows[1]).to have_objective_as_last_repetition
+        expect(@rows[1]).to have_strategy_as_last_repetition
+        expect(@rows[1]).to have_tactic_as_last_repetition
       end
     end
   end
