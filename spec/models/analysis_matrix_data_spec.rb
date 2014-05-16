@@ -29,12 +29,6 @@ describe AnalysisMatrixData do
         expect(@rows.first).to_not have_strategy_as_last_child
         expect(@rows.first).to_not have_tactic_as_last_child
       end
-
-      it "only the objective is last repetition" do
-        expect(@rows.first).to have_objective_as_last_repetition
-        expect(@rows.first).to_not have_strategy_as_last_repetition
-        expect(@rows.first).to_not have_tactic_as_last_repetition
-      end
     end
 
     context "with two strategies that have no tactics" do
@@ -85,15 +79,6 @@ describe AnalysisMatrixData do
         expect(@rows[1]).to have_objective_as_last_child
         expect(@rows[1]).to have_strategy_as_last_child
         expect(@rows[1]).to_not have_tactic_as_last_child
-      end
-
-      it "only the second row objective and both strategies are last repetitions" do
-        expect(@rows[0]).to_not have_objective_as_last_repetition
-        expect(@rows[0]).to have_strategy_as_last_repetition
-        expect(@rows[0]).to_not have_tactic_as_last_repetition
-        expect(@rows[1]).to have_objective_as_last_repetition
-        expect(@rows[1]).to have_strategy_as_last_repetition
-        expect(@rows[1]).to_not have_tactic_as_last_repetition
       end
     end
 
@@ -147,15 +132,6 @@ describe AnalysisMatrixData do
         expect(@rows[1]).to have_objective_as_last_child
         expect(@rows[1]).to have_strategy_as_last_child
         expect(@rows[1]).to have_tactic_as_last_child
-      end
-
-      it "only the second row objective, the second row strategy and both tactics are last repetitions" do
-        expect(@rows[0]).to_not have_objective_as_last_repetition
-        expect(@rows[0]).to_not have_strategy_as_last_repetition
-        expect(@rows[0]).to have_tactic_as_last_repetition
-        expect(@rows[1]).to have_objective_as_last_repetition
-        expect(@rows[1]).to have_strategy_as_last_repetition
-        expect(@rows[1]).to have_tactic_as_last_repetition
       end
     end
   end
