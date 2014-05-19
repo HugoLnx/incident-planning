@@ -7,7 +7,7 @@ module Concerns
     STATUS = TypesLib::Enum.new %w{to_be_approved partial_approval approved partial_rejection rejected}
 
     SOURCES_NAMES = {
-      SOURCES.proposed() => "Proposed",
+      SOURCES.proposed() => "New",
       SOURCES.incident() => "Incident",
       SOURCES.pre_incident() => "Pre Incident"
     }
