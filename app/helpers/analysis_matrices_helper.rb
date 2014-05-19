@@ -121,6 +121,7 @@ private
       })
       infos[name][:status_class] = status_class(expression)
       infos[name][:reused_class] = reused_class(expression)
+      infos[name][:reused_expression_id] = reused_expression_id_from(expression)
     end
 
     infos
@@ -149,6 +150,10 @@ private
     else
       return "reused"
     end
+  end
+
+  def reused_expression_id_from(expression)
+    expression && expression.reused_expression_id
   end
 
   def render_metadata_partial_for(expression)

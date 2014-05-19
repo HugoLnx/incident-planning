@@ -40,5 +40,4 @@
     $input.addClass(INPUT_NON_REUSED_CLASS);
   };
 
-
 }(jQuery, LNX_INCIDENT_PLANNING));

@@ -5,6 +5,7 @@
   var BackendProtocols = namespace.AnalysisMatrix.BackendProtocols;
   var Ajax = LNX_UTILS.Ajax;
   var ExpressionRecognizer = namespace.AnalysisMatrix.ExpressionRecognizer;
+  var Reuse = namespace.AnalysisMatrix.Reuse;
 
   Actions.Update = function(targetsSelector, siblingsSelector, template) {
     this.targetsSelector = targetsSelector;
@@ -41,9 +42,13 @@
       var $tds = $td.add($(this).siblings(self.siblingsSelector));
       var cells = matrix.findCells($tds);
 
+      var reused_expression_ids = extractReusedIdsFrom($tds);
+
       var initialData = self.updateProtocol.currentData(cells);
       var form = self.template.evaluate(initialData);
       var renderer = new Templates.FormRenderer(matrix);
+
+      changeReusedExpressionsIn(form, reused_expression_ids);
 
       bindOnExpressionSuggestion(form);
       bindOnSubmit(form, self.updateProtocol, $td);
@@ -52,6 +57,30 @@
       renderer.render(form, {replacing: cells});
     });
   };
+
+  function changeReusedExpressionsIn(form, reusedExpressionIds) {
+    form.$inputsTds().find("input").each(function() {
+      var $input = $(this);
+      var text = $input.val();
+
+      var expressionName = ExpressionRecognizer.getPrettyNameFromInput($input);
+      var reusedExpressionId = reusedExpressionIds[expressionName];
+
+      if (reusedExpressionId !== "" && reusedExpressionId !== undefined) {
+        Reuse.InputRenderer.becameReused($input, text, reusedExpressionId);
+      }
+    });
+  }
+
+  function extractReusedIdsFrom($tds) {
+    var ids = {};
+    $tds.each(function() {
+      var $td = $(this);
+      var expressionName = ExpressionRecognizer.getPrettyNameFromTd($td);
+      ids[expressionName] = $td.data("reused-expression-id");
+    });
+    return ids;
+  }
 
   // TODO: ESSE TRECHO DE CÓDIGO ESTÁ REPETIDO NO app/assets/javascripts/analysis_matrices/analysis_matrix/actions/add.js
   function bindOnExpressionSuggestion(form) {
@@ -62,7 +91,18 @@
       var source = "/expression_suggestions/" + expressionName;
 
       $input.autocomplete({
-        source: source
+        source: source,
+        change: function(event, ui) {
+          var userHasSelectedAnItem = ui.item !== null;
+          if (!userHasSelectedAnItem) {
+            Reuse.InputRenderer.becameNonReused($input);
+          }
+        },
+        select: function(event, ui) {
+          event.preventDefault();
+          var item = ui.item;
+          Reuse.InputRenderer.becameReused($input, item.label, item.value);
+        }
       });
     });
   }

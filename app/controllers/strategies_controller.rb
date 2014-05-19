@@ -21,7 +21,7 @@ class StrategiesController < ApplicationController
   end
 
   def update
-    new_params = params[:strategy].permit(:how)
+    new_params = params[:strategy].permit(:how, :how_reused)
 
     group = Group.includes(:text_expressions).find(params[:id])
 

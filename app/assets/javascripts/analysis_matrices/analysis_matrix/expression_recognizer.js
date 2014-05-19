@@ -18,6 +18,11 @@
     }
   }
 
+  _function.getPrettyNameFromTd = function($element) {
+    var name = _function.getNameFromTd($element);
+    return EXPRESSION_PRETTY_NAMES[EXPRESSION_NAMES.indexOf(name)];
+  }
+
   _function.getPrettyNameFromInput = function($element) {
     for(var i = 0; i<EXPRESSION_NAMES.length; i++) {
       var name = EXPRESSION_NAMES[i];
