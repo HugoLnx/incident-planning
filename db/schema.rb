@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140509233237) do
+ActiveRecord::Schema.define(version: 20140519122654) do
 
   create_table "approvals", force: true do |t|
     t.integer  "expression_id"
@@ -61,35 +61,39 @@ ActiveRecord::Schema.define(version: 20140509233237) do
   end
 
   create_table "text_expressions", force: true do |t|
-    t.string   "name",                             null: false
-    t.string   "text",                             null: false
-    t.integer  "cycle_id",                         null: false
+    t.string   "name",                                       null: false
+    t.string   "text",                                       null: false
+    t.integer  "cycle_id",                                   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "group_id"
     t.integer  "owner_id"
-    t.integer  "source",     limit: 8, default: 0, null: false
+    t.integer  "source",               limit: 8, default: 0, null: false
+    t.integer  "reused_expression_id"
   end
 
   add_index "text_expressions", ["cycle_id"], name: "index_text_expressions_on_cycle_id", using: :btree
   add_index "text_expressions", ["group_id"], name: "index_text_expressions_on_group_id", using: :btree
   add_index "text_expressions", ["owner_id"], name: "index_text_expressions_on_owner_id", using: :btree
+  add_index "text_expressions", ["reused_expression_id"], name: "index_text_expressions_on_reused_expression_id", using: :btree
 
   create_table "time_expressions", force: true do |t|
     t.datetime "when"
-    t.string   "name",                             null: false
+    t.string   "name",                                       null: false
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "cycle_id"
     t.integer  "owner_id"
-    t.integer  "source",     limit: 8, default: 0, null: false
+    t.integer  "source",               limit: 8, default: 0, null: false
     t.string   "text"
+    t.integer  "reused_expression_id"
   end
 
   add_index "time_expressions", ["cycle_id"], name: "index_time_expressions_on_cycle_id", using: :btree
   add_index "time_expressions", ["group_id"], name: "index_time_expressions_on_group_id", using: :btree
   add_index "time_expressions", ["owner_id"], name: "index_time_expressions_on_owner_id", using: :btree
+  add_index "time_expressions", ["reused_expression_id"], name: "index_time_expressions_on_reused_expression_id", using: :btree
 
   create_table "user_roles", force: true do |t|
     t.integer "user_id", null: false
