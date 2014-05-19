@@ -2,10 +2,13 @@ class TacticsController < ApplicationController
   before_filter :set_incident_and_cycle
 
   def create
-    tactic_params = params[:tactic].permit(:who, :what, :where, :when, :response_action, :father_id)
+    tactic_params = params[:tactic].permit(:who, :what, :where, :when, :response_action,
+      :who_reused, :what_reused, :where_reused, :when_reused, :response_action_reused, :father_id)
     tactic_params[:owner] = current_user
 
     tactic_params[:cycle_id] = @cycle.id
+    
+    AnalysisMatrixReuse::ParamsCleaner.clean(tactic_params)
 
     tactic = HighModels::Tactic.new(tactic_params)
     tactic.save

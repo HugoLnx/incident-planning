@@ -32,6 +32,17 @@ module HighModels
           instance_variable_set("@#{name}", new_reference)
         end
 
+        define_method :"#{name}_reused=" do |id_str|
+          expression_reused_id = id_str.to_i
+          expression = ::TextExpression.new(
+            name: expression_name,
+            text: "",
+            reused_expression_id: expression_reused_id,
+            owner: self.owner
+          )
+          instance_variable_set("@#{name}", expression)
+        end
+
         define_method :"#{name}=" do |text|
           if text
             expression = ::TextExpression.new(name: expression_name, text: text, owner: self.owner)
@@ -98,6 +109,18 @@ module HighModels
             expression.when = nil
             expression.text = time_str || ""
           end
+          instance_variable_set("@#{name}", expression)
+        end
+
+        define_method :"#{name}_reused=" do |id_str|
+          expression_reused_id = id_str.to_i
+          expression = ::TimeExpression.new(
+            name: expression_name,
+            text: nil,
+            when: nil,
+            reused_expression_id: expression_reused_id,
+            owner: self.owner
+          )
           instance_variable_set("@#{name}", expression)
         end
 

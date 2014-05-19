@@ -2,11 +2,13 @@ class StrategiesController < ApplicationController
   before_filter :set_incident_and_cycle
 
   def create
-    strategy_params = params[:strategy].permit(:how, :father_id)
+    strategy_params = params[:strategy].permit(:how, :father_id, :how_reused)
 
     strategy_params[:owner] = current_user
 
     strategy_params[:cycle_id] = @cycle.id
+
+    AnalysisMatrixReuse::ParamsCleaner.clean(strategy_params)
 
     strategy = HighModels::Strategy.new(strategy_params)
     strategy.save!

@@ -4,7 +4,7 @@
 
   var INPUT_REUSED_CLASS = "reused";
   var INPUT_NON_REUSED_CLASS = "non-reused"
-  var HIDDEN_INPUT_NAME_SUFFIX = "_reused_expression_id";
+  var HIDDEN_INPUT_NAME_SUFFIX = "_reused";
   var HIDDEN_INPUT_CLASS = "reused-expression-input";
 
   Reuse.InputRenderer = {}
