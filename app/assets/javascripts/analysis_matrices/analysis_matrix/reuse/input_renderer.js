@@ -12,6 +12,9 @@
   var _function = Reuse.InputRenderer;
 
   _function.becameReused = function($input, expressionText, expressionId) {
+    if ($input.hasClass("reused-input")) {
+      _function.becameNonReused($input);
+    }
     $input.val(expressionText);
     var inputName = new ExpressionInputName.parseName($input.attr("name"));
     var expressionName = inputName.attr();
