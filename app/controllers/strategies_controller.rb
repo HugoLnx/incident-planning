@@ -13,6 +13,10 @@ class StrategiesController < ApplicationController
     strategy = HighModels::Strategy.new(strategy_params)
     strategy.save!
 
+    if !strategy_params[:how_reused].nil?
+      AnalysisMatrixReuse::Strategy.reuse_tactics!(strategy.group, current_user)
+    end
+
     head :ok
   end
 
