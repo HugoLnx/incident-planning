@@ -11,42 +11,30 @@ module AnalysisMatricesHelper
 
   def render_show_objective_cells(objective, repeated, last_child, last_repetition)
     partial = "objective_cells"
-    text = text_from objective.expression
-    type_class = type_class(repeated)
-    last_child_class = last_child_class(last_child)
-    last_repetition_class = last_repetition_class(last_repetition)
-    metadata_partial = render_metadata_partial_for(objective.expression)
-    render partial: partial, locals: {
-      text: text,
-      type_class: type_class,
-      last_child_class: last_child_class,
-      last_repetition_class: last_repetition_class,
-      status_class: status_class(objective.expression),
-      metadata_partial: metadata_partial
-    }
+    locals = cells_generic_locals_from(objective.expression, repeated, last_child, last_repetition)
+    locals.merge!(show_cells_info_from(objective, ::Model.root)["objective"])
+
+    render partial: partial,
+      locals: locals
   end
 
   def render_show_strategy_cells(strategy, repeated, last_child, last_repetition)
     partial = "strategy_cells"
+    locals = cells_generic_locals_from(strategy, repeated, last_child, last_repetition)
+
     infos = show_cells_info_from(strategy, ::Model.strategy)
-    type_class = type_class(repeated)
-    last_child_class = last_child_class(last_child)
-    last_repetition_class = last_repetition_class(last_repetition)
     permission = GroupPermission.new(::Model.strategy)
     editable = !repeated && permission.to_update?(current_user)
 
     update_path = strategy && incident_cycle_strategy_path(@incident, @cycle, strategy.group_id)
     delete_path = update_path
 
-    render partial: partial, locals: {
-      expressions: infos,
-      type_class: type_class,
-      last_child_class: last_child_class,
-      last_repetition_class: last_repetition_class,
-      update_path: update_path,
-      delete_path: delete_path,
-      editable: editable
-    }
+    locals[:expressions] = infos
+    locals[:update_path] = update_path
+    locals[:delete_path] = delete_path
+    locals[:editable] = editable
+    render partial: partial,
+      locals: locals
   end
 
   def render_new_strategy_cells(father_id)
@@ -64,25 +52,22 @@ module AnalysisMatricesHelper
   def render_show_tactic_cells(tactic, repeated, last_child, last_repetition, blank)
     partial = "tactic_cells"
 
+    locals = cells_generic_locals_from(tactic, repeated, last_child, last_repetition, blank)
+
     update_path = tactic && incident_cycle_tactic_path(@incident, @cycle, tactic.group_id)
     delete_path = update_path
 
     infos = show_cells_info_from(tactic, ::Model.tactic)
-    last_child_class = last_child_class(last_child)
-    last_repetition_class = last_repetition_class(last_repetition)
-    type_class = type_class(repeated, blank)
     permission = GroupPermission.new(::Model.tactic)
     editable = !repeated && permission.to_update?(current_user)
 
-    render partial: partial, locals: {
-      expressions: infos,
-      type_class: type_class,
-      last_child_class: last_child_class,
-      last_repetition_class: last_repetition_class,
-      update_path: update_path,
-      delete_path: delete_path,
-      editable: editable
-    }
+    locals[:expressions] = infos
+    locals[:update_path] = update_path
+    locals[:delete_path] = delete_path
+    locals[:editable] = editable
+
+    render partial: partial,
+      locals: locals
   end
 
   def render_new_tactic_cells(father_id)
@@ -135,6 +120,7 @@ private
         text: text_from(expression)
       })
       infos[name][:status_class] = status_class(expression)
+      infos[name][:reused_class] = reused_class(expression)
     end
 
     infos
@@ -153,6 +139,15 @@ private
       return "partial-rejection"
     when Concerns::Expression::STATUS.rejected
       return "rejected"
+    end
+  end
+
+  def reused_class(expression)
+    return "" if expression.nil?
+    if expression.reused_expression.nil?
+      return "non-reused"
+    else
+      return "reused"
     end
   end
 
@@ -188,6 +183,20 @@ private
         positive: approval && approval.positive
       }
     end
+  end
+
+  def cells_generic_locals_from(expression, repeated, last_child, last_repetition, blank=false)
+    type_class = type_class(repeated)
+    last_child_class = last_child_class(last_child)
+    last_repetition_class = last_repetition_class(last_repetition)
+
+    locals = {
+      type_class: type_class,
+      last_child_class: last_child_class,
+      last_repetition_class: last_repetition_class,
+    }
+
+    locals
   end
 
   def text_from(expression)

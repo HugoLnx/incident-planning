@@ -89,6 +89,11 @@ $repeated_font_light_percent: 60%;
     color: lighten($repeated_font_color, $repeated_font_light_percent);
   }
 
+/* REUSE */
+  .reused {
+    font-weight: bold;
+  }
+
 /* FORMS  */
   .form.submit, td.submit-side {
     height: 20px;
@@ -162,7 +167,7 @@ $repeated_font_light_percent: 60%;
     border-right: solid black 3px;
   }
 
-  /* TO REUSE */
+  /* REUSE */
   .reused-input {
     background-color: black;
     color: white;

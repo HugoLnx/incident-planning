@@ -67,6 +67,8 @@ module HighModels
         @expressions_names ||= {}
         @expressions_names.merge!(name => expression_name)
 
+        # TODO: apagar reused_expression_id quando atualizar (fazer tb pra text_expression)
+        # TODO: criar update_#{name}_reused (para text_expression tb)
         define_method :"update_#{name}" do |new_time_str|
           error_raised = false
           begin

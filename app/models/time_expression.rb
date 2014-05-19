@@ -5,10 +5,14 @@ class TimeExpression < ActiveRecord::Base
   TIME_PARSING_FORMAT = "%d/%m/%Y %H:%M"
 
   def info_as_str
-    if self.when
-      self.when.strftime TIME_PARSING_FORMAT
+    if reused_expression
+      reused_expression.info_as_str
     else
-      self.text
+      if self.when
+        self.when.strftime TIME_PARSING_FORMAT
+      else
+        self.text
+      end
     end
   end
 
