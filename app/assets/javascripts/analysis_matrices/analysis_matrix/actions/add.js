@@ -5,6 +5,7 @@
   var BackendProtocols = namespace.AnalysisMatrix.BackendProtocols;
   var Ajax = LNX_UTILS.Ajax;
   var ExpressionRecognizer = namespace.AnalysisMatrix.ExpressionRecognizer;
+  var Reuse = namespace.AnalysisMatrix.Reuse;
 
   Actions.Add = function(targetsSelector, template, backendProtocol) {
     this.targetsSelector = targetsSelector;
@@ -57,7 +58,18 @@
       var source = "/expression_suggestions/" + expressionName;
 
       $input.autocomplete({
-        source: source
+        source: source,
+        change: function(event, ui) {
+          var userHasSelectedAnItem = ui.item !== null;
+          if (!userHasSelectedAnItem) {
+            Reuse.InputRenderer.becameNonReused($input);
+          }
+        },
+        select: function(event, ui) {
+          event.preventDefault();
+          var item = ui.item;
+          Reuse.InputRenderer.becameReused($input, item.label, item.value);
+        }
       });
     });
   }
