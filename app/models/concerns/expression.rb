@@ -32,7 +32,10 @@ module Concerns
       scope :suggested, -> (params) {
         expression_name = params[:expression_name]
         term = params[:term]
-        query = self.where({name: expression_name})
+        query = self.where({
+          name: expression_name,
+          reused_expression_id: nil
+        })
         adapter = ActiveRecord::Base.connection.adapter_name.downcase.to_sym
         if adapter == :postgresql
           query = query.where("text ilike ?", "%#{term}%")
