@@ -2,8 +2,8 @@
   var Reuse = namespace.AnalysisMatrix.Reuse;
   var ExpressionInputName = namespace.AnalysisMatrix.ExpressionInputName;
 
-  var INPUT_REUSED_CLASS = "reused";
-  var INPUT_NON_REUSED_CLASS = "non-reused"
+  var INPUT_REUSED_CLASS = "reused-input";
+  var INPUT_NON_REUSED_CLASS = "non-reused-input"
   var HIDDEN_INPUT_NAME_SUFFIX = "_reused";
   var HIDDEN_INPUT_CLASS = "reused-expression-input";
 
