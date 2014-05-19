@@ -29,6 +29,19 @@ module Concerns
 
       scope :objectives, -> { where(name: Model.objective.name) }
 
+      scope :suggested, -> (params) {
+        expression_name = params[:expression_name]
+        term = params[:term]
+        query = self.where({name: expression_name})
+        adapter = ActiveRecord::Base.connection.adapter_name.downcase.to_sym
+        if adapter == :postgresql
+          query = query.where("text ilike ?", "%#{term}%")
+        else
+          query = query.where("text like ?", "%#{term}%")
+        end
+        query
+      }
+
       validates_associated :group
       validates_associated :cycle
 
