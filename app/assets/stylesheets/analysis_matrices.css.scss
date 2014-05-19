@@ -63,12 +63,16 @@ $repeated_font_light_percent: 60%;
     background-color: lighten($expression_color, $add_light_percent);
   }
 
+	.blank {
+    background-color: lighten($expression_color, $add_light_percent);
+	}
+
   @mixin background-colors($color, $repeated_light_percent, $selector: "") {
     .non-repeated#{$selector} {
       background-color: $color;
     }
 
-    .repeated#{$selector}, .blank#{$selector} {
+    .repeated#{$selector} {
       background-color: lighten($color, $repeated_light_percent);
     }
   }
