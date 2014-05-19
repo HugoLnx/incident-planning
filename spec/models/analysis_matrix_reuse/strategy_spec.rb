@@ -19,7 +19,7 @@ describe AnalysisMatrixReuse::Strategy do
     group.text_expressions = [exp]
     group.save!
 
-    AnalysisMatrixReuse::Strategy.reuse_hierarchy!(group, user)
+    AnalysisMatrixReuse::Strategy.reuse_tactics!(group, user)
 
     exp.reload
     group = exp.group
