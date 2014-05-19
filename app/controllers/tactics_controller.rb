@@ -17,7 +17,10 @@ class TacticsController < ApplicationController
   end
 
   def update
-    new_params = params[:tactic].permit(:who, :what, :where, :when, :response_action)
+    new_params = params[:tactic].permit(:who, :what, :where, :when, :response_action,
+      :who_reused, :what_reused, :where_reused, :when_reused, :response_action_reused)
+
+    AnalysisMatrixReuse::ParamsCleaner.clean(new_params)
 
     group = Group.includes(:text_expressions, :time_expressions).find(params[:id])
 

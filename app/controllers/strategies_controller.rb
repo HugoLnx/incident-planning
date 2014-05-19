@@ -23,6 +23,8 @@ class StrategiesController < ApplicationController
   def update
     new_params = params[:strategy].permit(:how, :how_reused)
 
+    AnalysisMatrixReuse::ParamsCleaner.clean(new_params)
+
     group = Group.includes(:text_expressions).find(params[:id])
 
     strategy = HighModels::Strategy.new owner: current_user

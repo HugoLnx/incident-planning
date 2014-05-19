@@ -28,6 +28,18 @@ module HighModels
           end
         end
 
+        define_method :"update_#{name}_reused" do |id_str|
+          updated = false
+          exp = instance_variable_get("@#{name}")
+          exp.text = ""
+          if (exp.reused_expression_id != id_str.to_i)
+            updated = true
+            exp.reused_expression_id = id_str.to_i
+            exp.owner = self.owner
+          end
+          updated
+        end
+
         define_method :"set_#{name}_reference" do |new_reference|
           instance_variable_set("@#{name}", new_reference)
         end
@@ -67,8 +79,6 @@ module HighModels
         @expressions_names ||= {}
         @expressions_names.merge!(name => expression_name)
 
-        # TODO: apagar reused_expression_id quando atualizar (fazer tb pra text_expression)
-        # TODO: criar update_#{name}_reused (para text_expression tb)
         define_method :"update_#{name}" do |new_time_str|
           error_raised = false
           begin
@@ -90,7 +100,22 @@ module HighModels
             updated = false
           end
 
+          exp.reused_expression_id = nil
+
           self.instance_variable_set("@#{name}", exp)
+          updated
+        end
+
+        define_method :"update_#{name}_reused" do |id_str|
+          updated = false
+          exp = instance_variable_get("@#{name}")
+          exp.text = nil
+          exp.when = nil
+          if (exp.reused_expression_id != id_str.to_i)
+            updated = true
+            exp.reused_expression_id = id_str.to_i
+            exp.owner = self.owner
+          end
           updated
         end
 
