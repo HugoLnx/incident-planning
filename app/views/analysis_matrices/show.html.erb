@@ -35,10 +35,10 @@
     </tr>
     <tr>
       <% @strategy.expressions.each do |exp| %>
-        <th class="header strategy"><%= exp.name %></th>
+        <th class="header strategy"><%= exp.human_name %></th>
       <% end %>
       <% @tactic.expressions.each do |exp| %>
-        <th class="header tactic"><%= exp.name %></th>
+        <th class="header tactic"><%= exp.human_name %></th>
       <% end %>
     </tr>
   </thead>

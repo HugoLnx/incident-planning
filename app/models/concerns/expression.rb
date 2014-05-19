@@ -102,6 +102,14 @@ module Concerns
         ::Model.find_expression_by_name(self.name)
       end
 
+      def pretty_name
+        if self.name == ::Model.tactic_response_action.name
+          "Response"
+        else
+          self.name
+        end
+      end
+
     private
       def defaults
         if !self.persisted?

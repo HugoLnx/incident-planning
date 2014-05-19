@@ -27,9 +27,10 @@ FactoryGirl.define do
   factory :expression_parse_params, class: Hash do
     ignore do
       sequence(:name){|i| "ExpressionName#{i}"}
-      type Model::Expression::TYPES.time
+      type "time"
       optional true
       approval_roles %w{Role1 Role2}
+      human_name nil
     end
 
     initialize_with do
@@ -37,7 +38,8 @@ FactoryGirl.define do
         "name" => name,
         "type" => type,
         "optional" => optional,
-        "approval-roles" => approval_roles
+        "approval-roles" => approval_roles,
+        "human-name" => human_name
       }
     end
   end

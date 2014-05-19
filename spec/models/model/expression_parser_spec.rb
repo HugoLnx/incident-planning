@@ -30,6 +30,17 @@ module Model
           expect(expression.type).to be == Expression::TYPES.text
         end
       end
+
+      context 'when have human-name param' do
+        it "sets human_name to the string passed" do
+          hash = build :expression_parse_params, human_name: "Human Name"
+
+          parser = build :expression_parser
+          expression = parser.parse hash
+
+          expect(expression.human_name).to be == "Human Name"
+        end
+      end
     end
 
     context "when parsing an array of hashes" do

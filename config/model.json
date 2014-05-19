@@ -22,7 +22,7 @@
           {"name": "What", "approval-roles": [1, 2, 3]},
           {"name": "Where", "optional": true, "approval-roles": [1, 2, 3]},
           {"name": "When", "type": "time", "optional": true, "approval-roles": [1, 2, 3]},
-          {"name": "Response Action", "type": "external", "approval-roles": [1, 2, 3]}
+          {"name": "Response Action", "human-name": "Response","type": "external", "approval-roles": [1, 2, 3]}
         ]
       }
     }
