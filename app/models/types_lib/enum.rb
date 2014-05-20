@@ -15,7 +15,7 @@ module TypesLib
 
     def name(val_searched)
       @hash_attrs.each_pair do |attr, val|
-        if val.to_sym == val_searched.to_sym
+        if attr.to_sym == val_searched.to_sym
           return attr
         end
       end

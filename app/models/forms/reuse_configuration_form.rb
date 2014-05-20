@@ -1,5 +1,8 @@
 module Forms
   class ReuseConfigurationForm
+      class Option
+        attr_accessor :label, :value
+      end
     include ActiveModel::Model
 
     attr_accessor :reuse_hierarchy, :user_filter, :incident_filter
@@ -10,29 +13,35 @@ module Forms
     INCIDENT_FILTER_ALL_OPTION = "-- All --"
     INCIDENT_FILTER_CURRENT_OPTION ="-- Current Incident --"
 
-    def self.user_filter_options
+    def user_filter_options
       options = [{
-        label: USER_FILTER_ALL_VALUE,
-        value: USER_FILTER_ALL_VALUE
+        label: USER_FILTER_ALL_OPTION,
+        value: USER_FILTER_ALL_OPTION
+      } , {
+        label: @user.human_id,
+        value: @user.id
       }]
-      options += User.all.map do |user|
-        {
-          label: user.human_id,
-          value: user.id
-        }
+
+      User.all.each do |user|
+        if user != @user
+          options << ({
+            label: user.human_id,
+            value: user.id
+          })
+        end
       end
       options
     end
 
-    def self.incident_filter_options
+    def incident_filter_options
       options = [{
-        label: INCIDENT_FILTER_ALL_VALUE,
-        value: INCIDENT_FILTER_ALL_VALUE
-      }, {
-        label: INCIDENT_FILTER_CURRENT_VALUE,
-        value: INCIDENT_FILTER_CURRENT_VALUE
+        label: INCIDENT_FILTER_ALL_OPTION,
+        value: INCIDENT_FILTER_ALL_OPTION
+      } , {
+        label: INCIDENT_FILTER_CURRENT_OPTION,
+        value: INCIDENT_FILTER_CURRENT_OPTION
       }]
-      options += Incident.all.map do |user|
+      options += Incident.all.map do |incident|
         {
           label: incident.name,
           value: incident.id
@@ -46,7 +55,8 @@ module Forms
     end
 
     def initialize(user, params={})
-      @configuration = user.reuse_configuration || ReuseConfiguration.new(user: user)
+      @user = user
+      @configuration = user.reuse_configuration || ReuseConfiguration.new(user: @user)
       super(params)
     end
 
@@ -55,7 +65,7 @@ module Forms
     end
 
     def user_filter=(value)
-      if value == USER_FILTER_ALL_VALUE
+      if value == USER_FILTER_ALL_OPTION
         @configuration.user_filter_type = ReuseConfiguration::USER_FILTER_TYPES.name(:all)
       else
         @configuration.user_filter_type = ReuseConfiguration::USER_FILTER_TYPES.name(:specific)
@@ -81,7 +91,7 @@ module Forms
 
     def user_filter
       if @configuration.user_filter_type == ReuseConfiguration::USER_FILTER_TYPES.name(:all)
-        return USER_FILTER_ALL_VALUE 
+        return USER_FILTER_ALL_OPTION 
       else
         return @configuration.user_filter_value
       end
