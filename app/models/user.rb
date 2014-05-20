@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :user_roles, dependent: :destroy
   has_one :reuse_configuration
   validates_associated :user_roles
+  after_initialize :defaults
 
   INCIDENT_COMMANDER_ID = 0
 
@@ -45,4 +46,12 @@ class User < ActiveRecord::Base
   def can_approve_priorities?
     is_incident_commander = !user_role(INCIDENT_COMMANDER_ID).nil?
   end
+
+private
+  def defaults
+    if !self.persisted?
+      self.reuse_configuration ||= ReuseConfiguration.new(user: self)
+    end
+  end
+
 end
