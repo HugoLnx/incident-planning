@@ -227,14 +227,14 @@ private
   end
 
   def cells_generic_locals_from(expression, repeated, last_child, last_repetition, blank=false)
-    type_class = type_class(repeated)
+    type_class = type_class(repeated, blank)
     last_child_class = last_child_class(last_child)
     last_repetition_class = last_repetition_class(last_repetition)
 
     locals = {
       type_class: type_class,
       last_child_class: last_child_class,
-      last_repetition_class: last_repetition_class,
+      last_repetition_class: last_repetition_class
     }
 
     locals
