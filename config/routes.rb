@@ -5,7 +5,7 @@ IncidentPlanning::Application.routes.draw do
 
   root to: "incidents#index"
 
-  get "/expression_suggestions/:expression_name", to: "expression_suggestions#index", as: :index
+    get "/incident/:incident_id/expression_suggestions/:expression_name", to: "expression_suggestions#index", as: :index
 
   resources :incidents do
     resource :cycle_confirmation, only: :show do

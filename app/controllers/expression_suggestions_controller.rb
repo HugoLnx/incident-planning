@@ -1,6 +1,6 @@
 class ExpressionSuggestionsController < ApplicationController
   def index
-    suggest_params = params.permit(:term, :expression_name)
+    suggest_params = params.permit(:term, :expression_name, :incident_id)
     expression_model = ::Model.find_expression_by_name(suggest_params[:expression_name])
 
     reuse_config = current_user.reuse_configuration

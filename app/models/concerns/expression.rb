@@ -33,6 +33,7 @@ module Concerns
       scope :suggested_to_reuse, -> (params, config) {
         expression_name = params[:expression_name]
         term = params[:term]
+        current_incident_id = params[:incident_id]
         query = self.where({
           name: expression_name,
           reused_expression_id: nil
@@ -45,10 +46,14 @@ module Concerns
         end
 
         # TODO: incident config - extract to private method
-        #if config.incident_filter_type == ReuseConfiguration::INCIDENT_FILTER_TYPES.name(:specific)
-        #  incident_id = config.incident_filter_value
-        #  query = query.where({owner_id: user_id})
-        #end
+        if config.incident_filter_type != ReuseConfiguration::INCIDENT_FILTER_TYPES.name(:all)
+          if config.incident_filter_type == ReuseConfiguration::INCIDENT_FILTER_TYPES.name(:specific)
+            incident_id = config.incident_filter_value
+          else
+            incident_id = current_incident_id
+          end
+          query = query.joins(:cycle).where({"cycles.incident_id" => incident_id.to_i})
+        end
 
         adapter = ActiveRecord::Base.connection.adapter_name.downcase.to_sym
         if adapter == :postgresql

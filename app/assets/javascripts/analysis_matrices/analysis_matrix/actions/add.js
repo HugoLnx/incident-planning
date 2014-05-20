@@ -6,6 +6,7 @@
   var Ajax = LNX_UTILS.Ajax;
   var ExpressionRecognizer = namespace.AnalysisMatrix.ExpressionRecognizer;
   var Reuse = namespace.AnalysisMatrix.Reuse;
+  var FROM_RAILS = namespace.FROM_RAILS;
 
   Actions.Add = function(targetsSelector, template, backendProtocol) {
     this.targetsSelector = targetsSelector;
@@ -55,7 +56,7 @@
       var $input = $(this);
 
       var expressionName = ExpressionRecognizer.getPrettyNameFromInput($input);
-      var source = "/expression_suggestions/" + expressionName;
+      var source = "/incident/" + FROM_RAILS.current_incident_id + "/expression_suggestions/" + expressionName;
 
       $input.autocomplete({
         source: source,
