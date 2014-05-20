@@ -15,11 +15,11 @@ module TypesLib
 
     def name(val_searched)
       @hash_attrs.each_pair do |attr, val|
-        if val == val_searched
+        if val.to_sym == val_searched.to_sym
           return attr
         end
       end
-      nil
+      raise ArgumentError, "The value search doesn't exist in enum"
     end
 
     def names

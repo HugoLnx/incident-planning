@@ -19,11 +19,11 @@ class ReuseConfigurationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_reuse_configuration
-      @reuse_configuration = current_user.reuse_configuration || ReuseConfiguration.new(user: current_user)
+      @reuse_configuration = Forms::ReuseConfigurationForm.new(current_user)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reuse_configuration_params
-      params.require(:reuse_configuration).permit(:user_filter, :incident_filter, :hierarchy)
+      params.require(:reuse_configuration).permit(:user_filter, :incident_filter, :reuse_hierarchy)
     end
 end
