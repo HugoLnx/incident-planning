@@ -15,5 +15,17 @@ module AnalysisMatrixRendererContainer
       @strategy_cells = strategy_cells
       @tactic_cells = tactic_cells
     end
+
+    def objective
+      @objective_cells.cells
+    end
+
+    def strategy
+      @strategy_cells.cells
+    end
+
+    def tactic
+      @tactic_cells.cells
+    end
   end
 end

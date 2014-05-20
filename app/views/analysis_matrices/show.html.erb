@@ -25,6 +25,10 @@
 
 <%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
 
+<%= form_tag group_approval_incident_cycle_analysis_matrix_path(@incident, @cycle), method: :get do %>
+  <%= submit_tag "Approve in groups" %>
+<% end %>
+
 <%= render partial: "show_priorities", locals: {cycle: @cycle} %>
 
 <table class="analysis-matrix" id="analysis-matrix">

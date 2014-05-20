@@ -23,6 +23,9 @@ module AnalysisMatrixRendererContainer
     end
 
     class Show
+      attr_reader :strategy
+      attr_reader :repeated
+
       def initialize(strategy=nil, repeated=nil, last_child=false, last_repetition=false)
         @strategy = strategy
         @repeated = repeated

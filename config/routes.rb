@@ -5,7 +5,11 @@ IncidentPlanning::Application.routes.draw do
 
   root to: "incidents#index"
 
-    get "/incident/:incident_id/expression_suggestions/:expression_name", to: "expression_suggestions#index", as: :index
+  get "/incident/:incident_id/expression_suggestions/:expression_name", to: "expression_suggestions#index", as: :index
+
+  scope "/incident/:incident_id/cycle/:cycle_id/" do
+    post "/group_approval", to: "group_approvals#create", as: :group_approval
+  end
 
   resources :incidents do
     resource :cycle_confirmation, only: :show do
@@ -18,7 +22,9 @@ IncidentPlanning::Application.routes.draw do
       collection do
         post "/new", to: "cycles#new"
       end
-      resource :analysis_matrix
+      resource :analysis_matrix do
+        get :group_approval
+      end
       resources :tactics
       resources :strategies
     end

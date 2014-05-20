@@ -1,5 +1,8 @@
 module AnalysisMatrixRendererContainer
   class ObjectiveCells
+    attr_reader :objective
+    attr_reader :repeated
+
     def initialize(objective=nil, repeated=nil, last_child=nil, last_repetition=nil)
       @objective = objective
       @repeated = repeated

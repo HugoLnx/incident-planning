@@ -11,6 +11,18 @@ class AnalysisMatricesController < ApplicationController
     @tactic = ::Model.tactic
   end
 
+  def group_approval
+    dao = Dao::AnalysisMatrixDao.new(@cycle)
+    objectives = dao.find_all_objectives_including_hierarchy
+    @matrix_data = AnalysisMatrixData.new(objectives)
+
+    @objective = ::Model.objective
+    @strategy = ::Model.strategy
+    @tactic = ::Model.tactic
+
+    render "show_with_group_approval"
+  end
+
 private
   def set_incident_and_cycle
     @incident = Incident.find params[:incident_id]
