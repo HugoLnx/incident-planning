@@ -35,7 +35,7 @@
   var _prototype = Actions.Update.prototype;
   _prototype.bindIn = function(matrix, $father) {
     var self = this;
-    $father.on("dblclick", this.targetsSelector, function(event) {
+    function openForm(event) {
       event.preventDefault();
 
       var $td = $(this);
@@ -55,7 +55,9 @@
       bindOnDeleteBtn(form.$deleteBtn(), self.deleteProtocol, $td);
 
       renderer.render(form, {replacing: cells});
-    });
+    }
+    $father.on("dblclick", this.targetsSelector, openForm);
+    $father.hammer().on("doubletap", this.targetsSelector, openForm);
   };
 
   function changeReusedExpressionsIn(form, reusedExpressionIds) {

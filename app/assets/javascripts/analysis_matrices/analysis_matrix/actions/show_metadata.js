@@ -10,7 +10,7 @@
       if (ENVIRONMENT === "test") {
         _$father.on("click", selector, displayMetadata);
       } else {
-        _$father.onHold(selector, displayMetadata);
+        _$father.hammer().on("hold", selector, displayMetadata);
       }
 
       function displayMetadata(event) {

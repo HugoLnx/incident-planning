@@ -1,3 +1,5 @@
+//= require hammer.min
+//= require jquery.hammer.min
 //= require ./analysis_matrices/analysis_matrix/expression_recognizer
 //= require ./analysis_matrices/analysis_matrix/expression_input_name
 //= require_tree ./analysis_matrices/
