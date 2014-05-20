@@ -75,6 +75,10 @@ module Forms
       end
     end
 
+    def reuse_hierarchy
+      @configuration.hierarchy
+    end
+
     def user_filter
       if @configuration.user_filter_type == ReuseConfiguration::USER_FILTER_TYPES.name(:all)
         return USER_FILTER_ALL_VALUE 
@@ -92,13 +96,6 @@ module Forms
       else
         return @configuration.incident_filter_value
       end
-    end
-
-    def update(params={})
-      params.each do |attr, value|
-        self.public_send("#{attr}=", value)
-      end
-      self.save
     end
 
     def persisted?
