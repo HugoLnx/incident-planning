@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :user_roles, dependent: :destroy
+  has_one :reuse_configuration
   validates_associated :user_roles
 
   INCIDENT_COMMANDER_ID = 0

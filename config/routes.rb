@@ -1,4 +1,6 @@
 IncidentPlanning::Application.routes.draw do
+  resource :reuse_configuration
+
   devise_for :users, path_names: {sign_in: 'login', sign_out: 'logout'}
 
   root to: "incidents#index"

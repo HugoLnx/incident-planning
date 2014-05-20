@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140519122654) do
+ActiveRecord::Schema.define(version: 20140520104951) do
 
   create_table "approvals", force: true do |t|
     t.integer  "expression_id"
@@ -59,6 +59,17 @@ ActiveRecord::Schema.define(version: 20140519122654) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "reuse_configurations", force: true do |t|
+    t.boolean "hierarchy",             default: true
+    t.string  "user_filter_type",      default: "all", null: false
+    t.string  "user_filter_value"
+    t.string  "incident_filter_type",  default: "all", null: false
+    t.string  "incident_filter_value"
+    t.integer "user_id",                               null: false
+  end
+
+  add_index "reuse_configurations", ["user_id"], name: "index_reuse_configurations_on_user_id", using: :btree
 
   create_table "text_expressions", force: true do |t|
     t.string   "name",                                       null: false

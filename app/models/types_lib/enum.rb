@@ -13,6 +13,19 @@ module TypesLib
       @hash_attrs[attr]
     end
 
+    def name(val_searched)
+      @hash_attrs.each_pair do |attr, val|
+        if val == val_searched
+          return attr
+        end
+      end
+      nil
+    end
+
+    def names
+      @hash_attrs.keys
+    end
+
   private
     def extract_hash_attrs_from(attrs)
       if attrs.is_a? Hash

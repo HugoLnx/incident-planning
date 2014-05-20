@@ -1,0 +1,11 @@
+<%= simple_form_for(@reuse_configuration, url: reuse_configuration_path, method: :put) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :hierarchy, label: "Reuse Hierarchy?" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Save Configuration" %>
+  </div>
+<% end %>

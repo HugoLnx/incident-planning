@@ -18,6 +18,7 @@
 				<%- if user_signed_in? %>
 					<li><%= link_to "List of Incidents", incidents_path %></li>
 					<li><%= link_to "Edit Profile", edit_user_registration_path %></li>
+					<li><%= link_to "Edit Reuse Configurations", edit_reuse_configuration_path %></li>
 					<li><%= link_to t("auth.logout"), destroy_user_session_path, method: :delete %></li>
 				<% else %>
 					<li><%= link_to t("auth.login"), new_user_session_path %></li>

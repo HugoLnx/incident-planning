@@ -13,7 +13,9 @@ class StrategiesController < ApplicationController
     strategy = HighModels::Strategy.new(strategy_params)
     strategy.save!
 
-    if !strategy_params[:how_reused].nil?
+    configuration = current_user.reuse_configuration
+
+    if configuration.reuse_hierarchy? && strategy_params[:how_reused]
       AnalysisMatrixReuse::Strategy.reuse_tactics!(strategy.group, current_user)
     end
 
