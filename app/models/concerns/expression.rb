@@ -29,13 +29,27 @@ module Concerns
 
       scope :objectives, -> { where(name: Model.objective.name) }
 
-      scope :suggested, -> (params) {
+      #TODO: extract to class
+      scope :suggested_to_reuse, -> (params, config) {
         expression_name = params[:expression_name]
         term = params[:term]
         query = self.where({
           name: expression_name,
           reused_expression_id: nil
         })
+
+        # TODO: user config - extract to private method
+        if config.user_filter_type == ReuseConfiguration::USER_FILTER_TYPES.name(:specific)
+          user_id = config.user_filter_value
+          query = query.where({owner_id: user_id})
+        end
+
+        # TODO: incident config - extract to private method
+        #if config.incident_filter_type == ReuseConfiguration::INCIDENT_FILTER_TYPES.name(:specific)
+        #  incident_id = config.incident_filter_value
+        #  query = query.where({owner_id: user_id})
+        #end
+
         adapter = ActiveRecord::Base.connection.adapter_name.downcase.to_sym
         if adapter == :postgresql
           query = query.where("text ilike ?", "%#{term}%")

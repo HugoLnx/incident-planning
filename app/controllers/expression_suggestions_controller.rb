@@ -2,10 +2,12 @@ class ExpressionSuggestionsController < ApplicationController
   def index
     suggest_params = params.permit(:term, :expression_name)
     expression_model = ::Model.find_expression_by_name(suggest_params[:expression_name])
+
+    reuse_config = current_user.reuse_configuration
     if expression_model.type == ::Model::Expression::TYPES.time()
-      expressions = TimeExpression.suggested(suggest_params).load
+      expressions = TimeExpression.suggested_to_reuse(suggest_params, reuse_config).load
     else
-      expressions = TextExpression.suggested(suggest_params).load
+      expressions = TextExpression.suggested_to_reuse(suggest_params, reuse_config).load
     end
     suggestions = expressions.map do |exp|
       {
