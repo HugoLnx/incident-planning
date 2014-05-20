@@ -4,6 +4,10 @@ module BackRefererController
   included do
     before_filter :update_get_referer
 
+    DONT_TRACK = {
+      "expression_suggestions" => true
+    }
+
     def back_path
       session[:GET_referer]
     end
@@ -11,7 +15,7 @@ module BackRefererController
 
   protected
     def update_get_referer
-      if request.get?
+      if request.get? && !DONT_TRACK.keys.include?(self.controller_name)
         resource_changed = session[:last_getted_resource] != resource_codename
         if resource_changed
           session[:GET_referer] = session[:GET_original_url]
