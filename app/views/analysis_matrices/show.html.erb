@@ -18,6 +18,11 @@
   .btn-show-dialog {
 	  display: none;
   }
+
+	.btn-approve-in-groups {
+		float: left;
+	}
+
 </style>
 <% end %>
 
@@ -26,7 +31,7 @@
 <%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
 
 <%= form_tag group_approval_incident_cycle_analysis_matrix_path(@incident, @cycle), method: :get do %>
-  <%= submit_tag "Approve in groups" %>
+  <%= submit_tag "Approve in groups", class: "btn-approve-in-groups" %>
 <% end %>
 
 <%= render partial: "show_priorities", locals: {cycle: @cycle} %>
