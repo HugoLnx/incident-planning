@@ -14,6 +14,8 @@
       }
 
       function displayMetadata(event) {
+        event.preventDefault();
+
         $(this).find(".metadata").clone().dialog({
           title: _expression_model_name,
           hide: true,
