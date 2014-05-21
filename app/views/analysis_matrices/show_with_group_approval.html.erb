@@ -7,11 +7,11 @@
   <table class="analysis-matrix" id="analysis-matrix">
     <thead>
       <tr>
-        <th rowspan="2" class="checkbox header objective">XXX</th>
+        <th rowspan="2" class="checkbox-cell header objective">XXX</th>
         <th rowspan="2" class="header objective">OBJECTIVES</th>
-        <th rowspan="2" class="checkbox header strategy">XXX</th>
+        <th rowspan="2" class="checkbox-cell header strategy">XXX</th>
         <th class="header strategy" colspan="<%= @strategy.expressions.size %>">STRATEGIES</th>
-        <th rowspan="2" class="checkbox header tactic">XXX</th>
+        <th rowspan="2" class="checkbox-cell header tactic">XXX</th>
         <th class="header tactic" colspan="<%= @tactic.expressions.size %>">TACTICS</th>
       </tr>
       <tr>
@@ -27,21 +27,21 @@
     <tbody>
       <% each_row_for_group_approval(@matrix_data) do |row| %>
         <tr>
-          <td class="checkbox">
+          <td class="checkbox-cell">
             <% if row.objective && row.objective.objective && !row.objective.repeated %>
               <%= check_box_tag "groups[]", row.objective.objective.group_id %>
             <% end -%>
           </td>
           <%= row.objective_cells.render %>
 
-          <td class="checkbox">
+          <td class="checkbox-cell">
             <% if row.strategy.respond_to?(:strategy) && row.strategy.strategy && !row.strategy.repeated %>
               <%= check_box_tag "groups[]", row.strategy.strategy.group_id %>
             <% end -%>
           </td>
           <%= row.strategy_cells.render %>
 
-          <td class="checkbox">
+          <td class="checkbox-cell">
             <% if row.tactic.respond_to?(:tactic) && row.tactic.tactic && !row.tactic.repeated %>
               <%= check_box_tag "groups[]", row.tactic.tactic.group_id %>
             <% end -%>
