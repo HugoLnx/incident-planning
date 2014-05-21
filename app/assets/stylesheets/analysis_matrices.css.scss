@@ -218,3 +218,9 @@ ul.ui-autocomplete {
   }
 
 }
+
+/* GROUP APPROVAL CHECKBOX */
+.checkbox {
+	color: rgba(0,0,0,0);
+	background-color: lighten($expression_color, $add_light_percent);
+}

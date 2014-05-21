@@ -1,13 +1,6 @@
 <h1>Tactics Planning Matrix</h1>
 
 <%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
-<% content_for :css do %>
-  <style>
-    .checkbox {
-      color: rgba(0,0,0,0);
-    }
-  </style>
-<% end %>
 
 <%= form_tag group_approval_path, method: :post do %>
   <%= submit_tag "Approve all selected" %>
