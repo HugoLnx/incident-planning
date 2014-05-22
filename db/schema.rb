@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20140520104951) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "positive",        null: false
-    t.integer  "user_id",         null: false
-    t.integer  "role_id",         null: false
+    t.integer  "user_id"
+    t.integer  "role_id"
   end
 
   add_index "approvals", ["expression_id"], name: "index_approvals_on_expression_id", using: :btree
