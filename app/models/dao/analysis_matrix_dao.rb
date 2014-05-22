@@ -5,14 +5,9 @@ module Dao
     end
 
     def find_all_objectives_including_hierarchy
-      expressions_includes =  [
-        :owner,
-        {
-          approvals: [:user],
-          reused_expression: [:owner, {approvals: [:user]}]
-        }
-      ]
-      
+      expressions_includes = {
+        approvals: [:user]
+      }
       @cycle.groups.where(name: Model.objective.name).includes(
         text_expressions: expressions_includes,
         time_expressions: expressions_includes,
