@@ -181,7 +181,7 @@ private
 
   def reused_class(expression)
     return "" if expression.nil?
-    if expression.reused_expression.nil?
+    if expression.reused_expression_id.nil?
       return "non-reused"
     else
       return "reused"

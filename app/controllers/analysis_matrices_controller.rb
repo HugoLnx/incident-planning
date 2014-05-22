@@ -29,3 +29,14 @@ private
     @cycle = Cycle.find params[:cycle_id]
   end
 end
+
+module Arel
+  module Visitors
+    class ToSql < Arel::Visitors::Visitor
+      def quote_column_name name
+        p name
+        @quoted_columns[name] ||= Arel::Nodes::SqlLiteral === name ? name : @connection.quote_column_name(name)
+      end
+    end
+  end
+end

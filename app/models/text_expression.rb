@@ -3,7 +3,7 @@ class TextExpression < ActiveRecord::Base
   belongs_to :reused_expression, class_name: ::TextExpression
 
   def info_as_str
-    if reused_expression
+    if reused_expression_id
       reused_expression.info_as_str
     else
       text
