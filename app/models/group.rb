@@ -11,6 +11,8 @@ class Group < ActiveRecord::Base
 
   validates_associated :cycle
 
+  default_scope {order "created_at ASC"}
+
   def expressions
     self.text_expressions + self.time_expressions
   end
