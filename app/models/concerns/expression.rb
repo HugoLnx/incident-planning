@@ -39,6 +39,8 @@ module Concerns
           reused_expression_id: nil
         })
 
+        query.where("id != ?", id)
+
         # TODO: user config - extract to private method
         if config.user_filter_type == ReuseConfiguration::USER_FILTER_TYPES.name(:specific)
           user_id = config.user_filter_value
