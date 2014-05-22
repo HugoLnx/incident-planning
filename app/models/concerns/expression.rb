@@ -28,6 +28,8 @@ module Concerns
       has_many :approvals, as: :expression
 
       scope :objectives, -> { where(name: Model.objective.name) }
+  
+      default_scope {order "created_at ASC"}
 
       #TODO: extract to class
       scope :suggested_to_reuse, -> (params, config) {
