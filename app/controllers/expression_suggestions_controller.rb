@@ -1,21 +1,23 @@
 class ExpressionSuggestionsController < ApplicationController
   def index
-    suggest_params = params.permit(:term, :expression_name, :incident_id)
-    expression_model = ::Model.find_expression_by_name(suggest_params[:expression_name])
+    sparams = params.permit(:term, :expression_name, :incident_id)
+
+    term = sparams[:term]
+    current_incident_id = sparams[:incident_id]
+    expression_name = sparams[:expression_name]
+    expression_model = ::Model.find_expression_by_name(expression_name)
+
+    if expression_model.type == ::Model::Expression::TYPES.time()
+      adviser = ExpressionReuseAdviser.new(TimeExpression.all)
+    else
+      adviser = ExpressionReuseAdviser.new(TextExpression.all)
+    end
 
     reuse_config = current_user.reuse_configuration
-    if expression_model.type == ::Model::Expression::TYPES.time()
-      expressions = TimeExpression.suggested_to_reuse(suggest_params, reuse_config).load
-    else
-      expressions = TextExpression.suggested_to_reuse(suggest_params, reuse_config).load
-    end
-    suggestions = expressions.map do |exp|
-      {
-        label: exp.info_as_str,
-        value: exp.id
-      }
-    end
 
-    render json: suggestions
+    query = adviser.suggestions_query_for(
+      reuse_config, expression_name, term, current_incident_id)
+
+    @expressions = query.load
   end
 end
