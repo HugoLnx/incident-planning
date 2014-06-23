@@ -43,15 +43,16 @@
       var $tds = $td.add($(this).siblings(self.siblingsSelector));
       var cells = matrix.findCells($tds);
 
-      var reused_expression_ids = extractReusedIdsFrom($tds);
+      var reusedExpressionIds = extractReusedIdsFrom($tds);
+      var expressionIds = extractExpressionIdsFrom($tds);
 
       var initialData = self.updateProtocol.currentData(cells);
       var form = self.template.evaluate(initialData);
       var renderer = new Templates.FormRenderer(matrix);
 
-      changeReusedExpressionsIn(form, reused_expression_ids);
+      changeReusedExpressionsIn(form, reusedExpressionIds);
 
-      bindOnExpressionSuggestion(form);
+      bindOnExpressionSuggestion(form, expressionIds);
       bindOnSubmit(form, self.updateProtocol, $td);
       bindOnDeleteBtn(form.$deleteBtn(), self.deleteProtocol, $td);
 
@@ -85,13 +86,26 @@
     return ids;
   }
 
+  function extractExpressionIdsFrom($tds) {
+    var ids = {};
+    $tds.each(function() {
+      var $td = $(this);
+      var expressionName = ExpressionRecognizer.getPrettyNameFromTd($td);
+      ids[expressionName] = $td.data("expression-id");
+    });
+    return ids;
+  }
+
   // TODO: ESSE TRECHO DE CÓDIGO ESTÁ REPETIDO NO app/assets/javascripts/analysis_matrices/analysis_matrix/actions/add.js
-  function bindOnExpressionSuggestion(form) {
+  function bindOnExpressionSuggestion(form, expressionIds) {
     form.$inputsTds().find("input").each(function() {
       var $input = $(this);
 
       var expressionName = ExpressionRecognizer.getPrettyNameFromInput($input);
-      var source = "/incident/" + FROM_RAILS.current_incident_id + "/expression_suggestions/" + expressionName;
+      var expressionId = expressionIds[expressionName];
+      var source = "/incident/" + FROM_RAILS.current_incident_id +
+        "/expression_suggestions/" + expressionName +
+      "?expression_updated_id=" + expressionId;
 
       $input.autocomplete({
         source: source,

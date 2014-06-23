@@ -3,7 +3,7 @@ class ExpressionReuseAdviser
     @query = query
   end
 
-  def suggestions_query_for(config, expression_name, term, current_incident_id)
+  def suggestions_query_for(config, expression_name, term, current_incident_id, excluded_expression_id)
     query = @query.where({
       name: expression_name,
       reused_expression_id: nil
@@ -12,6 +12,7 @@ class ExpressionReuseAdviser
     query = apply_user_filter(query, config)
     query = apply_indident_filter(query, config, current_incident_id)
     query = where_text_like(query, term)
+    query = exclude_expression(query, excluded_expression_id)
 
     query
   end
@@ -45,6 +46,14 @@ private
       query.where("text ilike ?", "%#{term}%")
     else
       query.where("text like ?", "%#{term}%")
+    end
+  end
+
+  def exclude_expression(query, exp_id)
+    if exp_id.nil?
+      query
+    else
+      query.where("id != ?", exp_id)
     end
   end
 end
