@@ -22,6 +22,7 @@ module HighModels
           exp = instance_variable_get("@#{name}")
           if exp
             if exp.text != new_text
+              exp.reused_expression_id = nil
               exp.owner = self.owner
             end
             exp.text = new_text
@@ -31,9 +32,9 @@ module HighModels
         define_method :"update_#{name}_reused" do |id_str|
           updated = false
           exp = instance_variable_get("@#{name}")
-          exp.text = ""
-          if (exp.reused_expression_id != id_str.to_i)
+          if (id_str && exp.reused_expression_id != id_str.to_i)
             updated = true
+            exp.text = ""
             exp.reused_expression_id = id_str.to_i
             exp.owner = self.owner
           end
@@ -100,7 +101,9 @@ module HighModels
             updated = false
           end
 
-          exp.reused_expression_id = nil
+          if updated
+            exp.reused_expression_id = nil
+          end
 
           self.instance_variable_set("@#{name}", exp)
           updated
