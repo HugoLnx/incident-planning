@@ -39,6 +39,8 @@
     function openForm(event) {
       event.preventDefault();
 
+      $(".cancel-btn").click();
+
       var $td = $(this);
       var $tds = $td.add($(this).siblings(self.siblingsSelector));
       var cells = matrix.findCells($tds);

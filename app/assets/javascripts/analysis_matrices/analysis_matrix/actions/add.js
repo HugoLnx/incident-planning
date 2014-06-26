@@ -36,6 +36,8 @@
     var self = this;
     $father.on("click", this.targetsSelector, function(event) {
       event.preventDefault();
+
+      $(".cancel-btn").click();
       
       var $td = $(this);
       var cell = matrix.findCells($td)[0];
