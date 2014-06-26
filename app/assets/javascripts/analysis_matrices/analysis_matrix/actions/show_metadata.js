@@ -1,5 +1,6 @@
-(function($, namespace) {
+(function($, namespace, utils) {
   var Actions = namespace.AnalysisMatrix.Actions;
+  var TapConflictFree = utils.TapConflictFree;
   var ENVIRONMENT = namespace.FROM_RAILS.environment;
 
   Actions.ShowMetadata = function() {
@@ -10,7 +11,7 @@
       if (ENVIRONMENT === "test") {
         _$father.on("click", selector, displayMetadata);
       } else {
-        _$father.hammer().on("hold", selector, displayMetadata);
+        _$father.hammer().on("tap", selector, TapConflictFree.wrapAction(displayMetadata));
       }
 
       function displayMetadata(event) {
@@ -37,4 +38,4 @@
     return new Actions.ShowMetadata();
   };
 
-}(jQuery, LNX_INCIDENT_PLANNING));
+}(jQuery, LNX_INCIDENT_PLANNING, LNX_UTILS));

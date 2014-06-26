@@ -34,7 +34,7 @@
   var _prototype = Actions.Add.prototype;
   _prototype.bindIn = function(matrix, $father) {
     var self = this;
-    $father.on("click", this.targetsSelector, function(event) {
+    $father.hammer().on("click", this.targetsSelector, function(event) {
       event.preventDefault();
 
       $(".cancel-btn").click();

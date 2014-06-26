@@ -5,6 +5,7 @@
 //= require_tree ./analysis_matrices/
 //= require jquery.ui.dialog
 //= require jquery.ui.autocomplete
+//= require tap_conflict_free
 //= require array_utils
 //= require on_hold
 //= require show_dialog_button

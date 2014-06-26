@@ -60,7 +60,7 @@
 
       renderer.render(form, {replacing: cells});
     }
-    $father.on("dblclick", this.targetsSelector, openForm);
+    //$father.on("dblclick", this.targetsSelector, openForm);
     $father.hammer().on("doubletap", this.targetsSelector, openForm);
   };
 
