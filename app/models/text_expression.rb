@@ -11,6 +11,6 @@ class TextExpression < ActiveRecord::Base
   end
 
   def content_changed?
-    text_changed?
+    text_changed? || reused_expression_id_changed?
   end
 end

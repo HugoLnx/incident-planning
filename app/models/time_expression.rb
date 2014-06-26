@@ -17,6 +17,6 @@ class TimeExpression < ActiveRecord::Base
   end
 
   def content_changed?
-    when_changed?
+    when_changed? || text_changed? || reused_expression_id_changed?
   end
 end
