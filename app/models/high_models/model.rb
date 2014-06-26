@@ -230,13 +230,6 @@ module HighModels
     def destroy!
       rollback_on_error do
         @group.destroy!
-        expressions_names.each do |exp_id, _|
-          exp = public_send exp_id
-          if exp
-            exp.group = group
-            exp.destroy!
-          end
-        end
       end
     end
 

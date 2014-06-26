@@ -381,72 +381,36 @@ describe HighModels::Tactic do
       end
     end
 
-    shared_examples "destroys all models" do
+    context "when group can be destroyed" do
       it "destroys the group" do
         destroy_tactic
-        expect(@tactic.group).to be_destroyed
+        expect(Group.exists?(@tactic.group.id)).to be_false
       end
 
       it "destroys who expression" do
         destroy_tactic
-        expect(@tactic.who).to be_destroyed
+        expect(TextExpression.exists?(@tactic.who.id)).to be_false
       end
 
       it "destroys what expression" do
         destroy_tactic
-        expect(@tactic.what).to be_destroyed
+        expect(TextExpression.exists?(@tactic.what.id)).to be_false
       end
 
       it "destroys where expression" do
         destroy_tactic
-        expect(@tactic.where).to be_destroyed
+        expect(TextExpression.exists?(@tactic.where.id)).to be_false
       end
 
       it "destroys when expression" do
         destroy_tactic
-        expect(@tactic.when).to be_destroyed
+        expect(TextExpression.exists?(@tactic.when.id)).to be_false
       end
 
       it "destroys response_action expression" do
         destroy_tactic
-        expect(@tactic.response_action).to be_destroyed
+        expect(TextExpression.exists?(@tactic.response_action.id)).to be_false
       end
-    end
-
-    shared_examples "any model is destroyed" do
-      it "doesn't destroy the group" do
-        destroy_tactic
-        expect(@tactic.group).to_not be_destroyed
-      end
-
-      it "doesn't destroy who expression" do
-        destroy_tactic
-        expect(@tactic.who).to_not be_destroyed
-      end
-
-      it "doesn't destroy what expression" do
-        destroy_tactic
-        expect(@tactic.what).to_not be_destroyed
-      end
-
-      it "doesn't destroy where expression" do
-        destroy_tactic
-        expect(@tactic.where).to_not be_destroyed
-      end
-
-      it "doesn't destroy when expression" do
-        destroy_tactic
-        expect(@tactic.when).to_not be_destroyed
-      end
-
-      it "doesn't destroy response_action expression" do
-        destroy_tactic
-        expect(@tactic.response_action).to_not be_destroyed
-      end
-    end
-
-    context "when all associations can be destroyed" do
-      include_examples "destroys all models"
     end
 
     context "when group can't be destroyed" do
@@ -454,53 +418,35 @@ describe HighModels::Tactic do
         allow(@tactic.group).to receive(:destroy!)
           .and_raise(ActiveRecord::RecordNotDestroyed)
       end
-
-      include_examples "any model is destroyed"
-    end
-
-    context "when who can't be destroyed" do
-      before :each do
-        allow(@tactic.who).to receive(:destroy!)
-          .and_raise(ActiveRecord::RecordNotDestroyed)
+      it "doesn't destroy the group" do
+        destroy_tactic
+        expect(Group.exists?(@tactic.group.id)).to be_true
       end
 
-      include_examples "any model is destroyed"
-    end
-
-    context "when what can't be destroyed" do
-      before :each do
-        allow(@tactic.what).to receive(:destroy!)
-          .and_raise(ActiveRecord::RecordNotDestroyed)
+      it "doesn't destroy who expression" do
+        destroy_tactic
+        expect(TextExpression.exists?(@tactic.who.id)).to be_true
       end
 
-      include_examples "any model is destroyed"
-    end
-
-    context "when where can't be destroyed" do
-      before :each do
-        allow(@tactic.where).to receive(:destroy!)
-          .and_raise(ActiveRecord::RecordNotDestroyed)
+      it "doesn't destroy what expression" do
+        destroy_tactic
+        expect(TextExpression.exists?(@tactic.what.id)).to be_true
       end
 
-      include_examples "any model is destroyed"
-    end
-
-    context "when when can't be destroyed" do
-      before :each do
-        allow(@tactic.when).to receive(:destroy!)
-          .and_raise(ActiveRecord::RecordNotDestroyed)
+      it "doesn't destroy where expression" do
+        destroy_tactic
+        expect(TextExpression.exists?(@tactic.where.id)).to be_true
       end
 
-      include_examples "any model is destroyed"
-    end
-
-    context "when response_action can't be destroyed" do
-      before :each do
-        allow(@tactic.response_action).to receive(:destroy!)
-          .and_raise(ActiveRecord::RecordNotDestroyed)
+      it "doesn't destroy when expression" do
+        destroy_tactic
+        expect(TimeExpression.exists?(@tactic.when.id)).to be_true
       end
 
-      include_examples "any model is destroyed"
+      it "doesn't destroy response_action expression" do
+        destroy_tactic
+        expect(TextExpression.exists?(@tactic.response_action.id)).to be_true
+      end
     end
   end
 end

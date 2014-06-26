@@ -215,32 +215,16 @@ describe HighModels::Strategy do
       end
     end
 
-    shared_examples "destroys all models" do
+    context "when group can be destroyed" do
       it "destroys the group" do
         destroy_strategy
-        expect(@strategy.group).to be_destroyed
+        expect(Group.exists?(@strategy.group)).to be_false
       end
 
       it "destroys how expression" do
         destroy_strategy
-        expect(@strategy.how).to be_destroyed
+        expect(TextExpression.exists?(@strategy.how.id)).to be_false
       end
-    end
-
-    shared_examples "any model is destroyed" do
-      it "doesn't destroy the group" do
-        destroy_strategy
-        expect(@strategy.group).to_not be_destroyed
-      end
-
-      it "doesn't destroy how expression" do
-        destroy_strategy
-        expect(@strategy.how).to_not be_destroyed
-      end
-    end
-
-    context "when all associations can be destroyed" do
-      include_examples "destroys all models"
     end
 
     context "when group can't be destroyed" do
@@ -249,16 +233,15 @@ describe HighModels::Strategy do
           .and_raise(ActiveRecord::RecordNotDestroyed)
       end
 
-      include_examples "any model is destroyed"
-    end
-
-    context "when how can't be destroyed" do
-      before :each do
-        allow(@strategy.how).to receive(:destroy!)
-          .and_raise(ActiveRecord::RecordNotDestroyed)
+      it "doesn't destroy the group" do
+        destroy_strategy
+        expect(Group.exists?(@strategy.group)).to be_true
       end
 
-      include_examples "any model is destroyed"
+      it "doesn't destroy how expression" do
+        destroy_strategy
+        expect(TextExpression.exists?(@strategy.how.id)).to be_true
+      end
     end
   end
 end
