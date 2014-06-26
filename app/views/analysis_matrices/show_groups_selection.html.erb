@@ -1,8 +1,11 @@
+<% content_for :js  do%>
+  <%= javascript_include_tag "analysis_matrices_group_approval", "data-turbolinks-track" => true %>
+<% end %>
 <h1>Tactics Planning Matrix</h1>
 
 <%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
 
-<%= form_tag group_approval_path, method: :post do %>
+<%= form_tag @submit_path, method: :post do %>
   <%= submit_tag "Approve all selected" %>
   <table class="analysis-matrix" id="analysis-matrix">
     <thead>

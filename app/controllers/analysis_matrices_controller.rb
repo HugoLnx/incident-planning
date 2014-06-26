@@ -20,7 +20,9 @@ class AnalysisMatricesController < ApplicationController
     @strategy = ::Model.strategy
     @tactic = ::Model.tactic
 
-    render "show_with_group_approval"
+    @submit_path = group_approval_path
+
+    render "show_groups_selection"
   end
 
 private
