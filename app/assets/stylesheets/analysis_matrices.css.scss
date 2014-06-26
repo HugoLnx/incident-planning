@@ -17,9 +17,6 @@ $header_lighten_percent: 15%;
 $add_light_percent: 15%;
 $repeated_light_percent: 20%;
 
-$repeated_font_color: black;
-$repeated_font_light_percent: 60%;
-
 .analysis-matrix {
   border-collapse: collapse;
   width: 100%;
@@ -84,9 +81,9 @@ $repeated_font_light_percent: 60%;
   @include background-colors($partial_rejection_color, 25%, ".partial-rejection");
   @include background-colors($rejected_color, 25%, ".rejected");
 
-/* REPEATED FONT COLOR */
-  .repeated {
-    color: lighten($repeated_font_color, $repeated_font_light_percent);
+/* REPEATED */
+  .repeated .expression-text{
+    display: none;
   }
 
 /* REUSE */
