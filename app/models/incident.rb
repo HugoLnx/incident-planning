@@ -1,5 +1,5 @@
 class Incident < ActiveRecord::Base
-  has_many :cycles
+  has_many :cycles, dependent: :destroy
 
   validates :name, presence: true
 

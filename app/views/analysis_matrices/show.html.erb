@@ -34,6 +34,10 @@
   <%= submit_tag "Approve in groups", class: "btn-approve-in-groups" %>
 <% end %>
 
+<%= form_tag group_deletion_incident_cycle_analysis_matrix_path(@incident, @cycle), method: :get do %>
+  <%= submit_tag "Delete in groups", class: "btn-delete-in-groups" %>
+<% end %>
+
 <%= render partial: "show_priorities", locals: {cycle: @cycle} %>
 
 <table class="analysis-matrix" id="analysis-matrix">

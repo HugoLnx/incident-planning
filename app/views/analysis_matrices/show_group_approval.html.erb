@@ -5,7 +5,7 @@
 
 <%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
 
-<%= form_tag @submit_path, method: :post do %>
+<%= form_tag group_approval_path, method: :post do %>
   <%= submit_tag "Approve all selected" %>
   <table class="analysis-matrix" id="analysis-matrix">
     <thead>

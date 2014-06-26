@@ -8,9 +8,13 @@ class AnalysisMatricesController < ApplicationController
   def group_approval
     prepare_to_render_analysis_matrix
 
-    @submit_path = group_approval_path
+    render "show_group_approval"
+  end
 
-    render "show_groups_selection"
+  def group_deletion
+    prepare_to_render_analysis_matrix
+
+    render "show_group_deletion"
   end
 
 private

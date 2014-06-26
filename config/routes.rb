@@ -9,6 +9,7 @@ IncidentPlanning::Application.routes.draw do
 
   scope "/incident/:incident_id/cycle/:cycle_id/" do
     post "/group_approval", to: "group_approvals#create", as: :group_approval
+    delete "/group_deletion", to: "group_deletions#destroy", as: :group_deletion
   end
 
   resources :incidents do
@@ -24,6 +25,7 @@ IncidentPlanning::Application.routes.draw do
       end
       resource :analysis_matrix do
         get :group_approval
+        get :group_deletion
       end
       resources :tactics
       resources :strategies

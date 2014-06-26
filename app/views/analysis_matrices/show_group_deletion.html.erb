@@ -1,0 +1,53 @@
+<% content_for :js do%>
+  <%= javascript_include_tag "analysis_matrices_group_approval", "data-turbolinks-track" => true %>
+<% end %>
+<h1>Tactics Planning Matrix</h1>
+
+<%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
+
+<%= form_tag group_deletion_path, method: :delete do %>
+  <%= submit_tag "Delete all selected" %>
+  <table class="analysis-matrix" id="analysis-matrix">
+    <thead>
+      <tr>
+        <th rowspan="2" class="header objective">OBJECTIVES</th>
+        <th rowspan="2" class="checkbox-cell header strategy">XXX</th>
+        <th class="header strategy" colspan="<%= @strategy.expressions.size %>">STRATEGIES</th>
+        <th rowspan="2" class="checkbox-cell header tactic">XXX</th>
+        <th class="header tactic" colspan="<%= @tactic.expressions.size %>">TACTICS</th>
+      </tr>
+      <tr>
+        <% @strategy.expressions.each do |exp| %>
+          <th class="header strategy"><%= exp.human_name %></th>
+        <% end %>
+        <% @tactic.expressions.each do |exp| %>
+          <th class="header tactic"><%= exp.human_name %></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% each_row_for_group_approval(@matrix_data) do |row| %>
+        <tr>
+          <%= row.objective_cells.render %>
+
+          <td class="checkbox-cell">
+            <% if row.strategy.respond_to?(:strategy) && row.strategy.strategy && !row.strategy.repeated %>
+              <%= check_box_tag "groups[]", row.strategy.strategy.group_id %>
+            <% end -%>
+          </td>
+          <%= row.strategy_cells.render %>
+
+          <td class="checkbox-cell">
+            <% if row.tactic.respond_to?(:tactic) && row.tactic.tactic && !row.tactic.repeated %>
+              <%= check_box_tag "groups[]", row.tactic.tactic.group_id %>
+            <% end -%>
+          </td>
+          <%= row.tactic_cells.render %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to "Back", back_path %>

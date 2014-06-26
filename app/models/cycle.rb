@@ -7,6 +7,8 @@ class Cycle < ActiveRecord::Base
 
   default_scope {order "number ASC"}
 
+  before_destroy :destroy_objectives
+
   def self.next_have_ending_mandatory?(incident)
     incident.cycles.exists?
   end
@@ -61,5 +63,9 @@ class Cycle < ActiveRecord::Base
     rescue ActiveRecord::ActiveRecordError
       return false
     end
+  end
+
+  def destroy_objectives
+    groups.where(name: "Objective").destroy_all
   end
 end

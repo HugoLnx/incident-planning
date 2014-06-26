@@ -25,7 +25,7 @@ module Concerns
       belongs_to :group
       belongs_to :owner, class_name: "User"
 
-      has_many :approvals, as: :expression
+      has_many :approvals, as: :expression, dependent: :destroy
 
       scope :objectives, -> { where(name: Model.objective.name) }
   
