@@ -9,8 +9,13 @@ class ExpressionReuseAdviser
       reused_expression_id: nil
     })
 
-    query = apply_user_filter(query, config)
-    query = apply_indident_filter(query, config, current_incident_id)
+    if config.user_filter_type == ReuseConfiguration::USER_FILTER_TYPES.name(:specific)
+      query = apply_user_filter(query, config)
+    end
+
+    if config.incident_filter_type != ReuseConfiguration::INCIDENT_FILTER_TYPES.name(:all)
+      query = apply_incident_filter(query, config, current_incident_id)
+    end
     query = where_text_like(query, term)
     query = exclude_expression(query, excluded_expression_id)
 
@@ -19,25 +24,17 @@ class ExpressionReuseAdviser
 
 private
   def apply_user_filter(query, config)
-    if config.user_filter_type == ReuseConfiguration::USER_FILTER_TYPES.name(:specific)
-      user_id = config.user_filter_value
-      query.where({owner_id: user_id})
-    else
-      query
-    end
+    user_id = config.user_filter_value
+    query.where({owner_id: user_id})
   end
 
-  def apply_indident_filter(query, config, current_incident_id)
-    if config.incident_filter_type != ReuseConfiguration::INCIDENT_FILTER_TYPES.name(:all)
-      if config.incident_filter_type == ReuseConfiguration::INCIDENT_FILTER_TYPES.name(:specific)
-        incident_id = config.incident_filter_value
-      else
-        incident_id = current_incident_id
-      end
-      query.joins(:cycle).where({"cycles.incident_id" => incident_id.to_i})
+  def apply_incident_filter(query, config, current_incident_id)
+    if config.incident_filter_type == ReuseConfiguration::INCIDENT_FILTER_TYPES.name(:specific)
+      incident_id = config.incident_filter_value
     else
-      query
+      incident_id = current_incident_id
     end
+    query.joins(:cycle).where({"cycles.incident_id" => incident_id.to_i})
   end
 
   def where_text_like(query, term)
@@ -53,7 +50,7 @@ private
     if exp_id.nil?
       query
     else
-      query.where("id != ?", exp_id)
+      query.where.not(id: exp_id)
     end
   end
 end
