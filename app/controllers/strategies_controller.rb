@@ -19,6 +19,8 @@ class StrategiesController < ApplicationController
       AnalysisMatrixReuse::Strategy.reuse_tactics!(strategy.group, current_user)
     end
 
+    @strategy = strategy.group
+
     head :ok
   end
 
