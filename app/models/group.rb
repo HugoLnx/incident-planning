@@ -13,6 +13,10 @@ class Group < ActiveRecord::Base
 
   default_scope {order "created_at ASC"}
 
+  def self.childs_of_father_of_text_expression(exp_id)
+    joins(father: :text_expressions).where("text_expressions.id" => exp_id)
+  end
+
   def expressions
     self.text_expressions + self.time_expressions
   end

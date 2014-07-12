@@ -20,8 +20,6 @@ describe StrategiesController do
   end
 
   shared_examples :reuse_creating_a_new_hierarchy do
-    include_examples :success_expectations
-
     describe "the strategy" do
       it "have hierarchy reused" do
         tactics_ids = @strategy.childs.map(&:text_expressions).flatten.map(&:id)
@@ -67,6 +65,7 @@ describe StrategiesController do
           }
       end
 
+      include_examples :success_expectations
       include_examples :reuse_creating_a_new_hierarchy
 
       it "the strategy created have father_id equals passed by parameter" do
@@ -75,29 +74,31 @@ describe StrategiesController do
     end
   end
 
-  describe "PUT #update to reuse other strategy" do
-    context "when reusing hierarchy" do
-      let :strategy do
-        assigns(:strategy)
-      end
+  describe "PUT #update to reuse other strategy including hierarchy" do
+    let :strategy do
+      @strategy_to_update.reload
+      @strategy_to_update
+    end
 
-      let :how do
-        strategy.text_expressions.first
-      end
+    let :how do
+      strategy.text_expressions.first
+    end
 
+    before :each do
+      config = build :reuse_configuration, hierarchy: true
+      user = create :user, reuse_configuration: config
+      sign_in user
+    end
+
+    context "when updated strategy haven't childs and reused strategy has" do
       before :each do
-        config = build :reuse_configuration, hierarchy: true
-        user = create :user, reuse_configuration: config
-        sign_in user
-
         @strategy = create :strategy_group
         strategy_hierarchy = create_list :tactic_group, 3, father: @strategy
         @strategy.reload
         @how_reused = @strategy.text_expressions.first
-        @father = create :objective_group
-        strategy_to_update = create(:strategy_group)
+        @strategy_to_update = create(:strategy_group)
 
-        put :update, id: strategy_to_update.id,
+        put :update, id: @strategy_to_update.id,
           incident_id: current_incident.id,
           cycle_id: current_cycle.id,
           strategy: {
@@ -106,8 +107,42 @@ describe StrategiesController do
           }
       end
 
+      include_examples :success_expectations
       include_examples :reuse_creating_a_new_hierarchy
+    end
 
+    context "when reused strategy has childs" do
+      before :each do
+        @strategy = create :strategy_group
+        strategy_hierarchy = create_list :tactic_group, 3, father: @strategy
+        @strategy.reload
+        @how_reused = @strategy.text_expressions.first
+      end
+
+      context "and updated strategy has too" do
+        before :each do
+          @strategy_to_update = create(:strategy_group)
+          @old_hierarchy = create_list :tactic_group, 3, father: @strategy_to_update
+          @strategy_to_update.reload
+
+          put :update, id: @strategy_to_update.id,
+            incident_id: current_incident.id,
+            cycle_id: current_cycle.id,
+            strategy: {
+              how: @how_reused.text,
+              how_reused: @how_reused.id
+            }
+        end
+
+        include_examples :success_expectations
+        include_examples :reuse_creating_a_new_hierarchy
+
+        it "delete old hierarchy of updated strategy" do
+          expect(Group.exists?(@old_hierarchy[0].id)).to be == false
+          expect(Group.exists?(@old_hierarchy[1].id)).to be == false
+          expect(Group.exists?(@old_hierarchy[2].id)).to be == false
+        end
+      end
     end
   end
 end

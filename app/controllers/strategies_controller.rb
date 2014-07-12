@@ -13,7 +13,9 @@ class StrategiesController < ApplicationController
     strategy = HighModels::Strategy.new(strategy_params)
     strategy.save!
 
-    reuse_if_necessary(strategy, strategy_params)
+    if is_reusing_hierarchy?(strategy_params)
+      AnalysisMatrixReuse::Strategy.reuse_tactics!(strategy.group, current_user)
+    end
 
     @strategy = strategy.group
 
@@ -26,15 +28,23 @@ class StrategiesController < ApplicationController
     AnalysisMatrixReuse::ParamsCleaner.clean(new_params)
 
     group = Group.includes(:text_expressions).find(params[:id])
+    strategy_old_childs = group.childs.load
 
     strategy = HighModels::Strategy.new owner: current_user
     strategy.set_from_group group
     strategy.update new_params
     strategy.save!
 
-    reuse_if_necessary(strategy, new_params)
+
+    if is_reusing_hierarchy?(new_params)
+      ids = strategy_old_childs.map(&:id)
+      Group.destroy(ids)
+
+      AnalysisMatrixReuse::Strategy.reuse_tactics!(strategy.group, current_user)
+    end
 
     @strategy = strategy.group
+    @strategy.reload
 
     head :ok
   end
@@ -55,11 +65,12 @@ private
     @cycle = Cycle.find params[:cycle_id]
   end
 
-  def reuse_if_necessary(strategy, strategy_params)
+  def is_reusing_hierarchy?(strategy_params)
+    reused_id = strategy_params[:how_reused]
     configuration = current_user.reuse_configuration
+    is_reusing = configuration.reuse_hierarchy? && reused_id
 
-    if configuration.reuse_hierarchy? && strategy_params[:how_reused]
-      AnalysisMatrixReuse::Strategy.reuse_tactics!(strategy.group, current_user)
-    end
+    reused_have_hierarchy = !Group.childs_of_father_of_text_expression(reused_id).empty?
+    return is_reusing && reused_have_hierarchy
   end
 end
