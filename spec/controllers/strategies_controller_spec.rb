@@ -74,7 +74,7 @@ describe StrategiesController do
     end
   end
 
-  describe "PUT #update to reuse other strategy including hierarchy" do
+  describe "PUT #update with reuse configuration turned on" do
     let :strategy do
       @strategy_to_update.reload
       @strategy_to_update
@@ -90,7 +90,39 @@ describe StrategiesController do
       sign_in user
     end
 
-    context "when updated strategy haven't childs and reused strategy has" do
+    context "when updated strategy have childs and doesn't reuse other" do
+      let :strategy do
+        @strategy_to_update.reload
+        @strategy_to_update
+      end
+
+      let :how do
+        strategy.text_expressions.first
+      end
+
+      before :each do
+        @strategy_to_update = create(:strategy_group)
+        @old_hierarchy = create_list :tactic_group, 3, father: @strategy_to_update
+        @strategy_to_update.reload
+
+        put :update, id: @strategy_to_update.id,
+          incident_id: current_incident.id,
+          cycle_id: current_cycle.id,
+          strategy: {
+            how: "New how text",
+          }
+      end
+
+      it "updates the how text" do
+        expect(how.text).to be == "New how text"
+      end
+
+      it "maintain the same hierarchy" do
+        expect(strategy.childs).to be == @old_hierarchy
+      end
+    end
+
+    context "when updated strategy haven't childs and reuse strategy that has" do
       before :each do
         @strategy = create :strategy_group
         strategy_hierarchy = create_list :tactic_group, 3, father: @strategy
@@ -111,7 +143,7 @@ describe StrategiesController do
       include_examples :reuse_creating_a_new_hierarchy
     end
 
-    context "when reused strategy has childs" do
+    context "when reuse strategy that has childs" do
       before :each do
         @strategy = create :strategy_group
         strategy_hierarchy = create_list :tactic_group, 3, father: @strategy
