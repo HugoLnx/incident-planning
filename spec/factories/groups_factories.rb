@@ -38,11 +38,13 @@ FactoryGirl.define do
 
     factory :strategy_group do
       name Model.strategy.name
+      association :father, factory: :objective_group
       text_expressions{[build(:strategy_how, group: nil)]}
     end
 
     factory :tactic_group do
       name Model.tactic.name
+      association :father, factory: :strategy_group
       text_expressions{[
         build(:tactic_who, group: nil),
         build(:tactic_what, group: nil),

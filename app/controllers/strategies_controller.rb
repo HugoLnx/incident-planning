@@ -13,11 +13,7 @@ class StrategiesController < ApplicationController
     strategy = HighModels::Strategy.new(strategy_params)
     strategy.save!
 
-    configuration = current_user.reuse_configuration
-
-    if configuration.reuse_hierarchy? && strategy_params[:how_reused]
-      AnalysisMatrixReuse::Strategy.reuse_tactics!(strategy.group, current_user)
-    end
+    reuse_if_necessary(strategy, strategy_params)
 
     @strategy = strategy.group
 
@@ -36,6 +32,10 @@ class StrategiesController < ApplicationController
     strategy.update new_params
     strategy.save!
 
+    reuse_if_necessary(strategy, new_params)
+
+    @strategy = strategy.group
+
     head :ok
   end
 
@@ -53,5 +53,13 @@ private
   def set_incident_and_cycle
     @incident = Incident.find params[:incident_id]
     @cycle = Cycle.find params[:cycle_id]
+  end
+
+  def reuse_if_necessary(strategy, strategy_params)
+    configuration = current_user.reuse_configuration
+
+    if configuration.reuse_hierarchy? && strategy_params[:how_reused]
+      AnalysisMatrixReuse::Strategy.reuse_tactics!(strategy.group, current_user)
+    end
   end
 end
