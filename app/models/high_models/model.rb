@@ -193,9 +193,7 @@ module HighModels
     end
 
     def my_errors
-      puts "MY ERRORS"
       my_errors = super
-      p my_errors
       group.errors.each{|name, msg| my_errors.add(name, msg)}
       expressions_names.each do |exp_id, _|
         exp = public_send exp_id
