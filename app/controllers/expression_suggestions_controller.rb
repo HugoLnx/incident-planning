@@ -20,6 +20,6 @@ class ExpressionSuggestionsController < ApplicationController
       reuse_config, expression_name, term,
       current_incident_id, to_be_updated_id)
 
-    @expressions = query.load
+    @suggestions = query.load.group_by(&:info_as_str)
   end
 end

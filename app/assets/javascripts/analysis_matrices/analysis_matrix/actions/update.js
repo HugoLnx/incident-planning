@@ -109,19 +109,8 @@
         "/expression_suggestions/" + expressionName +
       "?expression_updated_id=" + expressionId;
 
-      $input.autocomplete({
-        source: source,
-        change: function(event, ui) {
-          var userHasSelectedAnItem = ui.item !== null;
-          if (!userHasSelectedAnItem) {
-            Reuse.InputRenderer.becameNonReused($input);
-          }
-        },
-        select: function(event, ui) {
-          event.preventDefault();
-          var item = ui.item;
-          Reuse.InputRenderer.becameReused($input, item.label, item.value);
-        }
+      $input.suggestionsAutocomplete({
+        source: source
       });
     });
   }

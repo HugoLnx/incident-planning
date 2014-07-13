@@ -221,3 +221,16 @@ ul.ui-autocomplete {
 	color: rgba(0,0,0,0);
 	background-color: lighten($expression_color, $add_light_percent);
 }
+
+
+/* SUGGESTIONS AUTOCOMPLETE */
+.multiple-instances:after {
+  content: "";
+  width: 3px;
+  height: 3px;
+  border-radius: 3px;
+  border: solid 1px black;
+  background-color: black;
+  float: right;
+  margin: 0.4em 10px;
+}
