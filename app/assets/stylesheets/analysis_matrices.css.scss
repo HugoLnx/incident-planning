@@ -224,7 +224,7 @@ ul.ui-autocomplete {
 
 
 /* SUGGESTIONS AUTOCOMPLETE */
-.multiple-instances:after {
+.multiple-instances > a:after {
   content: "";
   width: 3px;
   height: 3px;
@@ -233,4 +233,8 @@ ul.ui-autocomplete {
   background-color: black;
   float: right;
   margin: 0.4em 10px;
+}
+
+.ui-menu-item {
+  width: 200px;
 }

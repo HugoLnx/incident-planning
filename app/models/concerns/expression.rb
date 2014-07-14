@@ -29,7 +29,7 @@ module Concerns
 
       scope :objectives, -> { where(name: Model.objective.name) }
   
-      default_scope {order "created_at ASC"}
+      default_scope {order(created_at: :asc)}
 
       validates_associated :group
       validates_associated :cycle

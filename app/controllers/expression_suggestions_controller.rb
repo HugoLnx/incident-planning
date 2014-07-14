@@ -9,10 +9,14 @@ class ExpressionSuggestionsController < ApplicationController
     expression_model = ::Model.find_expression_by_name(expression_name)
 
     if expression_model.type == ::Model::Expression::TYPES.time()
-      adviser = ExpressionReuseAdviser.new(TimeExpression.all)
+      query = TimeExpression.all
     else
-      adviser = ExpressionReuseAdviser.new(TextExpression.all)
+      query = TextExpression.all
     end
+
+    query = query.includes(cycle: :incident)
+
+    adviser = ExpressionReuseAdviser.new(query)
 
     reuse_config = current_user.reuse_configuration
 
@@ -20,6 +24,6 @@ class ExpressionSuggestionsController < ApplicationController
       reuse_config, expression_name, term,
       current_incident_id, to_be_updated_id)
 
-    @suggestions = query.load.group_by(&:info_as_str)
+    @suggestions = SuggestionsTree::ExpressionSuggestion.from_expressions(query.load)
   end
 end
