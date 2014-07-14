@@ -10,7 +10,7 @@ json.array! @suggestions do |expression_sug|
     json.count incident_sug.count
     json.childs incident_sug.dates do |date_sug|
       json.text expression_sug.text
-      json.label date_sug.date.strftime "%d/%m/%Y %H:%M"
+      json.label date_sug.date.strftime "%d/%m/%Y %H:%M:%S"
       json.value date_sug.exp_id
       json.count 1
     end
