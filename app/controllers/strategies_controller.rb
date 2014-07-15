@@ -3,6 +3,7 @@ class StrategiesController < ApplicationController
 
   def create
     strategy_params = params[:strategy].permit(:how, :father_id, :how_reused)
+    strategy_params[:how_reused] = TextExpression.find_by_id(strategy_params[:how_reused])
 
     strategy_params[:owner] = current_user
 
@@ -14,7 +15,9 @@ class StrategiesController < ApplicationController
     strategy.save!
 
     if is_reusing_hierarchy?(strategy_params)
-      AnalysisMatrixReuse::Strategy.reuse_tactics!(strategy.group, current_user)
+      reused_strategy = Group.father_of_expression(strategy_params[:how_reused]).first
+      AnalysisMatrixReuse::Strategy.reuse_tactics!(strategy.group,
+        reused: reused_strategy, owner: current_user)
     end
 
     @strategy = strategy.group
@@ -24,6 +27,7 @@ class StrategiesController < ApplicationController
 
   def update
     new_params = params[:strategy].permit(:how, :how_reused)
+    new_params[:how_reused] = TextExpression.find_by_id(new_params[:how_reused])
 
     AnalysisMatrixReuse::ParamsCleaner.clean(new_params)
 
@@ -40,7 +44,9 @@ class StrategiesController < ApplicationController
       ids = strategy_old_childs.map(&:id)
       Group.destroy(ids)
 
-      AnalysisMatrixReuse::Strategy.reuse_tactics!(strategy.group, current_user)
+      reused_strategy = Group.father_of_expression(new_params[:how_reused]).first
+      AnalysisMatrixReuse::Strategy.reuse_tactics!(strategy.group,
+        reused: reused_strategy, owner: current_user)
     end
 
     @strategy = strategy.group

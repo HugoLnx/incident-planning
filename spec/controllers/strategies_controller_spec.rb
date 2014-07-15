@@ -21,15 +21,53 @@ describe StrategiesController do
 
   shared_examples :reuse_creating_a_new_hierarchy do
     describe "the strategy" do
-      it "have hierarchy reused" do
-        tactics_ids = @strategy.childs.map(&:text_expressions).flatten.map(&:id)
-        reused_tactics_ids = strategy.childs.map(&:text_expressions).flatten.map(&:reused_expression_id)
-        expect(reused_tactics_ids).to be == tactics_ids
+      describe "have hierarchy reusing tactics" do
+        let(:reusing_texts) {strategy.childs.map(&:text_expressions).flatten}
+        let(:reusing_times) {strategy.childs.map(&:time_expressions).flatten}
+        let(:reusing_expressions) {reusing_texts + reusing_times}
+        let(:reused_texts) {@strategy.childs.map(&:text_expressions).flatten}
+        let(:reused_times) {@strategy.childs.map(&:time_expressions).flatten}
+        let(:reused_expressions) {reusing_texts + reusing_times}
+
+        it "with reused equals true" do
+          expect(reusing_expressions).to be_all{|tactic| tactic.reused?}
+        end
+
+        it "with sources equals reused sources" do
+          reusing_sources = reusing_expressions.map(&:source)
+          reused_sources = reused_expressions.map(&:source)
+          expect(reusing_sources).to be == reused_sources
+        end
+
+        it "with text equals reused text" do
+          reusing_texts = reusing_expressions.map(&:text)
+          reused_texts = reused_expressions.map(&:text)
+          expect(reusing_texts).to be == reused_texts
+        end
+
+        it "with when equals reused when" do
+          reusing_whens = reusing_times.map(&:when)
+          reused_whens = reused_times.map(&:when)
+          expect(reusing_whens).to be == reused_whens
+        end
+
+        it "with owner equals current_user" do
+          expect(reusing_expressions).to be_all{
+            |tactic| tactic.owner == subject.current_user}
+        end
       end
 
       describe "the child named how" do
-        it "have reused_expression_id equals how_reused passed by parameter" do
-          expect(how.reused_expression_id).to be == @how_reused.id
+        it "have source equals reused source" do
+          expect(how.source).to be == @how_reused.source
+        end
+
+        it "have text equals reused text" do
+          expect(how.source).to be == @how_reused.source
+        end
+
+        it "have reused equals true" do
+          expect(how.reused).to be == true
         end
       end
     end
@@ -109,7 +147,7 @@ describe StrategiesController do
           incident_id: current_incident.id,
           cycle_id: current_cycle.id,
           strategy: {
-            how: "New how text",
+            how: "New how text"
           }
       end
 

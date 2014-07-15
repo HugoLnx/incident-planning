@@ -17,6 +17,11 @@ class Group < ActiveRecord::Base
     joins(father: :text_expressions).where("text_expressions.id" => exp_id)
   end
 
+  def self.father_of_expression(exp_id)
+    joins(:text_expressions)
+      .where("text_expressions.id" => exp_id)
+  end
+
   def expressions
     self.text_expressions + self.time_expressions
   end

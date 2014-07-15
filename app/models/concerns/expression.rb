@@ -3,14 +3,9 @@ module Concerns
     extend ActiveSupport::Concern
     include ApprovalExpertConcern
 
-    SOURCES = TypesLib::Enum.new %w{proposed incident pre_incident}
-    STATUS = TypesLib::Enum.new %w{to_be_approved partial_approval approved partial_rejection rejected}
+    SOURCE_NONE = "none"
 
-    SOURCES_NAMES = {
-      SOURCES.proposed() => "New",
-      SOURCES.incident() => "Incident",
-      SOURCES.pre_incident() => "Pre Incident"
-    }
+    STATUS = TypesLib::Enum.new %w{to_be_approved partial_approval approved partial_rejection rejected}
 
     STATUS_NAMES = {
       STATUS.to_be_approved() => "To Be Approved",
@@ -35,12 +30,10 @@ module Concerns
       validates_associated :cycle
 
       validates :name, presence: true
-      validates :source, presence: true
       validates :group_id, presence: true
       validates :cycle_id, presence: true
       validates :owner_id, presence: true
 
-      after_initialize :defaults
       around_save :reset_callback, if: :content_changed?
 
       def status
@@ -73,7 +66,7 @@ module Concerns
       end
 
       def source_name
-        SOURCES_NAMES[self.source]
+        source || SOURCE_NONE
       end
 
       def reset
@@ -92,12 +85,6 @@ module Concerns
       end
 
     private
-      def defaults
-        if !self.persisted?
-          self.source ||= 0
-        end
-      end
-
       def reset_callback(&block)
         updating = self.persisted?
         yield

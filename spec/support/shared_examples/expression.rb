@@ -8,13 +8,6 @@ shared_examples_for "Expression" do
     end
   end
 
-  context "when initializing a new expression" do
-    it 'sets source to zero (Proposed)' do
-      expression = model.new
-      expect(expression.source).to be == Concerns::Expression::SOURCES.proposed()
-    end
-  end
-
   describe "when getting status" do
     context "is to be approved if any approval role approved yet" do
       it "get to be approved because have two approval roles without approve" do
@@ -161,7 +154,7 @@ shared_examples_for "Expression" do
         objective_expression2 = objective_group.text_expressions[1]
 
         objective_expression1.reset
-        expect(Approval.all.to_a).to be == objective_expression2.approvals.to_a
+        expect(Approval.all.to_a.sort).to be == objective_expression2.approvals.to_a.sort
       end
     end
   end

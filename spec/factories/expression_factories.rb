@@ -1,9 +1,10 @@
 FactoryGirl.define do
   factory :time_expression do
     cycle
-    reused_expression nil
+    reused false
     association :owner, factory: :user
     sequence(:when) {"22/03/1993 10:50"}
+    source nil
 
     factory :tactic_when do
       association :group, factory: :tactic_group

@@ -52,7 +52,7 @@ feature "Tactics Matrix: Approving expressions", :js do
       expect(@page.notice).to have_text "Expression was sucessfuly approved."
       expect(Approval.count).to be == 3
 
-      approvals = Approval.all
+      approvals = Approval.all.sort_by(&:role_id)
       expect(approvals[0].user).to be == @user
       expect(approvals[1].user).to be == @user
       expect(approvals[2].user).to be == @user
@@ -80,7 +80,7 @@ feature "Tactics Matrix: Approving expressions", :js do
         expect(@page.notice).to have_text "Expression was sucessfuly approved."
         expect(Approval.count).to be == 3
 
-        approvals = Approval.all
+        approvals = Approval.all.sort_by(&:role_id)
         approvals.each do |approval|
           expect(approval.user).to be == @user
         end

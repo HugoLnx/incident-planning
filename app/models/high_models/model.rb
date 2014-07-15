@@ -22,35 +22,48 @@ module HighModels
           exp = instance_variable_get("@#{name}")
           if exp
             if exp.text != new_text
-              exp.reused_expression_id = nil
+              exp.reused = false
+              exp.source = nil
               exp.owner = self.owner
             end
             exp.text = new_text
           end
         end
 
-        define_method :"update_#{name}_reused" do |id_str|
-          updated = false
+        define_method :"update_#{name}_reused" do |exp_reused|
+          return false if exp_reused.nil?
           exp = instance_variable_get("@#{name}")
-          if (id_str && exp.reused_expression_id != id_str.to_i)
-            updated = true
-            exp.text = ""
-            exp.reused_expression_id = id_str.to_i
+
+          old_reused = exp.reused
+          old_text = exp.text
+          old_source = exp.source
+
+          exp.reused = true
+          exp.text = exp_reused.text
+          exp.source = exp_reused.source
+
+          updated = exp.reused != old_reused ||
+              exp.text != old_text ||
+              exp.source != old_source
+
+          if updated
             exp.owner = self.owner
           end
-          updated
+
+          return updated
         end
 
         define_method :"set_#{name}_reference" do |new_reference|
           instance_variable_set("@#{name}", new_reference)
         end
 
-        define_method :"#{name}_reused=" do |id_str|
-          expression_reused_id = id_str.to_i
+        define_method :"#{name}_reused=" do |reused_expression|
+          return if reused_expression.nil?
           expression = ::TextExpression.new(
             name: expression_name,
-            text: "",
-            reused_expression_id: expression_reused_id,
+            text: reused_expression.text,
+            source: reused_expression.source,
+            reused: true,
             owner: self.owner
           )
           instance_variable_set("@#{name}", expression)
@@ -88,38 +101,53 @@ module HighModels
             error_raised = true
           end
 
-          updated = true
-          exp = instance_variable_get("@#{name}")
-          if exp && new_time.nil?
+          exp = instance_variable_get("@#{name}") || ::TimeExpression.new(name: expression_name)
+          old_when = exp.when
+          old_text = exp.text
+          if new_time.nil?
             exp.when = nil
             exp.text = new_time_str || ""
-          elsif !exp || exp.when != new_time
-            exp ||= ::TimeExpression.new(name: expression_name)
-            exp.owner = self.owner
-            exp.when = new_time
           else
-            updated = false
+            exp.when = new_time
+            exp.text = ""
           end
 
+          updated = (old_when != exp.when || old_text != exp.text)
           if updated
-            exp.reused_expression_id = nil
+            exp.owner = self.owner
+            exp.reused = false
+            exp.source = nil
           end
 
           self.instance_variable_set("@#{name}", exp)
           updated
         end
 
-        define_method :"update_#{name}_reused" do |id_str|
-          updated = false
+        define_method :"update_#{name}_reused" do |exp_reused|
+          return false if exp_reused.nil?
           exp = instance_variable_get("@#{name}")
-          exp.text = nil
-          exp.when = nil
-          if (exp.reused_expression_id != id_str.to_i)
-            updated = true
-            exp.reused_expression_id = id_str.to_i
+
+          old_reused = exp.reused
+          old_source = exp.source
+          old_text = exp.text
+          old_when = exp.when
+
+          exp.reused = true
+          exp.source = exp_reused.source
+          exp.text = exp_reused.text
+          exp.when = exp_reused.when
+
+          updated = exp.reused != old_reused ||
+                    exp.when   != old_when   ||
+                    exp.source != old_source ||
+                    exp.text   != old_text
+                    
+
+          if updated
             exp.owner = self.owner
           end
-          updated
+
+          return updated
         end
 
         define_method :"set_#{name}_reference" do |new_reference|
@@ -142,13 +170,14 @@ module HighModels
           instance_variable_set("@#{name}", expression)
         end
 
-        define_method :"#{name}_reused=" do |id_str|
-          expression_reused_id = id_str.to_i
+        define_method :"#{name}_reused=" do |reused_expression|
+          return if reused_expression.nil?
           expression = ::TimeExpression.new(
             name: expression_name,
-            text: nil,
-            when: nil,
-            reused_expression_id: expression_reused_id,
+            text: reused_expression.text,
+            when:  reused_expression.when,
+            source: reused_expression.source,
+            reused: true,
             owner: self.owner
           )
           instance_variable_set("@#{name}", expression)
