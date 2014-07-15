@@ -45,14 +45,13 @@
       var $tds = $td.add($(this).siblings(self.siblingsSelector));
       var cells = matrix.findCells($tds);
 
-      var reusedExpressionIds = extractReusedIdsFrom($tds);
       var expressionIds = extractExpressionIdsFrom($tds);
 
       var initialData = self.updateProtocol.currentData(cells);
       var form = self.template.evaluate(initialData);
       var renderer = new Templates.FormRenderer(matrix);
 
-      changeReusedExpressionsIn(form, reusedExpressionIds);
+      changeReusedExpressionsIn(form, $td);
 
       bindOnExpressionSuggestion(form, expressionIds);
       bindOnSubmit(form, self.updateProtocol, $td);
@@ -64,28 +63,15 @@
     $father.hammer().on("doubletap", this.targetsSelector, openForm);
   };
 
-  function changeReusedExpressionsIn(form, reusedExpressionIds) {
+  function changeReusedExpressionsIn(form, $cellTd) {
     form.$inputsTds().find("input").each(function() {
       var $input = $(this);
       var text = $input.val();
 
-      var expressionName = ExpressionRecognizer.getPrettyNameFromInput($input);
-      var reusedExpressionId = reusedExpressionIds[expressionName];
-
-      if (reusedExpressionId !== "" && reusedExpressionId !== undefined) {
-        Reuse.InputRenderer.becameReused($input, text, reusedExpressionId);
+      if ($cellTd.hasClass("reused")) {
+        Reuse.InputRenderer.becameReused($input, text, null);
       }
     });
-  }
-
-  function extractReusedIdsFrom($tds) {
-    var ids = {};
-    $tds.each(function() {
-      var $td = $(this);
-      var expressionName = ExpressionRecognizer.getPrettyNameFromTd($td);
-      ids[expressionName] = $td.data("reused-expression-id");
-    });
-    return ids;
   }
 
   function extractExpressionIdsFrom($tds) {
