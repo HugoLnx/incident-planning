@@ -4,15 +4,17 @@ class AddReusedToExpressions < ActiveRecord::Migration
     add_column :time_expressions, :reused, :boolean, null: false, default: false
 
     ActiveRecord::Base.transaction do
-      TextExpression.includes(:reused_expression).where.not(reused_expression_id: nil).load.each do |exp|
-        exp.text = exp.reused_expression.text
+      TextExpression.where.not(reused_expression_id: nil).load.each do |exp|
+        reused = TextExpression.find_by_id(exp.reused_expression_id)
+        exp.text = reused && reused.text
         exp.reused = true
         exp.save
       end
 
-      TimeExpression.includes(:reused_expression).where.not(reused_expression_id: nil).load.each do |exp|
-        exp.text = exp.reused_expression.text
-        exp.when = exp.reused_expression.when
+      TimeExpression.where.not(reused_expression_id: nil).load.each do |exp|
+        reused = TimeExpression.find_by_id(exp.reused_expression_id)
+        exp.text = reused && reused.text
+        exp.when = reused && reused.when
         exp.reused = true
         exp.save
       end
