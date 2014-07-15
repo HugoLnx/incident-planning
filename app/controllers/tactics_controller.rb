@@ -5,6 +5,10 @@ class TacticsController < ApplicationController
     tactic_params = params[:tactic].permit(:who, :what, :where, :when, :response_action,
       :who_reused, :what_reused, :where_reused, :when_reused, :response_action_reused, :father_id)
     tactic_params[:owner] = current_user
+    %i{who_reused what_reused where_reused response_action_reused}.each do |param|
+      tactic_params[param] = TextExpression.find_by_id(tactic_params[param])
+    end
+    tactic_params[:when_reused] = TimeExpression.find_by_id(tactic_params[:when_reused])
 
     tactic_params[:cycle_id] = @cycle.id
     
