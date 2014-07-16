@@ -51,7 +51,7 @@
       var form = self.template.evaluate(initialData);
       var renderer = new Templates.FormRenderer(matrix);
 
-      changeReusedExpressionsIn(form, $td);
+      changeReusedExpressionsIn(form, $tds);
 
       bindOnExpressionSuggestion(form, expressionIds);
       bindOnSubmit(form, self.updateProtocol, $td);
@@ -63,10 +63,17 @@
     $father.hammer().on("doubletap", this.targetsSelector, openForm);
   };
 
-  function changeReusedExpressionsIn(form, $cellTd) {
-    form.$inputsTds().find("input").each(function() {
-      var $input = $(this);
+  function changeReusedExpressionsIn(form, $cellsTds) {
+    var $inputsTds = form.$inputsTds();
+    
+    $cellsTds.each(function() {
+      var $cellTd = $(this);
+
+      var expressionName = ExpressionRecognizer.getNameFromTd($cellTd);
+      var $input = $inputsTds.find("input[name$=" + expressionName + "\\]]");
       var text = $input.val();
+      console.log($input);
+      console.log(text);
 
       if ($cellTd.hasClass("reused")) {
         Reuse.InputRenderer.becameReused($input, text, null);
