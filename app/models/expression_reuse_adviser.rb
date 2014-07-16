@@ -5,8 +5,7 @@ class ExpressionReuseAdviser
 
   def suggestions_query_for(config, expression_name, term, current_incident_id, excluded_expression_id)
     query = @query.where({
-      name: expression_name,
-      reused: false
+      name: expression_name
     })
 
     if config.user_filter_type == ReuseConfiguration::USER_FILTER_TYPES.name(:specific)

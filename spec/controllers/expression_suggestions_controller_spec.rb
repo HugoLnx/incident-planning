@@ -23,7 +23,7 @@ describe ExpressionSuggestionsController do
         before :each do
           @suggested_expressions = [
             create(:strategy_how, text: "TeSting How Exp"),
-            create(:strategy_how, text: "test"),
+            create(:strategy_how, text: "test", reused: true),
             create(:strategy_how, text: "TEst")
           ]
 
