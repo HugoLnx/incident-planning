@@ -1,6 +1,35 @@
-<h1>Editing cycle</h1>
+<%- content_for :js do %>
+	<%= javascript_include_tag :new_cycle %>
+<% end -%>
 
-<%= render 'form' %>
+<script type="text/html" id="objective-li-template">
+  <li class="objective-input">
+    <%= text_field_tag "objectives_texts[0][]" %>
+  </li>
+</script>
 
-<%= link_to 'Show', incident_cycle_path(@incident, @cycle.cycle) %> |
-<%= link_to 'Back', incident_cycles_path(@incident) %>
+
+<% if @last_cycle %>
+  <% content_for :metatags do %>
+    <meta name="restorable_cycle_objectives_text" content="<%= @last_cycle.objectives_texts %>" />
+    <meta name="restorable_cycle_priorities" content="<%= @last_cycle.priorities %>" />
+  <% end %>
+<% end %>
+
+
+<h2>Edit Cycle - Incident Objectives</h2>
+
+<div class="incident-name">
+	<strong>Incident Name:</strong>
+	<%= link_to @incident.name, incident_cycles_path(@incident) %>
+</div>
+
+<%= simple_form_for([@incident, @cycle], html: {class: "confirm-form"}) do |f| %>
+  <%= render partial: "cycles/form_inputs", locals: {f: f, form202: @cycle, from_is_mandatory: true} %>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Update" %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', back_path %>

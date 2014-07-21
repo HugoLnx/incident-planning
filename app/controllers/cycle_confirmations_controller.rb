@@ -11,7 +11,8 @@ private
   end
 
   def cycle_params
-    cycle_params = params.require(:cycle).permit(:number, :from, :to, :objectives_text, :priorities)
+    cycle_params = params.require(:cycle).permit(:number, :from, :to, :priorities)
+    cycle_params[:objectives_texts] = params[:objectives_texts]
     Forms::Form202.normalize(cycle_params)
   end
 end

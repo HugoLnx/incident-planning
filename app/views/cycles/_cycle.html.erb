@@ -2,7 +2,13 @@
 
 <p>
   <strong>Objectives:</strong>
-	<pre><%= form202.objectives_text %></pre>
+  <ol class="objectives">
+  <% form202.objectives_texts.each do |text| %>
+    <li class="objective-input">
+      <span class="objective-text"><%= text %></span>
+    </li>
+  <% end %>
+  </ol>
 </p>
 
 <p>

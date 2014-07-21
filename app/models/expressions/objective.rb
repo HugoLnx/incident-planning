@@ -12,5 +12,14 @@ module Expressions
       objective.group = group
       objective.save!
     end
+
+    def self.destroy(objectives)
+      ActiveRecord::Base.transaction do
+        objectives.each do |obj|
+          obj.group.reload
+          obj.group.destroy
+        end
+      end
+    end
   end
 end

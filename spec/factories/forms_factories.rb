@@ -4,8 +4,20 @@ FactoryGirl.define do
     to DateTime.now.days_since(1)
     sequence(:number){|i| i}
     incident
-    objectives nil
-    objectives_text nil
     association(:owner, factory: :user)
+    ignore do
+      objectives nil
+      objectives_texts []
+    end
+
+    initialize_with do
+      params = {}
+      if objectives.nil?
+        params[:objectives_texts] = objectives_texts
+      else
+        params[:objectives] = objectives
+      end
+      new(params)
+    end
   end
 end

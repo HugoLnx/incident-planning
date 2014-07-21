@@ -2,9 +2,15 @@
 	<%= javascript_include_tag :new_cycle %>
 <% end -%>
 
+<script type="text/html" id="objective-li-template">
+  <li class="objective-input">
+    <%= text_field_tag "objectives_texts[]" %>
+  </li>
+</script>
+
 <% if @last_cycle %>
   <% content_for :metatags do %>
-    <meta name="restorable_cycle_objectives_text" content="<%= @last_cycle.objectives_text %>" />
+    <meta name="restorable_cycle_objectives_text" content="<%= @last_cycle.objectives_texts.to_json %>" />
     <meta name="restorable_cycle_priorities" content="<%= @last_cycle.priorities %>" />
   <% end %>
 <% end %>
@@ -19,4 +25,4 @@
 
 <%= render partial: 'confirmation_form', locals: {form202: @cycle, from_is_mandatory: @from_is_mandatory} %>
 
-<%= link_to 'Back', incident_cycles_path(@incident) %>
+<%= link_to 'Back', back_path %>

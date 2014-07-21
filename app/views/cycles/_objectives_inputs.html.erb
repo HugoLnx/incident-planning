@@ -1,0 +1,18 @@
+<div class="objectives-fields">
+  <label>Objectives</label>
+  <ol class="objectives-inputs">
+    <% if form202.objectives.empty? %>
+      <li class="objective-input">
+        <%= text_field_tag "objectives_texts[]" %>
+      </li>
+    <% else %>
+      <% form202.objectives.each do |obj| %>
+      <li class="objective-input">
+        <%= text_field_tag "objectives_texts[#{obj.id}]", obj.text %>
+      </li>
+      <% end %>
+    <% end %>
+  </ol>
+
+  <button class="add-objective-btn">Add Objective</button>
+</div>

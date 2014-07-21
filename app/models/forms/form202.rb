@@ -36,8 +36,35 @@ module Forms
     def update_with(params)
       params.each do |key, value|
         if value
-          self.public_send(:"#{key}=", value)
+          if key.to_sym == :objectives_texts
+            update_objectives_texts(value)
+          else
+            self.public_send(:"#{key}=", value)
+          end
         end
+      end
+    end
+
+    def update_objectives_texts(objectives)
+      return if objectives.nil?
+      texts_to_create = []
+      @objectives = []
+      objectives.each do |id, text|
+        if id == "0"
+          texts_to_create = text
+        else
+          obj = TextExpression.find_by_id(id)
+          if obj.nil?
+            obj = TextExpression.new_objective(text: text)
+          else
+            obj.text = text
+          end
+          @objectives << obj
+        end
+      end
+
+      texts_to_create.each do |text|
+        @objectives << TextExpression.new_objective(text: text)
       end
     end
 
@@ -51,15 +78,15 @@ module Forms
       @cycle
     end
 
-    def objectives_text=(objectives_text)
-      return if objectives_text.nil?
-      @objectives = objectives_text.lines.map do |objective_text|
-        TextExpression.new_objective(text: objective_text.strip)
+    def objectives_texts=(objectives_texts)
+      return if objectives_texts.nil?
+      @objectives = objectives_texts.map do |text|
+        TextExpression.new_objective(text: text)
       end
     end
 
-    def objectives_text
-      @objectives.map(&:text).join("\n")
+    def objectives_texts
+      @objectives.map(&:text)
     end
 
     def persisted?
@@ -74,10 +101,20 @@ module Forms
       begin
         ActiveRecord::Base.transaction do
           cycle.save!
-          objectives && objectives.each do |objective|
-            objective.cycle = cycle
-            objective.owner = owner
-            Expressions::Objective.save!(objective)
+          return if objectives.nil?
+
+          db_objectives = TextExpression.objectives_of_cycle(cycle.id)
+          db_objectives, objs_to_destroy = db_objectives.partition{
+            |db_obj| objectives.find{|obj| obj.id == db_obj.id}}
+          Expressions::Objective.destroy(objs_to_destroy)
+
+          objectives.each do |objective|
+            existent_objective = db_objectives.find{|db_obj| db_obj.id == objective.id}
+            if existent_objective.nil? || existent_objective.text != objective.text
+              objective.cycle = cycle
+              objective.owner = owner
+              Expressions::Objective.save!(objective)
+            end
           end
         end
       rescue ActiveRecord::ActiveRecordError

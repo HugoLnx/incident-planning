@@ -14,7 +14,15 @@ module PageObjects
     end
 
     def fill_objectives(objectives)
-      @form.fill_in "cycle_objectives_text", with: objectives.map(&:text).join("\n")
+      delete_buttons = @form.all ".objectives-inputs li button"
+      delete_buttons.each(&:click)
+
+      add_button = @form.find ".add-objective-btn"
+      objectives.each do |obj|
+        add_button.click
+        inputs = @form.all ".objectives-inputs li input"
+        inputs.last.set obj.text
+      end
     end
 
     def fill_priorities(priorities_text)
@@ -38,8 +46,8 @@ module PageObjects
     end
 
     def objectives
-      objectives_texts = @form.find("#cycle_objectives_text").value
-      objectives_texts.split("\n").map{|text| TextExpression.new_objective(text: text)}
+      inputs = @form.all ".objectives-inputs li input"
+      inputs.map{|input| TextExpression.new_objective(text: input.value)}
     end
 
     def priorities

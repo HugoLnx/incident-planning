@@ -6,7 +6,7 @@ require "spec_helper"
   As an Incident Commander
 =end
 
-feature "Cycles: Creating cycles to an incident" do
+feature "Cycles: Creating cycles to an incident", :js do
   background do
     user = create :user_god
     DeviseSteps.new(page, routing_helpers).sign_in user

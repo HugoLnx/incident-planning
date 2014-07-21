@@ -45,8 +45,10 @@ class CyclesController < ApplicationController
   def update
     @cycle = Forms::Form202.new_from(@cycle)
     @cycle.incident = @incident
+    @cycle.owner = current_user
     @cycle.update_with(cycle_params)
 
+    p @cycle.objectives
     respond_to do |format|
       if @cycle.save
         format.html { redirect_to incident_cycles_path(@incident), notice: 'The cycle was successfully updated.' }
@@ -74,7 +76,8 @@ class CyclesController < ApplicationController
     end
 
     def cycle_params
-      cycle_params = params.require(:cycle).permit(:number, :from, :to, :objectives_text, :priorities)
+      cycle_params = params.require(:cycle).permit(:number, :from, :to, :priorities)
+      cycle_params[:objectives_texts] = params[:objectives_texts] || []
       Forms::Form202.normalize(cycle_params)
     end
 end
