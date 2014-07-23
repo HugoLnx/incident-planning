@@ -1,31 +1,40 @@
 <div class="metadata">
-	<p class="expression"><span class="label">Expression</span>: <%= text %></p>
-  <p class="owner"><span class="label">Owner</span>: <%= owner_human_id %></p>
-  <p class="source"><span class="label">Source</span>: <%= source %></p>
+
+  <%= render partial: "expression_errors", locals: {errors: errors} %>
+
+  <div class="metadata-section item-section">
+	  <p class="metadata-label">Item</p>
+
+    <p class="expression"><span class="label">Item</span>: <%= text %></p>
+    <p class="owner"><span class="label">Owner</span>: <%= owner_human_id %></p>
+    <p class="source"><span class="label">Source</span>: <%= source %></p>
 		<p class="status"><span class="label">Status</span>: <%= status %></p>
+  </div>
 
-	<p class="approvals-label">Approval Events</p>
-	<ul class="approvals">
-		<% approvals_infos.each do |approval_info| %>
-			<%= render partial: "approval", locals: approval_info %>
-		<% end %>
-	</ul>
+  <div class="metadata-section approvals-section">
+    <p class="metadata-label">Approval Events</p>
+    <ul class="approvals">
+      <% approvals_infos.each do |approval_info| %>
+        <%= render partial: "approval", locals: approval_info %>
+      <% end %>
+    </ul>
 
-  <% if user_permitted_to_approve && !already_approved_by_user %>
-    <%= form_for approval, html: {class: "approve-form"} do |f| %>
-			<%= f.hidden_field :expression_id %>
-			<%= f.hidden_field :expression_type %>
-      <%= f.hidden_field :positive, value: true %>
-			<button>Approve</button>
-		<% end %>
+    <% if user_permitted_to_approve && !already_approved_by_user %>
+      <%= form_for approval, html: {class: "approve-form"} do |f| %>
+        <%= f.hidden_field :expression_id %>
+        <%= f.hidden_field :expression_type %>
+        <%= f.hidden_field :positive, value: true %>
+        <button>Approve</button>
+      <% end %>
 
-		<%= form_for approval, html: {class: "reject-form"} do |f| %>
-			<%= f.hidden_field :expression_id %>
-			<%= f.hidden_field :expression_type %>
-      <%= f.hidden_field :positive, value: false %>
-			<button>Reject</button>
-		<% end %>
-	<% elsif already_approved_by_user %>
-			<button disabled>Approval Done</button>
-  <% end %>
+      <%= form_for approval, html: {class: "reject-form"} do |f| %>
+        <%= f.hidden_field :expression_id %>
+        <%= f.hidden_field :expression_type %>
+        <%= f.hidden_field :positive, value: false %>
+        <button>Reject</button>
+      <% end %>
+    <% elsif already_approved_by_user %>
+        <button disabled>Approval Done</button>
+    <% end %>
+  </div>
 </div>

@@ -182,12 +182,32 @@ ul.ui-autocomplete {
 .metadata {
   display: none;
 
-  /* APPROVALS */
-  .approvals-label {
+  .metadata-label {
     font-weight: bold;
     margin: 0;
   }
 
+  .metadata-section {
+    padding: 10px 0 0 0;
+  }
+
+  /* ERRORS */
+  .alerts-section {
+    color: red;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  /* ITEM INFO */
+  .item-section p {
+    margin: 0;
+  }
+
+  /* APPROVALS */
   .approvals {
     list-style: none;
     margin: 0;
@@ -237,4 +257,14 @@ ul.ui-autocomplete {
 
 .ui-menu-item {
   width: 200px;
+}
+
+.second-border {
+  width: 98%;
+  height: 100%;
+}
+
+/* ERRORS */
+.with-errors .second-border {
+  border: solid red 3px;
 }

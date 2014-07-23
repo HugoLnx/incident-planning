@@ -21,7 +21,12 @@ module AnalysisMatricesHelper
 
   def render_show_objective_cells(objective, repeated, last_child, last_repetition)
     partial = "objective_cells"
-    locals = cells_generic_locals_from(objective.expression, repeated, last_child, last_repetition)
+    locals = cells_generic_locals_from(
+      objective.expression,
+      repeated,
+      last_child,
+      last_repetition
+    )
     locals.merge!(show_cells_info_from(objective, ::Model.root)["objective"])
 
     render partial: partial,
@@ -30,19 +35,22 @@ module AnalysisMatricesHelper
 
   def render_show_strategy_cells(strategy, repeated, last_child, last_repetition)
     partial = "strategy_cells"
-    locals = cells_generic_locals_from(strategy, repeated, last_child, last_repetition)
-
-    infos = show_cells_info_from(strategy, ::Model.strategy)
-    permission = GroupPermission.new(::Model.strategy)
-    editable = !repeated && permission.to_update?(current_user)
+    locals = cells_generic_locals_from(
+      strategy,
+      repeated,
+      last_child,
+      last_repetition,
+      ::Model.strategy
+    )
 
     update_path = strategy && incident_cycle_strategy_path(@incident, @cycle, strategy.group_id)
     delete_path = update_path
 
+    infos = show_cells_info_from(strategy, ::Model.strategy)
+
     locals[:expressions] = infos
     locals[:update_path] = update_path
     locals[:delete_path] = delete_path
-    locals[:editable] = editable
     render partial: partial,
       locals: locals
   end
@@ -75,19 +83,23 @@ module AnalysisMatricesHelper
   def render_show_tactic_cells(tactic, repeated, last_child, last_repetition, blank)
     partial = "tactic_cells"
 
-    locals = cells_generic_locals_from(tactic, repeated, last_child, last_repetition, blank)
+    locals = cells_generic_locals_from(
+      tactic,
+      repeated,
+      last_child,
+      last_repetition,
+      ::Model.tactic,
+      blank
+    )
 
     update_path = tactic && incident_cycle_tactic_path(@incident, @cycle, tactic.group_id)
     delete_path = update_path
 
     infos = show_cells_info_from(tactic, ::Model.tactic)
-    permission = GroupPermission.new(::Model.tactic)
-    editable = !repeated && permission.to_update?(current_user)
 
     locals[:expressions] = infos
     locals[:update_path] = update_path
     locals[:delete_path] = delete_path
-    locals[:editable] = editable
 
     render partial: partial,
       locals: locals
@@ -118,6 +130,16 @@ module AnalysisMatricesHelper
     }
   end
 
+  def editable_class(repeated, model)
+    if model.nil?
+      editable = false
+    else
+      permission = GroupPermission.new(model)
+      editable = !repeated && permission.to_update?(current_user)
+    end
+    editable ? "editable" : "non-editable"
+  end
+
   def type_class(is_repeated, is_blank=false)
     return "blank" if is_blank
     is_repeated ? "repeated" : "non-repeated"
@@ -139,10 +161,6 @@ module AnalysisMatricesHelper
     positive ? "Approved" : "Rejected"
   end
 
-  def editable_class(editable)
-    editable ? "editable" : "non-editable"
-  end
-
 private
 
   def show_cells_info_from(group, model)
@@ -155,12 +173,18 @@ private
         metadata_partial: render_metadata_partial_for(expression),
         text: text_from(expression)
       })
-      infos[name][:status_class] = status_class(expression)
-      infos[name][:reused_class] = reused_class(expression)
+      infos[name][:exp_classes] = classes_for(expression)
       infos[name][:expression_id] = expression && expression.id
     end
 
     infos
+  end
+  
+  def classes_for(expression)
+    status_class = status_class(expression)
+    reused_class = reused_class(expression)
+    error_class = error_class(expression)
+    [status_class, reused_class, error_class].join(" ")
   end
 
   def status_class(expression)
@@ -183,6 +207,19 @@ private
     return "" if expression.nil?
     return (expression.reused? ? "reused" : "non-reused")
   end
+  
+  def error_class(expression)
+    return "" if expression.nil? || @expression_errors.nil?
+    return @expression_errors.has_key?(expression.id) ? "with-errors" : "no-errors"
+  end
+
+  def errors_from(expression)
+    if @expression_errors && expression
+      @expression_errors[expression.id]
+    else
+      return []
+    end
+  end
 
   def render_metadata_partial_for(expression)
     metadata_locals = metadata_locals_from expression
@@ -200,6 +237,7 @@ private
       approvals_infos: approvals_infos_from(expression),
       source: expression && expression.source_name,
       status: expression && expression.status_name,
+      errors: errors_from(expression),
       expression_id: expression && expression.id
     }
   end
@@ -218,15 +256,19 @@ private
     end
   end
 
-  def cells_generic_locals_from(expression, repeated, last_child, last_repetition, blank=false)
+  def cells_generic_locals_from(expression, repeated, last_child, last_repetition, model=nil, blank=false)
     type_class = type_class(repeated, blank)
     last_child_class = last_child_class(last_child)
     last_repetition_class = last_repetition_class(last_repetition)
+    editable_class = editable_class(repeated, model)
 
     locals = {
-      type_class: type_class,
-      last_child_class: last_child_class,
-      last_repetition_class: last_repetition_class
+      group_classes: [
+        type_class,
+        last_child_class,
+        last_repetition_class,
+        editable_class
+      ].join(" ")
     }
 
     locals

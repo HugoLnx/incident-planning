@@ -1,0 +1,11 @@
+<% unless errors.empty? %>
+  <div class="metadata-section alerts-section">
+	  <p class="metadata-label">Alerts</p>
+
+    <ul>
+      <% errors.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

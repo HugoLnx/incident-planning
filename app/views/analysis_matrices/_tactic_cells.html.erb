@@ -2,7 +2,7 @@
   <td data-delete_path="<%= delete_path %>"
     data-update_path="<%= update_path %>"
     data-expression-id="<%= info[:expression_id] %>"
-    class="<%= info[:reused_class] %> <%= type_class %> <%= last_child_class %> <%= last_repetition_class %> <%= info[:status_class] %> show tactic <%= name %> <%= editable_class(editable) %>">
+    class="<%= group_classes %> <%= info[:exp_classes] %> show tactic <%= name %>">
 	  <%= render partial: "expression_text", locals: {text: info[:text]} %>
 		<%= info[:metadata_partial] %>
 	</td>
