@@ -3,7 +3,9 @@
     data-delete_path="<%= delete_path %>"
     data-expression-id="<%= info[:expression_id] %>"
     class="<%= group_classes %> <%= info[:exp_classes] %> strategy <%= name %> show">
-	  <%= render partial: "expression_text", locals: {text: info[:text]} %>
-		<%= info[:metadata_partial] %>
+    <div class="second-border">
+      <%= render partial: "expression_text", locals: {text: info[:text]} %>
+      <%= info[:metadata_partial] %>
+    </div>
 	</td>
 <% end %>

@@ -1,6 +1,6 @@
 module Publish
   module Validation
-    class Objective
+    class Strategy
       def self.errors_on(group)
         model = Model.from_group(group)
         model.valid?
@@ -8,18 +8,18 @@ module Publish
       end
     end
 
-    class Objective::Model
+    class Strategy::Model
       include ActiveModel::Model
 
-      attr_accessor :strategies
+      attr_accessor :tactics
 
-      validates :strategies,
-        not_empty: {message: "Must have at least one strategy."}
+      validates :tactics,
+        not_empty: {message: "Must have at least one tactic."}
 
       def self.from_group(group)
-        objective = self.new
-        objective.strategies = group.childs
-        objective
+        model = self.new
+        model.tactics = group.childs
+        model
       end
     end
   end
