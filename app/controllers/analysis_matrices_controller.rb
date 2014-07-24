@@ -23,6 +23,7 @@ class AnalysisMatricesController < ApplicationController
     all_errors = Publish::PublishValidation.errors_on(@objectives)
     @expression_errors = Publish::PublishValidation.get_messages(all_errors[:expression])
     @group_errors = Publish::PublishValidation.get_messages(all_errors[:group])
+    @group_errors = Publish::GroupMessagesIterator.new(@group_errors)
 
     render "show"
   end

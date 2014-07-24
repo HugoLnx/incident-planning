@@ -181,10 +181,13 @@ private
   end
   
   def classes_for(expression)
-    status_class = status_class(expression)
-    reused_class = reused_class(expression)
-    error_class = error_class(expression)
-    [status_class, reused_class, error_class].join(" ")
+    classes = [
+      status_class(expression),
+      reused_class(expression),
+      error_class(expression)
+    ]
+    classes += group_error_classes(expression)
+    classes.join(" ")
   end
 
   def status_class(expression)
@@ -214,11 +217,37 @@ private
   end
 
   def errors_from(expression)
-    if @expression_errors && expression
-      @expression_errors[expression.id]
-    else
-      return []
+    return [] if expression.nil?
+
+    errors = []
+    if @expression_errors
+      errors += @expression_errors[expression.id]
     end
+
+    if @group_errors
+      errors += @group_errors.on(expression.id)
+    end
+
+    errors
+  end
+
+  def group_error_classes(expression)
+    return [] if expression.nil? || @group_errors.nil?
+
+    return ["no-group-errors"] unless @group_errors.include? expression.id
+
+    @group_errors.mark_for_group(expression.id, expression.group_id)
+
+    classes = ["with-group-errors"]
+    if @group_errors.one_marked_on_group?(expression.id, expression.group_id)
+      classes << "first-in-group-error"
+    elsif @group_errors.all_marked_on_group?(expression.id, expression.group_id)
+      classes << "last-in-group-error"
+    else
+      classes << "middle-in-group-error"
+    end
+
+    classes
   end
 
   def render_metadata_partial_for(expression)

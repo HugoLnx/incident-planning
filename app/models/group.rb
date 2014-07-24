@@ -25,4 +25,21 @@ class Group < ActiveRecord::Base
   def expressions
     self.text_expressions + self.time_expressions
   end
+
+  def duplication?(group)
+    if self.name != group.name
+      return false
+    end
+
+    if self.name == ::Model.tactic
+      names = [::Model.tactic_who.name, ::Model.tactic_what.name, ::Model.tactic_where.name]
+      my_texts = self.text_expressions.where("name IN [?, ?, ?]", *names).to_a.map(&:text)
+      it_texts = group.text_expressions.where("name IN [?, ?, ?]", *names).to_a.map(&:text)
+    else
+      my_texts = [self.text_expressions.first.text]
+      it_texts = [group.text_expressions.first.text]
+    end
+
+    !my_texts.any?(&:nil?) && !it_texts.any?(&:nil?) && my_texts == it_texts
+  end
 end
