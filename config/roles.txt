@@ -5,3 +5,7 @@
 04: Planning Expert
 05: Operations Expert
 06: Logistics Expert
+07: Commander Assistent
+08: Planning Assistent
+09: Operations Assistent
+10: Logistics Assistent

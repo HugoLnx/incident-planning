@@ -1,21 +1,21 @@
 {
   "group": {
     "name": "Objective",
-    "creator-roles": [1],
+    "creator-roles": [1, 8],
     "expressions": [
       {"name": "Objective", "approval-roles": [0]}
     ],
 
     "group": {
       "name": "Strategy",
-      "creator-roles": [0, 1, 2, 3],
+      "creator-roles": [0, 1, 2, 3, 7, 8, 9, 10],
       "expressions": [
         {"name": "How", "approval-roles": [0, 1, 2]}
       ],
 
       "group": {
         "name": "Tactic",
-        "creator-roles": [0, 1, 2, 3, 4, 5, 6],
+        "creator-roles": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         "expressions": [
           {"name": "Who", "approval-roles": [1, 2, 3]},
 
@@ -38,4 +38,9 @@
  *   04: Planning Expert
  *   05: Operations Expert
  *   06: Logistics Expert
+ * Os papéis abaixo tem o mesmo poder de criação dos seus respectivos chefes
+ *   07: Commander Assistent
+ *   08: Planning Assistent
+ *   09: Operations Assistent
+ *   10: Logistics Assistent
 */
