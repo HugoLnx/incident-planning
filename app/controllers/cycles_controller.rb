@@ -48,7 +48,6 @@ class CyclesController < ApplicationController
     @cycle.owner = current_user
     @cycle.update_with(cycle_params)
 
-    p @cycle.objectives
     respond_to do |format|
       if @cycle.save
         format.html { redirect_to incident_cycles_path(@incident), notice: 'The cycle was successfully updated.' }
