@@ -1,0 +1,8 @@
+<div class="alert alert-errors">
+  <span><%= I18n.t "simple_form.error_notification.default_message" %></span>
+  <ul>
+    <% errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>

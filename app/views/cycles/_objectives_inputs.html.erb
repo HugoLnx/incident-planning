@@ -1,6 +1,6 @@
 <div class="objectives-fields">
-  <label>Objectives</label>
-  <ol class="objectives-inputs">
+  <%= f.input :objectives, error: false do %>
+  <ol class="objectives-inputs" id="objective_inputs">
     <% if form202.objectives.empty? %>
       <li class="objective-input">
         <%= text_field_tag "objectives_texts[]" %>
@@ -13,6 +13,7 @@
       <% end %>
     <% end %>
   </ol>
+  <% end %>
 
   <button class="add-objective-btn">Add Objective</button>
 </div>

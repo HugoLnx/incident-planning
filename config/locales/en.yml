@@ -29,7 +29,9 @@ en:
   errors:
     messages:
       date_format: "must have the format '%{dateformat}'"
-      not_empty: "Must have at least one strategy."
+      not_empty: "must have at least one."
+      any_blank_element: "must be all filled."
+      any_duplication: "can't have duplications."
   auth:
     login: "Login"
     logout: "Logout"

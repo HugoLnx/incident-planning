@@ -23,6 +23,6 @@
 	<%= link_to @incident.name, incident_cycles_path(@incident) %>
 </div>
 
-<%= render partial: 'confirmation_form', locals: {form202: @cycle, from_is_mandatory: @from_is_mandatory} %>
+<%= render partial: 'cycles/confirmation_form', locals: {form202: @cycle, from_is_mandatory: @from_is_mandatory} %>
 
 <%= link_to 'Back', back_path %>

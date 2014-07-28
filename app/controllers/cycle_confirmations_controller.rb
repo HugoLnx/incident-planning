@@ -3,6 +3,12 @@ class CycleConfirmationsController < ApplicationController
 
   def show
     @form202 = Forms::Form202.new(cycle_params)
+    if @form202.valid?
+      render :show
+    else
+      @cycle = @form202
+      render "cycles/new"
+    end
   end
 
 private

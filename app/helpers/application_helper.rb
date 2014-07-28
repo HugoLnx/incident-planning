@@ -25,9 +25,18 @@ module ApplicationHelper
                       (!subject.persisted? && opts[:confirm_only].include?(:create))
 
     if have_to_confirm
-      simple_form_for([@incident, @cycle], url: opts[:confirm_url],&block)
+      simple_form_for([@incident, @cycle], url: opts[:confirm_url], &block)
     else
       simple_form_for([@incident, @cycle], &block)
+    end
+  end
+
+  def notify_errors(record)
+    if record.errors.empty?
+      return ""
+    else
+      render partial: "partials/form_errors",
+        locals: {errors: record.errors}
     end
   end
 end

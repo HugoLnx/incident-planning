@@ -3,6 +3,17 @@ module Forms
     include ActiveModel::Model
 
     attr_accessor :from, :to, :number, :priorities, :incident, :objectives, :objectives_as_str, :cycle, :owner
+    validates :objectives,
+      presence: true,
+      any_blank_element: {
+        method: :text
+      },
+      any_duplication: {
+        method: :text
+      }
+
+    validates :priorities,
+      presence: true
 
     def self.model_name
       ActiveModel::Name.new(::Cycle)

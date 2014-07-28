@@ -8,7 +8,7 @@
       <%= f.input :to, as: :datetime %>
 
       <%= render partial: "cycles/objectives_inputs", locals: {f: f, form202: form202} %>
-      <%= f.input :priorities, as: :text, input_html: {cols: 100, rows: 10} %>
+      <%= f.input :priorities, as: :text, input_html: {cols: 100, rows: 10}, error: false %>
     </div>
 
   <% else %>
@@ -26,7 +26,7 @@
     <%= f.input :to, as: :datetime, order: [:day, :month, :year] %>
 
     <%= render partial: "cycles/objectives_inputs", locals: {f: f, form202: form202} %>
-    <%= f.input :priorities, as: :text, input_html: {cols: 100, rows: 10} %>
+    <%= f.input :priorities, as: :text, input_html: {cols: 100, rows: 10}, error: false %>
 
   <% end %>
 </div>
