@@ -1,6 +1,6 @@
 (function($, namespace) {
   var EXPRESSION_NAMES = ["objective", "how", "why", "who", "what", "where", "when", "response_action"];
-  var EXPRESSION_PRETTY_NAMES = ["Objective", "How", "Why", "Who", "What", "Where", "When", "ResponseAction"];
+  var EXPRESSION_PRETTY_NAMES = ["Objective", "How", "Why", "Who", "What", "Where", "When", "Response Action"];
 
   var AnalysisMatrix = namespace.AnalysisMatrix;
 
