@@ -18,6 +18,8 @@
     form.$cancelBtn().on("click", function() {
       renderization.back();
     });
+
+    form.$inputs().first().focus();
   }
 
   function buildRenderOperation(matrix, cells, form) {
