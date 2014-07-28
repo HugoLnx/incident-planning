@@ -1,6 +1,6 @@
 module Publish
   module Validation
-    class Where
+    class Who
       def self.errors_on(expression)
         model = Model.from_expression(expression)
         model.valid?
@@ -8,7 +8,7 @@ module Publish
       end
     end
 
-    class Where::Model
+    class Who::Model
       include ActiveModel::Model
 
       attr_accessor :text, :expression

@@ -1,6 +1,6 @@
 module Publish
   module Validation
-    class Where
+    class ResponseAction
       def self.errors_on(expression)
         model = Model.from_expression(expression)
         model.valid?
@@ -8,20 +8,16 @@ module Publish
       end
     end
 
-    class Where::Model
+    class ResponseAction::Model
       include ActiveModel::Model
 
-      attr_accessor :text, :expression
-
-      validates :text,
-        presence: {message: "must be present."}
+      attr_accessor :expression
 
       validates :expression,
         approved: true
 
       def self.from_expression(expression)
         model = self.new
-        model.text = expression.text
         model.expression = expression
         model
       end

@@ -12,13 +12,17 @@ module Publish
       include ActiveModel::Model
 
       attr_accessor :tactics
+      attr_accessor :how
 
       validates :tactics,
         not_empty: {message: "Must have at least one tactic."}
 
+      validates :how, approved: true
+
       def self.from_group(group)
         model = self.new
         model.tactics = group.childs
+        model.how = group.text_expressions.first
         model
       end
     end

@@ -13,6 +13,8 @@ class Group < ActiveRecord::Base
 
   default_scope {order "created_at ASC"}
 
+  IDENTIFYING_NAMES = [::Model.tactic_who.name, ::Model.tactic_what.name, ::Model.tactic_where.name]
+
   def self.childs_of_father_of_text_expression(exp_id)
     joins(father: :text_expressions).where("text_expressions.id" => exp_id)
   end
@@ -32,7 +34,7 @@ class Group < ActiveRecord::Base
     end
 
     if self.name == ::Model.tactic
-      names = [::Model.tactic_who.name, ::Model.tactic_what.name, ::Model.tactic_where.name]
+      names = IDENTIFYING_NAMES
       my_texts = self.text_expressions.where("name IN [?, ?, ?]", *names).to_a.map(&:text)
       it_texts = group.text_expressions.where("name IN [?, ?, ?]", *names).to_a.map(&:text)
     else

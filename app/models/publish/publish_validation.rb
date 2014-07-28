@@ -18,6 +18,9 @@ module Publish
         how = strategy_group.text_expressions.first
         expression_errors[how.id] += errors.entries unless errors.empty?
         tactic_groups += strategy_group.childs
+        
+        errors = Validation::StrategyDuplication.errors_on(strategy_group, objectives_groups)
+        expression_errors[how.id] += errors.entries unless errors.empty?
       end
 
       tactic_groups.each do |tactic_group|
@@ -28,20 +31,20 @@ module Publish
         when_exp = exps.find{|exp| exp.name == ::Model.tactic_when.name}
         response = exps.find{|exp| exp.name == ::Model.tactic_response_action.name}
 
-      #  errors = Publish::WhoValidator.errors_on(who)
-      #  expression_errors[who.id] = errors unless errors.empty?
+        errors = Validation::Who.errors_on(who)
+        expression_errors[who.id] = errors.entries unless errors.empty?
 
-      #  errors = Publish::WhatValidator.errors_on(what)
-      #  expression_errors[what.id] = errors unless errors.empty?
+        errors = Validation::What.errors_on(what)
+        expression_errors[what.id] = errors.entries unless errors.empty?
 
         errors = Validation::Where.errors_on(where)
         expression_errors[where.id] += errors.entries unless errors.empty?
 
-      #  errors = Publish::WhenValidator.errors_on(when)
-      #  expression_errors[when.id] = errors unless errors.empty?
+        errors = Validation::When.errors_on(when_exp)
+        expression_errors[when_exp.id] = errors.entries unless errors.empty?
 
-      #  errors = Publish::ResponseActionValidator.errors_on(response)
-      #  expression_errors[response.id] = errors unless errors.empty?
+        errors = Validation::ResponseAction.errors_on(response)
+        expression_errors[response.id] = errors.entries unless errors.empty?
         
         errors = Validation::TacticDuplication.group_errors_on(tactic_group, strategy_groups)
         group_errors[[who.id, what.id, where.id]] += errors.entries unless errors.empty?
@@ -56,7 +59,7 @@ module Publish
     def self.get_messages(errors)
       messages = Hash.new([])
       errors.each do |key, exp_errors|
-        messages[key] = exp_errors.map(&:last).flatten
+        messages[key] = exp_errors.map(&:last).flatten.map(&:capitalize)
       end
       messages
     end
