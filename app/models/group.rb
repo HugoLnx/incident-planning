@@ -33,15 +33,22 @@ class Group < ActiveRecord::Base
       return false
     end
 
-    if self.name == ::Model.tactic
+    if self.name == ::Model.tactic.name
       names = IDENTIFYING_NAMES
-      my_texts = self.text_expressions.where("name IN [?, ?, ?]", *names).to_a.map(&:text)
-      it_texts = group.text_expressions.where("name IN [?, ?, ?]", *names).to_a.map(&:text)
+      my_texts = self.text_expressions.where("name IN (?, ?, ?)", *names).to_a.map(&:text)
+      it_texts = group.text_expressions.where("name IN (?, ?, ?)", *names).to_a.map(&:text)
     else
       my_texts = [self.text_expressions.first.text]
       it_texts = [group.text_expressions.first.text]
     end
 
-    !my_texts.any?(&:nil?) && !it_texts.any?(&:nil?) && my_texts == it_texts
+    my_texts.compact!
+    it_texts.compact!
+
+    return !my_texts.any?(&:empty?) &&
+    !it_texts.any?(&:empty?) &&
+    my_texts.size == 3 &&
+    it_texts.size == 3 &&
+    my_texts == it_texts
   end
 end
