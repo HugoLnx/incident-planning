@@ -17,6 +17,8 @@ $header_lighten_percent: 15%;
 $add_light_percent: 15%;
 $repeated_light_percent: 20%;
 
+$error_border_size: 2px;
+
 .analysis-matrix {
   border-collapse: collapse;
   width: 100%;
@@ -268,8 +270,8 @@ ul.ui-autocomplete {
 }
 
 .tactic .second-border {
-  width: 95%;
-  height: 95%;
+  width: 85%;
+  height: 85%;
   margin: auto auto;
 }
 
@@ -280,23 +282,23 @@ ul.ui-autocomplete {
 }
 
 .with-group-errors.first-in-group-error .group-border {
-  border: solid red 3px;
+  border: solid red $error_border_size;
   border-right: none;
 }
 
 .with-group-errors.middle-in-group-error .group-border {
   width: 105%;
-  border: solid red 3px;
+  border: solid red $error_border_size;
   border-right: none;
   border-left: none;
 }
 
 .with-group-errors.last-in-group-error .group-border {
-  border: solid red 3px;
+  border: solid red $error_border_size;
   border-left: none;
 }
 
 /* ERRORS */
 .with-errors.non-repeated .second-border {
-  border: solid red 3px;
+  border: solid red $error_border_size;
 }
