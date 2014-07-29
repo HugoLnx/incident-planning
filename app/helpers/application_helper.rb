@@ -1,6 +1,6 @@
 module ApplicationHelper
   def cycle_closed_name(is_closed)
-    is_closed ? "CLOSED" : "OPEN"
+    is_closed ? "PUBLISHED" : "OPEN"
   end
 
   def cycle_approval_status_name(is_approved)
