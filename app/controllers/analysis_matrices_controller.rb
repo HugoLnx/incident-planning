@@ -2,7 +2,11 @@ class AnalysisMatricesController < ApplicationController
   before_filter :set_incident_and_cycle
 
   def show
-    prepare_to_render_analysis_matrix
+    if @cycle.closed?
+      redirect_to incident_cycle_publishes_path(@incident, @cycle)
+    else
+      prepare_to_render_analysis_matrix
+    end
   end
 
   def group_approval

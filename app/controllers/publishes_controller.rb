@@ -10,6 +10,7 @@ class PublishesController < ApplicationController
     @group_errors = Publish::GroupMessagesIterator.new(@group_errors)
 
     if @expression_errors.empty? && @group_errors.empty?
+      Publish::Publisher.publish(@cycle)
       redirect_to action: :show
     else
       render "analysis_matrices/show"
