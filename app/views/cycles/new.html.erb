@@ -2,6 +2,11 @@
 	<%= javascript_include_tag :new_cycle %>
 <% end -%>
 
+<% content_for :css do %>
+  <%= stylesheet_link_tag "cycles/new_cycle", media: "all" %>
+  <%= stylesheet_link_tag "cycles/form", media: "all" %>
+<% end -%>
+
 <script type="text/html" id="objective-li-template">
   <li class="objective-input">
     <%= text_field_tag "objectives_texts[]" %>
