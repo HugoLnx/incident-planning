@@ -7,7 +7,7 @@ class ApprovalsController < ApplicationController
     respond_to do |format|
       if approvals.save
         cycle = expression.cycle
-        format.html {redirect_to incident_cycle_analysis_matrix_path(cycle.incident, cycle), notice: "Expression was sucessfuly approved."}
+        format.html {redirect_to general_back_path, notice: "Expression was sucessfuly approved."}
       else
         format.html {render status: :not_implemented, text: "Error, approval was not saved and this case was not treated yet"}
       end

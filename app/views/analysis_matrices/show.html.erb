@@ -38,11 +38,11 @@
   <%= submit_tag "Delete in groups", class: "btn-delete-in-groups" %>
 <% end %>
 
-<%= form_tag publish_validation_incident_cycle_analysis_matrix_path(@incident, @cycle), method: :get do %>
+<%= form_tag publish_incident_cycle_publishes_path(@incident, @cycle), method: :post do %>
   <%= submit_tag "Publish", class: "btn-publish" %>
 <% end %>
 
-<%= render partial: "show_priorities", locals: {cycle: @cycle} %>
+<%= render partial: "analysis_matrices/show_priorities", locals: {cycle: @cycle} %>
 
 <table class="analysis-matrix" id="analysis-matrix">
   <thead>

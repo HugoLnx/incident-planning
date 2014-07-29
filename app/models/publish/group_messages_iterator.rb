@@ -1,5 +1,9 @@
 module Publish
   class GroupMessagesIterator
+    extend Forwardable
+
+    def_delegators :@messages, :empty?
+
     def initialize(messages)
       @messages = messages
       @marks = {}

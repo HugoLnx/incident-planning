@@ -26,7 +26,10 @@ IncidentPlanning::Application.routes.draw do
       resource :analysis_matrix do
         get :group_approval
         get :group_deletion
-        get :publish_validation
+      end
+      resource :publishes, only: :show do
+        post :publish
+        get :publish, to: "publishes#new"
       end
       resources :tactics
       resources :strategies

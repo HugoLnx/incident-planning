@@ -20,7 +20,7 @@ module AnalysisMatricesHelper
   end
 
   def render_show_objective_cells(objective, repeated, last_child, last_repetition)
-    partial = "objective_cells"
+    partial = "analysis_matrices/objective_cells"
     locals = cells_generic_locals_from(
       objective.expression,
       repeated,
@@ -34,7 +34,7 @@ module AnalysisMatricesHelper
   end
 
   def render_show_strategy_cells(strategy, repeated, last_child, last_repetition)
-    partial = "strategy_cells"
+    partial = "analysis_matrices/strategy_cells"
     locals = cells_generic_locals_from(
       strategy,
       repeated,
@@ -56,7 +56,7 @@ module AnalysisMatricesHelper
   end
 
   def render_new_strategy_cells(father_id)
-    partial = "new_strategy_form_cells"
+    partial = "analysis_matrices/new_strategy_form_cells"
     strategy_model = ::Model.strategy
     expressions_size = strategy_model.expressions.size
     permission = GroupPermission.new(strategy_model)
@@ -69,7 +69,7 @@ module AnalysisMatricesHelper
 
   #TODO: função criada só para o group_approval (que deverá ser apagado em breve)
   def render_disabled_new_strategy_cells(father_id)
-    partial = "new_strategy_form_cells"
+    partial = "analysis_matrices/new_strategy_form_cells"
     strategy_model = ::Model.strategy
     expressions_size = strategy_model.expressions.size
     permission = GroupPermission.new(strategy_model)
@@ -81,7 +81,7 @@ module AnalysisMatricesHelper
   end
 
   def render_show_tactic_cells(tactic, repeated, last_child, last_repetition, blank)
-    partial = "tactic_cells"
+    partial = "analysis_matrices/tactic_cells"
 
     locals = cells_generic_locals_from(
       tactic,
@@ -106,7 +106,7 @@ module AnalysisMatricesHelper
   end
 
   def render_new_tactic_cells(father_id)
-    partial = "new_tactic_form_cells"
+    partial = "analysis_matrices/new_tactic_form_cells"
     tactic_model = ::Model.tactic
     expressions_size = tactic_model.expressions.size
     permission = GroupPermission.new(tactic_model)
@@ -119,7 +119,7 @@ module AnalysisMatricesHelper
 
   #TODO: função criada só para o group_approval (que deverá ser apagado em breve)
   def render_disabled_new_tactic_cells(father_id)
-    partial = "new_tactic_form_cells"
+    partial = "analysis_matrices/new_tactic_form_cells"
     tactic_model = ::Model.tactic
     expressions_size = tactic_model.expressions.size
     permission = GroupPermission.new(tactic_model)
@@ -253,7 +253,7 @@ private
   def render_metadata_partial_for(expression)
     metadata_locals = metadata_locals_from expression
 
-    render partial: "metadata", locals: metadata_locals
+    render partial: "analysis_matrices/metadata", locals: metadata_locals
   end
 
   def metadata_locals_from(expression)
