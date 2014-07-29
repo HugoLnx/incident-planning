@@ -5,18 +5,6 @@
 @import "jquery.ui.dialog";
 @import "jquery.ui.autocomplete";
 
-$to_be_approved_color: #aaf;    // 6%
-$partial_approval_color: #bfb;  // 10%
-$approved_color: #6d6;          // 20%
-$partial_rejection_color: #fd6; // 20%
-$rejected_color: #fd6;          // 20%
-$expression_color: #c0c0c0;     
-
-$form_dark_percent: 5%;
-$header_lighten_percent: 15%;
-$add_light_percent: 15%;
-$repeated_light_percent: 20%;
-
 $error_border_size: 2px;
 
 .analysis-matrix {
@@ -48,40 +36,6 @@ $error_border_size: 2px;
 	td.tactic.what {
 		width: 24%; /* 24*1 = 24% */
 	}
-
-/* BACKGROUND COLORS */
-  .header {
-    background-color: lighten($expression_color, $header_lighten_percent);
-  }
-
-  .form {
-    background-color: darken($expression_color, $form_dark_percent);
-  }
-  
-  .add {
-    background-color: lighten($expression_color, $add_light_percent);
-  }
-
-	.blank {
-    background-color: lighten($expression_color, $add_light_percent);
-	}
-
-  @mixin background-colors($color, $repeated_light_percent, $selector: "") {
-    .non-repeated#{$selector} {
-      background-color: $color;
-    }
-
-    .repeated#{$selector} {
-      background-color: lighten($color, $repeated_light_percent);
-    }
-  }
-
-  @include background-colors($expression_color, 6%);
-  @include background-colors($to_be_approved_color, 12%, ".to-be-approved");
-  @include background-colors($partial_approval_color, 10%, ".partial-approval");
-  @include background-colors($approved_color, 30%, ".approved");
-  @include background-colors($partial_rejection_color, 25%, ".partial-rejection");
-  @include background-colors($rejected_color, 25%, ".rejected");
 
 /* REPEATED */
   .repeated .expression-text{
@@ -237,13 +191,6 @@ ul.ui-autocomplete {
   }
 
 }
-
-/* GROUP APPROVAL CHECKBOX */
-.checkbox-cell {
-	color: rgba(0,0,0,0);
-	background-color: lighten($expression_color, $add_light_percent);
-}
-
 
 /* SUGGESTIONS AUTOCOMPLETE */
 .multiple-instances > a:after {

@@ -28,6 +28,7 @@ class PublishesController < ApplicationController
   end
 
   def show
+    prepare_to_render_analysis_matrix
   end
 
 private

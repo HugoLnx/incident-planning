@@ -1,0 +1,10 @@
+$expression_color: #c0c0c0;     
+$header_lighten_percent: 15%;
+
+.analysis-matrix {
+
+/* BACKGROUND COLORS */
+  .header {
+    background-color: lighten($expression_color, $header_lighten_percent);
+  }
+}
