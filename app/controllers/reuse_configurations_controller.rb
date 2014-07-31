@@ -20,7 +20,7 @@ class ReuseConfigurationsController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def reuse_configuration_params
-      params.require(:reuse_configuration).permit(:user_filter, :incident_filter, :reuse_hierarchy)
+      params.require(:reuse_configuration).permit(:user_filter, :incident_filter, :reuse_hierarchy, :date_filter)
     end
 
     def set_filter_options

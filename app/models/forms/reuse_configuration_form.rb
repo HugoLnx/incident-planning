@@ -5,13 +5,19 @@ module Forms
       end
     include ActiveModel::Model
 
-    attr_accessor :reuse_hierarchy, :user_filter, :incident_filter
+    attr_accessor :reuse_hierarchy, :user_filter, :incident_filter, :date_filter
     attr_reader :user
 
     USER_FILTER_ALL_OPTION = "-- All --"
 
     INCIDENT_FILTER_ALL_OPTION = "-- All --"
     INCIDENT_FILTER_CURRENT_OPTION ="-- Current Incident --"
+
+    def initialize(user, params={})
+      @user = user
+      @configuration = user.reuse_configuration || ReuseConfiguration.new(user: @user)
+      super(params)
+    end
 
     def user_filter_options
       options = [{
@@ -48,16 +54,6 @@ module Forms
         }
       end
       options
-    end
-
-    def self.model_name
-      ActiveModel::Name.new(::ReuseConfiguration)
-    end
-
-    def initialize(user, params={})
-      @user = user
-      @configuration = user.reuse_configuration || ReuseConfiguration.new(user: @user)
-      super(params)
     end
 
     def reuse_hierarchy=(value)
@@ -108,6 +104,14 @@ module Forms
       end
     end
 
+    def date_filter=(date_filter)
+      @configuration.date_filter = date_filter
+    end
+
+    def date_filter
+      @configuration.date_filter
+    end
+
     def persisted?
       @configuration.persisted?
     end
@@ -118,6 +122,10 @@ module Forms
 
     def save
       @configuration.save
+    end
+
+    def self.model_name
+      ActiveModel::Name.new(::ReuseConfiguration)
     end
   end
 end

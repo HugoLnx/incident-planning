@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140714225918) do
+ActiveRecord::Schema.define(version: 20140731225250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20140714225918) do
     t.string  "incident_filter_type",  default: "all", null: false
     t.string  "incident_filter_value"
     t.integer "user_id",                               null: false
+    t.integer "date_filter"
   end
 
   add_index "reuse_configurations", ["user_id"], name: "index_reuse_configurations_on_user_id", using: :hash

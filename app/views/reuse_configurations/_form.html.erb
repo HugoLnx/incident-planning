@@ -4,6 +4,7 @@
   <div class="form-inputs">
     <%= f.input :user_filter, collection: @user_filter_options, as: :reuse_filter_collection %>
     <%= f.input :incident_filter, collection: @incident_filter_options, as: :reuse_filter_collection %>
+    <%= f.input :date_filter, collection: 1..12, label: "Date filter (Months)" %>
     <%= f.input :reuse_hierarchy, label: "Reuse Hierarchy?", as: :boolean %>
   </div>
 
