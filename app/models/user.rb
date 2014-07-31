@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   after_initialize :defaults
 
   INCIDENT_COMMANDER_ID = 0
+  PLANNING_CHIEF_ID = 1
 
   def roles_ids=(roles_ids)
     valids_size = 0
@@ -45,6 +46,12 @@ class User < ActiveRecord::Base
   
   def can_approve_priorities?
     is_incident_commander = !user_role(INCIDENT_COMMANDER_ID).nil?
+  end
+  
+  def can_publish?
+    is_incident_commander = !user_role(INCIDENT_COMMANDER_ID).nil?
+    is_planning_chief = !user_role(PLANNING_CHIEF_ID).nil?
+    is_incident_commander || is_planning_chief
   end
 
 private
