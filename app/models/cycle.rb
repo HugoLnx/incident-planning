@@ -1,4 +1,6 @@
 class Cycle < ActiveRecord::Base
+  FIRST_NUMBER = 1
+
   belongs_to :incident
 
   has_many :text_expressions
@@ -14,7 +16,12 @@ class Cycle < ActiveRecord::Base
   end
 
   def self.next_number_to(incident)
-    (incident.cycles.maximum(:number) || 0) + 1
+    last_number = incident.cycles.maximum(:number)
+    if last_number.nil?
+      return FIRST_NUMBER
+    else
+      return last_number + 1
+    end
   end
 
   def self.next_dates_limits_to(incident)
@@ -67,5 +74,17 @@ class Cycle < ActiveRecord::Base
 
   def destroy_objectives
     groups.where(name: "Objective").destroy_all
+  end
+
+  def can_be_published?
+    number == FIRST_NUMBER || before_me.published?
+  end
+
+  def before_me
+    Cycle.where("number < ?", self.number).last
+  end
+
+  def published?
+    closed?
   end
 end

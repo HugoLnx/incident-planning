@@ -41,7 +41,7 @@
 <% end %>
 
 <%= form_tag publish_incident_cycle_publishes_path(@incident, @cycle), method: :post do %>
-  <%= submit_tag "Publish", class: "btn-publish", disabled: !current_user.can_publish? %>
+  <%= submit_tag "Publish", class: "btn-publish", disabled: !current_user.can_publish? || !@cycle.can_be_published? %>
 <% end %>
 
 <%= render partial: "analysis_matrices/show_priorities", locals: {cycle: @cycle} %>
