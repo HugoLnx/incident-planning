@@ -14,11 +14,13 @@ module AnalysisMatrixRendererContainer
       rows = []
 
       if last_tactic_of_current_strategy?
-        rows << new_tactic_row
+        row = new_tactic_row
+        rows << row if row.can_be_rendered?
       end
 
       if last_strategy_of_current_objective?
-        rows << new_strategy_row
+        row = new_strategy_row
+        rows << row if row.can_be_rendered?
       end
 
       rows

@@ -20,6 +20,8 @@ module AnalysisMatrixRendererContainer
     end
 
     class Show
+      CALLBACK_NAME = :show_tactic
+
       attr_reader :tactic
       attr_reader :repeated
 
@@ -31,18 +33,28 @@ module AnalysisMatrixRendererContainer
         @blank = blank
       end
 
-      def render_using(callbacks)
-        callbacks.call(:show_tactic, @tactic, @repeated, @last_child, @last_repetition, @blank)
+      def callback_name
+        CALLBACK_NAME
+      end
+
+      def callback_args
+        [@tactic, @repeated, @last_child, @last_repetition, @blank]
       end
     end
 
     class New
+      CALLBACK_NAME = :new_tactic
+
       def initialize(father_id)
         @father_id = father_id
       end
 
-      def render_using(callbacks)
-        callbacks.call(:new_tactic, @father_id)
+      def callback_name
+        CALLBACK_NAME
+      end
+
+      def callback_args
+        [@father_id]
       end
     end
   end

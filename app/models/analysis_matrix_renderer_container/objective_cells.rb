@@ -1,5 +1,7 @@
 module AnalysisMatrixRendererContainer
   class ObjectiveCells
+    CALLBACK_NAME = :show_objective
+
     attr_reader :objective
     attr_reader :repeated
 
@@ -28,8 +30,12 @@ module AnalysisMatrixRendererContainer
       )
     end
 
-    def render_using(callbacks)
-      callbacks.call(:show_objective, @objective, @repeated, @last_child, @last_repetition)
+    def callback_name
+      CALLBACK_NAME
+    end
+
+    def callback_args
+      [@objective, @repeated, @last_child, @last_repetition]
     end
   end
 end

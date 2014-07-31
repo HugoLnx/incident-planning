@@ -13,8 +13,8 @@ module AnalysisMatrixRendererContainer
         form_rows.build_rows.each{|extra_row| yield extra_row}
 
         tactic_cells = TacticCells.from(row)
-        strategy_cells = StrategyCells.from(row, tactic_cells)
-        objective_cells = ObjectiveCells.from(row,strategy_cells)
+        strategy_cells = StrategyCells.from(row, tactic_cells, @callbacks)
+        objective_cells = ObjectiveCells.from(row, strategy_cells)
 
         yield AnalysisMatrixRendererContainer::Row.from_cells(objective_cells, strategy_cells, tactic_cells, @callbacks)
 

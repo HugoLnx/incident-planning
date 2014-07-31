@@ -8,7 +8,11 @@ module AnalysisMatrixRendererContainer
     end
 
     def render
-      @cells.render_using(@callbacks)
+      @callbacks.call(@cells.callback_name, *@cells.callback_args)
+    end
+
+    def can_be_rendered?
+      @callbacks.has_callback?(@cells.callback_name)
     end
   end
 end

@@ -13,9 +13,7 @@ module AnalysisMatricesHelper
     AnalysisMatrixRendererContainer::RowsIterator.new(matrix_data, callbacks: {
       show_objective: get_proc(:render_show_objective_cells),
       show_strategy: get_proc(:render_show_strategy_cells),
-      show_tactic: get_proc(:render_show_tactic_cells),
-      new_strategy: get_proc(:render_disabled_new_strategy_cells),
-      new_tactic: get_proc(:render_disabled_new_tactic_cells)
+      show_tactic: get_proc(:render_show_tactic_cells)
     }).each_row(&block)
   end
 
@@ -33,14 +31,15 @@ module AnalysisMatricesHelper
       locals: locals
   end
 
-  def render_show_strategy_cells(strategy, repeated, last_child, last_repetition)
+  def render_show_strategy_cells(strategy, repeated, last_child, last_repetition, blank)
     partial = "analysis_matrices/strategy_cells"
     locals = cells_generic_locals_from(
       strategy,
       repeated,
       last_child,
       last_repetition,
-      ::Model.strategy
+      ::Model.strategy,
+      blank
     )
 
     update_path = strategy && incident_cycle_strategy_path(@incident, @cycle, strategy.group_id)
@@ -64,19 +63,6 @@ module AnalysisMatricesHelper
       father_id: father_id,
       expressions_size: expressions_size,
       disabled: !permission.to_create?(current_user)
-    }
-  end
-
-  #TODO: função criada só para o group_approval (que deverá ser apagado em breve)
-  def render_disabled_new_strategy_cells(father_id)
-    partial = "analysis_matrices/new_strategy_form_cells"
-    strategy_model = ::Model.strategy
-    expressions_size = strategy_model.expressions.size
-    permission = GroupPermission.new(strategy_model)
-    render partial: partial, locals: {
-      father_id: father_id,
-      expressions_size: expressions_size,
-      disabled: true
     }
   end
 
@@ -114,19 +100,6 @@ module AnalysisMatricesHelper
       father_id: father_id,
       expressions_size: expressions_size,
       disabled: !permission.to_create?(current_user)
-    }
-  end
-
-  #TODO: função criada só para o group_approval (que deverá ser apagado em breve)
-  def render_disabled_new_tactic_cells(father_id)
-    partial = "analysis_matrices/new_tactic_form_cells"
-    tactic_model = ::Model.tactic
-    expressions_size = tactic_model.expressions.size
-    permission = GroupPermission.new(tactic_model)
-    render partial: partial, locals: {
-      father_id: father_id,
-      expressions_size: expressions_size,
-      disabled: true
     }
   end
 

@@ -1,6 +1,6 @@
 module AnalysisMatrixRendererContainer
   class StrategyCells
-    def self.from(row, tactic_cells)
+    def self.from(row, tactic_cells, callbacks)
       if row.strategy
         StrategyCells::Show.new(
           row.strategy,
@@ -9,7 +9,11 @@ module AnalysisMatrixRendererContainer
           tactic_cells.is_a?(TacticCells::New)
         )
       else
-        StrategyCells::New.new(row.objective.group_id)
+        if callbacks.has_callback?(StrategyCells::New::CALLBACK_NAME)
+          StrategyCells::New.new(row.objective.group_id)
+        else
+          StrategyCells.blank
+        end
       end
     end
 
@@ -22,29 +26,46 @@ module AnalysisMatrixRendererContainer
       )
     end
 
+    def self.blank
+      StrategyCells::Show.new blank: true
+    end
+
     class Show
+      CALLBACK_NAME = :show_strategy
+
       attr_reader :strategy
       attr_reader :repeated
 
-      def initialize(strategy=nil, repeated=nil, last_child=false, last_repetition=false)
+      def initialize(strategy=nil, repeated=nil, last_child=false, last_repetition=false, blank: false)
         @strategy = strategy
         @repeated = repeated
         @last_child = last_child
         @last_repetition = last_repetition
+        @blank = blank
+      end
+ 
+      def callback_name
+        CALLBACK_NAME
       end
 
-      def render_using(callbacks)
-        callbacks.call(:show_strategy, @strategy, @repeated, @last_child, @last_repetition)
+      def callback_args
+        [@strategy, @repeated, @last_child, @last_repetition, @blank]
       end
     end
 
     class New
+      CALLBACK_NAME = :new_strategy
+
       def initialize(father_id)
         @father_id = father_id
       end
 
-      def render_using(callbacks)
-        callbacks.call(:new_strategy, @father_id)
+      def callback_name
+        CALLBACK_NAME
+      end
+
+      def callback_args
+        [@father_id]
       end
     end
   end

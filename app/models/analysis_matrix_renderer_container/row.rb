@@ -27,5 +27,11 @@ module AnalysisMatrixRendererContainer
     def tactic
       @tactic_cells.cells
     end
+
+    def can_be_rendered?
+      @objective_cells.can_be_rendered? &&
+      @strategy_cells.can_be_rendered? &&
+      @tactic_cells.can_be_rendered?
+    end
   end
 end
