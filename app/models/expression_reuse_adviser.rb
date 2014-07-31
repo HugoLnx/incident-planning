@@ -15,6 +15,11 @@ class ExpressionReuseAdviser
     if config.incident_filter_type != ReuseConfiguration::INCIDENT_FILTER_TYPES.name(:all)
       query = apply_incident_filter(query, config, current_incident_id)
     end
+
+    if config.date_filter
+      query = apply_date_filter(query, config)
+    end
+
     query = where_text_like(query, term)
     query = exclude_expression(query, excluded_expression_id)
 
@@ -34,6 +39,12 @@ private
       incident_id = current_incident_id
     end
     query.joins(:cycle).where({"cycles.incident_id" => incident_id.to_i})
+  end
+
+  def apply_date_filter(query, config)
+    months_from_now = config.date_filter
+    date_limit = DateTime.now.beginning_of_day << config.date_filter
+    query.where("created_at >= ?", date_limit)
   end
 
   def where_text_like(query, term)

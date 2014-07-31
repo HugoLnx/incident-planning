@@ -134,5 +134,81 @@ describe ExpressionSuggestionsController do
         include_examples :success_expectations
       end
     end
+
+    context "with reuse configuration filtering by date" do
+      before :each do
+        @cycle_to_reuse = create :cycle
+        config = build :reuse_configuration,
+          date_filter: 6
+        user = create :user, reuse_configuration: config
+        sign_in user
+        user_filter = create :user
+      end
+
+      let(:today) {DateTime.now.beginning_of_day}
+      let(:one_month_ago) {today << 1}
+      let(:six_months_ago) {today << 6}
+      let(:six_months_and_one_day_ago) {((today << 6) - 1).end_of_day}
+      let(:seven_months_ago) {today << 7}
+      let(:twelve_months_ago) {today << 12}
+
+      context "getting suggestions to a new expression" do
+        before :each do
+          @suggested_expressions = [
+            create(:strategy_how, text: "TEST", created_at: six_months_ago, cycle: @cycle_to_reuse),
+            create(:strategy_how, text: "xTEstando", created_at: one_month_ago, cycle: @cycle_to_reuse),
+            create(:strategy_how, text: "teStando", created_at: today, cycle: @cycle_to_reuse)
+          ]
+
+          # non-suggested expressions
+          create(:strategy_how, text: "XXX", created_at: six_months_ago, cycle: @cycle_to_reuse)
+          create :strategy_how, text: "testcc", created_at: six_months_and_one_day_ago, cycle: @cycle_to_reuse
+          create :strategy_how, text: "testdd", created_at: seven_months_ago, cycle: @cycle_to_reuse
+          create :strategy_how, text: "bbtest", created_at: twelve_months_ago, cycle: @cycle_to_reuse
+          create :tactic_who, text: "testaa", created_at: today, cycle: @cycle_to_reuse
+
+          get :index, format: :json,
+            term: "test",
+            expression_name: ::Model.strategy_how.name,
+            incident_id: 1
+        end
+
+        it "filter the expressions by term and expression_name" do
+          expect(assigns(:expressions)).to be == @suggested_expressions
+        end
+
+        include_examples :success_expectations
+      end
+
+      context "getting suggestions to update an existent expression" do
+        before :each do
+          @suggested_expressions = [
+            create(:strategy_how, text: "xxTeStando", created_at: six_months_ago, cycle: @cycle_to_reuse),
+            create(:strategy_how, text: "teStando", created_at: one_month_ago, cycle: @cycle_to_reuse)
+          ]
+
+          # non-suggested expressions
+          create :strategy_how, text: "textoerrado", created_at: six_months_ago, cycle: @cycle_to_reuse
+          create :strategy_how, text: "TESTando", created_at: six_months_and_one_day_ago, cycle: @cycle_to_reuse
+          create :strategy_how, text: "teStando", created_at: seven_months_ago, cycle: @cycle_to_reuse
+          create :strategy_how, text: "teStando", created_at: twelve_months_ago, cycle: @cycle_to_reuse
+          create :tactic_who, text: "teStando", created_at: today, cycle: @cycle_to_reuse
+          to_be_updated = create :strategy_how, text: "teStando", created_at: today, cycle: @cycle_to_reuse
+ 
+          
+          get :index, format: :json,
+            term: "test",
+            expression_name: ::Model.strategy_how.name,
+            incident_id: 1,
+            expression_updated_id: to_be_updated.id
+        end
+
+        it "filter the expressions by term and expression_name and excludes the expression that will be updated" do
+          expect(assigns(:expressions)).to be == @suggested_expressions
+        end
+
+        include_examples :success_expectations
+      end
+    end
   end
 end

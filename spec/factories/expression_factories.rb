@@ -5,6 +5,7 @@ FactoryGirl.define do
     association :owner, factory: :user
     sequence(:when) {"22/03/1993 10:50"}
     source nil
+    created_at DateTime.now
 
     factory :tactic_when do
       association :group, factory: :tactic_group
@@ -16,6 +17,7 @@ FactoryGirl.define do
     sequence(:text) {|i| "Expression #{name} #{i}"}
     cycle
     association :owner, factory: :user
+    created_at DateTime.now
 
     factory :objective do
       association :group, factory: :objective_group
