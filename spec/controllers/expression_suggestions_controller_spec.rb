@@ -210,5 +210,59 @@ describe ExpressionSuggestionsController do
         include_examples :success_expectations
       end
     end
+
+    context "with reuse disabled", focus: true do
+      before :each do
+        @cycle_to_reuse = create :cycle
+        config = build :reuse_configuration,
+          enabled: false
+        user = create :user, reuse_configuration: config
+        sign_in user
+        user_filter = create :user
+      end
+
+      context "getting suggestions to a new expression" do
+        before :each do
+          # non-suggested expressions
+          create(:strategy_how, text: "TEST", cycle: @cycle_to_reuse)
+          create(:strategy_how, text: "xTEstando", cycle: @cycle_to_reuse)
+          create(:strategy_how, text: "teStando", cycle: @cycle_to_reuse)
+
+          get :index, format: :json,
+            term: "test",
+            expression_name: ::Model.strategy_how.name,
+            incident_id: 1
+        end
+
+        it "filter the expressions by term and expression_name" do
+          expect(assigns(:expressions)).to be_empty
+        end
+
+        include_examples :success_expectations
+      end
+
+      context "getting suggestions to update an existent expression" do
+        before :each do
+          # non-suggested expressions
+          create(:strategy_how, text: "xxTeStando", cycle: @cycle_to_reuse)
+          create(:strategy_how, text: "teStando", cycle: @cycle_to_reuse)
+          create :strategy_how, text: "TESTando", cycle: @cycle_to_reuse
+          to_be_updated = create :strategy_how, text: "teStando", cycle: @cycle_to_reuse
+ 
+          
+          get :index, format: :json,
+            term: "test",
+            expression_name: ::Model.strategy_how.name,
+            incident_id: 1,
+            expression_updated_id: to_be_updated.id
+        end
+
+        it "filter the expressions by term and expression_name and excludes the expression that will be updated" do
+          expect(assigns(:expressions)).to be_empty
+        end
+
+        include_examples :success_expectations
+      end
+    end
   end
 end

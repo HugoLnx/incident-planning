@@ -1,4 +1,6 @@
 class ExpressionSuggestionsController < ApplicationController
+  before_filter :check_enabled
+
   def index
     sparams = params.permit(:term, :expression_name, :incident_id, :expression_updated_id)
 
@@ -26,5 +28,15 @@ class ExpressionSuggestionsController < ApplicationController
 
     @expressions = query.load
     @suggestions = SuggestionsTree::ExpressionSuggestion.from_expressions(@expressions)
+  end
+
+private
+  def check_enabled
+    reuse_config = current_user.reuse_configuration
+    if !reuse_config.enabled?
+      @expressions = []
+      @suggestions = SuggestionsTree::ExpressionSuggestion.from_expressions(@expressions)
+      render "index"
+    end
   end
 end
