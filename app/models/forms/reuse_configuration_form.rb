@@ -1,12 +1,16 @@
 module Forms
   class ReuseConfigurationForm
-      class Option
-        attr_accessor :label, :value
-      end
+    class Option
+      attr_accessor :label, :value
+    end
     include ActiveModel::Model
+    extend Forwardable
 
-    attr_accessor :reuse_hierarchy, :user_filter, :incident_filter, :date_filter
+    attr_accessor :reuse_hierarchy, :user_filter, :incident_filter, :date_filter, :enabled
     attr_reader :user
+
+    def_delegators :@configuration, :to_param, :save, :persisted?,
+      :date_filter, :date_filter=, :enabled, :enabled=
 
     USER_FILTER_ALL_OPTION = "-- All --"
 
@@ -102,26 +106,6 @@ module Forms
       else
         return @configuration.incident_filter_value
       end
-    end
-
-    def date_filter=(date_filter)
-      @configuration.date_filter = date_filter
-    end
-
-    def date_filter
-      @configuration.date_filter
-    end
-
-    def persisted?
-      @configuration.persisted?
-    end
-
-    def to_param
-      @configuration.to_param
-    end
-
-    def save
-      @configuration.save
     end
 
     def self.model_name
