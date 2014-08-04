@@ -1,6 +1,6 @@
 <div class="metadata">
 
-  <%= render partial: "analysis_matrices/expression_errors", locals: {errors: errors} %>
+  <%= render partial: "analysis_matrices/expression_errors.html.erb", locals: {errors: errors} %>
 
   <div class="metadata-section item-section">
 	  <p class="metadata-label">Item</p>
@@ -15,7 +15,7 @@
     <p class="metadata-label">Approval Events</p>
     <ul class="approvals">
       <% approvals_infos.each do |approval_info| %>
-        <%= render partial: "analysis_matrices/approval", locals: approval_info %>
+        <%= render partial: "analysis_matrices/approval.html.erb", locals: approval_info %>
       <% end %>
     </ul>
 

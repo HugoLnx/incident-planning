@@ -4,7 +4,7 @@
     data-expression-id="<%= info[:expression_id] %>"
     class="<%= group_classes %> <%= info[:exp_classes] %> strategy <%= name %> show">
     <div class="second-border">
-      <%= render partial: "analysis_matrices/expression_text", locals: {text: info[:text]} %>
+      <%= render partial: "analysis_matrices/expression_text.html.erb", locals: {text: info[:text]} %>
       <%= info[:metadata_partial] %>
     </div>
 	</td>

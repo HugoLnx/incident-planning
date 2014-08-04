@@ -5,9 +5,7 @@
 
 <h1>Tactics Planning Matrix</h1>
 
-<%#= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
-
-<%#= render partial: "analysis_matrices/show_priorities", locals: {cycle: @cycle} %>
+<%= render partial: "layouts/cycle_brief.html.erb", locals: {cycle: @cycle, incident: @incident} %>
 
 <table class="analysis-matrix" id="analysis-matrix">
   <thead>
@@ -27,14 +25,14 @@
   </thead>
 
   <tbody>
-    <%# each_row(@matrix_data) do |row| %>
+    <% each_row_for_group_approval(@matrix_data) do |row| %>
       <tr>
-        <%#= row.objective_cells.render %>
+        <%= row.objective_cells.render %>
 
-        <%#= row.strategy_cells.render %>
+        <%= row.strategy_cells.render %>
 
-        <%#= row.tactic_cells.render %>
+        <%= row.tactic_cells.render %>
       </tr>
-    <%# end %>
+    <% end %>
   </tbody>
 </table>

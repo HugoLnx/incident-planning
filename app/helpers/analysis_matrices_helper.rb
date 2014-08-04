@@ -18,7 +18,7 @@ module AnalysisMatricesHelper
   end
 
   def render_show_objective_cells(objective, repeated, last_child, last_repetition)
-    partial = "analysis_matrices/objective_cells"
+    partial = "analysis_matrices/objective_cells.html.erb"
     locals = cells_generic_locals_from(
       objective.expression,
       repeated,
@@ -32,7 +32,7 @@ module AnalysisMatricesHelper
   end
 
   def render_show_strategy_cells(strategy, repeated, last_child, last_repetition, blank)
-    partial = "analysis_matrices/strategy_cells"
+    partial = "analysis_matrices/strategy_cells.html.erb"
     locals = cells_generic_locals_from(
       strategy,
       repeated,
@@ -55,7 +55,7 @@ module AnalysisMatricesHelper
   end
 
   def render_new_strategy_cells(father_id)
-    partial = "analysis_matrices/new_strategy_form_cells"
+    partial = "analysis_matrices/new_strategy_form_cells.html.erb"
     strategy_model = ::Model.strategy
     expressions_size = strategy_model.expressions.size
     permission = GroupPermission.new(strategy_model)
@@ -67,7 +67,7 @@ module AnalysisMatricesHelper
   end
 
   def render_show_tactic_cells(tactic, repeated, last_child, last_repetition, blank)
-    partial = "analysis_matrices/tactic_cells"
+    partial = "analysis_matrices/tactic_cells.html.erb"
 
     locals = cells_generic_locals_from(
       tactic,
@@ -92,7 +92,7 @@ module AnalysisMatricesHelper
   end
 
   def render_new_tactic_cells(father_id)
-    partial = "analysis_matrices/new_tactic_form_cells"
+    partial = "analysis_matrices/new_tactic_form_cells.html.erb"
     tactic_model = ::Model.tactic
     expressions_size = tactic_model.expressions.size
     permission = GroupPermission.new(tactic_model)
@@ -226,7 +226,7 @@ private
   def render_metadata_partial_for(expression)
     metadata_locals = metadata_locals_from expression
 
-    render partial: "analysis_matrices/metadata", locals: metadata_locals
+    render partial: "analysis_matrices/metadata.html.erb", locals: metadata_locals
   end
 
   def metadata_locals_from(expression)
