@@ -39,6 +39,9 @@ gem "simple_form", "~> 3.0.1"
 
 gem "interactive_editor"
 
+gem "wicked_pdf"
+gem "wkhtmltopdf-binary"
+
 group :production do
   gem 'rails_12factor'
   gem 'pg'

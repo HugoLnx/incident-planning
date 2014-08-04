@@ -126,11 +126,6 @@ describe HighModels::Strategy do
         @strategy = build :high_models_strategy, cycle_id: nil
         expect(@strategy.save).to be_false
       end
-
-      specify "haven't how" do
-        @strategy = build :high_models_strategy, how: nil
-        expect(@strategy.save).to be_false
-      end
     end
   end
 

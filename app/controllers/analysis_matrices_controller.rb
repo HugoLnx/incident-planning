@@ -6,6 +6,14 @@ class AnalysisMatricesController < ApplicationController
       redirect_to incident_cycle_publishes_path(@incident, @cycle)
     else
       prepare_to_render_analysis_matrix
+      respond_to do |format|
+        format.html
+        format.pdf do
+          render pdf: "show",
+            layout: "application",
+            orientation: 'Landscape'
+        end
+      end
     end
   end
 

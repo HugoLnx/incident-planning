@@ -1,0 +1,50 @@
+<% content_for :css do %>
+  <%= wicked_pdf_stylesheet_link_tag "analysis_matrices", media: "all" %>
+  <%= wicked_pdf_stylesheet_link_tag "analysis_matrices_expression_colors", media: "all" %>
+  <style>
+    .btn-show-dialog {
+      display: none;
+    }
+
+    .btn-approve-in-groups {
+      float: left;
+    }
+
+  </style>
+<% end %>
+
+<h1>Tactics Planning Matrix</h1>
+
+<%#= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
+
+<%#= render partial: "analysis_matrices/show_priorities", locals: {cycle: @cycle} %>
+
+<table class="analysis-matrix" id="analysis-matrix">
+  <thead>
+    <tr>
+      <th rowspan="2" class="header objective">OBJECTIVES</th>
+      <th class="header strategy" colspan="<%= @strategy.expressions.size %>">STRATEGIES</th>
+      <th class="header tactic" colspan="<%= @tactic.expressions.size %>">TACTICS</th>
+    </tr>
+    <tr>
+      <% @strategy.expressions.each do |exp| %>
+        <th class="header strategy"><%= exp.human_name %></th>
+      <% end %>
+      <% @tactic.expressions.each do |exp| %>
+        <th class="header tactic"><%= exp.human_name %></th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%# each_row(@matrix_data) do |row| %>
+      <tr>
+        <%#= row.objective_cells.render %>
+
+        <%#= row.strategy_cells.render %>
+
+        <%#= row.tactic_cells.render %>
+      </tr>
+    <%# end %>
+  </tbody>
+</table>
