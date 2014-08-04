@@ -36,7 +36,7 @@
       component.addItem();
     });
 
-    $(list).find("li").append(deleteTemplate);
+    $(list).find("li:not(.undeletable)").append(deleteTemplate);
     $(".multivalored-input-delete-button").click(onDeleteItem);
 
     return component;

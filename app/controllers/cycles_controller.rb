@@ -26,6 +26,8 @@ class CyclesController < ApplicationController
 
   def edit
     @cycle = Forms::Form202.new_from(@cycle)
+    permission = GroupPermission.new(::Model.root)
+    @can_create_and_delete = permission.to_create? current_user
   end
 
   def create
