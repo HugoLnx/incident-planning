@@ -102,7 +102,7 @@ describe ExpressionSuggestionsController do
         end
 
         it "filter the expressions by term and expression_name" do
-          expect(assigns(:expressions)).to be == @suggested_expressions
+          expect(assigns(:expressions).sort).to be == @suggested_expressions.sort
         end
 
         include_examples :success_expectations
