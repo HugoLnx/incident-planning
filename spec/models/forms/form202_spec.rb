@@ -28,7 +28,7 @@ describe Forms::Form202 do
 
       form = Forms::Form202.new_from(cycle)
 
-      expect(form.objectives.to_a).to be == cycle.text_expressions.load.to_a
+      expect(form.objectives.to_a.sort).to be == cycle.text_expressions.load.to_a.sort
     end
   end
 
@@ -280,7 +280,7 @@ describe Forms::Form202 do
 
         form.save
 
-        expect(form.cycle.text_expressions.load).to be == form.objectives
+        expect(form.cycle.text_expressions.load.sort).to be == form.objectives.sort
 
         expect(form.objectives[0].cycle).to be == form.cycle
         expect(form.objectives[1].cycle).to be == form.cycle
