@@ -18,6 +18,11 @@ module HighModels
         @expressions_names ||= {}
         @expressions_names.merge!(name => expression_name)
 
+        define_method :"#{name}_text" do
+          exp = instance_variable_get("@#{name}")
+          exp.text
+        end
+
         define_method :"update_#{name}" do |new_text|
           exp = instance_variable_get("@#{name}")
           if exp

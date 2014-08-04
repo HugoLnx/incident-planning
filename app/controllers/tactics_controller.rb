@@ -10,9 +10,13 @@ class TacticsController < ApplicationController
     AnalysisMatrixReuse::ParamsCleaner.clean(tactic_params)
 
     tactic = HighModels::Tactic.new(tactic_params)
-    tactic.save
-
-    head :ok
+    
+    if tactic.save
+      render text: "success"
+    else
+      @errors = tactic.errors
+      render "layouts/expressions/errors", layout: false
+    end
   end
 
   def update
@@ -27,7 +31,12 @@ class TacticsController < ApplicationController
     tactic.update new_params
     tactic.save
 
-    head :ok
+    if tactic.save
+      render text: "success"
+    else
+      @errors = tactic.errors
+      render "layouts/expressions/errors", layout: false
+    end
   end
 
   def destroy

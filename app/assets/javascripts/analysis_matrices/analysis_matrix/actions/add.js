@@ -76,7 +76,19 @@
         url: backendProtocol.path(),
         data: ajax.paramsToUrl(),
         method: backendProtocol.httpMethodForBrowser(),
-        success: function(){document.location.reload();}
+        success: function(result) {
+          if (result === "success") {
+            document.location.reload();
+          } else {
+            $(result).errorsDialog({
+              position: {
+                my: "top",
+                at: "bottom",
+                of: form.$submitRow
+              },
+            });
+          };
+        }
       });
     });
   }

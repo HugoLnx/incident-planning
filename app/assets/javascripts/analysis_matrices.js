@@ -5,6 +5,7 @@
 //= require ./analysis_matrices/analysis_matrix/expression_input_name
 //= require_tree ./analysis_matrices/
 //= require jquery.ui.dialog
+//= require errors_dialog
 //= require jquery.ui.autocomplete
 //= require suggestions_autocomplete
 //= require tap_conflict_free

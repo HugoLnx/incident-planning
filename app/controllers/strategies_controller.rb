@@ -22,7 +22,7 @@ class StrategiesController < ApplicationController
 
     @strategy = strategy.group
 
-    head :ok
+    render text: "success"
   end
 
   def update
@@ -52,7 +52,7 @@ class StrategiesController < ApplicationController
     @strategy = strategy.group
     @strategy.reload
 
-    head :ok
+    render text: "success"
   end
 
   def destroy

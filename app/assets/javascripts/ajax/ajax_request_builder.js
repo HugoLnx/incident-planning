@@ -21,7 +21,7 @@
 
   _prototype.paramsToUrl = function() {
     return $("<form>")
-      .append(this.$inputs)
+      .append(this.$inputs.clone())
       .serialize();
   };
 

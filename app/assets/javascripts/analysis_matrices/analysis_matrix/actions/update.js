@@ -72,8 +72,6 @@
       var expressionName = ExpressionRecognizer.getNameFromTd($cellTd);
       var $input = $inputsTds.find("input[name$=" + expressionName + "\\]]");
       var text = $input.val();
-      console.log($input);
-      console.log(text);
 
       if ($cellTd.hasClass("reused")) {
         Reuse.InputRenderer.becameReused($input, text, null);
@@ -113,7 +111,19 @@
       var request = new Ajax.AjaxRequestBuilder();
       request.addParamsFromInputs(form.$inputs());
 
-      sendAjaxUsing(request, updateProtocol, $td);
+      sendAjaxUsing(request, updateProtocol, $td, function(result) {
+        if (result === "success") {
+          document.location.reload();
+        } else {
+          $(result).errorsDialog({
+            position: {
+              my: "top",
+              at: "bottom",
+              of: form.$submitRow
+            },
+          });
+        };
+      });
     });
   }
 
@@ -121,18 +131,20 @@
     $deleteBtn.on("click", function() {
       var request = new Ajax.AjaxRequestBuilder();
 
-      sendAjaxUsing(request, deleteProtocol, $td);
+      sendAjaxUsing(request, deleteProtocol, $td, function() {
+        document.location.reload();
+      });
     });
   }
 
-  function sendAjaxUsing(request, backendProtocol, $td) {
+  function sendAjaxUsing(request, backendProtocol, $td, onSuccess) {
     request.addParams(backendProtocol.params());
 
     $.ajax({
       url: backendProtocol.path($td),
       data: request.paramsToUrl(),
       method: backendProtocol.httpMethodForBrowser(),
-      success: function(){document.location.reload();}
+        success: onSuccess
     });
   }
 }(jQuery, LNX_INCIDENT_PLANNING));

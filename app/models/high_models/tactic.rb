@@ -11,8 +11,7 @@ module HighModels
     group_name ::Model.tactic.name
 
     validates :father_id, presence: true
-    validates :who, presence: true
-    validates :what, presence: true
-    validates :where, presence: true
+    validates :who_text, presence: true
+    validates :what_text, presence: true
   end
 end
