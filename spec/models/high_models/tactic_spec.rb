@@ -178,6 +178,11 @@ describe HighModels::Tactic do
         expect(@tactic.save).to be_true
       end
 
+      specify "haven't where" do
+        @tactic = build :high_models_tactic, where: nil
+        expect(@tactic.save).to be_true
+      end
+
       specify "haven't when" do
         @tactic = build :high_models_tactic, when: nil
         expect(@tactic.save).to be_true
@@ -207,11 +212,6 @@ describe HighModels::Tactic do
 
       specify "haven't what" do
         @tactic = build :high_models_tactic, what: nil
-        expect(@tactic.save).to be_false
-      end
-
-      specify "haven't where" do
-        @tactic = build :high_models_tactic, where: nil
         expect(@tactic.save).to be_false
       end
     end

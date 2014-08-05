@@ -14,8 +14,8 @@ describe StrategiesController do
       expect(response).to be_success
     end
 
-    it "render nothing" do
-      expect(response.body).to be_blank
+    it "render 'success'" do
+      expect(response.body).to be == "success"
     end
   end
 

@@ -60,7 +60,7 @@ describe Forms::Form202 do
               @objectives[2].id.to_s => "Old Obj 3"
             }
           })
-          @form.save
+          @saved = @form.save
 
           @objectives.each(&:reload)
         end
@@ -82,6 +82,10 @@ describe Forms::Form202 do
           expect(@form.objectives[0].text).to be == "New Obj 1"
           expect(@form.objectives[1].text).to be == "New Obj 2"
         end
+
+        it "saves successfuly" do
+          expect(@saved).to be == true
+        end
       end
 
       context "and deletes the second objective" do
@@ -95,7 +99,7 @@ describe Forms::Form202 do
               @objectives[2].id.to_s => "Old Obj 3"
             }
           })
-          @form.save
+          @saved = @form.save
 
           @objectives.each{|obj| obj.reload if TextExpression.exists?(obj.id)}
         end
@@ -112,6 +116,10 @@ describe Forms::Form202 do
         it "doesn't update any owner" do
           expect(@form.objectives[0].owner).to be == @old_owner
           expect(@form.objectives[1].owner).to be == @old_owner
+        end
+
+        it "saves successfuly" do
+          expect(@saved).to be == true
         end
       end
 
@@ -131,7 +139,7 @@ describe Forms::Form202 do
               ]
             }
           })
-          @form.save
+          @saved = @form.save
 
           @objectives.each{|obj| obj.reload if TextExpression.exists?(obj.id)}
         end
@@ -146,6 +154,10 @@ describe Forms::Form202 do
           expect(@form.objectives[0].owner).to be == @old_owner
           expect(@form.objectives[1].owner).to be == @old_owner
           expect(@form.objectives[2].owner).to be == @old_owner
+        end
+
+        it "saves successfuly" do
+          expect(@saved).to be == true
         end
 
         describe "the two created objectives" do

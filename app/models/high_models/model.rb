@@ -20,7 +20,7 @@ module HighModels
 
         define_method :"#{name}_text" do
           exp = instance_variable_get("@#{name}")
-          exp.text
+          exp && exp.text
         end
 
         define_method :"update_#{name}" do |new_text|

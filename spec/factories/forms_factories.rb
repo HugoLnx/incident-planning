@@ -5,6 +5,7 @@ FactoryGirl.define do
     sequence(:number){|i| i}
     incident
     association(:owner, factory: :user)
+    priorities "some priorities"
     ignore do
       objectives nil
       objectives_texts []
