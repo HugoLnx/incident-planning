@@ -47,4 +47,8 @@ module ApplicationHelper
       submit_tag label, btn_options
     end
   end
+
+  def is_publishing
+    controller_name == 'publishes'
+  end
 end

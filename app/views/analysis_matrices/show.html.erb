@@ -19,19 +19,11 @@
   <style>
     .btn-show-dialog {
       display: none;
-      float: left;
-    }
-
-    .btn-approve-in-groups {
-      float: left;
-    }
-
-    .btn-delete-in-groups {
-      float: left;
     }
 
     .buttons-line .btn {
       margin-right: 20px;
+      float: left;
     }
 
     .btn-publish, .btn-publish:hover {
@@ -40,7 +32,6 @@
       border-left: #5c5 solid 4px;
       border-bottom: #1b1 solid 4px;
       border-right: #1b1 solid 4px;
-      float: left;
     }
   </style>
 <% end %>
@@ -70,7 +61,13 @@
 
   <%= btn_link_to "Download PDF", 
     incident_cycle_analysis_matrix_path(@incident, @cycle, format: :pdf),
-    class: "btn-download-pdf" %>
+    class: "btn-download-pdf btn" %>
+
+  <% if is_publishing %>
+    <%= btn_link_to "Clear Alarms", 
+      incident_cycle_analysis_matrix_path(@incident, @cycle),
+      class: "btn-clear-alarms btn" %>
+  <% end %>
 
 </div>
 
