@@ -11,4 +11,7 @@
 
 	<%= link_to 'Edit', edit_incident_cycle_path(@incident, @form202.cycle.id) %>
 <% end -%>
+<%= link_to 'Download as PDF',
+  incident_cycle_path(@incident, @form202.cycle.id, format: :pdf),
+  download: "download" %>
 <%= link_to 'Back', back_path %>

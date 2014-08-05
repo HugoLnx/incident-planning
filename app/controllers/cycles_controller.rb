@@ -7,6 +7,15 @@ class CyclesController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: pdf_name,
+          template: "cycles/show.pdf.erb",
+          layout: "application",
+          orientation: 'Landscape'
+      end
+    end
   end
 
   def new
@@ -81,4 +90,8 @@ class CyclesController < ApplicationController
       cycle_params[:objectives_texts] = params[:objectives_texts] || []
       Forms::Form202.normalize(cycle_params)
     end
+
+  def pdf_name
+    DateTime.now.strftime("%Y-%d-%m") + " Form 202"
+  end
 end
