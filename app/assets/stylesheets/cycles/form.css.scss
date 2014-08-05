@@ -64,11 +64,15 @@ form {
   }
 
 /* Customization */
+  .cycle_objectives, .cycle_priorities {
+    width: 100%;
+  }
+
   .cycle_objectives input {
     width: 90%;
   }
 
-  .cycle_objectives button {
+  .cycle_objectives .multivalored-input-delete-button {
     float: right;
   }
 

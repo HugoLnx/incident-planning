@@ -7,7 +7,7 @@
       </li>
     <% else %>
       <% form202.objectives.each do |obj| %>
-				<li class="objective-input <%= @can_create_and_delete ? "deletable" : "undeletable" %>">
+				<li class="objective-input <%= @can_create_and_delete || @can_create_and_delete.nil? ? "deletable" : "undeletable" %>">
         <%= text_field_tag "objectives_texts[#{obj.id}]", obj.text %>
       </li>
       <% end %>
