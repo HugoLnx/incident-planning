@@ -16,8 +16,8 @@ $error_border_size: 2px;
 .analysis-matrix {
   
 /* COLUMNS SIZE */
-  td {
-    min-height: 50px;
+  td.add {
+    height: 50px;
   }
 
 	/* width = 22 + 22 + 32 + 24 = 100% */
