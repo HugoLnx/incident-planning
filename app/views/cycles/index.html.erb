@@ -10,7 +10,7 @@
 		}
 	</style>
 <% end -%>
-<h1>Incident Cycles</h1>
+<h1>Incident Operational Periods</h1>
 
 <div class="incident-infos">
 	<p class="info">
@@ -24,10 +24,10 @@
 <table class="index-table" id="cycles">
   <thead>
     <tr>
-      <th>Cycle</th>
+      <th>Period</th>
       <th>From</th>
       <th>To</th>
-      <th>Cycle Status</th>
+      <th>Period Status</th>
       <th></th>
       <th>Objectives Status</th>
       <th></th>
@@ -41,9 +41,9 @@
         <td><%= format_date cycle.from %></td>
         <td><%= format_date cycle.to %></td>
         <td><%= cycle_closed_name cycle.closed %></td>
-        <td><%= link_to 'Objectives', incident_cycle_path(@incident, cycle) %></td>
+        <td><%= link_to 'Incident Objectives', incident_cycle_path(@incident, cycle) %></td>
         <td><%= cycle_approval_status_name cycle.approved? %></td>
-        <td><%= link_to 'Tactics Matrix', incident_cycle_analysis_matrix_path(@incident, cycle) %></td>
+        <td><%= link_to 'Work Analysis Matrix', incident_cycle_analysis_matrix_path(@incident, cycle) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -51,7 +51,7 @@
 
 <br>
 
-<%= link_to 'New Cycle', new_incident_cycle_path(@incident), class: "anchor-button" %>
+<%= link_to 'New Operational Period', new_incident_cycle_path(@incident), class: "anchor-button" %>
 <% if !@cycles.empty? %>
   <%= link_to 'Delete last cycle', incident_cycle_path(@incident, @cycles.last), method: "delete", class: "anchor-button" %>
 <% end %>
