@@ -1,3 +1,5 @@
+//= require browser_utils
+//= require array_utils
 //= require hammer.min
 //= require hammer-setup
 //= require jquery.hammer.min
@@ -9,7 +11,6 @@
 //= require jquery.ui.autocomplete
 //= require suggestions_autocomplete
 //= require tap_conflict_free
-//= require array_utils
 //= require on_hold
 //= require show_dialog_button
 //= require_tree ./ajax/

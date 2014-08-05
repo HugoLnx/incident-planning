@@ -17,6 +17,7 @@ var LNX_INCIDENT_PLANNING = {
 
 var LNX_UTILS = {
   ArrayUtils: {},
+  BrowserUtils: {},
   Ajax: {},
   TapConflictFree: {},
   Forms: {}

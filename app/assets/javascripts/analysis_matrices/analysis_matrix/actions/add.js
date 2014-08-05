@@ -4,6 +4,7 @@
   var Templates = namespace.AnalysisMatrix.Templates;
   var BackendProtocols = namespace.AnalysisMatrix.BackendProtocols;
   var Ajax = LNX_UTILS.Ajax;
+  var BrowserUtils = LNX_UTILS.BrowserUtils;
   var ExpressionRecognizer = namespace.AnalysisMatrix.ExpressionRecognizer;
   var FROM_RAILS = namespace.FROM_RAILS;
 
@@ -78,7 +79,7 @@
         method: backendProtocol.httpMethodForBrowser(),
         success: function(result) {
           if (result === "success") {
-            document.location.reload();
+            BrowserUtils.reloadPage();
           } else {
             $(result).errorsDialog({
               position: {

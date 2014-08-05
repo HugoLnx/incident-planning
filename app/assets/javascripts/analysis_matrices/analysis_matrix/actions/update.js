@@ -4,6 +4,7 @@
   var Templates = namespace.AnalysisMatrix.Templates;
   var BackendProtocols = namespace.AnalysisMatrix.BackendProtocols;
   var Ajax = LNX_UTILS.Ajax;
+  var BrowserUtils = LNX_UTILS.BrowserUtils;
   var ExpressionRecognizer = namespace.AnalysisMatrix.ExpressionRecognizer;
   var Reuse = namespace.AnalysisMatrix.Reuse;
   var FROM_RAILS = namespace.FROM_RAILS;
@@ -113,7 +114,7 @@
 
       sendAjaxUsing(request, updateProtocol, $td, function(result) {
         if (result === "success") {
-          document.location.reload();
+          BrowserUtils.reloadPage();
         } else {
           $(result).errorsDialog({
             position: {
@@ -132,7 +133,7 @@
       var request = new Ajax.AjaxRequestBuilder();
 
       sendAjaxUsing(request, deleteProtocol, $td, function() {
-        document.location.reload();
+        BrowserUtils.reloadPage();
       });
     });
   }
