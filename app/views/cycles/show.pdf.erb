@@ -1,3 +1,64 @@
-<h1><%= resource_name %></h1>
+<% content_for :css do %>
+	<%= wicked_pdf_stylesheet_link_tag "cycles/formpdf" %>
+<% end %>
 
-<%= render partial: "cycles/cycle.html.erb", locals: {form202: @form202, incident: @incident} %>
+<div class="form">
+	<div class="first-line line">
+		<div class="field incident-name">
+			<span class="title">1. Incident Name</span>
+			<span class="field-content"><%= @cycle.incident.name %></span>
+		</div>
+
+		<div class="field operational-period">
+			<span class="title">2. Operational Period (Date/Time)</span>
+			<div class="field-footer">
+				<div class="from-field">
+					<span class="from-label">From:</span>
+					<span class="from-content"><%= format_date @cycle.from %></span>
+				</div>
+				<div class="to-field">
+					<span class="to-label">To:</span>
+					<span class="to-content"><%= format_date @cycle.to %></span>
+				</div>
+			</div>
+		</div>
+
+		<div class="field form-title">
+			<span class="main-title">Incident Objectives</span>
+			<br/>
+			<span class="sub-title">ICS 202-CG</span>
+		</div>
+	</div>
+
+	<div class="objectives-line line">
+		<div class="field objectives-field">
+			<span class="title">3. Objective(s)</span>
+			<span class="field-content">
+				<ol>
+					<% @form202.objectives_texts.each do |text| %>
+						<li><%= text %></li>
+					<% end -%>
+				</ol>
+			</span>
+		</div>
+	</div>
+
+	<div class="emphasis-line line">
+		<div class="field emphasis-field">
+			<span class="title">4. Operational Period Command Emphasis (Safety Message, Priorities, Key Decisions/Directions)</span>
+			<span class="field-content"><%= @cycle.priorities %></span>
+		</div>
+	</div>
+
+	<div class="last-line line">
+		<div class="field prepared-by-field">
+			<span class="datetime-label">Date/Time</span>
+			<span class="title">5. Prepared by:(Planning Section Chief)</span>
+		</div>
+
+		<div class="field approved-by-field">
+			<span class="datetime-label">Date/Time</span>
+			<span class="title">6. Approved by:(Planning Section Chief)</span>
+		</div>
+	</div>
+</div>

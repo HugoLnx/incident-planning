@@ -2,20 +2,9 @@
 <html>
 <head>
   <title>IncidentPlanning</title>
-  <%= wicked_pdf_stylesheet_link_tag "application" %>
   <%= yield :css %>
-  <%= yield :metatags %>
-  <%= csrf_meta_tags %>
 </head>
 <body>
-
-	<header>
-		<h1>Incident Planning System</h1>
-	</header>
-
-	<section class="main-content">
-		<%= yield %>
-	</section>
-
+	<%= yield %>
 </body>
 </html>

@@ -12,8 +12,7 @@ class CyclesController < ApplicationController
       format.pdf do
         render pdf: pdf_name,
           template: "cycles/show.pdf.erb",
-          layout: "application",
-          orientation: 'Landscape'
+          layout: "application"
       end
     end
   end
