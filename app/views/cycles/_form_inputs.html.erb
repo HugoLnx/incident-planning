@@ -13,7 +13,7 @@
 
   <% else %>
 
-		<%= f.input :number, as: :integer, label: "Cycle", disabled: true, input_html: {class: "disabled_cycle_number"} %>
+		<%= f.input :number, as: :integer, label: "Operational Period", disabled: true, input_html: {class: "disabled_cycle_number"} %>
     <%= f.input :number, as: :hidden %>
     <% if from_is_mandatory %>
       <%= f.input :from, as: :datetime, order: [:day, :month, :year], disabled: true, input_html: {class: "disabled_cycle_from"} %>
@@ -26,7 +26,11 @@
     <%= f.input :to, as: :datetime, order: [:day, :month, :year] %>
 
     <%= render partial: "cycles/objectives_inputs", locals: {f: f, form202: form202} %>
-    <%= f.input :priorities, as: :text, input_html: {cols: 100, rows: 10}, error: false, required: false %>
+    <%= f.input :priorities,
+      label: "Operational Period Command Emphasis",
+      as: :text,
+      input_html: {cols: 100, rows: 10},
+      error: false, required: false %>
 
   <% end %>
 </div>
