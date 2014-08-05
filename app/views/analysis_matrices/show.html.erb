@@ -19,12 +19,28 @@
   <style>
     .btn-show-dialog {
       display: none;
+      float: left;
     }
 
     .btn-approve-in-groups {
       float: left;
     }
 
+    .btn-delete-in-groups {
+      float: left;
+    }
+
+    .buttons-line .btn {
+      margin-right: 20px;
+    }
+
+    .btn-publish, .btn-publish:hover {
+      background-color: #5d5;
+      border-top: #5c5 solid 2px;
+      border-left: #5c5 solid 2px;
+      border-bottom: #1b1 solid 2px;
+      border-right: #1b1 solid 2px;
+    }
   </style>
 <% end %>
 
@@ -32,24 +48,31 @@
 
 <%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
 
-<%= form_tag group_approval_incident_cycle_analysis_matrix_path(@incident, @cycle), method: :get do %>
-  <%= submit_tag "Approve in groups", class: "btn-approve-in-groups" %>
-<% end %>
+<div class="buttons-line"> 
+  <%= render partial: "analysis_matrices/show_priorities", locals: {cycle: @cycle} %>
 
-<%= form_tag group_deletion_incident_cycle_analysis_matrix_path(@incident, @cycle), method: :get do %>
-  <%= submit_tag "Delete in groups", class: "btn-delete-in-groups" %>
-<% end %>
+  <%= btn_link_to "Delete in groups",
+    group_deletion_incident_cycle_analysis_matrix_path(@incident, @cycle),
+    btn_options: {class: "btn-delete-in-groups btn"} %>
+
+  <%= btn_link_to "Approve in groups",
+    group_approval_incident_cycle_analysis_matrix_path(@incident, @cycle),
+    btn_options: {class: "btn-approve-in-groups btn"} %>
+
+  <%= btn_link_to "Publish Plan",
+    publish_incident_cycle_publishes_path(@incident, @cycle),
+    method: :post,
+    btn_options: {
+      class: "btn-publish btn",
+        disabled: !current_user.can_publish? || !@cycle.can_be_published?
+    } %>
+
+</div>
 
 <%= link_to "Download as PDF", 
   incident_cycle_analysis_matrix_path(@incident, @cycle, format: :pdf),
   class: "btn-download-pdf",
   download: "download"%>
-
-<%= form_tag publish_incident_cycle_publishes_path(@incident, @cycle), method: :post do %>
-  <%= submit_tag "Publish", class: "btn-publish", disabled: !current_user.can_publish? || !@cycle.can_be_published? %>
-<% end %>
-
-<%= render partial: "analysis_matrices/show_priorities", locals: {cycle: @cycle} %>
 
 <table class="analysis-matrix" id="analysis-matrix">
   <thead>
