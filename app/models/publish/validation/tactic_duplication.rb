@@ -1,7 +1,7 @@
 module Publish
   module Validation
     class TacticDuplication
-      ERROR_MESSAGE = "The same strategy can't have two tactics with same who, what and where."
+      ERROR_MESSAGE = "Tactics with Who, What and Where duplicated."
 
       def self.group_errors_on(tactic, all_strategies)
         father = all_strategies.find{|strat| strat == tactic.father}
