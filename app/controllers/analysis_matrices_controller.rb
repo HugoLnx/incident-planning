@@ -9,7 +9,8 @@ class AnalysisMatricesController < ApplicationController
       respond_to do |format|
         format.html
         format.pdf do
-          render pdf: "show",
+          render pdf: pdf_name,
+            template: "analysis_matrices/show.pdf.erb",
             layout: "application",
             orientation: 'Landscape'
         end
@@ -43,5 +44,9 @@ private
     @objective = ::Model.objective
     @strategy = ::Model.strategy
     @tactic = ::Model.tactic
+  end
+
+  def pdf_name
+    DateTime.now.strftime("%Y-%d-%m") + " Form 234"
   end
 end

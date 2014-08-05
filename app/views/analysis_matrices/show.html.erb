@@ -40,6 +40,11 @@
   <%= submit_tag "Delete in groups", class: "btn-delete-in-groups" %>
 <% end %>
 
+<%= link_to "Download as PDF", 
+  incident_cycle_analysis_matrix_path(@incident, @cycle, format: :pdf),
+  class: "btn-download-pdf",
+  download: "download"%>
+
 <%= form_tag publish_incident_cycle_publishes_path(@incident, @cycle), method: :post do %>
   <%= submit_tag "Publish", class: "btn-publish", disabled: !current_user.can_publish? || !@cycle.can_be_published? %>
 <% end %>
