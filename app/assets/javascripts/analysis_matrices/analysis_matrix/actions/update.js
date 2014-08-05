@@ -120,7 +120,7 @@
             position: {
               my: "top",
               at: "bottom",
-              of: form.$submitRow
+              of: form.$submitRow()
             },
           });
         };
