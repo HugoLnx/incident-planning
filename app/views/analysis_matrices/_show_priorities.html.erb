@@ -1,6 +1,6 @@
-<button class="btn-show-dialog btn" data-dialog-id="cycle-priorities">Show Priorities</button>
+<button class="btn-show-dialog btn" data-dialog-id="cycle-priorities">Show Command Emphasis</button>
 <div>
-	<p class="dialog-title">Priorities</p>
+	<p class="dialog-title">Command Emphasis</p>
 	<div id="cycle-priorities">
 		<pre><%= cycle.priorities %></pre>
 
@@ -11,7 +11,7 @@
 
 		<% if current_user.can_approve_priorities? && !cycle.priorities_approved? %>
 			<%= form_tag incident_cycle_priorities_approvals_path(@incident, @cycle) do %>
-				<button id="btn-approve-priorities">Approve Priorities</button>
+				<button id="btn-approve-priorities">Approve Command Emphasis</button>
 			<% end %>
 		<% end %>
 	</div>

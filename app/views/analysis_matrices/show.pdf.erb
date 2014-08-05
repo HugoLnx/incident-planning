@@ -3,7 +3,7 @@
   <%= wicked_pdf_stylesheet_link_tag "analysis_matrices_expression_colors" %>
 <% end %>
 
-<h1>Tactics Planning Matrix</h1>
+<h1><%= resource_name %></h1>
 
 <%= render partial: "layouts/cycle_brief.html.erb", locals: {cycle: @cycle, incident: @incident} %>
 

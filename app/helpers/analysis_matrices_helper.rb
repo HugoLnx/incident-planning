@@ -1,4 +1,10 @@
 module AnalysisMatricesHelper
+  RESOURCE_NAME = "Work Analysis Matrix (ICS 234)"
+
+  def analysis_matrix_resource_name
+    RESOURCE_NAME
+  end
+
   def each_row(matrix_data, &block)
     AnalysisMatrixRendererContainer::RowsIterator.new(matrix_data, callbacks: {
       show_objective: get_proc(:render_show_objective_cells),
