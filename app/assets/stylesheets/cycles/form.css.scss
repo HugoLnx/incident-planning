@@ -1,4 +1,6 @@
 form {
+  width: 860px;
+
 /* Labels */
 	label {
 		font-weight: bold;
@@ -18,9 +20,17 @@ form {
 	}
 
 	.cycle_from {
-		float: left;
-		margin-right: 40px;
+    clear: left;
+    float: left;
 	}
+
+  .cycle_to {
+    float: right;
+  }
+
+  .cycle_objectives {
+    clear: both;
+  }
 
 	.cycle_objectives_text, .cycle_priorities {
 		padding-top: 10px;
@@ -51,5 +61,19 @@ form {
 
   .field_with_errors {
     background: none;
+  }
+
+/* Customization */
+  .cycle_objectives input {
+    width: 90%;
+  }
+
+  .cycle_objectives button {
+    float: right;
+  }
+
+  .cycle_priorities textarea {
+    width: 100%;
+    box-sizing: border-box;
   }
 }
