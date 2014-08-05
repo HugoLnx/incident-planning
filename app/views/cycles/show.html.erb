@@ -1,4 +1,11 @@
 <h1>Incident Objectives</h1>
+<%= content_for :css do %>
+	<style>
+		.back-link {
+			display: block;
+		}
+	</style>
+<% end %>
 
 <%= render partial: "cycle", locals: {form202: @form202, incident: @incident} %>
 
@@ -9,9 +16,11 @@
 		<% end -%>
 	<% end -%>
 
-	<%= link_to 'Edit', edit_incident_cycle_path(@incident, @form202.cycle.id) %>
+	<%= btn_link_to 'Edit', edit_incident_cycle_path(@incident, @form202.cycle.id), class: "form-btn-edit" %>
 <% end -%>
+
 <%= link_to 'Download as PDF',
   incident_cycle_path(@incident, @form202.cycle.id, format: :pdf),
   download: "download" %>
-<%= link_to 'Back', back_path %>
+
+<%= link_to 'Back', back_path, class: "back-link" %>

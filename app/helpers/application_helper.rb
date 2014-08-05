@@ -39,4 +39,12 @@ module ApplicationHelper
         locals: {errors: record.errors}
     end
   end
+
+  def btn_link_to(label, url, **options)
+    btn_options = options.delete(:btn_options) || {}
+    options[:method] ||= :get
+    form_tag url, options do
+      submit_tag label, btn_options
+    end
+  end
 end
