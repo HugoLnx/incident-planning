@@ -23,6 +23,8 @@
 
 <h2>New Cycle - Incident Objectives</h2>
 
+<%= notify_errors @cycle %>
+
 <div class="incident-name">
 	<strong>Incident Name:</strong>
 	<%= link_to @incident.name, incident_cycles_path(@incident) %>
