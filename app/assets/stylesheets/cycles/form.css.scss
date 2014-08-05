@@ -1,4 +1,18 @@
 form {
+/* Labels */
+	label {
+		font-weight: bold;
+	}
+
+	label:after {
+		content: ":";
+	}
+
+  .cycle_priorities label, .cycle_objectives label {
+    text-transform: uppercase;
+  }
+
+/* Organization */
 	#cycle_objectives_text, #cycle_priorities {
 		display: block;
 	}
@@ -8,14 +22,6 @@ form {
 		margin-right: 40px;
 	}
 
-	label {
-		font-weight: bold;
-	}
-
-	label:after {
-		content: ":";
-	}
-
 	.cycle_objectives_text, .cycle_priorities {
 		padding-top: 10px;
 	}
@@ -23,4 +29,27 @@ form {
 	.form-actions {
 		padding: 10px 0;
 	}
+
+	.cycle_number label, .cycle_number label:after {
+		vertical-align: top;
+	}
+
+	.cycle_number input {
+		width: 50px;
+		height: 1em;
+	}
+
+  .alert {
+    padding-top: 30px;
+    clear: both;
+  }
+
+/* Errors */
+  .field_with_errors label {
+    border-bottom: solid red 2px;
+  }
+
+  .field_with_errors {
+    background: none;
+  }
 }

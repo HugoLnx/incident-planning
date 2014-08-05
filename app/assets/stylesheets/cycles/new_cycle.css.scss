@@ -2,27 +2,3 @@
 	float: left;
 	margin-right: 10px;
 }
-
-form {
-	.cycle_number label, .cycle_number label:after {
-		vertical-align: top;
-	}
-
-	.cycle_number input {
-		width: 50px;
-		height: 1em;
-	}
-
-  .alert {
-    padding-top: 30px;
-    clear: both;
-  }
-
-  .field_with_errors label {
-    border-bottom: solid red 2px;
-  }
-
-  .field_with_errors {
-    background: none;
-  }
-}
