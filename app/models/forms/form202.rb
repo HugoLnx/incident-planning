@@ -9,7 +9,8 @@ module Forms
         method: :text
       },
       any_duplication: {
-        method: :text
+        method: :text,
+        message: "can't be duplicated"
       }
 
     validates :priorities,
