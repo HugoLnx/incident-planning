@@ -1,0 +1,17 @@
+<script type="text/html" id="objective-li-template">
+  <li class="objective-input">
+    <%= text_field_tag "objectives_texts[]" %>
+  </li>
+</script>
+
+<% if form202.objectives.empty? %>
+  <li class="objective-input">
+    <%= text_field_tag "objectives_texts[]" %>
+  </li>
+<% else %>
+  <% form202.objectives.each do |obj| %>
+  <li class="objective-input deletable">
+    <%= text_field_tag "objectives_texts[#{obj.id}]", obj.text %>
+  </li>
+  <% end %>
+<% end %>

@@ -7,12 +7,6 @@
   <%= stylesheet_link_tag "cycles/form", media: "all" %>
 <% end -%>
 
-<script type="text/html" id="objective-li-template">
-  <li class="objective-input">
-    <%= text_field_tag "objectives_texts[]" %>
-  </li>
-</script>
-
 <% if @last_cycle %>
   <% content_for :metatags do %>
     <meta name="restorable_cycle_objectives_text" content="<%= @last_cycle.objectives_texts.to_json %>" />

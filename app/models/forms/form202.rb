@@ -112,6 +112,7 @@ module Forms
     def save
       begin
         ActiveRecord::Base.transaction do
+          raise ActiveRecord::RecordInvalid.new(self) unless valid?
           cycle.save!
           return if objectives.nil?
 
