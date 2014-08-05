@@ -10,7 +10,8 @@ module AuthorizationFrontController
         "tactics" => true,
         "analysis_matrices" => true,
         "incidents" => true,
-        "cycles" => true
+        "cycles" => true,
+        "publishes" => true
       }
     }
 

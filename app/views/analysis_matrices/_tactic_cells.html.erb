@@ -3,11 +3,9 @@
     data-update_path="<%= update_path %>"
     data-expression-id="<%= info[:expression_id] %>"
     class="<%= group_classes %> <%= info[:exp_classes] %> show tactic <%= name %>">
-    <div class="group-border">
-      <div class="second-border">
-        <%= render partial: "analysis_matrices/expression_text.html.erb", locals: {text: info[:text]} %>
-        <%= info[:metadata_partial] %>
-      </div>
+    <div class="second-border">
+      <%= render partial: "analysis_matrices/expression_text.html.erb", locals: {text: info[:text]} %>
+      <%= info[:metadata_partial] %>
     </div>
 	</td>
 <% end %>

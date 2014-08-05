@@ -17,7 +17,7 @@ $error_border_size: 2px;
   
 /* COLUMNS SIZE */
   td {
-    height: 50px;
+    min-height: 50px;
   }
 
 	/* width = 22 + 22 + 32 + 24 = 100% */
@@ -209,43 +209,26 @@ ul.ui-autocomplete {
 }
 
 /* INNER BORDERS */
-.group-border {
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  margin: auto auto;
-}
+$margin_vertical: -2px;
+$margin_horizontal: -4px;
 
 .tactic .second-border {
-  width: 85%;
-  height: 85%;
-  margin: auto auto;
+  width: 95%;
+  height: 95%;
+	box-sizing: border-box;
+  padding: $margin_vertical $margin_horizontal;
+	margin: auto auto;
 }
 
 .strategy .second-border, .objective .second-border {
-  width: 97%;
-  height: 100%;
-  margin: auto auto;
-}
-
-.with-group-errors.first-in-group-error .group-border {
-  border: solid red $error_border_size;
-  border-right: none;
-}
-
-.with-group-errors.middle-in-group-error .group-border {
-  width: 105%;
-  border: solid red $error_border_size;
-  border-right: none;
-  border-left: none;
-}
-
-.with-group-errors.last-in-group-error .group-border {
-  border: solid red $error_border_size;
-  border-left: none;
+  width: 95%;
+  height: 95%;
+	box-sizing: border-box;
+  padding: $margin_vertical ($margin_horizontal+5px);
+	margin: auto auto;
 }
 
 /* ERRORS */
-.with-errors.non-repeated .second-border {
+td.with-errors.non-repeated .second-border, td.with-group-errors.non-repeated .second-border {
   border: solid red $error_border_size;
 }
