@@ -63,7 +63,7 @@ describe StrategiesController do
         end
 
         it "have text equals reused text" do
-          expect(how.source).to be == @how_reused.source
+          expect(how.text).to be == @how_reused.text
         end
 
         it "have reused equals true" do

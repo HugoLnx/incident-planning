@@ -72,6 +72,7 @@ shared_examples "text expression attribute" do
       let(:old_text)  { "Old text" }
       let(:old_source)  { "Old source" }
       let(:old_reused) { true }
+      let(:reused_expression_owner_email){"owner@email.com"}
 
       before :each do
         @old_expression = subject.public_send(getter_method)
@@ -80,8 +81,26 @@ shared_examples "text expression attribute" do
         @old_expression.text = old_text
         @old_expression.owner = create :user
         @dup_old_expression = @old_expression.dup
-        @updated = subject.public_send(reused_update_method, new_reused_expression)
+        reused_exp = new_reused_expression
+        if reused_exp
+          owner = reused_exp.owner
+          owner.email = reused_expression_owner_email
+          owner.save!
+        end
+        @updated = subject.public_send(reused_update_method, reused_exp)
         @getted_expression = subject.public_send(getter_method)
+      end
+
+      shared_examples :reused_with_source_not_nil do
+        it "update the source to reused expression source" do
+          expect(@getted_expression.source).to be == new_reused_expression.source
+        end
+      end
+
+      shared_examples :reused_with_source_nil do
+        it "update the source to reused expression owner's email" do
+          expect(@getted_expression.source).to be == new_reused_expression.owner.email
+        end
       end
 
       shared_examples :update_succeed do
@@ -91,10 +110,6 @@ shared_examples "text expression attribute" do
 
         it "update the text to reused expression text" do
           expect(@getted_expression.text).to be == new_reused_expression.text
-        end
-
-        it "update the source to reused expression source" do
-          expect(@getted_expression.source).to be == new_reused_expression.source
         end
 
         it "update the owner" do
@@ -128,16 +143,37 @@ shared_examples "text expression attribute" do
         end
       end
 
+      shared_examples :update_when_changing_an_attribute do
+        context "and reused expression have source" do
+          # Source doesn't change
+          let(:old_source){"Old Source"}
+          let(:reused_source){"Old Source"}
+
+          include_examples :any_kind_of_update
+          include_examples :reused_with_source_not_nil
+          include_examples :update_succeed
+        end
+
+        context "and reused expression haven't source" do
+          # Source doesn't change
+          let(:old_source){reused_expression_owner_email}
+          let(:reused_source){nil}
+
+          include_examples :any_kind_of_update
+          include_examples :reused_with_source_nil
+          include_examples :update_succeed
+        end
+      end
+
       context "if text change" do
         let(:old_text)  { "Old text" }
         let :new_reused_expression do
           build :text_expression,
             text: "New Text",
-            source: old_source
+            source: reused_source
         end
 
-        include_examples :any_kind_of_update
-        include_examples :update_succeed
+        include_examples :update_when_changing_an_attribute
       end
 
       context "if source change" do
@@ -145,11 +181,28 @@ shared_examples "text expression attribute" do
         let :new_reused_expression do
           build :text_expression,
             text: old_text,
-            source: "New source"
+            source: reused_source
         end
 
-        include_examples :any_kind_of_update
-        include_examples :update_succeed
+        context "and reused expression have source" do
+          # Source does change
+          let(:old_source){"Old Source"}
+          let(:reused_source){"New Source"}
+
+          include_examples :any_kind_of_update
+          include_examples :reused_with_source_not_nil
+          include_examples :update_succeed
+        end
+
+        context "and reused expression haven't source" do
+          # Source does change
+          let(:old_source){nil}
+          let(:reused_source){nil}
+
+          include_examples :any_kind_of_update
+          include_examples :reused_with_source_nil
+          include_examples :update_succeed
+        end
       end
 
       context "if reused change" do
@@ -157,11 +210,10 @@ shared_examples "text expression attribute" do
         let :new_reused_expression do
           build :text_expression,
             text: old_text,
-            source: old_source
+            source: reused_source
         end
 
-        include_examples :any_kind_of_update
-        include_examples :update_succeed
+        include_examples :update_when_changing_an_attribute
       end
 
       context "if nothing changes" do
@@ -236,7 +288,21 @@ shared_examples "text expression attribute" do
   end
 
   describe "when setting from reused expression" do
-    context "passing an expression" do
+    shared_examples :common_reusing_expression_expectations do
+      it "have same text of reused expression" do
+        expect(@expression.text).to be == "Reused Text"
+      end
+
+      it "have reused equals true" do
+        expect(@expression).to be_reused
+      end
+
+      it "have high model's owner" do
+        expect(@expression.owner).to be == subject.owner
+      end
+    end
+
+    context "passing an expression with non nil source" do
       before :each do
         @old_expression = subject.public_send(getter_method)
         @reused_expression = build :text_expression,
@@ -247,20 +313,29 @@ shared_examples "text expression attribute" do
       end
 
       describe "creates a new expression that" do
+        include_examples :common_reusing_expression_expectations
+
         it "have same source of reused expression" do
           expect(@expression.source).to be == "Reused Source"
         end
+      end
+    end
 
-        it "have same text of reused expression" do
-          expect(@expression.text).to be == "Reused Text"
-        end
+    context "passing an expression with source nil" do
+      before :each do
+        @old_expression = subject.public_send(getter_method)
+        @reused_expression = build :text_expression,
+          source: nil,
+          text: "Reused Text"
+        subject.public_send(reused_setter_method, @reused_expression)
+        @expression = subject.public_send(getter_method)
+      end
 
-        it "have reused equals true" do
-          expect(@expression).to be_reused
-        end
+      describe "creates a new expression that" do
+        include_examples :common_reusing_expression_expectations
 
-        it "have high model's owner" do
-          expect(@expression.owner).to be == subject.owner
+        it "have source equals reused expression owner email" do
+          expect(@expression.source).to be == @reused_expression.owner.email
         end
       end
     end

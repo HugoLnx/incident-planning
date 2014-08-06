@@ -45,7 +45,11 @@ module HighModels
 
           exp.reused = true
           exp.text = exp_reused.text
-          exp.source = exp_reused.source
+          if exp_reused.source.nil?
+            exp.source = exp_reused.owner.email
+          else
+            exp.source = exp_reused.source
+          end
 
           updated = exp.reused != old_reused ||
               exp.text != old_text ||
@@ -64,10 +68,17 @@ module HighModels
 
         define_method :"#{name}_reused=" do |reused_expression|
           return if reused_expression.nil?
+
+          if reused_expression.source.nil?
+            source = reused_expression.owner.email
+          else
+            source = reused_expression.source
+          end
+
           expression = ::TextExpression.new(
             name: expression_name,
             text: reused_expression.text,
-            source: reused_expression.source,
+            source: source,
             reused: true,
             owner: self.owner
           )
@@ -138,7 +149,11 @@ module HighModels
           old_when = exp.when
 
           exp.reused = true
-          exp.source = exp_reused.source
+          if exp_reused.source.nil?
+            exp.source = exp_reused.owner.email
+          else
+            exp.source = exp_reused.source
+          end
           exp.text = exp_reused.text
           exp.when = exp_reused.when
 
@@ -177,11 +192,18 @@ module HighModels
 
         define_method :"#{name}_reused=" do |reused_expression|
           return if reused_expression.nil?
+
+          if reused_expression.source.nil?
+            source = reused_expression.owner.email
+          else
+            source = reused_expression.source
+          end
+
           expression = ::TimeExpression.new(
             name: expression_name,
             text: reused_expression.text,
             when:  reused_expression.when,
-            source: reused_expression.source,
+            source: source,
             reused: true,
             owner: self.owner
           )

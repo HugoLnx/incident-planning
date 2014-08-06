@@ -4,7 +4,7 @@ FactoryGirl.define do
     reused false
     association :owner, factory: :user
     sequence(:when) {"22/03/1993 10:50"}
-    source nil
+    sequence(:source){|i| "Source #{i}"}
     created_at DateTime.now
 
     factory :tactic_when do
@@ -17,6 +17,7 @@ FactoryGirl.define do
     sequence(:text) {|i| "Expression #{name} #{i}"}
     cycle
     association :owner, factory: :user
+    sequence(:source){|i| "Source #{i}"}
     created_at DateTime.now
 
     factory :objective do

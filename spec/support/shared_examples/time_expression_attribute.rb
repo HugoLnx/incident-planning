@@ -151,9 +151,10 @@ shared_examples "time expression attribute" do
 
     describe "reused expression update" do
       let(:old_reused){true}
-      let(:old_source){nil}
+      let(:old_source){"Old Source"}
       let(:old_text){""}
       let(:old_when){nil}
+      let(:reused_expression_owner_email){"owner@email.com"}
 
       before :each do
         @old_expression = subject.public_send(getter_method)
@@ -163,7 +164,13 @@ shared_examples "time expression attribute" do
         @old_expression.when = old_when
         @dup_old_expression = @old_expression.dup
         @new_time = DateTime.now.beginning_of_minute
-        @updated = subject.public_send(reused_update_method, new_reused_expression)
+        reused_exp = new_reused_expression
+        if reused_exp
+          owner = reused_exp.owner
+          owner.email = reused_expression_owner_email
+          owner.save!
+        end
+        @updated = subject.public_send(reused_update_method, reused_exp)
         @getted_expression = subject.public_send(getter_method)
       end
 
@@ -172,16 +179,24 @@ shared_examples "time expression attribute" do
           expect(@getted_expression).to be_reused
         end
 
-        it "update the source to the reused expression" do
-          expect(@getted_expression.source).to be == new_reused_expression.source
-        end
-
         it "update the text to the text expression" do
           expect(@getted_expression.text).to be == new_reused_expression.text
         end
 
         it "update the text to the when expression" do
           expect(@getted_expression.when).to be == new_reused_expression.when
+        end
+      end
+
+      shared_examples :reused_with_source_not_nil do
+        it "update the source to the reused expression's source" do
+          expect(@getted_expression.source).to be == new_reused_expression.source
+        end
+      end
+
+      shared_examples :reused_with_source_nil do
+        it "update the source to the reused expression owner's email" do
+          expect(@getted_expression.source).to be == new_reused_expression.owner.email
         end
       end
 
@@ -195,60 +210,97 @@ shared_examples "time expression attribute" do
         end
       end
 
+      shared_examples :update_when_changing_an_attribute do
+        context "and reused expression have source" do
+          # Source doesn't change
+          let(:old_source){"Old Source"}
+          let(:reused_source){"Old Source"}
+
+          include_examples :any_kind_of_update
+          include_examples :general_reused_update
+          include_examples :reused_with_source_not_nil
+          include_examples :reused_update_succeed
+        end
+
+        context "and reused expression haven't source" do
+          # Source doesn't change
+          let(:old_source){reused_expression_owner_email}
+          let(:reused_source){nil}
+
+          include_examples :any_kind_of_update
+          include_examples :general_reused_update
+          include_examples :reused_with_source_nil
+          include_examples :reused_update_succeed
+        end
+      end
+
       context "if text change" do
         let(:old_text){ "Old text" }
+
         let :new_reused_expression do
           build :time_expression,
-            source: old_source,
+            source: reused_source,
             text: "New text",
             when: old_when
         end
 
-        include_examples :any_kind_of_update
-        include_examples :general_reused_update
-        include_examples :reused_update_succeed
+        include_examples :update_when_changing_an_attribute
       end
 
       context "if when change" do
         let(:old_when){ nil }
         let :new_reused_expression do
           build :time_expression,
-            source: old_source,
+            source: reused_source,
             text: old_text,
             when: DateTime.now
         end
 
-        include_examples :any_kind_of_update
-        include_examples :general_reused_update
-        include_examples :reused_update_succeed
-      end
-
-      context "if source change" do
-        let(:old_source){ "Old Source" }
-        let :new_reused_expression do
-          build :time_expression,
-            source: "New Source",
-            text: old_text,
-            when: old_when
-        end
-
-        include_examples :any_kind_of_update
-        include_examples :general_reused_update
-        include_examples :reused_update_succeed
+        include_examples :update_when_changing_an_attribute
       end
 
       context "if reused change" do
         let(:old_reused){ false }
         let :new_reused_expression do
           build :time_expression,
-            source: old_source,
+            source: reused_source,
             text: old_text,
             when: old_when
         end
 
-        include_examples :any_kind_of_update
-        include_examples :general_reused_update
-        include_examples :reused_update_succeed
+        include_examples :update_when_changing_an_attribute
+      end
+
+      context "if source change" do
+        let(:old_source){ "Old Source" }
+        let :new_reused_expression do
+          build :time_expression,
+            source: reused_source,
+            text: old_text,
+            when: old_when
+        end
+
+        context "and reused expression have source" do
+          # Source does change
+          let(:old_source){"Old Source"}
+          let(:reused_source){"New Source"}
+
+          include_examples :any_kind_of_update
+          include_examples :general_reused_update
+          include_examples :reused_with_source_not_nil
+          include_examples :reused_update_succeed
+        end
+
+        context "and reused expression haven't source" do
+          # Source does change
+          let(:old_source){nil}
+          let(:reused_source){nil}
+
+          include_examples :any_kind_of_update
+          include_examples :general_reused_update
+          include_examples :reused_with_source_nil
+          include_examples :reused_update_succeed
+        end
       end
 
       context "if nothing changes change" do
@@ -391,7 +443,25 @@ shared_examples "time expression attribute" do
   end
 
   describe "when setting from reused expression" do
-    context "passing an expression" do
+    shared_examples :common_reusing_expression_expectations do
+      it "have same text of reused expression" do
+        expect(@expression.text).to be == "Reused Text"
+      end
+
+      it "have same when of reused expression" do
+        expect(@expression.when).to be == @reused_expression.when
+      end
+
+      it "have reused equals true" do
+        expect(@expression).to be_reused
+      end
+
+      it "have high model's owner" do
+        expect(@expression.owner).to be == subject.owner
+      end
+    end
+
+    context "passing an expression with source that's not nil" do
       before :each do
         @old_expression = subject.public_send(getter_method)
         @reused_expression = build :time_expression,
@@ -403,24 +473,30 @@ shared_examples "time expression attribute" do
       end
 
       describe "creates a new expression that" do
+        include_examples :common_reusing_expression_expectations
+
         it "have same source of reused expression" do
           expect(@expression.source).to be == "Reused Source"
         end
+      end
+    end
 
-        it "have same text of reused expression" do
-          expect(@expression.text).to be == "Reused Text"
-        end
+    context "passing an expression with source nil" do
+      before :each do
+        @old_expression = subject.public_send(getter_method)
+        @reused_expression = build :time_expression,
+          source: nil,
+          text: "Reused Text",
+          when: DateTime.now.beginning_of_minute
+        subject.public_send(reused_setter_method, @reused_expression)
+        @expression = subject.public_send(getter_method)
+      end
 
-        it "have same when of reused expression" do
-          expect(@expression.when).to be == @reused_expression.when
-        end
+      describe "creates a new expression that" do
+        include_examples :common_reusing_expression_expectations
 
-        it "have reused equals true" do
-          expect(@expression).to be_reused
-        end
-
-        it "have high model's owner" do
-          expect(@expression.owner).to be == subject.owner
+        it "have same source equals reused expression owner's email" do
+          expect(@expression.source).to be == @reused_expression.owner.email
         end
       end
     end
