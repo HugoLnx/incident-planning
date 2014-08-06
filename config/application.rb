@@ -29,10 +29,12 @@ module IncidentPlanning
     config.assets.precompile += [
       "analysis_matrices.js", "group_analysis_matrices.js", "new_cycle.js",
       "analysis_matrix_published.js",
-      "cycles/new_cycle.css", "cycles/form.css", "cycles.css",
+      "cycles/new_cycle.css", "cycles/form.css", "cycles/formpdf.css",
+      "cycles.css",
+      "analysis_matrices/formpdf.css",
       "analysis_matrices.css",
       "analysis_matrices_expression_colors.css",
-      "analysis_matrices_published_expression_colors.css"
+      "analysis_matrices_published_expression_colors.css",
     ]
   end
 end
