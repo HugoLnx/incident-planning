@@ -48,7 +48,7 @@ module ApplicationHelper
     end
   end
 
-  def is_publishing
-    controller_name == 'publishes'
+  def have_alarms
+    %w{publishes versions}.include? controller_name
   end
 end

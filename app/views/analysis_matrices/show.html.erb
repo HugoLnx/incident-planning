@@ -51,6 +51,10 @@
     group_approval_incident_cycle_analysis_matrix_path(@incident, @cycle),
     btn_options: {class: "btn-approve-in-groups btn"} %>
 
+  <%= btn_link_to "Issue Version", 
+    new_incident_cycle_versions_path(@incident, @cycle),
+    class: "btn-issue-version btn" %>
+
   <%= btn_link_to "Publish Plan",
     publish_incident_cycle_publishes_path(@incident, @cycle),
     method: :post,
@@ -63,7 +67,7 @@
     incident_cycle_analysis_matrix_path(@incident, @cycle, format: :pdf),
     class: "btn-download-pdf btn" %>
 
-  <% if is_publishing %>
+  <% if have_alarms %>
     <%= btn_link_to "Clear Alarms", 
       incident_cycle_analysis_matrix_path(@incident, @cycle),
       class: "btn-clear-alarms btn" %>

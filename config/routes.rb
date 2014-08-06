@@ -31,6 +31,7 @@ IncidentPlanning::Application.routes.draw do
         post :publish
         get :publish, to: "publishes#new"
       end
+      resource :versions, only: [:index, :show, :new, :create]
       resources :tactics
       resources :strategies
     end

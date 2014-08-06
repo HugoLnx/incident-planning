@@ -55,13 +55,5 @@ module Publish
         group: group_errors
       }
     end
-
-    def self.get_messages(errors)
-      messages = Hash.new([])
-      errors.each do |key, exp_errors|
-        messages[key] = exp_errors.map(&:last).flatten.map(&:capitalize)
-      end
-      messages
-    end
   end
 end

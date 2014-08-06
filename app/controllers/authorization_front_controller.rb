@@ -11,7 +11,8 @@ module AuthorizationFrontController
         "analysis_matrices" => true,
         "incidents" => true,
         "cycles" => true,
-        "publishes" => true
+        "publishes" => true,
+        "versions" => true
       }
     }
 
