@@ -1,5 +1,9 @@
 @import "../formpdf";
 
+.form {
+  height: $page_height + 16px;
+}
+
 $thin-line-percent: 0.05;
 .first-line {
 	height: $page_height * $thin-line-percent;
