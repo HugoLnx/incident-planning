@@ -1,38 +1,85 @@
 <% content_for :css do %>
-  <%= wicked_pdf_stylesheet_link_tag "analysis_matrices" %>
-  <%= wicked_pdf_stylesheet_link_tag "analysis_matrices_expression_colors" %>
+	<%= wicked_pdf_stylesheet_link_tag "analysis_matrices/formpdf" %>
 <% end %>
 
-<h1><%= resource_name %></h1>
+<% pdf_each_block @matrix_data do |rows|%>
+<div class="form">
+	<div class="first-line line">
+		<div class="field before-form-title">
+    </div>
 
-<%= render partial: "layouts/cycle_brief.html.erb", locals: {cycle: @cycle, incident: @incident} %>
+		<div class="field form-title">
+			<span class="main-title">Work Analysis Matrix</span>
+			<br/>
+			<span class="sub-title">ICS 234-CG</span>
+		</div>
+  </div>
 
-<table class="analysis-matrix" id="analysis-matrix">
-  <thead>
-    <tr>
-      <th rowspan="2" class="header objective">OBJECTIVES</th>
-      <th class="header strategy" colspan="<%= @strategy.expressions.size %>">STRATEGIES</th>
-      <th class="header tactic" colspan="<%= @tactic.expressions.size %>">TACTICS</th>
-    </tr>
-    <tr>
-      <% @strategy.expressions.each do |exp| %>
-        <th class="header strategy"><%= exp.human_name %></th>
-      <% end %>
-      <% @tactic.expressions.each do |exp| %>
-        <th class="header tactic"><%= exp.human_name %></th>
-      <% end %>
-    </tr>
-  </thead>
+	<div class="second-line line">
+		<div class="field incident-name">
+			<span class="title">1. Incident Name</span>
+			<span class="field-content"><%= @cycle.incident.name %></span>
+		</div>
 
-  <tbody>
-    <% each_row_for_group_approval(@matrix_data) do |row| %>
-      <tr>
-        <%= row.objective_cells.render %>
+		<div class="field operational-period">
+			<span class="title">2. Operational Period</span>
+			<div class="field-footer">
+				<div class="from-field">
+					<span class="from-label">From:</span>
+					<span class="from-content"><%= format_date @cycle.from %></span>
+				</div>
+				<div class="to-field">
+					<span class="to-label">To:</span>
+					<span class="to-content"><%= format_date @cycle.to %></span>
+				</div>
+			</div>
+		</div>
+	</div>
 
-        <%= row.strategy_cells.render %>
+	<div class="matrix-headers line">
+		<div class="field matrix-header objectives-header">
+			<span class="title">3. Operation's Objectives</span>
+			<span class="sub-title">Desired Outcome</span>
+		</div>
 
-        <%= row.tactic_cells.render %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+		<div class="field matrix-header strategies-header">
+			<span class="title">4. Optional Strategies</span>
+			<span class="sub-title">How</span>
+		</div>
+
+		<div class="field matrix-header tactics-header">
+			<span class="title">5. Tactics/Work Assignments</span>
+			<span class="sub-title">Who, What, Where, When</span>
+		</div>
+	</div>
+
+
+  <% rows.each do |row| %>
+	<div class="matrix-cells line">
+		<div class="field matrix-cell objectives-cell">
+			<span class="field-content"><%= row.objective_cells.render %></span>
+		</div>
+
+		<div class="field matrix-cell strategies-cell">
+			<span class="field-content"><%= row.strategy_cells.render %></span>
+		</div>
+
+		<div class="field matrix-cell tactics-cell">
+			<span class="field-content"><%= row.tactic_cells.render %></span>
+		</div>
+	</div>
+  <% end%>
+
+	<div class="last-line line">
+		<div class="field prepared-by-field">
+			<span class="datetime-label">Date/Time</span>
+			<span class="title">5. Prepared by:(Planning Section Chief)</span>
+		</div>
+
+		<div class="field approved-by-field">
+			<span class="datetime-label">Date/Time</span>
+			<span class="title">6. Approved by:(Planning Section Chief)</span>
+		</div>
+	</div>
+</div>
+<% end %>

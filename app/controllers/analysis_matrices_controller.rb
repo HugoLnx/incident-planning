@@ -11,8 +11,7 @@ class AnalysisMatricesController < ApplicationController
         format.pdf do
           render pdf: pdf_name,
             template: "analysis_matrices/show.pdf.erb",
-            layout: "application",
-            orientation: 'Landscape'
+            layout: "application"
         end
       end
     end

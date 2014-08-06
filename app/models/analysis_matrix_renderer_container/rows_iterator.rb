@@ -24,5 +24,11 @@ module AnalysisMatrixRendererContainer
       form_rows = FormRows.new(@callbacks, nil, previous_row)
       form_rows.build_rows.each{|extra_row| yield extra_row}
     end
+
+    def rows
+      rows = []
+      each_row{|row| rows << row}
+      rows
+    end
   end
 end

@@ -1,0 +1,76 @@
+@import "../formpdf";
+
+$thin-line-percent: 0.05;
+.first-line {
+	height: $page_height * $thin-line-percent;
+
+	.field.before-form-title {
+		width: $page_width * 0.8 - 2px;
+  }
+
+	.field.form-title {
+		width: $page_width * 0.2 - 2px;
+		font-weight: bold;
+		text-transform: uppercase;
+		text-align: right;
+		line-height: $page_height * $thin-line-percent/2;
+
+		.main-title, .sub-title {
+			margin-right: 4px;
+		}
+	}
+}
+
+
+.second-line {
+	height: $page_height * $thin-line-percent;
+
+	.field.incident-name {
+		width: $page_width * 0.6 - 2px;
+	}
+
+	.field.operational-period {
+		width: $page_width * 0.4 - 2px;
+
+		.from-field, .to-field {
+			width: 50%;
+			margin: 0;
+			padding: 0;
+			float: left;
+		}
+	}
+}
+
+.matrix-headers {
+	height: $page_height * $thin-line-percent;
+
+	.matrix-header {
+		width: $page_width * 0.3333 - 1px;
+    text-align: center;
+    font-size: 1.2em;
+
+    .sub-title {
+      text-transform: uppercase;
+    }
+	}
+}
+
+.matrix-cells {
+	height: $page_height * 0.08;
+
+	.matrix-cell {
+		width: $page_width * 0.3333 - 1px;
+	}
+}
+
+.last-line {
+	height: $page_height * $thin-line-percent;
+
+	.prepared-by-field {
+		width: $page_width * 0.5 - 2px;
+	}
+
+	.approved-by-field {
+		width: $page_width * 0.5 - 1px;
+	}
+}
