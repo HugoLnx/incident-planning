@@ -52,7 +52,8 @@
     btn_options: {class: "btn-approve-in-groups btn"} %>
 
   <%= btn_link_to "Issue Version", 
-    new_incident_cycle_versions_path(@incident, @cycle),
+    incident_cycle_versions_path(@incident, @cycle),
+    method: :post,
     class: "btn-issue-version btn",
     btn_options: {
       disabled: !current_user.can_issue_version?

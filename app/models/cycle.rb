@@ -6,6 +6,7 @@ class Cycle < ActiveRecord::Base
   has_many :text_expressions
   has_many :time_expressions
   has_many :groups, class_name: ::Group
+  has_many :versions
 
   default_scope {order "number ASC"}
 
@@ -86,5 +87,17 @@ class Cycle < ActiveRecord::Base
 
   def published?
     closed?
+  end
+
+  def last_version
+    versions.order(:created_at).last
+  end
+
+  def current_version_number
+    Version.next_number_to(self)
+  end
+
+  def have_past_versions?
+    current_version_number != Version::FIRST_NUMBER
   end
 end

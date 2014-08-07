@@ -1,0 +1,25 @@
+<h1>Operational Period Versions</h1>
+
+<%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
+
+<table class="index-table" id="versions">
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Creation Date</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @versions.each do |version| %>
+      <tr>
+        <td><%= version.number %></td>
+        <td><%= format_date version.created_at %></td>
+        <td><%= link_to 'PDF', incident_cycle_version_path(@incident, @cycle, version, format: :pdf) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Back', back_path %>
