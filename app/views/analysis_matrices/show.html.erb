@@ -53,7 +53,10 @@
 
   <%= btn_link_to "Issue Version", 
     new_incident_cycle_versions_path(@incident, @cycle),
-    class: "btn-issue-version btn" %>
+    class: "btn-issue-version btn",
+    btn_options: {
+      disabled: !current_user.can_issue_version?
+    } %>
 
   <%= btn_link_to "Publish Plan",
     publish_incident_cycle_publishes_path(@incident, @cycle),

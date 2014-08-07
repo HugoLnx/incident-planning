@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
   INCIDENT_COMMANDER_ID = 0
   PLANNING_CHIEF_ID = 1
+  OPERATIONS_CHIEF_ID = 2
 
   def roles_ids=(roles_ids)
     valids_size = 0
@@ -52,6 +53,12 @@ class User < ActiveRecord::Base
     is_incident_commander = !user_role(INCIDENT_COMMANDER_ID).nil?
     is_planning_chief = !user_role(PLANNING_CHIEF_ID).nil?
     is_incident_commander || is_planning_chief
+  end
+
+  def can_issue_version?
+    is_operations_chief = !user_role(OPERATIONS_CHIEF_ID).nil?
+    is_planning_chief = !user_role(PLANNING_CHIEF_ID).nil?
+    is_operations_chief || is_planning_chief
   end
 
 private
