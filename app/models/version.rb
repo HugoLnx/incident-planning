@@ -3,8 +3,12 @@ class Version < ActiveRecord::Base
 
   belongs_to :cycle
 
+  validates :pdf,
+    presence: true
+
   def self.new_next_to(cycle)
-    Version.new number: self.next_number_to(cycle), cycle: cycle
+    next_number = self.next_number_to(cycle)
+    Version.new number: next_number, cycle: cycle
   end
 
   def self.next_number_to(cycle)

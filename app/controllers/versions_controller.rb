@@ -10,8 +10,8 @@ class VersionsController < ApplicationController
     @group_errors = Publish::GroupMessagesIterator.new(@group_errors)
 
     if @expression_errors.empty? && @group_errors.empty?
-      Publish::Version.issue(@cycle)
-      redirect_to action: :show
+      Publish::Version.issue(@cycle, render_matrix_pdf)
+      redirect_to controller: :analysis_matrices, action: :show
     else
       render "analysis_matrices/show"
     end
@@ -32,6 +32,13 @@ class VersionsController < ApplicationController
     @versions = @cycle.versions
   end
 
+  def show
+    version = Version.find(params[:id])
+    respond_to do |format|
+      format.pdf {render text: version.pdf}
+    end
+  end
+
 private
   def set_incident_and_cycle
     @incident = Incident.find params[:incident_id]
@@ -46,5 +53,11 @@ private
     @objective = ::Model.objective
     @strategy = ::Model.strategy
     @tactic = ::Model.tactic
+  end
+
+  def render_matrix_pdf
+    render_to_string pdf: "anything",
+      template: "analysis_matrices/show.pdf.erb",
+      layout: "application"
   end
 end

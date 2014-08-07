@@ -3,6 +3,7 @@
 		.cycle-brief .incident-name,
 		.cycle-brief .cycle,
 		.cycle-brief .status,
+		.cycle-brief .version,
 		.cycle-brief .from,
 		.cycle-brief .to
 		{
@@ -13,7 +14,7 @@
     }
 
 		.cycle-brief .from,
-		.cycle-brief .post-to
+    .cycle-brief .brief-end
 		{
       clear: left;
     }
@@ -46,5 +47,10 @@
 		<%= format_date cycle.to %>
 	</p>
 
-	<div class="post-to"></div>
+	<p class="version">
+		<strong>Current Version:</strong>
+		<%= cycle.current_version_number %>
+	</p>
+
+  <div class="brief-end"></div>
 </div>
