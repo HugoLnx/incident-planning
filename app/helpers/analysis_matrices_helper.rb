@@ -192,7 +192,17 @@ private
   
   def error_class(expression)
     return "" if expression.nil? || @expression_errors.nil?
-    return @expression_errors.has_key?(expression.id) ? "with-errors" : "no-errors"
+    if (
+      expression.is_a?(TextExpression) &&
+      @expression_errors[:text].has_key?(expression.id)
+    ) || (
+      expression.is_a?(TimeExpression) &&
+      @expression_errors[:time].has_key?(expression.id)
+    )
+      return "with-errors"
+    else
+      "no-errors"
+    end
   end
 
   def errors_from(expression)
@@ -200,7 +210,11 @@ private
 
     errors = []
     if @expression_errors
-      errors += @expression_errors[expression.id]
+      if expression.is_a? TextExpression
+        errors += @expression_errors[:text][expression.id]
+      else
+        errors += @expression_errors[:time][expression.id]
+      end
     end
 
     if @group_errors

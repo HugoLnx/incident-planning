@@ -4,10 +4,9 @@ class VersionsController < ApplicationController
   def create
     prepare_to_render_analysis_matrix
 
-    all_errors = Publish::VersionValidation.errors_on(@objectives)
-    @expression_errors = Publish::ValidationUtils.get_messages(all_errors[:expression])
-    @group_errors = Publish::ValidationUtils.get_messages(all_errors[:group])
-    @group_errors = Publish::GroupMessagesIterator.new(@group_errors)
+    all_messages = Publish::VersionValidation.errors_messages_on(@objectives)
+    @expression_errors = all_messages[:expression]
+    @group_errors = all_messages[:group]
 
     if @expression_errors.empty? && @group_errors.empty?
       Publish::Version.issue(@cycle, render_matrix_pdf)
@@ -20,10 +19,9 @@ class VersionsController < ApplicationController
   def new
     prepare_to_render_analysis_matrix
 
-    all_errors = Publish::VersionValidation.errors_on(@objectives)
-    @expression_errors = Publish::ValidationUtils.get_messages(all_errors[:expression])
-    @group_errors = Publish::ValidationUtils.get_messages(all_errors[:group])
-    @group_errors = Publish::GroupMessagesIterator.new(@group_errors)
+    all_messages = Publish::VersionValidation.errors_messages_on(@objectives)
+    @expression_errors = all_messages[:expression]
+    @group_errors = all_messages[:group]
 
     render "analysis_matrices/show"
   end

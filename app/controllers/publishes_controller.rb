@@ -4,10 +4,9 @@ class PublishesController < ApplicationController
   def publish
     prepare_to_render_analysis_matrix
 
-    all_errors = Publish::PublishValidation.errors_on(@objectives)
-    @expression_errors = Publish::ValidationUtils.get_messages(all_errors[:expression])
-    @group_errors = Publish::ValidationUtils.get_messages(all_errors[:group])
-    @group_errors = Publish::GroupMessagesIterator.new(@group_errors)
+    all_messages = Publish::PublishValidation.errors_messages_on(@objectives)
+    @expression_errors = all_messages[:expression]
+    @group_errors = all_messages[:group]
 
     if @expression_errors.empty? && @group_errors.empty?
       Publish::Publisher.publish(@cycle)
@@ -20,10 +19,9 @@ class PublishesController < ApplicationController
   def new
     prepare_to_render_analysis_matrix
 
-    all_errors = Publish::PublishValidation.errors_on(@objectives)
-    @expression_errors = Publish::PublishValidation.get_messages(all_errors[:expression])
-    @group_errors = Publish::PublishValidation.get_messages(all_errors[:group])
-    @group_errors = Publish::GroupMessagesIterator.new(@group_errors)
+    all_errors = Publish::PublishValidation.errors_messages_on(@objectives)
+    @expression_errors = all_errors[:expression]
+    @group_errors = all_errors[:group]
 
     render "analysis_matrices/show"
   end
