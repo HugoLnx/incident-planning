@@ -29,7 +29,7 @@ module AnalysisMatrixRendererContainer
 
       context "when rendering objective cells" do
         it "call show_objective callback once" do
-          expect(callback_show_objective).to receive(:call).once do |objective, repeated|
+          expect(callback_show_objective).to receive(:[]).once do |objective, repeated|
             expect(objective).to be_kind_of Groups::Objective
             expect(repeated).to be_false
           end
@@ -39,14 +39,14 @@ module AnalysisMatrixRendererContainer
 
       context "when rendering strategy cells" do
         it "call new_strategy callback once" do
-          expect(callback_new_strategy).to receive(:call).once.with(objective.id)
+          expect(callback_new_strategy).to receive(:[]).once.with(objective.id)
           subject.each_row{|row| row.strategy_cells.render}
         end
       end
 
       context "when rendering tactic cells" do
         it "call show_tactic callback once" do
-          expect(callback_show_tactic).to receive(:call).once do |tactic, repeated|
+          expect(callback_show_tactic).to receive(:[]).once do |tactic, repeated|
             expect(tactic).to be_nil
             expect(repeated).to be_false
           end
@@ -72,12 +72,12 @@ module AnalysisMatrixRendererContainer
 
       context "when rendering objective cells" do
         it "call show_objective callback twice" do
-          expect(callback_show_objective).to receive(:call).ordered do |objective, repeated|
+          expect(callback_show_objective).to receive(:[]).ordered do |objective, repeated|
             expect(objective).to be_kind_of Groups::Objective
             expect(repeated).to be_false
           end
 
-          expect(callback_show_objective).to receive(:call).ordered do |objective, repeated|
+          expect(callback_show_objective).to receive(:[]).ordered do |objective, repeated|
             expect(objective).to be_kind_of Groups::Objective
             expect(repeated).to be_true
           end
@@ -87,20 +87,20 @@ module AnalysisMatrixRendererContainer
 
       context "when rendering strategy cells" do
         it "call show_strategy followed by new_strategy callbacks" do
-          expect(callback_show_strategy).to receive(:call).ordered do |strategy, repeated|
+          expect(callback_show_strategy).to receive(:[]).ordered do |strategy, repeated|
             expect(strategy).to be_kind_of Groups::Strategy
             expect(repeated).to be_false
           end
-          expect(callback_new_strategy).to receive(:call).ordered.with(objective.id)
+          expect(callback_new_strategy).to receive(:[]).ordered.with(objective.id)
           subject.each_row{|row| row.strategy_cells.render}
         end
       end
 
       context "when rendering tactic cells" do
         it "call new_tactic followed by show_tactic callbacks" do
-          expect(callback_new_tactic).to receive(:call).ordered.with(strategy.id)
+          expect(callback_new_tactic).to receive(:[]).ordered.with(strategy.id)
 
-          expect(callback_show_tactic).to receive(:call).ordered do |tactic, repeated|
+          expect(callback_show_tactic).to receive(:[]).ordered do |tactic, repeated|
             expect(tactic).to be_nil
             expect(repeated).to be_false
           end
@@ -128,12 +128,12 @@ module AnalysisMatrixRendererContainer
 
       context "when rendering objective cells" do
         it "call show_objective callback three times" do
-          expect(callback_show_objective).to receive(:call).ordered do |objective, repeated|
+          expect(callback_show_objective).to receive(:[]).ordered do |objective, repeated|
             expect(objective).to be_kind_of Groups::Objective
             expect(repeated).to be_false
           end
 
-          expect(callback_show_objective).to receive(:call).twice.ordered do |objective, repeated|
+          expect(callback_show_objective).to receive(:[]).twice.ordered do |objective, repeated|
             expect(objective).to be_kind_of Groups::Objective
             expect(repeated).to be_true
           end
@@ -143,29 +143,29 @@ module AnalysisMatrixRendererContainer
 
       context "when rendering strategy cells" do
         it "call show_strategy twice followed by new_strategy callbacks" do
-          expect(callback_show_strategy).to receive(:call).ordered do |strategy, repeated|
+          expect(callback_show_strategy).to receive(:[]).ordered do |strategy, repeated|
             expect(strategy).to be_kind_of Groups::Strategy
             expect(repeated).to be_false
           end
-          expect(callback_show_strategy).to receive(:call).ordered do |strategy, repeated|
+          expect(callback_show_strategy).to receive(:[]).ordered do |strategy, repeated|
             expect(strategy).to be_kind_of Groups::Strategy
             expect(repeated).to be_true
           end
-          expect(callback_new_strategy).to receive(:call).ordered.with(objective.id)
+          expect(callback_new_strategy).to receive(:[]).ordered.with(objective.id)
           subject.each_row{|row| row.strategy_cells.render}
         end
       end
 
       context "when rendering tactic cells" do
         it "call show_tactic => new_tactic => show_tactic callbacks" do
-          expect(callback_show_tactic).to receive(:call).ordered do |tactic, repeated|
+          expect(callback_show_tactic).to receive(:[]).ordered do |tactic, repeated|
             expect(tactic).to be_kind_of Groups::Tactic
             expect(repeated).to be_false
           end
 
-          expect(callback_new_tactic).to receive(:call).with(strategy.id).ordered
+          expect(callback_new_tactic).to receive(:[]).with(strategy.id).ordered
 
-          expect(callback_show_tactic).to receive(:call).ordered do |tactic, repeated|
+          expect(callback_show_tactic).to receive(:[]).ordered do |tactic, repeated|
             expect(tactic).to be_nil
             expect(repeated).to be_false
           end
