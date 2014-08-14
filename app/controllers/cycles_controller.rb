@@ -10,7 +10,9 @@ class CyclesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: pdf_name,
+        @draft = true
+        naming = PdfNaming.new(@cycle, @cycle.current_version_number, draft: true)
+        render pdf: naming.ics202,
           template: "cycles/show.pdf.erb",
           layout: "application"
       end

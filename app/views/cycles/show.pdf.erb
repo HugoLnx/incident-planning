@@ -4,14 +4,35 @@
 
 <div class="form">
 	<div class="first-line line">
+		<div class="field form-fullname">
+			<span class="main-title">Incident Objectives</span>
+    </div>
+
+		<div class="field form-title">
+			<span class="sub-title">ICS 202</span>
+		</div>
+  </div>
+
+	<div class="second-line line">
 		<div class="field incident-name">
 			<span class="title">1. Incident Name</span>
 			<span class="field-content"><%= @cycle.incident.name %></span>
 		</div>
 
 		<div class="field operational-period">
-			<span class="title">2. Operational Period (Date/Time)</span>
+			<span class="title">2. Operational Period</span>
 			<div class="field-footer">
+				<div class="cycle-field">
+					<span class="cycle-label">Number:</span>
+					<span class="cycle-content"><%= @cycle.number %></span>
+				</div>
+				<div class="version-field">
+					<span class="version-label">Version:</span>
+					<span class="version-content"><%= @cycle.current_version_number %></span>
+          <% if @draft %>
+					  <span class="version-draft">(Draft)</span>
+          <% end -%>
+				</div>
 				<div class="from-field">
 					<span class="from-label">From:</span>
 					<span class="from-content"><%= format_date @cycle.from %></span>
@@ -21,12 +42,6 @@
 					<span class="to-content"><%= format_date @cycle.to %></span>
 				</div>
 			</div>
-		</div>
-
-		<div class="field form-title">
-			<span class="main-title">Incident Objectives</span>
-			<br/>
-			<span class="sub-title">ICS 202-CG</span>
 		</div>
 	</div>
 

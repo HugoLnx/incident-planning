@@ -9,7 +9,9 @@ class AnalysisMatricesController < ApplicationController
       respond_to do |format|
         format.html
         format.pdf do
-          render pdf: pdf_name,
+          @draft = true
+          naming = PdfNaming.new(@cycle, @cycle.current_version_number, draft: true)
+          render pdf: naming.ics234,
             template: "analysis_matrices/show.pdf.erb",
             layout: "application"
         end
@@ -43,9 +45,5 @@ private
     @objective = ::Model.objective
     @strategy = ::Model.strategy
     @tactic = ::Model.tactic
-  end
-
-  def pdf_name
-    DateTime.now.strftime("%Y-%d-%m") + " Form 234"
   end
 end

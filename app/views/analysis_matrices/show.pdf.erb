@@ -5,13 +5,12 @@
 <% pdf_each_block @matrix_data do |rows|%>
 <div class="form">
 	<div class="first-line line">
-		<div class="field before-form-title">
+		<div class="field form-fullname">
+			<span class="main-title">Work Analysis Matrix</span>
     </div>
 
 		<div class="field form-title">
-			<span class="main-title">Work Analysis Matrix</span>
-			<br/>
-			<span class="sub-title">ICS 234-CG</span>
+			<span class="sub-title">ICS 234</span>
 		</div>
   </div>
 
@@ -24,6 +23,17 @@
 		<div class="field operational-period">
 			<span class="title">2. Operational Period</span>
 			<div class="field-footer">
+				<div class="cycle-field">
+					<span class="cycle-label">Number:</span>
+					<span class="cycle-content"><%= @cycle.number %></span>
+				</div>
+				<div class="version-field">
+					<span class="version-label">Version:</span>
+					<span class="version-content"><%= @cycle.current_version_number %></span>
+          <% if @draft %>
+					  <span class="version-draft">(Draft)</span>
+          <% end -%>
+				</div>
 				<div class="from-field">
 					<span class="from-label">From:</span>
 					<span class="from-content"><%= format_date @cycle.from %></span>

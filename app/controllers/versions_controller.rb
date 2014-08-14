@@ -33,7 +33,8 @@ class VersionsController < ApplicationController
   def show
     version = Version.find(params[:id])
     respond_to do |format|
-      format.pdf {render text: version.pdf}
+      naming = PdfNaming.new(@cycle, @cycle.current_version_number, extension: true)
+      format.pdf {send_data version.pdf, filename: naming.ics234}
     end
   end
 

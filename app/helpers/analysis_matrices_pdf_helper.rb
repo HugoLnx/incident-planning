@@ -28,12 +28,20 @@ module AnalysisMatricesPdfHelper
 
   def render_tactic_text(tactic, repeated, last_child, last_repetition, blank)
     if !repeated && tactic
-      [
-        tactic.who && tactic.who.info_as_str,
-        tactic.what && tactic.what.info_as_str,
-        tactic.where && tactic.where.info_as_str,
-        tactic.when && tactic.when.info_as_str
-      ].join(", ")
+      render partial: "analysis_matrices/pdftactic_cell.html.erb", locals: {
+        who_text: tactic.who && tactic.who.info_as_str,
+        what_text: tactic.what && tactic.what.info_as_str,
+        where_text: tactic.where && tactic.where.info_as_str,
+        when_text: tactic.when && tactic.when.info_as_str
+      }
+    end
+  end
+
+  def exp_info(info)
+    if info.nil? || info.empty?
+      "---"
+    else
+      info
     end
   end
 end

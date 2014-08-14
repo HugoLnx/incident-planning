@@ -1,42 +1,11 @@
 
 @import "../formpdf";
 
-.first-line {
-	height: $page_height * 0.05;
-
-	.field.incident-name {
-		width: $page_width * 0.45;
-	}
-
-	.field.operational-period {
-		width: $page_width * 0.35;
-
-		.from-field, .to-field {
-			width: 50%;
-			margin: 0;
-			padding: 0;
-			float: left;
-		}
-	}
-
-	.field.form-title {
-		width: $page_width * 0.2 - 4px;
-		font-weight: bold;
-		text-transform: uppercase;
-		text-align: right;
-		line-height: $page_height * 0.05/2;
-
-		.main-title, .sub-title {
-			margin-right: 4px;
-		}
-	}
-}
-
 .objectives-line {
-	height: $page_height * 0.6;
+	height: $page_height * 0.5;
 
 	.field {
-		width: 100%;
+		width: $page_width - 3px;
 	}
 }
 
@@ -44,24 +13,12 @@
 	height: $page_height * 0.3;
 
 	.field {
-		width: 100%;
+		width: $page_width - 3px;
 	}
 
 	.field-content {
 		margin: 15px;
 		white-space: pre-wrap;
 		display: block;
-	}
-}
-
-.last-line {
-	height: $page_height * 0.05;
-
-	.prepared-by-field {
-		width: $page_width * 0.5 - 2px;
-	}
-
-	.approved-by-field {
-		width: $page_width * 0.5 - 1px;
 	}
 }

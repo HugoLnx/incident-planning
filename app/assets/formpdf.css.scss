@@ -1,8 +1,9 @@
 $page_width: 800px;
 $page_height: 1160px;
+$thin-line-percent: 0.05;
 
 .form {
-	font-size: 11px;
+	font-size: 11pt;
 }
 
 .line {
@@ -57,5 +58,71 @@ $page_height: 1160px;
 		position: absolute;
 		bottom: 5px;
 		left: 5px;
+	}
+}
+
+.first-line {
+	height: $page_height * $thin-line-percent;
+
+	.field.form-fullname {
+		width: $page_width * 0.8 - 2px;
+    font-size: 1.5em;
+		font-weight: bold;
+		line-height: $page_height * $thin-line-percent;
+		text-transform: uppercase;
+		text-align: center;
+
+    .main-title {
+			margin-right: 4px;
+    }
+  }
+
+	.field.form-title {
+		width: $page_width * 0.2 - 2px;
+    font-size: 1.5em;
+		font-weight: bold;
+		text-transform: uppercase;
+		text-align: center;
+		line-height: $page_height * $thin-line-percent;
+
+		.sub-title {
+			margin-right: 4px;
+		}
+	}
+}
+
+
+.second-line {
+	height: $page_height * $thin-line-percent;
+
+	.field.incident-name {
+		width: $page_width * 0.5 - 2px;
+	}
+
+	.field.operational-period {
+		width: $page_width * 0.5 - 2px;
+
+		.from-field, .to-field, .cycle-field, .version-field {
+			width: 50%;
+			margin: 0;
+			padding: 0;
+			float: left;
+		}
+
+		.version-field {
+			clear: right;
+		}
+	}
+}
+
+.last-line {
+	height: $page_height * 0.05;
+
+	.prepared-by-field {
+		width: $page_width * 0.6 - 2px;
+	}
+
+	.approved-by-field {
+		width: $page_width * 0.4 - 1px;
 	}
 }
