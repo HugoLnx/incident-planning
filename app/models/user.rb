@@ -33,6 +33,14 @@ class User < ActiveRecord::Base
     user_roles.map(&:role_id)
   end
 
+  def roles_names
+    roles_ids.map{|id| Roles::Dao.new.find_by_id(id).name}
+  end
+
+  def main_role
+    Roles::Dao.new.find_by_id roles_ids.first
+  end
+
   def user_role(role_id)
     user_roles.find{|user_role| user_role.role_id == role_id}
   end
