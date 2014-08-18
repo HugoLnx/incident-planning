@@ -47,9 +47,11 @@
     group_deletion_incident_cycle_analysis_matrix_path(@incident, @cycle),
     btn_options: {class: "btn-delete-in-groups btn"} %>
 
+<% if current_user.features_config.traceability? %>
   <%= btn_link_to "Approve in groups",
     group_approval_incident_cycle_analysis_matrix_path(@incident, @cycle),
     btn_options: {class: "btn-approve-in-groups btn"} %>
+<% end %>
 
   <%= btn_link_to "Issue Version", 
     create_incident_cycle_versions_path(@incident, @cycle),
