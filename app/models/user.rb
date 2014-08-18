@@ -10,6 +10,11 @@ class User < ActiveRecord::Base
   validates_associated :user_roles
   after_initialize :defaults
 
+  validates :phone,
+    format: {
+      with: /\A\(\d{2}\)\d{4,5}\-\d{4}\Z/
+    }
+
   INCIDENT_COMMANDER_ID = 0
   PLANNING_CHIEF_ID = 1
   OPERATIONS_CHIEF_ID = 2

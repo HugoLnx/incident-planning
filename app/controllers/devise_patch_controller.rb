@@ -1,6 +1,8 @@
 module DevisePatchController
   extend ActiveSupport::Concern
 
+  COMMON_ATTRS = %i{email name phone password password_confirmation}
+
   included do
     before_filter :configure_permitted_parameters, if: :devise_controller?
     before_filter :set_roles, if: :devise_controller?
@@ -17,11 +19,11 @@ module DevisePatchController
 
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up) do |u|
-        u.permit(:email, :password, :password_confirmation, roles_ids: [])
+        u.permit(*COMMON_ATTRS, roles_ids: [])
       end
 
       devise_parameter_sanitizer.for :account_update do |u|
-        u.permit(:email, :password, :password_confirmation, :current_password, roles_ids: [])
+        u.permit(*COMMON_ATTRS + %i{current_password}, roles_ids: [])
       end
     end
   end
