@@ -4,7 +4,8 @@ class GroupPermission
   end
 
   def to_create?(user)
-    !(user.roles_ids & @group_model.creator_roles).empty?
+    can_create = !(user.roles_ids & @group_model.creator_roles).empty?
+    !user.features_config.authority_control? || can_create
   end
 
   alias to_update? to_create?
