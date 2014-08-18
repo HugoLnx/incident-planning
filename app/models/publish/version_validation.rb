@@ -1,12 +1,17 @@
 module Publish
   module VersionValidation
     extend self
-    EXCLUDED_VALIDATIONS = {
-      how: [:approved],
-      expression: [:approved]
-    }.each do |_, value|
-      value.map!{|name| I18n.t("errors.messages.#{name}")}
+
+    def msg(errorkey)
+      I18n.t("errors.messages.#{errorkey}")
     end
+
+    EXCLUDED_VALIDATIONS = {
+      how: [msg(:approved)],
+      expression: [msg(:approved)],
+      where_text: [PublishValidation::ITEM_EMPTY_MESSAGE],
+      when_text: [PublishValidation::ITEM_EMPTY_MESSAGE]
+    }
 
     def errors_messages_on(objectives_groups)
       all_errors = errors_on(objectives_groups)

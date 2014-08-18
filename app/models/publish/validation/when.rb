@@ -11,17 +11,17 @@ module Publish
     class When::Model
       include ActiveModel::Model
 
-      attr_accessor :text, :expression
+      attr_accessor :when_text, :expression
 
-      validates :text,
-        presence: {message: "Item can't be empty."}
+      validates :when_text,
+        presence: {message: PublishValidation::ITEM_EMPTY_MESSAGE}
 
       validates :expression,
         approved: true
 
       def self.from_expression(expression)
         model = self.new
-        model.text = expression.text
+        model.when_text = expression.text
         model.expression = expression
         model
       end

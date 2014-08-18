@@ -14,7 +14,7 @@ module Publish
       attr_accessor :text, :expression
 
       validates :text,
-        presence: {message: "Item can't be empty."}
+        presence: {message: PublishValidation::ITEM_EMPTY_MESSAGE}
 
       validates :expression,
         approved: true

@@ -1,5 +1,7 @@
 module Publish
   class PublishValidation
+    ITEM_EMPTY_MESSAGE = "Item can't be empty."
+
     def self.errors_messages_on(objectives_groups)
       all_errors = errors_on(objectives_groups)
       ValidationUtils.errors_messages_from_errors(all_errors)
