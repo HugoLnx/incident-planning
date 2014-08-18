@@ -42,13 +42,10 @@ class Group < ActiveRecord::Base
       it_texts = [group.text_expressions.first.text]
     end
 
-    my_texts.compact!
-    it_texts.compact!
-
-    return !my_texts.any?(&:empty?) &&
+    return !my_texts.any?(&:nil?) &&
+    !it_texts.any?(&:nil?) &&
+    !my_texts.any?(&:empty?) &&
     !it_texts.any?(&:empty?) &&
-    my_texts.size == 3 &&
-    it_texts.size == 3 &&
     my_texts == it_texts
   end
 end
