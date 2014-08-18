@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :user_roles, dependent: :destroy
   has_one :reuse_configuration
+  has_one :features_config
   validates_associated :user_roles
   after_initialize :defaults
 
@@ -27,6 +28,15 @@ class User < ActiveRecord::Base
     end
 
     self.user_roles = self.user_roles.first(valids_size)
+  end
+
+  def features_config
+    current_config = super
+    if current_config.nil?
+      current_config = FeaturesConfig.new(user: self)
+      current_config.save!
+    end
+    current_config
   end
 
   def roles_ids

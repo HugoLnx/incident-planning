@@ -1,0 +1,12 @@
+<%= simple_form_for(@features_config, url: features_config_path, method: :put) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :traceability, label: "Enable Traceability?", as: :boolean %>
+    <%= f.input :autority_control, label: "Enable Authority Control?", as: :boolean %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Save Configuration" %>
+  </div>
+<% end %>

@@ -1,5 +1,6 @@
 IncidentPlanning::Application.routes.draw do
   resource :reuse_configuration
+  resource :features_config, only: %i{edit update}
 
   devise_for :users, path_names: {sign_in: 'login', sign_out: 'logout'}
 
