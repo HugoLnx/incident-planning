@@ -46,10 +46,3 @@ $repeated_light_percent: 20%;
   @include background-colors($partial_rejection_color, 25%, ".partial-rejection");
   @include background-colors($rejected_color, 25%, ".rejected");
 }
-
-/* GROUP APPROVAL CHECKBOX */
-.checkbox-cell {
-	color: rgba(0,0,0,0);
-	background-color: lighten($expression_color, $add_light_percent);
-}
-

@@ -4,7 +4,10 @@
 
 <% content_for :css do %>
   <%= stylesheet_link_tag "analysis_matrices", media: "all" %>
-  <%= stylesheet_link_tag "analysis_matrices_expression_colors", media: "all" %>
+    <%= stylesheet_link_tag "analysis_matrices/group_approval", media: "all" %>
+  <% if current_user.features_config.traceability? %>
+    <%= stylesheet_link_tag "analysis_matrices_expression_colors", media: "all" %>
+  <% end %>
 <% end -%>
 
 <h1><%= analysis_matrix_resource_name %></h1>
