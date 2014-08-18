@@ -22,6 +22,12 @@ class RolesCollectionInput < SimpleForm::Inputs::Base
   end
 
   def label
-    "Roles"
+    if options[:label].nil?
+      "Roles"
+    elsif options[:label]
+      options[:label]
+    else
+      ""
+    end
   end
 end

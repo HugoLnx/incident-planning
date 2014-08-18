@@ -1,31 +1,47 @@
-<h2>User Profile</h2>
+<% content_for :css do %>
+  <style>
+    .form-inputs legend {
+      font-weight: bold;
+    }
+  </style>
+<% end %>
+<h2>My Profile</h2>
 
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :email, :required => true, :autofocus => true %>
-    <%= f.input :name, required: true %>
-    <%= f.input :phone, required: true, placeholder: "(21)99999-9999" %>
+    <fieldset>
+      <legend>My Info</legend>
+      <%= f.input :name, required: true, autofocus: true %>
+      <%= f.input :phone, required: true, placeholder: "(21)99999-9999" %>
+    </fieldset>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
+    <fieldset>
+      <legend>My Account</legend>
+      <%= f.input :email, :required => true, disabled: true %>
+      <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
+      <%= f.input :password_confirmation, :required => false %>
+    </fieldset>
 
-    <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
-    <%= f.input :password_confirmation, :required => false %>
-    <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
+    <fieldset>
+      <legend>My Roles</legend>
+      <%= f.input :roles_ids, as: :roles_collection, available_roles: @roles, label: false %>
+    </fieldset>
 
-    <%= f.input :roles_ids, as: :roles_collection, available_roles: @roles %>
-  </div>
+    <fieldset>
+      <legend>Confirm</legend>
+      <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
+      <div class="form-actions">
+          <%= f.button :submit, "Update" %>
+      </div>
+    </fieldset>
   </div>
 <% end %>
 
 <h3>Cancel my account</h3>
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
+<p><%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
 
 <%= link_to "Back", back_path %>
