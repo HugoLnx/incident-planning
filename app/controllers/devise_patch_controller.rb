@@ -7,11 +7,11 @@ module DevisePatchController
     before_filter :configure_permitted_parameters, if: :devise_controller?
     before_filter :set_roles, if: :devise_controller?
 
+  protected
+
     def after_sign_out_path_for(resource_or_scope)
       session_path resource_or_scope
     end
-
-  protected
 
     def set_roles
       @roles = Roles::Dao.new.all

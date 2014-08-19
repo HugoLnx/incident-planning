@@ -9,7 +9,7 @@ class ReuseConfigurationsController < ApplicationController
 
     respond_to do |format|
       if @reuse_configuration.save
-        format.html { redirect_to back_path, notice: 'Reuse configuration was successfully updated.' }
+        format.html { redirect_to from_config_back_path, notice: 'Reuse configuration was successfully updated.' }
       else
         set_filter_options
         format.html { render action: 'edit' }

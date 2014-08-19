@@ -2,7 +2,9 @@ IncidentPlanning::Application.routes.draw do
   resource :reuse_configuration
   resource :features_config, only: %i{edit update}
 
-  devise_for :users, path_names: {sign_in: 'login', sign_out: 'logout'}
+  devise_for :users,
+    path_names: {sign_in: 'login', sign_out: 'logout'},
+    controllers: {registrations: :registrations}
 
   root to: "incidents#index"
 

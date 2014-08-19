@@ -8,7 +8,7 @@ class FeaturesConfigsController < ApplicationController
 
     respond_to do |format|
       if @features_config.update_attributes(config_params)
-        format.html { redirect_to back_path, notice: 'Features configuration was successfully updated.' }
+        format.html { redirect_to from_config_back_path, notice: 'Features configuration was successfully updated.' }
       else
         format.html { render action: 'edit' }
       end
