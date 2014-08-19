@@ -1,5 +1,5 @@
+<% if current_user.features_config.traceability? %>
 <div class="metadata">
-
   <%= render partial: "analysis_matrices/expression_errors.html.erb", locals: {errors: errors} %>
 
   <div class="metadata-section item-section">
@@ -7,13 +7,10 @@
 
     <p class="expression"><span class="label">Content</span>: <%= text %></p>
     <p class="owner"><span class="label">Owner</span>: <%= owner_human_id %></p>
-<% if current_user.features_config.traceability? %>
     <p class="source"><span class="label">Source</span>: <%= source %></p>
 		<p class="status"><span class="label">Status</span>: <%= status %></p>
-<% end %>
   </div>
 
-<% if current_user.features_config.traceability? %>
   <div class="metadata-section approvals-section">
     <p class="metadata-label">Approval Events</p>
     <ul class="approvals">
@@ -40,5 +37,5 @@
         <button disabled>Approval Done</button>
     <% end %>
   </div>
-<% end %>
 </div>
+<% end %>
