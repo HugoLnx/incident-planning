@@ -9,7 +9,6 @@ module BackRefererController
     }
 
     CONFIG_CONTROLLERS = {
-      "reuse_configurations" => true,
       "features_configs" => true,
       "registrations" => true,
       "profiles" => true

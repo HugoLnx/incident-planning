@@ -1,9 +1,36 @@
+<%= content_for :js do %>
+	<script>
+		$(function() {
+			var $enabledCheckbox = $("input#reuse_configuration_enabled");
+			var $configs = $("#enabled-configurations");
+			$enabledCheckbox.change(toggleConfigs);
+			toggleConfigs();
+
+			function toggleConfigs() {
+				var enabled = $enabledCheckbox.is(":checked");
+				if (enabled) $configs.show();
+				else $configs.hide();
+			}
+		});
+	</script>
+<% end %>
+
 <%= simple_form_for(@features_config, url: features_config_path, method: :put) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
     <%= f.input :traceability, label: "Enable Traceability?", as: :boolean %>
     <%= f.input :authority_control, label: "Enable Authority Control?", as: :boolean %>
+
+    <%= simple_fields_for @reuse_configuration do |f| %>
+      <%= f.input :enabled, label: "Enable Reuse?", as: :boolean %>
+      <div id="enabled-configurations">
+        <%= f.input :user_filter, collection: @user_filter_options, as: :reuse_filter_collection %>
+        <%= f.input :incident_filter, collection: @incident_filter_options, as: :reuse_filter_collection %>
+        <%= f.input :date_filter, collection: 1..12, label: "Date filter (Months)" %>
+        <%= f.input :reuse_hierarchy, label: "Reuse Hierarchy?", as: :boolean %>
+      </div>
+    <% end %>
   </div>
 
   <div class="form-actions">
