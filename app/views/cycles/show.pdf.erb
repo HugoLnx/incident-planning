@@ -65,16 +65,5 @@
 		</div>
 	</div>
 
-	<div class="last-line line">
-		<div class="field prepared-by-field">
-			<span class="datetime-label">Date/Time</span>
-			<span class="title">5. Prepared by: (<%= current_user.main_role.name %>)</span>
-			<span class="datetime-value"><%= format_date(DateTime.now)%></span>
-		</div>
-
-		<div class="field approved-by-field">
-			<span class="datetime-label">Date/Time</span>
-			<span class="title">6. Approved by:</span>
-		</div>
-	</div>
+	<%= render partial: "layouts/formpdf_last_line.pdf.erb" %>
 </div>

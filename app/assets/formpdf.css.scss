@@ -116,10 +116,25 @@ $thin-line-percent: 0.05;
 }
 
 .last-line {
-	height: $page_height * 0.05;
+	height: $page_height * 0.075;
 
 	.prepared-by-field {
 		width: $page_width * 0.6 - 2px;
+
+    .prepared-role, .prepared-id {
+      margin-left: 5px;
+      font-style: italic;
+    }
+
+    .prepared-id:after {
+      content: ",";
+    }
+
+    .signature {
+      display: block;
+      margin-left: 5px;
+      margin-top: 10px;
+    }
 	}
 
 	.approved-by-field {
