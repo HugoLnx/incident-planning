@@ -1,0 +1,39 @@
+<h1>Users List</h1>
+
+<%= form_tag profiles_path, method: :get do %>
+  <%= text_field_tag "filter", @filter_term, placeholder: "User email or name" %>
+  <%= submit_tag "Search" %>
+  <%= submit_tag "Clear" %>
+<% end -%>
+
+<% if @filter_term %>
+<p class="filter-notification notice">
+  Results filtered by "<%= @filter_term %>"
+</p>
+<% end -%>
+
+<table class="index-table" id="users">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Roles</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.phone %></td>
+        <td><%= user.roles_names.join(", ") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="control-line medium-padding">
+	<%= link_to 'Back', back_path %>
+</div>

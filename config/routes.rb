@@ -15,6 +15,8 @@ IncidentPlanning::Application.routes.draw do
     delete "/group_deletion", to: "group_deletions#destroy", as: :group_deletion
   end
 
+  resources :profiles, only: %i{index show}
+
   resources :incidents do
     resource :cycle_confirmation, only: :show do
       post :show

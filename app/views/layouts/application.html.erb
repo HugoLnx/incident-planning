@@ -20,6 +20,7 @@
 					<li><%= link_to "My Profile", edit_user_registration_path %></li>
 					<li><%= link_to "Reuse Config", edit_reuse_configuration_path %></li>
 					<li><%= link_to "Tool Config", edit_features_config_path %></li>
+					<li><%= link_to "Users", profiles_path %></li>
 					<li><%= link_to t("auth.logout"), destroy_user_session_path, method: :delete %></li>
 				<% else %>
 					<li><%= link_to t("auth.login"), new_user_session_path %></li>
@@ -30,8 +31,8 @@
 	</header>
 
 	<section class="main-content">
-		<p class="notice"><%= flash[:notice] %></p>
-		<p class="alert"><%= flash[:alert] %></p>
+		<p class="notice"><%= @notice || flash[:notice] %></p>
+		<p class="alert"><%= @alert || flash[:alert] %></p>
 
 		<%= yield %>
 	</section>

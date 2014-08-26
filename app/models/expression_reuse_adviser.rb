@@ -20,7 +20,7 @@ class ExpressionReuseAdviser
       query = apply_date_filter(query, config)
     end
 
-    query = where_text_like(query, term)
+    query = QueryUtils.where_attr_like(query, :text, term)
     query = exclude_expression(query, excluded_expression_id)
 
     query
@@ -45,15 +45,6 @@ private
     months_from_now = config.date_filter
     date_limit = DateTime.now.beginning_of_day << config.date_filter
     query.where("created_at >= ?", date_limit)
-  end
-
-  def where_text_like(query, term)
-    adapter = ActiveRecord::Base.connection.adapter_name.downcase.to_sym
-    if adapter == :postgresql
-      query.where("text ilike ?", "%#{term}%")
-    else
-      query.where("text like ?", "%#{term}%")
-    end
   end
 
   def exclude_expression(query, exp_id)
