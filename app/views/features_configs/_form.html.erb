@@ -38,6 +38,13 @@
 
 		fieldset, .form-actions {
 			margin-bottom: 15px;
+			display: inline-block;
+			float: left;
+			clear: both;
+		}
+
+		.clear-float {
+			clear: both;
 		}
 	</style>
 <% end %>
@@ -73,3 +80,5 @@
     <%= f.button :submit, "Save Configuration" %>
   </div>
 <% end %>
+
+<div class="clear-float"></div>
