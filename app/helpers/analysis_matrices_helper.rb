@@ -93,6 +93,7 @@ module AnalysisMatricesHelper
     locals[:update_path] = update_path
     locals[:delete_path] = delete_path
 
+    locals[:group] = tactic && tactic.group
     render partial: partial,
       locals: locals
   end

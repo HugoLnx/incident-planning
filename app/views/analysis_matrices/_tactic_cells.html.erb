@@ -9,3 +9,12 @@
     </div>
 	</td>
 <% end %>
+<td class="<%= group_classes %> criticality">
+	<% if group %>
+		<div id="criticality-of-<%= group.id %>" class="group-criticality" data-group-id="<%= group.id %>">
+		<%= simple_fields_for group do |f| %>
+			<%= f.input :criticality, collection: %w{L M H}, include_blank: false, label: false %>
+		<% end %>
+		</div>
+	<% end %>
+</td>

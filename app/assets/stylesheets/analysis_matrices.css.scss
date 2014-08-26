@@ -5,6 +5,15 @@
 @import "jquery.ui.dialog";
 @import "jquery.ui.autocomplete";
 
+@keyframes criticality_anim {
+	from: {
+		opacity: 1;
+	}
+	to: {
+		opacity: 0;
+	}
+}
+
 $error_border_size: 2px;
 
 .analysis-matrix {
@@ -56,6 +65,25 @@ $error_border_size: 2px;
   th {
     border: solid 1px black;
   }
+
+/* CRITICALITY */
+	.criticality {
+		border: 1px black solid;
+	}
+
+	.criticality.blank {
+		display: none;
+	}
+
+	.saved-popup {
+		background-color: #6f6;
+		border: black 2px solid;
+		font-weight: bold;
+		position: absolute;
+		right: 10px;
+		padding: 5px;
+		border-radius: 5px;
+	}
 
 /* VERTICAL GROUPING BORDERS */
   .tactic.who.non-repeated {
@@ -190,7 +218,6 @@ ul.ui-autocomplete {
   .approve-form {
     float: left;
   }
-
 }
 
 /* SUGGESTIONS AUTOCOMPLETE */

@@ -7,6 +7,8 @@ IncidentPlanning::Application.routes.draw do
 
   root to: "incidents#index"
 
+  put "/criticalities/:group_id", to: "criticalities#update", as: "update_criticality"
+
   get "/incident/:incident_id/expression_suggestions/:expression_name", to: "expression_suggestions#index", as: :index
 
   scope "/incident/:incident_id/cycle/:cycle_id/" do

@@ -5,6 +5,7 @@
 //= require jquery.hammer.min
 //= require ./analysis_matrices/analysis_matrix/expression_recognizer
 //= require ./analysis_matrices/analysis_matrix/expression_input_name
+//= require ./analysis_matrices/analysis_matrix/criticality
 //= require_tree ./analysis_matrices/
 //= require jquery.ui.dialog
 //= require errors_dialog

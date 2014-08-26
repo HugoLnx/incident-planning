@@ -9,9 +9,16 @@ class Group < ActiveRecord::Base
 
   validates :cycle_id, presence: true
 
+  validates :criticality, inclusion: {
+    in: %w{L M H},
+    if: :tactic?
+  }
+
   validates_associated :cycle
 
   default_scope {order "created_at ASC"}
+
+  after_initialize :defaults
 
   IDENTIFYING_NAMES = [::Model.tactic_who.name, ::Model.tactic_what.name, ::Model.tactic_where.name]
 
@@ -47,5 +54,15 @@ class Group < ActiveRecord::Base
     !my_texts.any?(&:empty?) &&
     !it_texts.any?(&:empty?) &&
     my_texts == it_texts
+  end
+
+  def tactic?
+    self.name == ::Model.tactic.name
+  end
+
+private
+
+  def defaults
+    self.criticality ||= 'L'
   end
 end
