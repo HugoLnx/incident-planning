@@ -85,7 +85,7 @@
 </div>
 
 <table class="analysis-matrix" id="analysis-matrix">
-  <thead>
+  <thead id="amthead">
     <tr>
       <th rowspan="2" class="header objective">OBJECTIVES</th>
       <th class="header strategy" colspan="<%= @strategy.expressions.size %>">STRATEGIES</th>
@@ -103,6 +103,9 @@
   </thead>
 
   <tbody>
+    <tr>
+      <td colspan="9" class="space-below-header"></td>
+    </tr>
     <% each_row(@matrix_data) do |row| %>
       <tr>
         <%= row.objective_cells.render %>

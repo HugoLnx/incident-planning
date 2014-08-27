@@ -66,6 +66,14 @@ $error_border_size: 2px;
     border: solid 1px black;
   }
 
+  thead, .header.objective {
+		border: solid 3px black;
+	}
+
+	th:last-child, .header.strategy {
+		border-right: solid 3px black;
+	}
+
 /* CRITICALITY */
 	.criticality {
 		border: 1px black solid;
@@ -113,6 +121,22 @@ $error_border_size: 2px;
   .objective.non-repeated {
     border: solid black 1px;
   }
+
+/* EXPRESSIONS SHADOW */
+  .tactic.non-repeated {
+		box-shadow: 0 -3px 0 rgba(0, 0, 0, 0.3) inset, 0 -1px 0 rgba(0, 0, 0, 0.3) inset;
+  }
+
+  .non-repeated.tactic.response_action,
+	.non-repeated.strategy,
+	.non-repeated.objective {
+		box-shadow: -3px -3px 0 rgba(0, 0, 0, 0.3) inset, -1px -1px 0 rgba(0, 0, 0, 0.3) inset;
+  }
+
+/* SPACE BELOW HEADER */
+	.space-below-header {
+		height: 10px;
+	}
 
 /* DYNAMIC FORM */
   /* TO TACTIC FORM */
