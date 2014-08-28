@@ -141,6 +141,14 @@ module AnalysisMatricesHelper
     positive ? "Approved" : "Rejected"
   end
 
+  def show_delete_in_group_button?
+    permissions = [
+      GroupPermission.new(::Model.strategy),
+      GroupPermission.new(::Model.tactic)
+    ]
+    permissions.any?{|permission| permission.to_create? current_user}
+  end
+
 private
 
   def show_cells_info_from(group, model)

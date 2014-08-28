@@ -46,9 +46,11 @@
 <div class="buttons-line"> 
   <%= render partial: "analysis_matrices/show_priorities", locals: {cycle: @cycle} %>
 
+<% if show_delete_in_group_button? %>
   <%= btn_link_to "Delete in groups",
     group_deletion_incident_cycle_analysis_matrix_path(@incident, @cycle),
     btn_options: {class: "btn-delete-in-groups btn"} %>
+<% end -%>
 
 <% if current_user.features_config.traceability? %>
   <%= btn_link_to "Approve in groups",
