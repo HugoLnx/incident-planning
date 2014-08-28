@@ -84,6 +84,19 @@ class User < ActiveRecord::Base
     is_operations_chief || is_planning_chief
   end
 
+  def can_approve_any_expression_of?(group)
+    group_model = ::Model.find_by_group_name(group.name)
+    permission = GroupPermission.new(group_model)
+    can_approve = permission.to_approve?(self)
+
+    is_all_already_approved = group.expressions.all? do |exp|
+      approval_expert = ExpressionApprovalExpert.new(exp)
+      approval_expert.already_had_needed_role_approval?(self.roles_ids)
+    end
+
+    can_approve && !is_all_already_approved
+  end
+
 private
   def defaults
     if !self.persisted?

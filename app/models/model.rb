@@ -44,6 +44,11 @@ module Model
     expressions.find{|expression| expression.name == name}
   end
 
+  def self.find_by_group_name(name)
+    groups = [root, strategy, tactic]
+    groups.find{|group| group.name == name}
+  end
+
   def self.to_json
     groups = {
       objective: self.root.to_hash,
