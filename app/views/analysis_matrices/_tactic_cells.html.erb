@@ -13,7 +13,7 @@
 	<% if group %>
 		<div id="criticality-of-<%= group.id %>" class="group-criticality" data-group-id="<%= group.id %>">
 		<%= simple_fields_for group do |f| %>
-			<%= f.input :criticality, collection: %w{L M H}, include_blank: false, label: false %>
+			<%= f.input :criticality, collection: %w{L M H}, include_blank: false, label: false, disabled: (!can_edit_tactic? || in_group_mode?) %>
 		<% end %>
 		</div>
 	<% end %>

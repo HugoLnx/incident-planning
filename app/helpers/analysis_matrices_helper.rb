@@ -149,6 +149,11 @@ module AnalysisMatricesHelper
     permissions.any?{|permission| permission.to_create? current_user}
   end
 
+  def can_edit_tactic?
+    permission = GroupPermission.new(::Model.tactic)
+    permission.to_update?(current_user)
+  end
+
 private
 
   def show_cells_info_from(group, model)

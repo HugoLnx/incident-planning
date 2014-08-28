@@ -25,6 +25,10 @@ module AnalysisMatricesGroupHelper
       can_create_one_of_same_type_of?(row.tactic.tactic.group)
   end
 
+  def in_group_mode?
+    %w{group_approval group_deletion}.include? action_name
+  end
+
 private
   def can_create_one_of_same_type_of?(group)
       group_model = ::Model.find_by_group_name(group.name)
