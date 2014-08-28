@@ -7,9 +7,8 @@
 
 <% if @filter_term %>
 <p class="filter-notification notice">
-  Results filtered by "<%= @filter_term %>"
+  Searching users with "<%= @filter_term %>"
 </p>
-<% end -%>
 
 <table class="index-table" id="users">
   <thead>
@@ -32,6 +31,7 @@
     <% end %>
   </tbody>
 </table>
+<% end -%>
 
 <div class="control-line medium-padding">
 	<%= link_to 'Back', back_path %>
