@@ -1,0 +1,24 @@
+@import "themes/jquery.ui.smoothness";
+
+@import "jquery.ui.core";
+@import "jquery.ui.theme";
+@import "jquery.ui.autocomplete";
+
+ul.ui-autocomplete {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &:hover li, &:hover a {
+    border: none;
+  }
+
+  a, li {
+    margin: 5px;
+    padding: 5px;
+
+    &:hover, &:hover a {
+      border: none;
+    }
+  }
+}

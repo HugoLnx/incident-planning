@@ -1,0 +1,31 @@
+<%= render "top_form" %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @user.phone %>
+</p>
+
+<p>
+  <strong>Roles:</strong>
+  <% if @user.roles_names.empty? %>
+    <span>Have no roles</span>
+  <% else %>
+    <ul class="roles">
+    <% @user.roles_names.each do |role| %>
+      <li><%= role %></li>
+    <% end %>
+    </ul>
+  <% end %>
+</p>
+
+<%= link_to 'Back', back_path, class: "back-link" %>

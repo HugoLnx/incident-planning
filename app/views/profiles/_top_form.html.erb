@@ -1,0 +1,13 @@
+<h1>Search Users</h1>
+
+<%= form_tag profiles_path, method: :get do %>
+  <%= text_field_tag "filter", @filter_term, placeholder: "User email or name" %>
+  <%= submit_tag "Search" %>
+<% end -%>
+
+<% content_for :js do %>
+  <%= javascript_include_tag :search_users %>
+<% end -%>
+<% content_for :css do %>
+  <%= stylesheet_link_tag    :search_users, media: "all" %>
+<% end -%>
