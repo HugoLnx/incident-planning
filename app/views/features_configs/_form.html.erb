@@ -55,8 +55,7 @@
   <div class="form-inputs">
 		<fieldset>
 			<legend>Major Configurations</legend>
-			<%= f.input :traceability, label: "Enable Traceability?", as: :boolean %>
-			<%= f.input :authority_control, label: "Enable Authority Control?", as: :boolean %>
+			<%= f.input :thesis_tools, label: "Enable Traceability and Authority Control?", as: :boolean %>
 			<%= simple_fields_for @reuse_configuration do |f| %>
 				<%= f.input :enabled, label: "Enable Reuse?", as: :boolean %>
 			<% end %>

@@ -21,7 +21,7 @@ class FeaturesConfigsController < ApplicationController
 
 private
   def config_params
-    params.require(:features_config).permit(:authority_control, :traceability)
+    params.require(:features_config).permit(:thesis_tools)
   end
 
   def reuse_configuration_params

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140826181451) do
+ActiveRecord::Schema.define(version: 20140828153710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,9 +47,8 @@ ActiveRecord::Schema.define(version: 20140826181451) do
   add_index "cycles", ["incident_id"], name: "index_cycles_on_incident_id", using: :btree
 
   create_table "features_configs", force: true do |t|
-    t.boolean "authority_control", default: true, null: false
-    t.boolean "traceability",      default: true, null: false
     t.integer "user_id"
+    t.boolean "thesis_tools", default: true, null: false
   end
 
   add_index "features_configs", ["user_id"], name: "index_features_configs_on_user_id", using: :hash
