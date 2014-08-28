@@ -3,7 +3,6 @@
 <%= form_tag profiles_path, method: :get do %>
   <%= text_field_tag "filter", @filter_term, placeholder: "User email or name" %>
   <%= submit_tag "Search" %>
-  <%= submit_tag "Clear" %>
 <% end -%>
 
 <% if @filter_term %>
