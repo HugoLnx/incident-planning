@@ -20,22 +20,26 @@
     <thead>
       <tr>
         <th rowspan="2" class="header objective">OBJECTIVES</th>
-        <th rowspan="2" class="checkbox-cell header strategy">XXX</th>
-        <th class="header strategy" colspan="<%= @strategy.expressions.size %>">STRATEGIES</th>
-        <th rowspan="2" class="checkbox-cell header tactic">XXX</th>
-        <th class="header tactic" colspan="<%= @tactic.expressions.size %>">TACTICS</th>
+        <th class="header strategy" colspan="<%= @strategy.expressions.size + 1 %>">STRATEGIES</th>
+        <th class="header tactic" colspan="<%= @tactic.expressions.size + 2 %>">TACTICS</th>
       </tr>
       <tr>
+        <th class="checkbox-cell header">XXX</th>
         <% @strategy.expressions.each do |exp| %>
           <th class="header strategy"><%= exp.human_name %></th>
         <% end %>
+        <th class="checkbox-cell header">XXX</th>
         <% @tactic.expressions.each do |exp| %>
           <th class="header tactic"><%= exp.human_name %></th>
         <% end %>
+				<th class="header tactic criticality-header">Crit.</th>
       </tr>
     </thead>
 
     <tbody>
+			<tr>
+				<td colspan="9" class="space-below-header"></td>
+			</tr>
       <% each_row_for_group_approval(@matrix_data) do |row| %>
         <tr>
           <%= row.objective_cells.render %>

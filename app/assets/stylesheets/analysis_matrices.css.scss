@@ -5,15 +5,6 @@
 @import "jquery.ui.dialog";
 @import "jquery.ui.autocomplete";
 
-@keyframes criticality_anim {
-	from: {
-		opacity: 1;
-	}
-	to: {
-		opacity: 0;
-	}
-}
-
 $error_border_size: 2px;
 
 .analysis-matrix {
@@ -66,11 +57,11 @@ $error_border_size: 2px;
     border: solid 1px black;
   }
 
-  thead, .header.objective {
+  thead {
 		border: solid 3px black;
 	}
 
-	th:last-child, .header.strategy {
+	.header.objective, th:last-child, .header.strategy {
 		border-right: solid 3px black;
 	}
 
