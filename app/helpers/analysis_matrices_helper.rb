@@ -149,6 +149,16 @@ module AnalysisMatricesHelper
     permissions.any?{|permission| permission.to_create? current_user}
   end
 
+  def show_approval_in_group_button?
+    permissions = [
+      GroupPermission.new(::Model.root),
+      GroupPermission.new(::Model.strategy),
+      GroupPermission.new(::Model.tactic)
+    ]
+    current_user.features_config.traceability? && 
+      permissions.any?{|permission| permission.to_create? current_user}
+  end
+
   def can_edit_tactic?
     permission = GroupPermission.new(::Model.tactic)
     permission.to_update?(current_user)

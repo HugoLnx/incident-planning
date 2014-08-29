@@ -52,7 +52,7 @@
     btn_options: {class: "btn-delete-in-groups btn"} %>
 <% end -%>
 
-<% if current_user.features_config.traceability? %>
+<% if show_approval_in_group_button? %>
   <%= btn_link_to "Approve in groups",
     group_approval_incident_cycle_analysis_matrix_path(@incident, @cycle),
     btn_options: {class: "btn-approve-in-groups btn"} %>
