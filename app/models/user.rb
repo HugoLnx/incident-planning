@@ -13,7 +13,11 @@ class User < ActiveRecord::Base
   validates :phone,
     format: {
       with: /\A\(\d{2}\)\d{4,5}\-\d{4}\Z/
-    }
+    },
+    presence: true
+
+  validates :name,
+    presence: true
 
   INCIDENT_COMMANDER_ID = 0
   PLANNING_CHIEF_ID = 1
