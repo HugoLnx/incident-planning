@@ -7,6 +7,14 @@
 
 $error_border_size: 2px;
 
+/* MENU */
+.buttons-line .btn {
+	margin-bottom: 10px;
+	margin-top: 10px;
+	margin-right: 20px;
+	float: left;
+}
+
 .analysis-matrix {
   border-collapse: collapse;
   width: 100%;
@@ -56,14 +64,6 @@ $error_border_size: 2px;
   th {
     border: solid 1px black;
   }
-
-  thead {
-		border: solid 3px black;
-	}
-
-	.header.objective, th:last-child, .header.strategy {
-		border-right: solid 3px black;
-	}
 
 /* CRITICALITY */
 	.criticality {

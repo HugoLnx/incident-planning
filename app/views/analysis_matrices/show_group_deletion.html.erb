@@ -15,7 +15,10 @@
 <%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
 
 <%= form_tag group_deletion_path, method: :delete do %>
-  <%= submit_tag "Delete all selected" %>
+	<div class="buttons-line"> 
+		<%= submit_tag "Delete all selected", class: "btn" %>
+	</div>
+
   <table class="analysis-matrix" id="analysis-matrix">
     <thead>
       <tr>

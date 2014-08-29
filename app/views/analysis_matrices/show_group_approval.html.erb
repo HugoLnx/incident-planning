@@ -4,7 +4,7 @@
 
 <% content_for :css do %>
   <%= stylesheet_link_tag "analysis_matrices", media: "all" %>
-    <%= stylesheet_link_tag "analysis_matrices/group_approval", media: "all" %>
+  <%= stylesheet_link_tag "analysis_matrices/group_approval", media: "all" %>
   <% if current_user.features_config.traceability? %>
     <%= stylesheet_link_tag "analysis_matrices_expression_colors", media: "all" %>
   <% end %>
@@ -15,7 +15,10 @@
 <%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
 
 <%= form_tag group_approval_path, method: :post do %>
-  <%= submit_tag "Approve all selected" %>
+	<div class="buttons-line"> 
+		<%= submit_tag "Approve all selected", class: "btn" %>
+	</div>
+
   <table class="analysis-matrix" id="analysis-matrix">
     <thead>
       <tr>
