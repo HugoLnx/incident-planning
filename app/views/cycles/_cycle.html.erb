@@ -1,7 +1,27 @@
 <%= render partial: "layouts/cycle_brief.html.erb", locals: {cycle: form202.cycle, incident: incident} %>
+<% content_for :css do %>
+  <style>
+    .period-command-emphasis pre {
+      font: inherit;
+    }
 
-<p>
-  <strong>Objectives:</strong>
+    .objectives-fieldset legend,
+    .period-command-emphasis legend {
+      font-weight: bold;
+    }
+
+    .objectives,
+    .period-command-emphasis pre {
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  </style>
+<% end -%>
+
+<fieldset class="objectives-fieldset">
+  <legend>Objectives:</legend>
   <ol class="objectives">
   <% form202.objectives_texts.each do |text| %>
     <li class="objective-input">
@@ -9,14 +29,14 @@
     </li>
   <% end %>
   </ol>
-</p>
+</fieldset>
 
-<p>
-  <strong>Operational Period Command Emphasis:</strong>
+<fieldset class="period-command-emphasis">
+  <legend>Operational Period Command Emphasis:</legend>
 	<pre><%= form202.cycle.priorities %></pre>
-</p>
+</fieldset>
 
 <p>
-  <strong>Objectives Approval Status:</strong>
+  <strong>Approval Status:</strong>
 	<span><%= cycle_approval_status_name form202.cycle.approved? %></span>
 </p>

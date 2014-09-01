@@ -2,10 +2,10 @@
 01: Planning Chief
 02: Operations Chief
 03: Logistics Chief
-04: Planning Expert
-05: Operations Expert
-06: Logistics Expert
-07: Commander Assistent
-08: Planning Assistent
-09: Operations Assistent
-10: Logistics Assistent
+04: Planning Specialist
+05: Operations Specialist
+06: Logistics Specialist
+07: Commander Assistant
+08: Planning Assistant
+09: Operations Assistant
+10: Logistics Assistant

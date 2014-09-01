@@ -20,19 +20,17 @@
 		</div>
 
 		<div class="field operational-period">
-			<span class="title">2. Operational Period</span>
+      <div class="version-field">
+        <span class="version-content">v.<%= @cycle.current_version_number %></span>
+        <% if @draft %>
+          <span class="version-draft">(Draft)</span>
+        <% end -%>
+      </div>
+      <div class="cycle-field">
+        <span class="cycle-content">#<%= @cycle.number %></span>
+      </div>
+      <span class="title">2. Operational Period</span>
 			<div class="field-footer">
-				<div class="cycle-field">
-					<span class="cycle-label">Number:</span>
-					<span class="cycle-content"><%= @cycle.number %></span>
-				</div>
-				<div class="version-field">
-					<span class="version-label">Version:</span>
-					<span class="version-content"><%= @cycle.current_version_number %></span>
-          <% if @draft %>
-					  <span class="version-draft">(Draft)</span>
-          <% end -%>
-				</div>
 				<div class="from-field">
 					<span class="from-label">From:</span>
 					<span class="from-content"><%= format_date @cycle.from %></span>

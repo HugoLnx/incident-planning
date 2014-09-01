@@ -1,26 +1,40 @@
 <h1><%= resource_name %></h1>
 <%= content_for :css do %>
 	<style>
+    .btn-approve-objectives,
+    .btn-print,
+    .form-btn-edit {
+      float: left;
+    }
+
 		.back-link {
-			display: block;
+			display: inline-block;
 		}
+
+    .clear-float {
+      clear: both;
+    }
 	</style>
 <% end %>
 
 <%= render partial: "cycle", locals: {form202: @form202, incident: @incident} %>
 
+<%= btn_link_to 'Print Draft',
+  incident_cycle_path(@incident, @form202.cycle.id, format: :pdf),
+  download: "download", class: "btn-print" %>
+
 <% if !@cycle.closed? %>
 	<% if current_user.can_approve_all_objectives_at_once? && !@cycle.approved? %>
 		<%= form_tag incident_cycle_objectives_approvals_path(@incident, @cycle) do %>
-			<button id="btn-approve-objectives">Approve all objectives</button>
+			<button class="btn-approve-objectives" id="btn-approve-objectives">Approve all objectives</button>
 		<% end -%>
 	<% end -%>
 
-	<%= btn_link_to 'Edit', edit_incident_cycle_path(@incident, @form202.cycle.id), class: "form-btn-edit" %>
+  <%= btn_link_to 'Edit',
+    edit_incident_cycle_path(@incident, @form202.cycle.id),
+    class: "form-btn-edit" %>
 <% end -%>
 
-<%= link_to 'Download as PDF',
-  incident_cycle_path(@incident, @form202.cycle.id, format: :pdf),
-  download: "download" %>
+<div class="clear-float"></div>
 
 <%= link_to 'Back', back_path, class: "back-link" %>
