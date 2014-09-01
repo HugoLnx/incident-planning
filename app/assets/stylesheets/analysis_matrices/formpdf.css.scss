@@ -18,15 +18,30 @@
 	}
 }
 
+$cell_height: $page_height * 0.0775;
+
 .matrix-cells {
-	height: $page_height * 0.0775;
+	height: $cell_height;
 
 	.matrix-cell {
 		width: $page_width * 0.3333 - 1px;
 
     .tactic-exp {
-      margin-left: 5px;
       display: block;
+			margin-left: 5px;
     }
+
+		.field-content {
+			padding: 0;
+			margin: 0;
+		}
+
+		&.tactics-cell {
+			line-height: $cell_height/4;
+		}
+
+		&.objectives-cell, &.strategies-cell {
+			line-height: $cell_height;
+		}
 	}
 }

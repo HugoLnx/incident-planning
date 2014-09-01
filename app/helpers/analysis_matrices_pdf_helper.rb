@@ -8,7 +8,7 @@ module AnalysisMatricesPdfHelper
     }).rows
 
     while !rows.empty?
-      yield rows.pop(LINES_PER_BLOCK)
+      yield rows.slice!(0, LINES_PER_BLOCK)
     end
   end
 

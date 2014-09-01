@@ -4,7 +4,7 @@
 			<span class="title">5. Prepared by:</span>
 			<span class="datetime-value"><%= format_date(DateTime.now)%></span>
 			<span class="prepared-id"><%= current_user.human_id %></span>
-			<span class="prepared-role"><%= current_user.main_role.name %></span>
+			<span class="prepared-role">(<%= current_user.main_role.name %>)</span>
 			<span class="signature">Assinatura:</span>
 		</div>
 

@@ -102,15 +102,15 @@ $thin-line-percent: 0.05;
 	.field.operational-period {
 		width: $page_width * 0.5 - 2px;
 
-		.from-field, .to-field, .cycle-field, .version-field {
+		.from-field, .to-field {
 			width: 50%;
 			margin: 0;
 			padding: 0;
 			float: left;
 		}
-
-		.version-field {
-			clear: right;
+		.cycle-field, .version-field {
+			float: right;
+			padding: 3px;
 		}
 	}
 }
@@ -124,10 +124,6 @@ $thin-line-percent: 0.05;
     .prepared-role, .prepared-id {
       margin-left: 5px;
       font-style: italic;
-    }
-
-    .prepared-id:after {
-      content: ",";
     }
 
     .signature {
