@@ -1,13 +1,13 @@
 <div class="objectives-fields">
-  <%= f.input :objectives, error: false, required: false do %>
-  <ol class="objectives-inputs" id="objective_inputs">
-    <% if form202.persisted? %>
-      <%= render partial: "cycles/objectives_inputs_for_update", locals: {form202: form202} %>
-    <% else %>
-      <%= render partial: "cycles/objectives_inputs_for_create", locals: {form202: form202} %>
-    <% end %>
-  </ol>
+  <%= f.input :objectives, error: false, label: false, required: false, wrapper_tag: :fieldset do %>
+    <legend>Objectives</legend>
+    <ol class="objectives-inputs" id="objective_inputs">
+      <% if form202.persisted? %>
+        <%= render partial: "cycles/objectives_inputs_for_update", locals: {form202: form202} %>
+      <% else %>
+        <%= render partial: "cycles/objectives_inputs_for_create", locals: {form202: form202} %>
+      <% end %>
+    </ol>
+    <button class="add-objective-btn">Add Objective</button>
   <% end %>
-
-  <button class="add-objective-btn">Add Objective</button>
 </div>

@@ -1,6 +1,11 @@
 <%= render partial: "layouts/cycle_brief.html.erb", locals: {cycle: form202.cycle, incident: incident} %>
 <% content_for :css do %>
   <style>
+    .period-command-emphasis,
+    .objectives-fieldset {
+      max-width: 450px;
+    }
+
     .period-command-emphasis pre {
       font: inherit;
     }

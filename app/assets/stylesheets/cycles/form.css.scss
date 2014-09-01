@@ -1,8 +1,8 @@
 form {
-  width: 860px;
+  width: 750px;
 
 /* Labels */
-	label {
+	label, legend {
 		font-weight: bold;
 	}
 
@@ -10,12 +10,12 @@ form {
 		content: ":";
 	}
 
-  .cycle_priorities label, .cycle_objectives label {
+  .cycle_priorities label, .objectives-fields legend {
     text-transform: uppercase;
   }
 
 /* Organization */
-	#cycle_objectives_text, #cycle_priorities {
+	#objectives-fields_text, #cycle_priorities {
 		display: block;
 	}
 
@@ -28,11 +28,15 @@ form {
     float: right;
   }
 
-  .cycle_objectives {
+  .objectives-fields {
     clear: both;
   }
 
-	.cycle_objectives_text, .cycle_priorities {
+  .objectives-fields {
+    padding-top: 10px;
+  }
+
+	.objectives-fields_text, .cycle_priorities {
 		padding-top: 10px;
 	}
 
@@ -55,7 +59,8 @@ form {
   }
 
 /* Errors */
-  .field_with_errors label {
+  .field_with_errors label,
+  .field_with_errors legend {
     border-bottom: solid red 2px;
   }
 
@@ -64,15 +69,19 @@ form {
   }
 
 /* Customization */
-  .cycle_objectives, .cycle_priorities {
+  .objectives-fields {
     width: 100%;
   }
 
-  .cycle_objectives input {
+  .cycle_priorities {
+    width: 99%;
+  }
+
+  .objectives-fields input {
     width: 90%;
   }
 
-  .cycle_objectives .multivalored-input-delete-button {
+  .objectives-fields .multivalored-input-delete-button {
     float: right;
   }
 

@@ -36,3 +36,6 @@ en:
   auth:
     login: "Login"
     logout: "Logout"
+  helpers:
+    submit:
+      update: "Save Updates"

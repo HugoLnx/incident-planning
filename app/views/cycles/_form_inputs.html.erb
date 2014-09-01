@@ -27,10 +27,15 @@
 
     <%= render partial: "cycles/objectives_inputs", locals: {f: f, form202: form202} %>
     <%= f.input :priorities,
-      label: "Operational Period Command Emphasis",
-      as: :text,
-      input_html: {cols: 100, rows: 10},
-      error: false, required: false %>
+      wrapper_tag: :fieldset,
+      label: false,
+      error: false, required: false do %>
+      <legend>Operational Period Command Emphasis</legend>
+      <%= f.input_field :priorities,
+        as: :text,
+        cols: 100, rows: 10,
+        error: false, required: false %>
+    <% end %>
 
   <% end %>
 </div>
