@@ -62,6 +62,7 @@
     }
     //$father.on("dblclick", this.targetsSelector, openForm);
     $father.hammer().on("doubletap", this.targetsSelector, openForm);
+    return false;
   };
 
   function changeReusedExpressionsIn(form, $cellsTds) {
