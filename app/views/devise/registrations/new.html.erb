@@ -10,8 +10,9 @@
   <div class="form-inputs">
     <fieldset>
       <legend>My Info</legend>
-			<%= f.input :name, required: false, autofocus: true %> <%= render_required %>
-      <%= f.input :phone, required: false, placeholder: "(21)99999-9999" %> <%= render_required %>
+			<%= f.input :email, disabled: true, hint: "required" %>
+			<%= f.input :name, autofocus: true, hint: "required" %>
+      <%= f.input :phone, placeholder: "(21)99999-9999", hint: "required" %>
     </fieldset>
 
     <fieldset>
@@ -20,13 +21,9 @@
     </fieldset>
 
     <fieldset>
-      <legend>My Account</legend>
-			<%= f.input :email do %>
-				<%= f.input_field :email, disabled: true %>
-				<%= render_required %>
-			<% end %>
-			<%= f.input :password, required: false %>
-			<%= f.input :password_confirmation, required: false %>
+      <legend>My Password</legend>
+			<%= f.input :password, hint: "required"  %>
+			<%= f.input :password_confirmation, hint: "required" %>
 		</fieldset>
   </div>
 
