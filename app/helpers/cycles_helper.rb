@@ -12,4 +12,8 @@ module CyclesHelper
   def resource_name
     RESOURCE_NAME
   end
+
+  def render_required
+    %Q{<span class='required post-label'>required</span>}.html_safe
+  end
 end

@@ -1,10 +1,7 @@
 <% content_for :css do %>
-  <style>
-    .form-inputs legend {
-      font-weight: bold;
-    }
-  </style>
+  <%= stylesheet_link_tag "user_form", media: "all" %>
 <% end %>
+
 <h2>Sign up</h2>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -13,21 +10,24 @@
   <div class="form-inputs">
     <fieldset>
       <legend>My Info</legend>
-      <%= f.input :name, required: true, autofocus: true %>
-      <%= f.input :phone, required: true, placeholder: "(21)99999-9999" %>
+			<%= f.input :name, required: false, autofocus: true %> <%= render_required %>
+      <%= f.input :phone, required: false, placeholder: "(21)99999-9999" %> <%= render_required %>
     </fieldset>
-
-    <fieldset>
-      <legend>My Account</legend>
-      <%= f.input :email, :required => true %>
-			<%= f.input :password, required: true %>
-			<%= f.input :password_confirmation, required: true %>
-		</fieldset>
 
     <fieldset>
       <legend>My Roles</legend>
       <%= f.input :roles_ids, as: :roles_collection, available_roles: @roles, label: false %>
     </fieldset>
+
+    <fieldset>
+      <legend>My Account</legend>
+			<%= f.input :email do %>
+				<%= f.input_field :email, disabled: true %>
+				<%= render_required %>
+			<% end %>
+			<%= f.input :password, required: false %>
+			<%= f.input :password_confirmation, required: false %>
+		</fieldset>
   </div>
 
   <div class="form-actions">

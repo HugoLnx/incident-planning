@@ -36,7 +36,8 @@ module IncidentPlanning
       "analysis_matrices.css",
       "analysis_matrices_expression_colors.css",
       "analysis_matrices_published_expression_colors.css",
-      "search_users.css"
+      "search_users.css",
+      "user_form.css"
     ]
   end
 end
