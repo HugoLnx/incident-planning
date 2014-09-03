@@ -1,5 +1,6 @@
 module AnalysisMatricesHelper
   RESOURCE_NAME = "Work Analysis Matrix (ICS 234)"
+  CRITICALITY_CLASSES = {"H" => "high", "M" => "medium", "L" => "low"}
 
   def analysis_matrix_resource_name
     RESOURCE_NAME
@@ -94,6 +95,11 @@ module AnalysisMatricesHelper
     locals[:delete_path] = delete_path
 
     locals[:group] = tactic && tactic.group
+    if locals[:group]
+      locals[:criticality_level] = CRITICALITY_CLASSES[locals[:group].criticality]
+    else
+      locals[:criticality_level] = nil
+    end
     render partial: partial,
       locals: locals
   end

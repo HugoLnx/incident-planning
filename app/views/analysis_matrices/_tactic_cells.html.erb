@@ -9,7 +9,7 @@
     </div>
 	</td>
 <% end %>
-<td class="<%= group_classes %> criticality">
+<td class="<%= group_classes %> <%= criticality_level %> criticality">
 	<% if group %>
 		<div id="criticality-of-<%= group.id %>" class="group-criticality" data-group-id="<%= group.id %>">
 		<%= simple_fields_for group do |f| %>

@@ -68,11 +68,15 @@ $error_border_size: 2px;
 
 /* CRITICALITY */
 	.criticality {
-		border: 1px black solid;
-	}
+		&.non-repeated {
+			border: 1px black solid;
+		}
 
-	.criticality.blank {
-		display: none;
+		&.high {background-color: red;}
+		&.medium {background-color: yellow;}
+		&.low {background-color: white;}
+
+		& select {font-weight: bold;}
 	}
 
 	.saved-popup {
