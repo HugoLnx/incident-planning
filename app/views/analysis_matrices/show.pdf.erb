@@ -3,7 +3,10 @@
 <% end %>
 
 <% pdf_each_block @matrix_data do |rows|%>
-<div class="form">
+<div class="form <%= @draft && "draft" %>">
+  <div class="watermark top">Draft</div>
+  <div class="watermark bottom">Draft</div>
+
 	<div class="first-line line">
 		<div class="field form-fullname">
 			<span class="main-title">Work Analysis Matrix</span>

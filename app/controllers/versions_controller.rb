@@ -8,7 +8,7 @@ class VersionsController < ApplicationController
     @expression_errors = all_messages[:expression]
     @group_errors = all_messages[:group]
 
-    if @expression_errors.empty? && @group_errors.empty?
+    if !Publish::ValidationUtils.have_errors?(all_messages)
       Publish::Version.issue(@cycle, render_matrix_pdf)
       redirect_to controller: :analysis_matrices, action: :show
     else

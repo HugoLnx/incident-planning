@@ -2,7 +2,9 @@
 	<%= wicked_pdf_stylesheet_link_tag "cycles/formpdf" %>
 <% end %>
 
-<div class="form">
+<div class="form <%= @draft && "draft" %>">
+  <div class="watermark top">Draft</div>
+  <div class="watermark bottom">Draft</div>
 	<div class="first-line line">
 		<div class="field form-fullname">
 			<span class="main-title">Incident Objectives</span>

@@ -25,5 +25,14 @@ module Publish
       end
       messages
     end
+
+    def have_errors?(all_messages)
+      all_messages[:group] && !all_messages[:group].empty? || (
+        all_messages[:expression] && (
+          all_messages[:expression][:text] && !all_messages[:expression][:text].empty? ||
+          all_messages[:expression][:time] && !all_messages[:expression][:time].empty?
+        )
+      )
+    end
   end
 end

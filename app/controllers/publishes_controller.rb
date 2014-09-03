@@ -8,7 +8,7 @@ class PublishesController < ApplicationController
     @expression_errors = all_messages[:expression]
     @group_errors = all_messages[:group]
 
-    if @expression_errors.empty? && @group_errors.empty?
+    if !Publish::ValidationUtils.have_errors?(all_messages)
       Publish::Publisher.publish(@cycle)
       redirect_to action: :show
     else

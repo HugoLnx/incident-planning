@@ -4,6 +4,33 @@ $thin-line-percent: 0.05;
 
 .form {
 	font-size: 11pt;
+  position: relative;
+
+  &:not(.draft) {
+    .watermark {
+      display: none;
+    }
+  }
+
+  &.draft {
+    .watermark {
+      position: absolute;
+      width: $page_width;
+      font-size: 22em;
+      font-weight: bold;
+      -webkit-transform: rotate(0.625rad);
+      line-height: $page_height * 0.5;
+      color: rgba(0, 0, 0, 0.2);
+    }
+
+    .watermark.top {
+      top: $page_height * 0.1;
+    }
+
+    .watermark.bottom {
+      top: $page_height * 0.45;
+    }
+  }
 }
 
 .line {
