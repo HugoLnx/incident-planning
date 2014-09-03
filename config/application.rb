@@ -31,10 +31,12 @@ module IncidentPlanning
       "analysis_matrix_published.js",
       "cycles/new_cycle.css", "cycles/form.css", "cycles/formpdf.css",
       "cycles.css",
+      "search_users.js",
       "analysis_matrices/formpdf.css", "analysis_matrices/group_approval.css",
       "analysis_matrices.css",
       "analysis_matrices_expression_colors.css",
       "analysis_matrices_published_expression_colors.css",
+      "search_users.css"
     ]
   end
 end
