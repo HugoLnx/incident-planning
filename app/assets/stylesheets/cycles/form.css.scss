@@ -74,7 +74,8 @@ form {
   }
 
   .cycle_priorities {
-    width: 99%;
+    box-sizing: border-box;
+    width: 100%;
   }
 
   .objectives-fields input {
