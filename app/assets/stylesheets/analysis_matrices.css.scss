@@ -8,11 +8,17 @@
 $error_border_size: 2px;
 
 /* MENU */
-.buttons-line .btn {
-	margin-bottom: 10px;
-	margin-top: 10px;
-	margin-right: 20px;
-	float: left;
+.buttons-line {
+	& .btn {
+		margin-bottom: 10px;
+		margin-top: 10px;
+		margin-right: 10px;
+		float: left;
+	}
+
+	& .btn-download-pdf {
+		margin-left: 40px;
+	}
 }
 
 .analysis-matrix {
