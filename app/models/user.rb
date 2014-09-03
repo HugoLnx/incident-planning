@@ -19,10 +19,6 @@ class User < ActiveRecord::Base
   validates :name,
     presence: true
 
-  INCIDENT_COMMANDER_ID = 0
-  PLANNING_CHIEF_ID = 1
-  OPERATIONS_CHIEF_ID = 2
-
   def roles_ids=(roles_ids)
     valids_size = 0
     roles_ids.each.with_index do |role_id, i|
@@ -69,23 +65,23 @@ class User < ActiveRecord::Base
   end
   
   def can_approve_all_objectives_at_once?
-    is_incident_commander = !user_role(INCIDENT_COMMANDER_ID).nil?
+    verifier = UserRolesVerifier.new(self.roles_ids)
+    verifier.incident_commander?
   end
   
   def can_approve_priorities?
-    is_incident_commander = !user_role(INCIDENT_COMMANDER_ID).nil?
+    verifier = UserRolesVerifier.new(self.roles_ids)
+    verifier.incident_commander?
   end
   
   def can_publish?
-    is_incident_commander = !user_role(INCIDENT_COMMANDER_ID).nil?
-    is_planning_chief = !user_role(PLANNING_CHIEF_ID).nil?
-    is_incident_commander || is_planning_chief
+    verifier = UserRolesVerifier.new(self.roles_ids)
+    verifier.incident_commander? || verifier.planning_chief?
   end
 
   def can_issue_version?
-    is_operations_chief = !user_role(OPERATIONS_CHIEF_ID).nil?
-    is_planning_chief = !user_role(PLANNING_CHIEF_ID).nil?
-    is_operations_chief || is_planning_chief
+    verifier = UserRolesVerifier.new(self.roles_ids)
+    verifier.operations_chief? || verifier.planning_chief?
   end
 
   def can_approve_any_expression_of?(group)
