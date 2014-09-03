@@ -3,7 +3,7 @@
 <% end %>
 
 <% pdf_each_block @matrix_data do |rows|%>
-<div class="form <%= @draft && "draft" %>">
+<div class="form <%= @draft && "draft" %> <%= @for_review && "for-review" %> <%= @final && "final" %>">
   <div class="watermark top">Draft</div>
   <div class="watermark bottom">Draft</div>
 
@@ -26,9 +26,6 @@
 		<div class="field operational-period">
 			<div class="version-field">
 				<span class="version-content">v.<%= @cycle.current_version_number %></span>
-				<% if @draft %>
-					<span class="version-draft">(Draft)</span>
-				<% end -%>
 			</div>
 			<div class="cycle-field">
 				<span class="cycle-content">#<%= @cycle.number %></span>

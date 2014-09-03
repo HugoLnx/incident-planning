@@ -55,6 +55,7 @@ private
   end
 
   def render_matrix_pdf
+    @for_review = true
     render_to_string pdf: "anything",
       template: "analysis_matrices/show.pdf.erb",
       layout: "application"

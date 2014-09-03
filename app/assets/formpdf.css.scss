@@ -6,6 +6,7 @@ $thin-line-percent: 0.05;
 	font-size: 11pt;
   position: relative;
 
+  // Draft Specific Styling
   &:not(.draft) {
     .watermark {
       display: none;
@@ -29,6 +30,29 @@ $thin-line-percent: 0.05;
 
     .watermark.bottom {
       top: $page_height * 0.45;
+    }
+
+	  .approved-by-field {
+      color: rgba(0,0,0,0);
+    }
+
+    .version-content:after {
+      content: "(Draft)";
+      margin-left: 5px;
+    }
+  }
+
+  &.for-review {
+    .version-content:after {
+      content: "(For Review)";
+      margin-left: 5px;
+    }
+  }
+
+  &.final {
+    .version-content:after {
+      content: "(Final)";
+      margin-left: 5px;
     }
   }
 }
