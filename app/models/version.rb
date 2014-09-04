@@ -3,7 +3,10 @@ class Version < ActiveRecord::Base
 
   belongs_to :cycle
 
-  validates :pdf,
+  validates :ics234_pdf,
+    presence: true
+
+  validates :ics202_pdf,
     presence: true
 
   def self.new_next_to(cycle)

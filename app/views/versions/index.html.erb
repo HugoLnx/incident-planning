@@ -7,7 +7,8 @@
     <tr>
       <th>Number</th>
       <th>Creation Date</th>
-      <th></th>
+      <th>ICS 202</th>
+      <th>ICS 234</th>
     </tr>
   </thead>
 
@@ -16,7 +17,8 @@
       <tr>
         <td><%= version.number %></td>
         <td><%= format_date version.created_at %></td>
-        <td><%= link_to 'PDF', incident_cycle_version_path(@incident, @cycle, version, format: :pdf) %></td>
+        <td><%= link_to 'Download PDF', ics202_incident_cycle_version_path(@incident, @cycle, version, format: :pdf) %></td>
+        <td><%= link_to 'Download PDF', ics234_incident_cycle_version_path(@incident, @cycle, version, format: :pdf) %></td>
       </tr>
     <% end %>
   </tbody>

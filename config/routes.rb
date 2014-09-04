@@ -37,7 +37,11 @@ IncidentPlanning::Application.routes.draw do
         post :publish
         get :publish, to: "publishes#new"
       end
-      resources :versions, only: :show do
+      resources :versions, only: [] do
+        member do
+          get :ics234, as: :ics234, to: "versions#show_ics234"
+          get :ics202, as: :ics202, to: "versions#show_ics202"
+        end
         collection do
           get "/", as: :new, to: "versions#new"
           get "/all", as: :index, to: "versions#index"

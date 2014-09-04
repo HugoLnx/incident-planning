@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140828153710) do
+ActiveRecord::Schema.define(version: 20140904183900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,7 +149,8 @@ ActiveRecord::Schema.define(version: 20140828153710) do
     t.integer  "cycle_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.binary   "pdf",        null: false
+    t.binary   "ics234_pdf", null: false
+    t.binary   "ics202_pdf", null: false
   end
 
   add_index "versions", ["cycle_id"], name: "index_versions_on_cycle_id", using: :hash

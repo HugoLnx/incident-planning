@@ -9,7 +9,7 @@ class VersionsController < ApplicationController
     @group_errors = all_messages[:group]
 
     if !Publish::ValidationUtils.have_errors?(all_messages)
-      Publish::Version.issue(@cycle, render_matrix_pdf)
+      Publish::Version.issue(@cycle, ics234_pdf: render_matrix_pdf, ics202_pdf: render_objectives_pdf)
       redirect_to controller: :analysis_matrices, action: :show
     else
       render "analysis_matrices/show"
@@ -30,11 +30,19 @@ class VersionsController < ApplicationController
     @versions = @cycle.versions
   end
 
-  def show
+  def show_ics234
     version = Version.find(params[:id])
     respond_to do |format|
       naming = PdfNaming.new(@cycle, @cycle.current_version_number, extension: true)
-      format.pdf {send_data version.pdf, filename: naming.ics234}
+      format.pdf {send_data version.ics234_pdf, filename: naming.ics234}
+    end
+  end
+
+  def show_ics202
+    version = Version.find(params[:id])
+    respond_to do |format|
+      naming = PdfNaming.new(@cycle, @cycle.current_version_number, extension: true)
+      format.pdf {send_data version.ics202_pdf, filename: naming.ics202}
     end
   end
 
@@ -42,6 +50,7 @@ private
   def set_incident_and_cycle
     @incident = Incident.find params[:incident_id]
     @cycle = Cycle.find params[:cycle_id]
+    @form202 = Forms::Form202.new_from(@cycle)
   end
 
   def prepare_to_render_analysis_matrix
@@ -58,6 +67,13 @@ private
     @for_review = true
     render_to_string pdf: "anything",
       template: "analysis_matrices/show.pdf.erb",
+      layout: "application"
+  end
+
+  def render_objectives_pdf
+    @for_review = true
+    render_to_string pdf: "anything",
+      template: "cycles/show.pdf.erb",
       layout: "application"
   end
 end

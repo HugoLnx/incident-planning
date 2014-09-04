@@ -91,8 +91,4 @@ class CyclesController < ApplicationController
       cycle_params[:objectives_texts] = params[:objectives_texts] || []
       Forms::Form202.normalize(cycle_params)
     end
-
-  def pdf_name
-    DateTime.now.strftime("%Y-%d-%m") + " Form 202"
-  end
 end
