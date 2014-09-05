@@ -6,4 +6,5 @@ class ApplicationController < ActionController::Base
   include AuthorizationFrontController
   include DevisePatchController
   include BackRefererController
+  include CtrlConcerns::AnalysisMatrices
 end
