@@ -15,6 +15,11 @@ module CtrlConcerns
         @strategy = ::Model.strategy
         @tactic = ::Model.tactic
       end
+
+      def prepare_errors(all_messages)
+        @expression_errors = all_messages[:expression]
+        @group_errors = all_messages[:group]
+      end
     end
   end
 end

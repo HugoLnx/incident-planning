@@ -5,8 +5,7 @@ class PublishesController < ApplicationController
     prepare_to_render_analysis_matrix(@cycle)
 
     all_messages = Publish::PublishValidation.errors_messages_on(@objectives)
-    @expression_errors = all_messages[:expression]
-    @group_errors = all_messages[:group]
+    prepare_errors(all_messages)
 
     if !Publish::ValidationUtils.have_errors?(all_messages)
       Publish::Publisher.publish(@cycle, ics234_pdf: render_matrix_pdf, ics202_pdf: render_objectives_pdf)
@@ -19,9 +18,8 @@ class PublishesController < ApplicationController
   def new
     prepare_to_render_analysis_matrix(@cycle)
 
-    all_errors = Publish::PublishValidation.errors_messages_on(@objectives)
-    @expression_errors = all_errors[:expression]
-    @group_errors = all_errors[:group]
+    all_messages = Publish::PublishValidation.errors_messages_on(@objectives)
+    prepare_errors(all_messages)
 
     render "analysis_matrices/show"
   end
