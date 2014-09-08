@@ -14,6 +14,8 @@ module CtrlConcerns
         @objective = ::Model.objective
         @strategy = ::Model.strategy
         @tactic = ::Model.tactic
+
+        @publish_preerrors = Publish::PublishPrevalidation.errors_messages_on(current_user, cycle)
       end
 
       def prepare_errors(all_messages)

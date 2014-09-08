@@ -8,6 +8,23 @@
     LNX_INCIDENT_PLANNING.FROM_RAILS.Model = <%= raw ::Model.to_json %>;
     LNX_INCIDENT_PLANNING.FROM_RAILS.environment = <%= raw ::Rails.env.inspect %>;
     LNX_INCIDENT_PLANNING.FROM_RAILS.current_incident_id = <%= @incident.id %>;
+
+    $(function() {
+      $(".popup-on-errors.disabled").each(function(){
+        var $target = $(this);
+        var listId = $target.data("errors-id");
+        var $list = $("#" + listId);
+        $list.css("position", "absolute").hide();
+        $target.hover(function(event) {
+          var pos = $target.position()
+          pos.top += 50;
+          $list.css({top: pos.top, left: pos.left});
+          $list.show();
+        }, function(event) {
+          $list.hide();
+        });
+      });
+    });
   <% end %>
 
   <%= javascript_include_tag "analysis_matrices", "data-turbolinks-track" => true %>
@@ -29,6 +46,17 @@
       border-left: #5c5 solid 4px;
       border-bottom: #1b1 solid 4px;
       border-right: #1b1 solid 4px;
+    }
+
+    .errors-popup {
+      width: 300px;
+      border: solid 2px #c44;
+      background-color: #f88;
+      display: none;
+    }
+
+    .errors-popup p {
+      margin-left: 10px;
     }
   </style>
 <% end %>
@@ -68,9 +96,20 @@
     publish_incident_cycle_publishes_path(@incident, @cycle),
     method: :post,
     btn_options: {
-      class: "btn-publish btn",
-        disabled: !current_user.can_publish? || !@cycle.can_be_published?
+      "data-errors-id" => "publish-errors",
+      class: "btn-publish btn popup-on-errors #{(@publish_preerrors && !@publish_preerrors.empty?) ? "disabled" : "non-disabled"}"
     } %>
+
+    <div class="popup-container">
+      <div id="publish-errors" class="errors-popup">
+        <p>You can't publish.</p>
+        <ul>
+          <% @publish_preerrors.each do |error| %>
+            <li><%= error %></li>
+          <% end -%>
+        </ul>
+      </div>
+    </div>
 
   <% if have_alarms %>
     <%= btn_link_to "Clear Alerts", 

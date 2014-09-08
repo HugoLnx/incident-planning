@@ -77,7 +77,7 @@ class Cycle < ActiveRecord::Base
     groups.where(name: "Objective").destroy_all
   end
 
-  def can_be_published?
+  def next_to_be_published?
     number == FIRST_NUMBER || before_me.published?
   end
 

@@ -15,3 +15,10 @@
 //= require namespaces
 //= require model
 //= require_tree ./backend_protocols/
+$(function() {
+  $(".disabled").click(function(event){
+    event.stopPropagation();
+    event.preventDefault();
+    return false;
+  });
+});

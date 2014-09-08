@@ -44,3 +44,9 @@
   font-weight: bold;
   color: red;
 }
+
+.disabled {
+  cursor: default;
+  border: none;
+  color: #555;
+}

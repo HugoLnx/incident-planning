@@ -17,7 +17,6 @@ module Publish
       }
     end
 
-
     def get_messages(errors)
       messages = Hash.new([])
       errors.each do |key, exp_errors|
