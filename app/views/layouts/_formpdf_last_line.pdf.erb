@@ -2,15 +2,28 @@
 		<div class="field prepared-by-field">
 			<span class="datetime-label">Date/Time</span>
 			<span class="title">5. Prepared by:</span>
-			<span class="datetime-value"><%= format_date(DateTime.now)%></span>
-			<span class="prepared-id"><%= current_user.human_id %></span>
-			<span class="prepared-role">(<%= current_user.main_role.name %>)</span>
+      <% if @final %>
+        <%= render partial: "layouts/user_data.pdf.erb", locals: {
+          datetime: @cycle.last_version.created_at,
+          user: @cycle.last_version.user
+        } %>
+      <% else %>
+        <%= render partial: "layouts/user_data.pdf.erb", locals: {
+          datetime: DateTime.now,
+          user: current_user
+        } %>
+      <% end %>
 			<span class="signature">Assinatura:</span>
 		</div>
 
 		<div class="field approved-by-field">
 			<span class="datetime-label">Date/Time</span>
 			<span class="title">6. Approved by:</span>
+        <%= render partial: "layouts/user_data.pdf.erb", locals: {
+          datetime: DateTime.now,
+          user: current_user
+        } %>
+			<span class="signature">Assinatura:</span>
 		</div>
 	</div>
 </div>

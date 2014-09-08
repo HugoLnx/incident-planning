@@ -8,7 +8,7 @@ class VersionsController < ApplicationController
     prepare_errors(all_messages)
 
     if !Publish::ValidationUtils.have_errors?(all_messages)
-      Publish::Version.issue(@cycle, ics234_pdf: render_matrix_pdf, ics202_pdf: render_objectives_pdf)
+      Publish::Version.issue(current_user, @cycle, ics234_pdf: render_matrix_pdf, ics202_pdf: render_objectives_pdf)
       redirect_to controller: :analysis_matrices, action: :show
     else
       render "analysis_matrices/show"

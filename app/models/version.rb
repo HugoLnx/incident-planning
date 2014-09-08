@@ -2,6 +2,7 @@ class Version < ActiveRecord::Base
   FIRST_NUMBER = 1
 
   belongs_to :cycle
+  belongs_to :user
 
   validates :ics234_pdf,
     presence: true

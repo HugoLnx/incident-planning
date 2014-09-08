@@ -47,6 +47,10 @@ $thin-line-percent: 0.05;
       content: "(For Review)";
       margin-left: 5px;
     }
+
+	  .approved-by-field .user-data {
+      color: rgba(0,0,0,0);
+    }
   }
 
   &.final {
@@ -171,20 +175,25 @@ $thin-line-percent: 0.05;
 
 	.prepared-by-field {
 		width: $page_width * 0.6 - 2px;
+	}
 
-    .prepared-role, .prepared-id {
+	.approved-by-field {
+		width: $page_width * 0.4 - 1px;
+	}
+
+	.approved-by-field, .prepared-by-field {
+    position: relative;
+
+    .user-role, .user-id {
       margin-left: 5px;
       font-style: italic;
     }
 
     .signature {
       display: block;
-      margin-left: 5px;
-      margin-top: 10px;
+      position: absolute;
+      left: 5px;
+      bottom: 0;
     }
-	}
-
-	.approved-by-field {
-		width: $page_width * 0.4 - 1px;
-	}
+  }
 }
