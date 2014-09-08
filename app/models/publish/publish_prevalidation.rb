@@ -10,6 +10,7 @@ module Publish
       
       errors += Prevalidation::Permission.errors_on(current_user).entries
       errors += Prevalidation::PreviousCyclesPublished.errors_on(cycle).entries
+      errors += Prevalidation::NotChangedAfterLastVersion.errors_on(cycle).entries
 
       errors
     end

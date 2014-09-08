@@ -85,6 +85,21 @@ class Cycle < ActiveRecord::Base
     Cycle.where("number < ?", self.number).last
   end
 
+  def changed_after_last_version?
+    ver = last_version
+    if last_version
+      last_change = [
+        self.updated_at, self.text_expressions.maximum(:updated_at),
+        self.time_expressions.maximum(:updated_at),
+        self.groups.maximum(:updated_at)
+      ].max
+
+      last_change > last_version.updated_at
+    else
+      true
+    end
+  end
+
   def published?
     closed?
   end
