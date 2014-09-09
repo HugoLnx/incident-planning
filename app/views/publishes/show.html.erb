@@ -23,7 +23,7 @@
     <tr>
       <th rowspan="2" class="header objective">OBJECTIVES</th>
       <th class="header strategy" colspan="<%= @strategy.expressions.size %>">STRATEGIES</th>
-      <th class="header tactic" colspan="<%= @tactic.expressions.size %>">TACTICS</th>
+      <th class="header tactic" colspan="<%= @tactic.expressions.size + 1 %>">TACTICS</th>
     </tr>
     <tr>
       <% @strategy.expressions.each do |exp| %>
@@ -32,6 +32,7 @@
       <% @tactic.expressions.each do |exp| %>
         <th class="header tactic"><%= exp.human_name %></th>
       <% end %>
+      <th class="header tactic criticality-header">Crit.</th>
     </tr>
   </thead>
 
