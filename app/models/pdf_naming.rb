@@ -1,12 +1,18 @@
 class PdfNaming
-  FORMAT = "[formname] [draft]C[cycle]v[version] [date]"
+  FORMAT = "[formname] ([prefix])C[cycle]v[version] [date]"
   ICS234 = "ICS-234"
   ICS202 = "ICS-202"
+  TYPES = ::TypesLib::Enum.new %i{draft for_review final}
+  TYPE_NAMES = {
+    TYPES.name(:draft) => "Draft",
+    TYPES.name(:for_review) => "For Review",
+    TYPES.name(:final) => "Final"
+  }
 
-  def initialize(cycle, version, draft: false, extension: false)
+  def initialize(cycle, version, type: TYPES.name(:draft), extension: false)
     @cycle = cycle
     @version = version
-    @draft = draft
+    @type = type
     @extension = extension
   end
 
@@ -20,7 +26,7 @@ class PdfNaming
 
   def name_to(formname)
     name = FORMAT.gsub("[formname]", formname)
-      .gsub("[draft]", (@draft ? "(Draft) " : ""))
+      .gsub("[prefix]", TYPE_NAMES[@type])
       .gsub("[cycle]", @cycle.number.to_s)
       .gsub("[version]", @version.to_s)
       .gsub("[date]", formatted_date)

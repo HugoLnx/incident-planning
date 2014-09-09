@@ -23,4 +23,8 @@ class Version < ActiveRecord::Base
       return last_version.number + 1
     end
   end
+
+  def final?
+    self.cycle.closed? && self == cycle.last_version
+  end
 end

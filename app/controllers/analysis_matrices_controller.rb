@@ -10,7 +10,7 @@ class AnalysisMatricesController < ApplicationController
         format.html
         format.pdf do
           @draft = true
-          naming = PdfNaming.new(@cycle, @cycle.current_version_number, draft: true)
+          naming = PdfNaming.new(@cycle, @cycle.current_version_number, type: :draft)
           render pdf: naming.ics234,
             template: "analysis_matrices/show.pdf.erb",
             layout: "application"
