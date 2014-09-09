@@ -21,4 +21,11 @@ $(function() {
     event.preventDefault();
     return false;
   });
+
+  $(".remote-submit").click(function(event){
+    event.preventDefault();
+    var formSelector = $(this).data("remote-form");
+    $(formSelector).submit();
+    return false;
+  });
 });

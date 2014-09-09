@@ -3,23 +3,28 @@
 <% end %>
 
 <% content_for :css do %>
+	<style>
+		form, input {margin: 0;}
+	</style>
   <%= stylesheet_link_tag "analysis_matrices", media: "all" %>
   <%= stylesheet_link_tag "analysis_matrices/group_approval", media: "all" %>
-  <% if current_user.features_config.traceability? %>
-    <%= stylesheet_link_tag "analysis_matrices_expression_colors", media: "all" %>
-  <% end %>
+	<%= stylesheet_link_tag "analysis_matrices_expression_colors", media: "all" %>
 <% end -%>
 
 <h1><%= analysis_matrix_resource_name %></h1>
 
 <%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
 
-<%= form_tag group_approval_path, method: :post do %>
-	<div class="buttons-line"> 
-		<%= submit_tag "Approve all selected", class: "btn" %>
-	</div>
+<div class="buttons-line"> 
+	<%= submit_tag "Approve all selected", class: "btn remote-submit", "data-remote-form" => "#approval-form" %>
 
-  <table class="analysis-matrix" id="analysis-matrix">
+	<%= btn_link_to "Cancel", 
+		incident_cycle_analysis_matrix_path(@incident, @cycle),
+		class: "btn-cancel btn" %>
+</div>
+
+<%= form_tag group_approval_path, method: :post, id: "approval-form" do %>
+	<table class="analysis-matrix <%= current_user.features_config.thesis_tools? ? "thesis-on" : "thesis-off" %>" id="analysis-matrix">
     <thead>
       <tr>
         <th rowspan="2" class="checkbox-cell header">XXX</th>
