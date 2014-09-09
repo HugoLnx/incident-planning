@@ -182,18 +182,9 @@ $thin-line-percent: 0.05;
 	}
 
 	.approved-by-field, .prepared-by-field {
-    position: relative;
-
     .user-role, .user-id {
       margin-left: 5px;
       font-style: italic;
-    }
-
-    .signature {
-      display: block;
-      position: absolute;
-      left: 5px;
-      bottom: 0;
     }
   }
 }
