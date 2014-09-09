@@ -40,6 +40,7 @@ private
 
   def render_matrix_pdf
     @final = true
+    @version_number = @cycle.last_version.number
     render_to_string pdf: "anything",
       template: "analysis_matrices/show.pdf.erb",
       layout: "application"
@@ -47,6 +48,7 @@ private
 
   def render_objectives_pdf
     @final = true
+    @version_number = @cycle.last_version.number
     render_to_string pdf: "anything",
       template: "cycles/show.pdf.erb",
       layout: "application"

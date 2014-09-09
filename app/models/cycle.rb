@@ -109,7 +109,12 @@ class Cycle < ActiveRecord::Base
   end
 
   def current_version_number
-    Version.next_number_to(self)
+    if self.published?
+      version = self.last_version
+      version.nil? ? Version::FIRST_NUMBER : version.number
+    else
+      Version.next_number_to(self)
+    end
   end
 
   def have_past_versions?

@@ -21,7 +21,7 @@ module Publish
 
       def self.from_expression(expression)
         model = self.new
-        model.when_text = expression.text
+        model.when_text = expression.info_as_str
         model.expression = expression
         model
       end
