@@ -32,9 +32,7 @@
 
 <% content_for :css do %>
   <%= stylesheet_link_tag "analysis_matrices", media: "all" %>
-<% if current_user.features_config.traceability? %>
   <%= stylesheet_link_tag "analysis_matrices_expression_colors", media: "all" %>
-<% end %>
   <style>
     .btn-show-dialog {
       display: none;
@@ -119,7 +117,8 @@
 
 </div>
 
-<table class="analysis-matrix" id="analysis-matrix">
+
+<table class="analysis-matrix <%= current_user.features_config.thesis_tools? ? "thesis-on" : "thesis-off" %>" id="analysis-matrix">
   <thead id="amthead">
     <tr>
       <th rowspan="2" class="header objective">OBJECTIVES</th>
