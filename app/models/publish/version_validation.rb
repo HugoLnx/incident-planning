@@ -13,33 +13,18 @@ module Publish
       when_text: [PublishValidation::ITEM_EMPTY_MESSAGE]
     }
 
-    def errors_messages_on(objectives_groups)
-      all_errors = errors_on(objectives_groups)
+    def errors_messages_on(objectives_groups, disable_approvals: false)
+      all_errors = errors_on(objectives_groups, disable_approvals: disable_approvals)
       ValidationUtils.errors_messages_from_errors(all_errors)
     end
 
-    def errors_on(objectives_groups)
-      all_errors = PublishValidation.errors_on(objectives_groups)
+    def errors_on(objectives_groups, disable_approvals: false)
+      all_errors = PublishValidation.errors_on(objectives_groups, disable_approvals: disable_approvals)
 
-      clear(all_errors[:expression][:text])
-      clear(all_errors[:expression][:time])
+      Validation::Utils::ErrorsCleaner.clear(all_errors[:expression][:text], criteria: EXCLUDED_VALIDATIONS)
+      Validation::Utils::ErrorsCleaner.clear(all_errors[:expression][:time], criteria: EXCLUDED_VALIDATIONS)
 
       return all_errors
-    end
-
-  private
-    def clear(exp_errors)
-      exp_errors.each do |_, exp_errors|
-        exp_errors.delete_if do |(field, msg)|
-          excluded_msgs = EXCLUDED_VALIDATIONS[field]
-          delete = excluded_msgs && excluded_msgs.include?(msg)
-          delete
-        end
-      end
-
-      exp_errors.keys.each do |exp_id|
-        exp_errors.delete(exp_id) if exp_errors[exp_id].empty?
-      end
     end
   end
 end

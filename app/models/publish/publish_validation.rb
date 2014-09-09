@@ -2,12 +2,12 @@ module Publish
   class PublishValidation
     ITEM_EMPTY_MESSAGE = "Item can't be empty."
 
-    def self.errors_messages_on(objectives_groups)
-      all_errors = errors_on(objectives_groups)
+    def self.errors_messages_on(objectives_groups, disable_approvals: false)
+      all_errors = errors_on(objectives_groups, disable_approvals: disable_approvals)
       ValidationUtils.errors_messages_from_errors(all_errors)
     end
 
-    def self.errors_on(objectives_groups)
+    def self.errors_on(objectives_groups, disable_approvals: false)
       text_expression_errors = Hash.new([])
       time_expression_errors = Hash.new([])
       group_errors = Hash.new([])
@@ -56,6 +56,11 @@ module Publish
         
         errors = Validation::TacticDuplication.group_errors_on(tactic_group, strategy_groups)
         group_errors[[who.id, what.id, where.id]] += errors.entries unless errors.empty?
+      end
+
+      if disable_approvals
+        Validation::Utils::ErrorsCleaner.clear_approvals(text_expression_errors)
+        Validation::Utils::ErrorsCleaner.clear_approvals(time_expression_errors)
       end
 
       return {

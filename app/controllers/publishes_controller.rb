@@ -4,7 +4,8 @@ class PublishesController < ApplicationController
   def publish
     prepare_to_render_analysis_matrix(@cycle)
 
-    all_messages = Publish::PublishValidation.errors_messages_on(@objectives)
+    all_messages = Publish::PublishValidation.errors_messages_on(
+      @objectives, disable_approvals: !current_user.features_config.thesis_tools?)
     prepare_errors(all_messages)
 
     if !Publish::ValidationUtils.have_errors?(all_messages)
@@ -18,7 +19,8 @@ class PublishesController < ApplicationController
   def new
     prepare_to_render_analysis_matrix(@cycle)
 
-    all_messages = Publish::PublishValidation.errors_messages_on(@objectives)
+    all_messages = Publish::PublishValidation.errors_messages_on(
+      @objectives, disable_approvals: !current_user.features_config.thesis_tools?)
     prepare_errors(all_messages)
 
     render "analysis_matrices/show"
