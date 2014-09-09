@@ -82,7 +82,7 @@ class Cycle < ActiveRecord::Base
   end
 
   def before_me
-    Cycle.where("number < ?", self.number).last
+    Cycle.where("incident_id = ? AND number < ?", self.incident_id, self.number).last
   end
 
   def changed_after_last_version?
