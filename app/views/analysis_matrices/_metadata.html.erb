@@ -1,7 +1,7 @@
-<% if current_user.features_config.traceability? %>
+<% if current_user.features_config.traceability? || (errors && !errors.empty?) %>
 <div class="metadata">
   <%= render partial: "analysis_matrices/expression_errors.html.erb", locals: {errors: errors} %>
-
+  <% if current_user.features_config.traceability? %>
   <div class="metadata-section item-section">
 	  <p class="metadata-label">Item Info</p>
 
@@ -37,5 +37,6 @@
         <button disabled>Approval Done</button>
     <% end %>
   </div>
+  <% end %>
 </div>
 <% end %>
