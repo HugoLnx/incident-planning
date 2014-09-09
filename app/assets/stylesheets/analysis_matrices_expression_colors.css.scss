@@ -13,7 +13,7 @@ $repeated_light_percent: 20%;
 .analysis-matrix {
 
 	@mixin background-colors($color, $repeated_light_percent, $selector: "") {
-		.non-repeated#{$selector} {
+		.non-repeated:not(.criticality)#{$selector} {
 			background-color: $color;
 		}
 
