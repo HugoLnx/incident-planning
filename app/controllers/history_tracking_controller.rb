@@ -2,7 +2,7 @@ module HistoryTrackingController
   extend ActiveSupport::Concern
 
   included do
-    before_filter :update_tracking_referers
+    after_filter :update_tracking_referers
 
     def self.track_history(prefix, &block)
       @@trackings ||= {}
@@ -30,7 +30,7 @@ module HistoryTrackingController
       tracker = session[:__tracker_history__] ||= {}
       tracker[current_tracked_name] = tracker[last_tracked_name]
 
-      if self.instance_eval(&have_to_track_request)
+      if self.instance_eval(&have_to_track_request) && is_not_redirecting
         resource_changed = tracker[last_resource_name] != resource_codename
         if resource_changed
           tracker[last_tracked_name] = request.original_url
@@ -41,6 +41,10 @@ module HistoryTrackingController
 
     def resource_codename
       "#{controller_name}##{action_name}"
+    end
+
+    def is_not_redirecting
+      response.location.nil?
     end
   end
 end
