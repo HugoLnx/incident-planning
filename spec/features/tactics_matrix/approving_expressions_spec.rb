@@ -50,15 +50,13 @@ feature "Tactics Matrix: Approving expressions", :js do
       @page = metadata_dialog.click_approve
 
       expect(@page.notice).to have_text "Expression was sucessfuly approved."
-      expect(Approval.count).to be == 3
+      expect(Approval.count).to be == 2
 
       approvals = Approval.all.sort_by(&:role_id)
       expect(approvals[0].user).to be == @user
       expect(approvals[1].user).to be == @user
-      expect(approvals[2].user).to be == @user
-      expect(approvals[0].role_id).to be == 0
-      expect(approvals[1].role_id).to be == 1
-      expect(approvals[2].role_id).to be == 2
+      expect(approvals[0].role_id).to be == 1
+      expect(approvals[1].role_id).to be == 2
     end
   end
 
@@ -78,7 +76,7 @@ feature "Tactics Matrix: Approving expressions", :js do
         @page = metadata_dialog.click_approve
 
         expect(@page.notice).to have_text "Expression was sucessfuly approved."
-        expect(Approval.count).to be == 3
+        expect(Approval.count).to be == 2
 
         approvals = Approval.all.sort_by(&:role_id)
         approvals.each do |approval|
@@ -87,10 +85,8 @@ feature "Tactics Matrix: Approving expressions", :js do
 
         expect(approvals[0].user).to be == @user
         expect(approvals[1].user).to be == @user
-        expect(approvals[2].user).to be == @user
         expect(approvals[0].role_id).to be == 1
         expect(approvals[1].role_id).to be == 2
-        expect(approvals[2].role_id).to be == 3
       end
     end
 
