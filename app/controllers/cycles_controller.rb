@@ -3,7 +3,7 @@ class CyclesController < ApplicationController
   before_action :set_incident
 
   def index
-    @cycles = @incident.cycles.all
+    @cycles = @incident.cycles.load
   end
 
   def show
