@@ -28,12 +28,12 @@ module HistoryTrackingController
       last_tracked_name = :"#{prefix}_last_tracked"
       last_resource_name = :"#{prefix}_last_resource"
       tracker = session[:__tracker_history__] ||= {}
-      tracker[current_tracked_name] = tracker[last_tracked_name]
+      tracker[last_tracked_name] = tracker[current_tracked_name]
 
       if self.instance_eval(&have_to_track_request) && is_not_redirecting
         resource_changed = tracker[last_resource_name] != resource_codename
         if resource_changed
-          tracker[last_tracked_name] = request.original_url
+          tracker[current_tracked_name] = request.original_url
         end
         tracker[last_resource_name] = resource_codename
       end
