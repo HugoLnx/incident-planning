@@ -4,6 +4,6 @@ class Incident < ActiveRecord::Base
   validates :name, presence: true
 
   def closed?
-    cycles.all?{|cycle| cycle.closed?}
+    cycles.size > 0 && cycles.all?{|cycle| cycle.closed?}
   end
 end

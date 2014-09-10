@@ -22,6 +22,12 @@ describe Incident do
           expect(@incident).to_not be_closed
         end
       end
+
+      context "if have no cycles" do
+        it "is false" do
+          expect(@incident).to_not be_closed
+        end
+      end
     end
   end
 end
