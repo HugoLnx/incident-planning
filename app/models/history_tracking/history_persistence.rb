@@ -12,9 +12,9 @@ module HistoryTracking
       hash(name)[:current_url]
     end
 
-    def last_action(name, value: nil)
-      if value
-        hash(name)[:last_action] = value
+    def last_action(name, action: nil, params: {})
+      if action
+        hash(name)[:last_action] = [action, params]
       else
         hash(name)[:last_action]
       end

@@ -4,13 +4,14 @@ module HistoryTracking
       @conditions = conditions
     end
 
-    def try_track(name, url, action, is_redirecting, conditions_container, dao)
+    def try_track(name, url, action, params, is_redirecting, conditions_container, dao)
       if conditions_container.instance_eval(&@conditions) && !is_redirecting
-        resource_changed = dao.last_action(name) != action
+        last_action = dao.last_action(name)
+        resource_changed = ((last_action[0] != action) || (last_action[1] != params))
         if resource_changed
           dao.add_url(name, url)
         end
-        dao.last_action(name, value: action)
+        dao.last_action(name, action: action, params: params)
       end
     end
 

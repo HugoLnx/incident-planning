@@ -12,9 +12,9 @@ module HistoryTracking
       @histories[name]
     end
 
-    def update_tracks(url, action, is_redirecting, conditions_container, dao)
+    def update_tracks(url, action, params, is_redirecting, conditions_container, dao)
       @histories.each do |name, history|
-        history.try_track(name, url, action, is_redirecting, conditions_container, dao)
+        history.try_track(name, url, action, params, is_redirecting, conditions_container, dao)
       end
     end
   end
