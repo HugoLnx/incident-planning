@@ -22,7 +22,7 @@
 en:
   activerecord:
     models:
-      cycle: Cycle
+      cycle: Period
     attributes:
       forms_cycle:
         from: From
