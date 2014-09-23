@@ -1,5 +1,5 @@
 module AnalysisMatricesPdfHelper
-  LINES_PER_BLOCK = 10
+  LINES_PER_BLOCK = 5
   def pdf_each_block(matrix_data, &block)
     rows = AnalysisMatrixRendererContainer::RowsIterator.new(matrix_data, callbacks: {
       show_objective: get_proc(:render_objective_text),

@@ -18,7 +18,7 @@
 	}
 }
 
-$cell_height: $page_height * 0.0775;
+$cell_height: $page_height * 0.0775 * 2;
 
 .matrix-cells {
 	height: $cell_height;
@@ -34,14 +34,6 @@ $cell_height: $page_height * 0.0775;
 		.field-content {
 			padding: 0;
 			margin: 0;
-		}
-
-		&.tactics-cell {
-			line-height: $cell_height/4;
-		}
-
-		&.objectives-cell, &.strategies-cell {
-			line-height: $cell_height;
 		}
 	}
 }
