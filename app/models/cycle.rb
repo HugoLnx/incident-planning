@@ -118,6 +118,6 @@ class Cycle < ActiveRecord::Base
   end
 
   def have_past_versions?
-    current_version_number != Version::FIRST_NUMBER
+    versions.count != 0
   end
 end

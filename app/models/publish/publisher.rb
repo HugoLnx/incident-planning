@@ -4,7 +4,10 @@ module Publish
       incident_name = cycle.incident.name
       cycle.text_expressions.update_all(source: incident_name)
       cycle.time_expressions.update_all(source: incident_name)
-      cycle.last_version.update(ics234_pdf: ics234_pdf, ics202_pdf: ics202_pdf)
+      version = cycle.versions.new(
+        number: cycle.last_version.number,
+        ics234_pdf: ics234_pdf, ics202_pdf: ics202_pdf)
+      version.save!
       cycle.update(closed: true)
     end
   end
