@@ -55,7 +55,7 @@ module PageObjects
     end
 
     def submit
-      @form.click_button "Create Cycle"
+      @form.click_button "Create Period"
       wait_until{@user.session.current_path.include? "confirm"}
       CycleConfirmPO.new(@user)
     end

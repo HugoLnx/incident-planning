@@ -21,7 +21,7 @@ feature "Cycles: Creating cycles to an incident", :js do
 
     scenario "I can create the first one" do
       form = @page.form
-      expect(form.element).to_not have_button "Copy from previous cycle"
+      expect(form.element).to_not have_button "Copy from previous period"
 
       filled_from = DateTime.new(2014, 5, 27, 10, 30)
       filled_to = filled_from.next_day(1)
@@ -89,7 +89,7 @@ feature "Cycles: Creating cycles to an incident", :js do
 
     scenario "I can create another one" do
       form = @page.form
-      expect(form.element).to have_button "Copy from previous cycle"
+      expect(form.element).to have_button "Copy from previous period"
 
       filled_from = form.from
       filled_to = filled_from.next_day(1)
