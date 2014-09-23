@@ -108,6 +108,14 @@ class Cycle < ActiveRecord::Base
     versions.order(:created_at).last
   end
 
+  def last_non_final_version
+    if published?
+      versions.order(:created_at)[-2]
+    else
+      versions.order(:created_at).last
+    end
+  end
+
   def current_version_number
     if self.published?
       version = self.last_version

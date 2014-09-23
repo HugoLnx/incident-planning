@@ -4,8 +4,8 @@
 			<span class="title">5. Prepared by:</span>
       <% if @final %>
         <%= render partial: "layouts/user_data.pdf.erb", locals: {
-          datetime: @cycle.last_version.created_at,
-          user: @cycle.last_version.user
+          datetime: @cycle.last_non_final_version.created_at,
+          user: @cycle.last_non_final_version.user
         } %>
       <% else %>
         <%= render partial: "layouts/user_data.pdf.erb", locals: {
