@@ -32,26 +32,16 @@ class VersionsController < ApplicationController
 
   def show_ics234
     version = Version.find(params[:id])
-    if version.final?
-      type = :final
-    else
-      type = :for_review
-    end
     respond_to do |format|
-      naming = PdfNaming.new(@cycle, @cycle.current_version_number, extension: true, type: type)
+      naming = PdfNaming.existent_version(version, extension: true)
       format.pdf {send_data version.ics234_pdf, filename: naming.ics234}
     end
   end
 
   def show_ics202
     version = Version.find(params[:id])
-    if version.final?
-      type = :final
-    else
-      type = :for_review
-    end
     respond_to do |format|
-      naming = PdfNaming.new(@cycle, @cycle.current_version_number, extension: true, type: type)
+      naming = PdfNaming.existent_version(version, extension: true)
       format.pdf {send_data version.ics202_pdf, filename: naming.ics202}
     end
   end
