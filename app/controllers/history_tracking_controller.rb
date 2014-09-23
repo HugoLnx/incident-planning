@@ -15,7 +15,7 @@ module HistoryTrackingController
 
   private
     def update_tracking_referers
-      if params[:format] != :json
+      if params[:format] != "json"
         @@tracker.update_tracks(request.original_url, params, resource_codename, is_redirecting, self, persistence_dao)
       end
     end

@@ -53,5 +53,15 @@ feature "Back through navigation history" do
       page.click_link "Back"
       expect(current_path).to be == incident_cycles_path(incident)
     end
+
+    scenario "backing after an user search" do
+      page.click_link incident.name
+      page.click_link "Search Users"
+      visit profiles_path(filter: "filter1")
+      visit profiles_path(filter: "filter2", format: :json) # simulating ajax request
+      visit profiles_path(filter: "filter2")
+      page.click_link "Back"
+      expect(current_params[:filter]).to be == "filter1"
+    end
   end 
 end

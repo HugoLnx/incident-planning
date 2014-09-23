@@ -6,7 +6,7 @@
     $input.autocomplete({
       source: function(request, response) {
         $.ajax({
-          url: "/profiles",
+          url: "/profiles.json",
           data: {filter: $input.val()},
           dataType: "json",
           success: function(users) {

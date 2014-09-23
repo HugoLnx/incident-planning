@@ -11,3 +11,11 @@ def wait_until
     value
   end
 end
+
+def current_params
+  current_url.gsub(/^[^\?]*\?/, "").split("&").inject({}) do |hash, pair|
+    kv = pair.split("=")
+    hash[kv[0].to_sym] = kv[1]
+    hash
+  end
+end
