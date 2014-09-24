@@ -32,9 +32,9 @@
 		<%= cycle.number %>
 	</p>
 
-	<p class="status">
-		<strong>Status:</strong>
-		<%= cycle_closed_name(cycle.closed) %>
+	<p class="version">
+		<strong>Version:</strong>
+		<%= cycle.current_version_number %>
 	</p>
 
 	<p class="from">
@@ -47,9 +47,9 @@
 		<%= format_date cycle.to %>
 	</p>
 
-	<p class="version">
-		<strong>Current Version:</strong>
-		<%= cycle.current_version_number %>
+	<p class="status">
+		<strong>Status:</strong>
+		<%= cycle_closed_name(cycle.closed) %>
 	</p>
 
   <div class="brief-end"></div>
