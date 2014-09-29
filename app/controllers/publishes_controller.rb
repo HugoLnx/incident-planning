@@ -4,8 +4,10 @@ class PublishesController < ApplicationController
   def publish
     prepare_to_render_analysis_matrix(@cycle)
     prepare_errors(@publish_messages)
+        
+    @general_errors = Publish::PublishPrevalidation.errors_messages_on(current_user, @cycle, @have_publish_errors)
 
-    if !@have_publish_errors
+    if !@have_publish_errors && @general_errors.empty?
       Publish::Publisher.publish(@cycle, ics234_pdf: render_matrix_pdf, ics202_pdf: render_objectives_pdf)
       redirect_to action: :show
     else
@@ -16,6 +18,7 @@ class PublishesController < ApplicationController
   def new
     prepare_to_render_analysis_matrix(@cycle)
     prepare_errors(@publish_messages)
+    @general_errors = Publish::PublishPrevalidation.errors_messages_on(current_user, @cycle, @have_publish_errors)
 
     render "analysis_matrices/show"
   end

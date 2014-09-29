@@ -42,10 +42,30 @@
       border-right: #b11 solid 4px;
 		}
 
+		.general-errors {
+			color: red;
+		}
+
+		.general-errors > p {
+			font-size: 18px;
+			font-weight: bold;
+		}
+
   </style>
 <% end %>
 
 <h1><%= analysis_matrix_resource_name %></h1>
+
+<% if @general_errors && !@general_errors.empty? %>
+<div class="general-errors">
+	<p>Errors</p>
+	<ul>
+		<% @general_errors.each do |error| %>
+			<li><%= error %></li>
+		<% end -%>
+	</ul>
+</div>
+<% end -%>
 
 <%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
 
@@ -73,7 +93,7 @@
 			create_incident_cycle_versions_path(@incident, @cycle),
 			method: :post,
 			btn_options: {
-				class: "btn-issue-version btn #{@have_version_errors ? 'have-errors' : 'no-errors'}"
+				class: "btn-issue-version btn #{@have_version_errors || @version_have_general_errors ? 'have-errors' : 'no-errors'}"
 			}
 			%>
 	<% end %>
@@ -83,7 +103,7 @@
 			publish_incident_cycle_publishes_path(@incident, @cycle),
 			method: :post,
 			btn_options: {
-			class: "btn-publish btn #{@have_publish_errors ? 'have-errors' : 'no-errors'}"
+			class: "btn-publish btn #{@have_publish_errors || @publish_have_general_errors ? 'have-errors' : 'no-errors'}"
 			} %>
 	<% end -%>
 

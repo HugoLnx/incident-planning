@@ -23,6 +23,9 @@ module CtrlConcerns
 
         @have_publish_errors = Publish::ValidationUtils.have_errors?(@publish_messages)
         @have_version_errors = Publish::ValidationUtils.have_errors?(@version_messages)
+
+        @publish_have_general_errors = !@cycle.next_to_be_published?
+        @version_have_general_errors = !@cycle.approved?
       end
 
       def prepare_errors(all_messages)
