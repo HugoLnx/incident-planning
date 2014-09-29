@@ -3,12 +3,9 @@ class VersionsController < ApplicationController
 
   def create
     prepare_to_render_analysis_matrix(@cycle)
+    prepare_errors(@version_messages)
 
-    all_messages = Publish::VersionValidation.errors_messages_on(
-      @objectives, disable_approvals: !current_user.features_config.thesis_tools?)
-    prepare_errors(all_messages)
-
-    if !Publish::ValidationUtils.have_errors?(all_messages)
+    if !@have_version_errors
       Publish::Version.issue(current_user, @cycle, ics234_pdf: render_matrix_pdf, ics202_pdf: render_objectives_pdf)
       redirect_to controller: :analysis_matrices, action: :show
     else
@@ -18,10 +15,7 @@ class VersionsController < ApplicationController
 
   def new
     prepare_to_render_analysis_matrix(@cycle)
-
-    all_messages = Publish::VersionValidation.errors_messages_on(
-      @objectives, disable_approvals: !current_user.features_config.thesis_tools?)
-    prepare_errors(all_messages)
+    prepare_errors(@version_messages)
 
     render "analysis_matrices/show"
   end

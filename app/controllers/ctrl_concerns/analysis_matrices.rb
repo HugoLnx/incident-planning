@@ -15,7 +15,14 @@ module CtrlConcerns
         @strategy = ::Model.strategy
         @tactic = ::Model.tactic
 
-        @publish_preerrors = Publish::PublishPrevalidation.errors_messages_on(current_user, cycle)
+        @publish_messages = Publish::PublishValidation.errors_messages_on(
+          @objectives, disable_approvals: !current_user.features_config.thesis_tools?)
+
+        @version_messages = Publish::VersionValidation.errors_messages_on(
+          @objectives, disable_approvals: !current_user.features_config.thesis_tools?)
+
+        @have_publish_errors = Publish::ValidationUtils.have_errors?(@publish_messages)
+        @have_version_errors = Publish::ValidationUtils.have_errors?(@version_messages)
       end
 
       def prepare_errors(all_messages)

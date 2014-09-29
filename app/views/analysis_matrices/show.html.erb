@@ -28,6 +28,18 @@
       border-bottom: #1b1 solid 4px;
       border-right: #1b1 solid 4px;
     }
+
+		.btn-publish.have-errors,
+		.btn-publish.have-errors:hover,
+		.btn-issue-version.have-errors,
+		.btn-issue-version.have-errors:hover {
+      background-color: #d55;
+      border-top: #c55 solid 4px;
+      border-left: #c55 solid 4px;
+      border-bottom: #b11 solid 4px;
+      border-right: #b11 solid 4px;
+		}
+
   </style>
 <% end %>
 
@@ -58,7 +70,9 @@
 		<%= btn_link_to "Issue For Review", 
 			create_incident_cycle_versions_path(@incident, @cycle),
 			method: :post,
-			class: "btn-issue-version btn"
+			btn_options: {
+				class: "btn-issue-version btn #{@have_version_errors ? 'have-errors' : 'no-errors'}"
+			}
 			%>
 	<% end %>
 
@@ -67,7 +81,7 @@
 			publish_incident_cycle_publishes_path(@incident, @cycle),
 			method: :post,
 			btn_options: {
-				class: "btn-publish btn"
+			class: "btn-publish btn #{@have_publish_errors ? 'have-errors' : 'no-errors'}"
 			} %>
 	<% end -%>
 
