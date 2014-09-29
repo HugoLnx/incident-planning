@@ -15,18 +15,19 @@ class PdfNaming
     else
       type = :for_review
     end
-    PdfNaming.new(version.cycle, version.number, type: type, **args)
+    PdfNaming.new(version.cycle, version.number, type: type, **args, date: version.created_at)
   end
 
   def self.draft(cycle, **args)
     PdfNaming.new(cycle, cycle.current_version_number, type: :draft, **args)
   end
 
-  def initialize(cycle, version, type: TYPES.name(:draft), extension: false)
+  def initialize(cycle, version, type: TYPES.name(:draft), extension: false, date: DateTime.now)
     @cycle = cycle
     @version = version
     @type = type
     @extension = extension
+    @date = date
   end
 
   def ics234
@@ -50,6 +51,6 @@ class PdfNaming
 private
 
   def formatted_date
-    DateTime.now.strftime("%Y-%d-%m")
+    @date.strftime("%d-%m-%Y-%H-%M")
   end
 end
