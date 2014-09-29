@@ -8,6 +8,7 @@ module Publish
       version.ics202_pdf = ics202_pdf
       version.user = user
       version.save
+      version
     end
   end
 end

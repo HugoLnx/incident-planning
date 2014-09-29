@@ -8,7 +8,9 @@ class VersionsController < ApplicationController
     @general_errors = Publish::VersionPrevalidation.errors_messages_on(@cycle, @have_version_errors)
 
     if !@have_version_errors && @general_errors.empty?
-      Publish::Version.issue(current_user, @cycle, ics234_pdf: render_matrix_pdf, ics202_pdf: render_objectives_pdf)
+      version = Publish::Version.issue(current_user, @cycle,
+                                       ics234_pdf: render_matrix_pdf, ics202_pdf: render_objectives_pdf)
+      flash[:created_version] = version.id
       redirect_to controller: :analysis_matrices, action: :show
     else
       render "analysis_matrices/show"

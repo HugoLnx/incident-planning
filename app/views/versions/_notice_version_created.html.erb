@@ -1,0 +1,27 @@
+<% content_for :css do %>
+  <style>
+    .version-created-notice {
+      color: green;
+      font-weight: bold;
+      padding-left: 3px;
+    }
+
+    .version-created-notice h3 {
+      font-size: 17px;
+      margin: 1px;
+      padding: 0;
+    }
+
+    .version-created-notice p {
+      margin: 1px;
+      padding: 0;
+    }
+  </style>
+<% end -%>
+
+<div class="version-created-notice">
+  <h3>Notice</h3>
+  <p>The formularies of ICS-202 and ICS-234 of version <%= @created_version.number %> were created successfully.</p>
+  <p>Download the PDFs in: <%= link_to 'ICS-202', ics202_incident_cycle_version_path(@incident, @cycle, @created_version, format: :pdf) %> e <%= link_to 'ICS-234', ics234_incident_cycle_version_path(@incident, @cycle, @created_version, format: :pdf) %>.</p>
+  <p>Or access the <%= link_to "Past Versions", index_incident_cycle_versions_path(@incident, @cycle) %> page.</p>
+</div>

@@ -1,5 +1,6 @@
 class AnalysisMatricesController < ApplicationController
   before_filter :set_incident_and_cycle
+  before_filter :flash_notice_partial
 
   def show
     if @cycle.closed?
@@ -35,5 +36,12 @@ private
   def set_incident_and_cycle
     @incident = Incident.find params[:incident_id]
     @cycle = Cycle.find params[:cycle_id]
+  end
+
+  def flash_notice_partial
+    if flash[:created_version]
+      @created_version = Version.find(flash[:created_version])
+      @notice_partial = "versions/notice_version_created"
+    end
   end
 end

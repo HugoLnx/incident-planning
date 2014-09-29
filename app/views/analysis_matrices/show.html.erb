@@ -66,6 +66,11 @@
 	</ul>
 </div>
 <% end -%>
+<% if @notice_partial %>
+  <p class="big-notice">
+    <%= render partial: @notice_partial %>
+  </p>
+<% end -%>
 
 <%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
 
