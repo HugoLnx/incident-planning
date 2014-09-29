@@ -1,7 +1,22 @@
-<button class="btn-show-dialog btn" data-dialog-id="cycle-priorities">Show Command Emphasis</button>
+<% content_for :css do %>
+  <style>
+    .priorities-alert {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+<% end %>
+<button class="btn-priorities btn-show-dialog btn
+  <% if !@cycle.priorities_approved? %>
+    have-errors
+  <% end -%>" data-dialog-id="cycle-priorities">Show Command Emphasis</button>
 <div>
 	<p class="dialog-title">Command Emphasis</p>
 	<div id="cycle-priorities">
+    <% if !@cycle.priorities_approved? %>
+      <p class="priorities-alert">Alert: Command Emphasis must be approved.</p>
+    <% end -%>
+
 		<pre><%= cycle.priorities %></pre>
 
 		<p>
