@@ -54,20 +54,22 @@
     incident_cycle_analysis_matrix_path(@incident, @cycle, format: :pdf),
     class: "btn-download-pdf btn" %>
 
-  <%= btn_link_to "Issue For Review", 
-    create_incident_cycle_versions_path(@incident, @cycle),
-    method: :post,
-    class: "btn-issue-version btn",
-    btn_options: {
-      disabled: !current_user.can_issue_version?
-    } %>
+	<% if current_user.can_issue_version? %>
+		<%= btn_link_to "Issue For Review", 
+			create_incident_cycle_versions_path(@incident, @cycle),
+			method: :post,
+			class: "btn-issue-version btn"
+			%>
+	<% end %>
 
-  <%= btn_link_to "Publish Final Plan",
-    publish_incident_cycle_publishes_path(@incident, @cycle),
-    method: :post,
-    btn_options: {
-      class: "btn-publish btn"
-    } %>
+	<% if current_user.can_publish? && !@cycle.changed_after_last_version? %>
+		<%= btn_link_to "Publish Final Plan",
+			publish_incident_cycle_publishes_path(@incident, @cycle),
+			method: :post,
+			btn_options: {
+				class: "btn-publish btn"
+			} %>
+	<% end -%>
 
   <% if have_alarms %>
     <%= btn_link_to "Clear Alerts", 
