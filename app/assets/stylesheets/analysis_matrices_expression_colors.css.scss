@@ -57,17 +57,23 @@ $repeated_light_percent: 20%;
 		}
 
 		.form {
-			background-color: darken($expression_color, 6%);
+			background-color: #e6e6e6;
 		}
 		
 		.add {
-			background-color: lighten($expression_color, 6%);
+			background-color: #e6e6e6;
 		}
 
 		.blank {
+			background-color: #e6e6e6;
+		}
+
+		.non-repeated:not(.criticality) {
 			background-color: lighten($expression_color, 6%);
 		}
 
-		@include background-colors($expression_color, 6%);
+		.repeated {
+			background-color: #e6e6e6;
+		}
 	}
 }
