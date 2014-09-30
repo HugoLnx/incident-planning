@@ -64,7 +64,7 @@
     <%= simple_fields_for @reuse_configuration do |f| %>
       <fieldset id="enabled-configurations">
 				<legend>Reuse Configurations</legend>
-        <%= f.input :reuse_hierarchy, label: "Reuse Hierarchy?", as: :boolean %>
+        <%= f.input :reuse_hierarchy, label: "Reuse Strategy Hierarchy?", as: :boolean %>
 				<div class="filters">
 					<h3>Filters</h3>
 					<%= f.input :user_filter, label: "By user", collection: @user_filter_options, as: :reuse_filter_collection %>
