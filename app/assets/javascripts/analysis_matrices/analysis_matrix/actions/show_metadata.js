@@ -2,6 +2,7 @@
   var Actions = namespace.AnalysisMatrix.Actions;
   var TapConflictFree = utils.TapConflictFree;
   var ENVIRONMENT = namespace.FROM_RAILS.environment;
+  var ExpressionRecognizer = namespace.AnalysisMatrix.ExpressionRecognizer;
 
   Actions.ShowMetadata = function() {
     this.bindIn = function(_$father, _expression_model_name) {
@@ -16,9 +17,13 @@
 
       function displayMetadata(event) {
         event.preventDefault();
+        var title = _expression_model_name;
+        if (title === "Tactic") {
+          title = title + " " + ExpressionRecognizer.getPrettyNameFromTd($(this));;
+        }
 
         $(this).find(".metadata").clone().dialog({
-          title: _expression_model_name,
+          title: title,
           hide: true,
           closeText: "",
           position: {
