@@ -12,6 +12,16 @@ module ApplicationHelper
     date.strftime "%d/%m/%Y %H:%M"
   end
 
+  def format_only_date(date)
+    return "" if date.nil?
+    date.strftime "%d/%m/%Y"
+  end
+
+  def format_only_time(date)
+    return "" if date.nil?
+    date.strftime "%H:%M"
+  end
+
   def confirmation_form(subjects, opts={}, &block)
     if subjects.is_a? ActiveModel::Model
       subject = subjects

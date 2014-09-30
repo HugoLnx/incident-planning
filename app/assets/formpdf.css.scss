@@ -174,17 +174,18 @@ $thin-line-percent: 0.05;
 	height: $page_height * 0.075;
 
 	.prepared-by-field {
-		width: $page_width * 0.6 - 2px;
+		width: $page_width * 0.5 - 2px;
 	}
 
 	.approved-by-field {
-		width: $page_width * 0.4 - 1px;
+		width: $page_width * 0.5 - 2px;
 	}
 
 	.approved-by-field, .prepared-by-field {
     .user-role, .user-id {
       margin-left: 5px;
       font-style: italic;
+      display: block;
     }
   }
 }

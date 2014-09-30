@@ -1,3 +1,4 @@
-<span class="user-data datetime-value"><%= format_date(datetime) %></span>
+<span class="user-data datetime-value datetime-date-value"><%= format_only_date(datetime) %></span>
+<span class="user-data datetime-value datetime-time-value"><%= format_only_time(datetime) %></span>
 <span class="user-data user-id"><%= user.human_id %></span>
 <span class="user-data user-role">(<%= user.main_role.name %>)</span>
