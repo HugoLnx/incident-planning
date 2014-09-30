@@ -3,7 +3,9 @@
 var LNX_INCIDENT_PLANNING = {
   Matrix: {},
   AnalysisMatrix: {
-    Actions: {},
+    Actions: {
+      UpdateObjective: {}
+    },
     Templates: {},
     BackendProtocols: {},
     Reuse: {}

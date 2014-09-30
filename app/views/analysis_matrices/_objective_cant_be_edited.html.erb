@@ -1,0 +1,12 @@
+<% content_for :css do %>
+<style>
+  #objective-cant-edit-warning {
+    color: red;
+    font-weight: bold;
+    display: none;
+  }
+</style>
+<% end -%>
+<div id="objective-cant-edit-warning">
+  If you want to Edit objectives, click on <%= link_to 'Incident Objectives', edit_incident_cycle_path(@incident, @cycle) %>.
+</div>

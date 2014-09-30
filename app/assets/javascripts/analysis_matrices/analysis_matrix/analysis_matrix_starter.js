@@ -14,6 +14,7 @@
     Actions.Add.strategyAction().bindIn(matrix.matrix, $table);
     Actions.Add.tacticAction().bindIn(matrix.matrix, $table);
 
+    Actions.UpdateObjective.bindIn($table);
     Actions.Update.strategyAction().bindIn(matrix.matrix, $table);
     Actions.Update.tacticAction().bindIn(matrix.matrix, $table);
 

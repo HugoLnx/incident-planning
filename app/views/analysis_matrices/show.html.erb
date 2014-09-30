@@ -54,6 +54,8 @@
   </style>
 <% end %>
 
+<%= render partial: "objective_cant_be_edited" %>
+
 <h1><%= analysis_matrix_resource_name %></h1>
 
 <% if @general_errors && !@general_errors.empty? %>
