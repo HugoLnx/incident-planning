@@ -24,6 +24,8 @@ feature "Back through navigation history" do
       page.click_link "Incident Objectives"
       page.click_link "Back"
       expect(current_path).to be == incident_cycles_path(incident)
+      page.click_link "Back"
+      expect(current_path).to be == root_path
     end
 
     scenario "backing from analysis matrices" do
@@ -31,6 +33,8 @@ feature "Back through navigation history" do
       page.click_link "Work Analysis Matrix"
       page.click_link "Back"
       expect(current_path).to be == incident_cycles_path(incident)
+      page.click_link "Back"
+      expect(current_path).to be == root_path
     end
 
     scenario "backing from My profile" do
@@ -38,6 +42,8 @@ feature "Back through navigation history" do
       page.click_link "My Profile"
       page.click_link "Back"
       expect(current_path).to be == incident_cycles_path(incident)
+      page.click_link "Back"
+      expect(current_path).to be == root_path
     end
 
     scenario "backing from Tool Config" do
@@ -45,6 +51,8 @@ feature "Back through navigation history" do
       page.click_link "Tool Config"
       page.click_link "Back"
       expect(current_path).to be == incident_cycles_path(incident)
+      page.click_link "Back"
+      expect(current_path).to be == root_path
     end
 
     scenario "backing from Search Users" do
@@ -52,6 +60,8 @@ feature "Back through navigation history" do
       page.click_link "Search Users"
       page.click_link "Back"
       expect(current_path).to be == incident_cycles_path(incident)
+      page.click_link "Back"
+      expect(current_path).to be == root_path
     end
 
     scenario "backing after an user search" do
@@ -62,6 +72,12 @@ feature "Back through navigation history" do
       visit profiles_path(filter: "filter2")
       page.click_link "Back"
       expect(current_params[:filter]).to be == "filter1"
+      page.click_link "Back"
+      expect(current_path).to be == profiles_path
+      page.click_link "Back"
+      expect(current_path).to be == incident_cycles_path(incident)
+      page.click_link "Back"
+      expect(current_path).to be == root_path
     end
 
     scenario "backing after pdf downloading" do
@@ -73,6 +89,8 @@ feature "Back through navigation history" do
       matrixpo.visit cycle
       page.click_link "Back"
       expect(current_path).to be == incident_cycles_path(cycle.incident)
+      page.click_link "Back"
+      expect(current_path).to be == root_path
     end
   end 
 end
