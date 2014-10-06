@@ -7,7 +7,7 @@ feature "Back through navigation history" do
 
   background do
     @cycle = create :cycle, groups: [objective], incident: incident
-    user = create :user
+    user = create :user_god
     DeviseSteps.new(page, routing_helpers).sign_in user
     page.visit "/"
   end
@@ -62,6 +62,17 @@ feature "Back through navigation history" do
       visit profiles_path(filter: "filter2")
       page.click_link "Back"
       expect(current_params[:filter]).to be == "filter1"
+    end
+
+    scenario "backing after pdf downloading" do
+      page.click_link incident.name
+
+      matrixpo = AnalysisMatrixPO.new(@user_knowledge)
+      matrixpo.visit cycle
+      matrixpo.print_draft
+      matrixpo.visit cycle
+      page.click_link "Back"
+      expect(current_path).to be == incident_cycles_path(cycle.incident)
     end
   end 
 end

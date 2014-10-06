@@ -13,6 +13,10 @@ module PageObjects
     def visit(cycle)
       @session.visit path(cycle)
     end
+
+    def print_draft
+      @session.click_button "Print Draft"
+    end
     
     def row_of_objective(index)
       objs_elements = all_non_repeated_objective_elements

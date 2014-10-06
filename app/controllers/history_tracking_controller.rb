@@ -2,7 +2,7 @@ module HistoryTrackingController
   extend ActiveSupport::Concern
 
   included do
-    after_filter :update_tracking_referers
+    before_filter :update_tracking_referers
 
     def self.track_history(prefix, &block)
       @@tracker ||= HistoryTracking::Tracker.new
@@ -15,8 +15,8 @@ module HistoryTrackingController
 
   private
     def update_tracking_referers
-      if params[:format] != "json"
-        @@tracker.update_tracks(request.original_url, params, resource_codename, is_redirecting, self, persistence_dao)
+      if params[:format] != "json" && params[:format] != "pdf"
+        @@tracker.update_tracks(request.original_url, resource_codename, params, is_redirecting, self, persistence_dao)
       end
     end
 

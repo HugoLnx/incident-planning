@@ -5,11 +5,12 @@ module HistoryTracking
     end
 
     def add_url(name, value)
+      hash(name)[:last_url] = hash(name)[:current_url]
       hash(name)[:current_url] = value
     end
 
     def pop_url(name)
-      hash(name)[:current_url]
+      hash(name)[:last_url]
     end
 
     def last_action(name, action: nil, params: {})
