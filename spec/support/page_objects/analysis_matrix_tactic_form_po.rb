@@ -75,7 +75,8 @@ module PageObjects
     end
 
     def get_value_of(expression_name)
-      @inputs_tr.find(:xpath, ".//*[@name='tactic[#{expression_name}]']").value
+      val = @inputs_tr.find(:xpath, ".//*[@name='tactic[#{expression_name}]']").value
+      val && val.strip
     end
   end
 end
