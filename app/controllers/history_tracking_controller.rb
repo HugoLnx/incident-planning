@@ -12,10 +12,12 @@ module HistoryTrackingController
 
     def get_history(name)
       url = @@tracker.history(name).pop(name, persistence_dao)
-      if url && url.include?("?")
-        url += "&_back_=true"
-      else
-        url += "?_back_=true"
+      if url
+        if url.include?("?")
+          url += "&_back_=true"
+        else
+          url += "?_back_=true"
+        end
       end
       url
     end
