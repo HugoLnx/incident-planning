@@ -6,7 +6,7 @@ module HistoryTracking
 
     def add_url(name, value)
       UrlTrack.create!(session_id: session_id, track_type: name, url: value, datetime: DateTime.now)
-      # destroy all olds
+      UrlTrack.where("datetime < ?", (DateTime.now - 1.hour)).destroy_all
     end
 
     def pop_url(name)
