@@ -12,7 +12,7 @@ module Concerns
       STATUS.partial_approval() => "Partial Approval",
       STATUS.approved() => "Approved",
       STATUS.partial_rejection() => "Partial Rejection",
-      STATUS.rejected() => "Rejected"
+      STATUS.rejected() => "Total Rejection"
     }
 
     included do
