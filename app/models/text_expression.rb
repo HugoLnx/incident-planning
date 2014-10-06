@@ -12,4 +12,8 @@ class TextExpression < ActiveRecord::Base
   def self.objectives_of_cycle(cycle_id)
     TextExpression.objectives.joins(group: :cycle).where(cycle_id: cycle_id).load
   end
+
+  def number
+    ordenation_number_in_query(self.cycle.text_expressions)
+  end
 end

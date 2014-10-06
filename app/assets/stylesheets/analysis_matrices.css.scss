@@ -53,8 +53,13 @@ $error_border_size: 2px;
 	}
 
 /* REPEATED */
-  .repeated .expression-text{
+  .repeated .expression-text {
     display: none;
+  }
+
+/* NUMBER */
+  .expression-number:after {
+    content: ".";
   }
 
 /* REUSE */

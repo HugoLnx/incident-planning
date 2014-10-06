@@ -15,7 +15,7 @@ module AnalysisMatricesPdfHelper
   def render_objective_text(objective, repeated, last_child, last_repetition)
     if !repeated && objective
       expression = objective.expression
-      expression && expression.info_as_str
+      expression && "#{expression.number}. #{expression.info_as_str}"
     end
   end
 

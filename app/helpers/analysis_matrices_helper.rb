@@ -33,6 +33,7 @@ module AnalysisMatricesHelper
       last_repetition
     )
     locals.merge!(show_cells_info_from(objective, ::Model.root)["objective"])
+    locals[:number] = objective.expression && objective.expression.number
 
     render partial: partial,
       locals: locals

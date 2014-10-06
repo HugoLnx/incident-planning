@@ -13,4 +13,8 @@ class TimeExpression < ActiveRecord::Base
   def content_changed?
     when_changed? || text_changed?
   end
+
+  def number
+    ordenation_number_in_query(self.cycle.time_expressions)
+  end
 end

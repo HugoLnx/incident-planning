@@ -85,6 +85,13 @@ module Concerns
       end
 
     private
+      def ordenation_number_in_query(query)
+        query.order(created_at: :asc)
+          .where(name: self.name)
+          .where("created_at < ?", self.created_at)
+          .count + 1
+      end
+
       def reset_callback(&block)
         updating = self.persisted?
         yield
