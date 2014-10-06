@@ -7,7 +7,7 @@ class ApprovalsController < ApplicationController
     respond_to do |format|
       if approvals.save
         cycle = expression.cycle
-        format.html {redirect_to general_back_path, notice: "Expression was sucessfuly approved."}
+        format.html {redirect_to general_back_path, notice: success_message}
       else
         format.html {render status: :not_implemented, text: "Error, approval was not saved and this case was not treated yet"}
       end
@@ -17,5 +17,10 @@ class ApprovalsController < ApplicationController
 private
   def approval_params
     params.require(:approval).permit(:expression_id, :expression_type, :positive)
+  end
+
+  def success_message
+    verb = approval_params[:positive] == "true" ? "approved" : "rejected"
+    "Expression was sucessfuly #{verb}."
   end
 end
