@@ -9,7 +9,7 @@
   var _function = AnalysisMatrix.ExpressionInputName;
 
   _function.parseName = function(name) {
-    var match = name.match(/^(.*)\[(.*)\]/)
+    var match = name.match(/^([^\[]*)\[(.*)\]/)
     var groupName = match[1];
     var attrName = match[2];
     return new AnalysisMatrix.ExpressionInputName(groupName, attrName);

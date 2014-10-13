@@ -1,4 +1,8 @@
 <%- content_for :js do %>
+  <script>
+    LNX_INCIDENT_PLANNING.FROM_RAILS = {};
+    LNX_INCIDENT_PLANNING.FROM_RAILS.current_incident_id = <%= @incident.id %>;
+  </script>
 	<%= javascript_include_tag :new_cycle %>
 <% end -%>
 

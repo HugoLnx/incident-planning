@@ -35,7 +35,11 @@
   _function.becameNonReused = function($input) {
     var inputName = new ExpressionInputName.parseName($input.attr("name"));
     var expressionName = inputName.attr();
-    $input.parent().find("." + HIDDEN_INPUT_CLASS + "." + expressionName).remove();
+    var selector = "." + HIDDEN_INPUT_CLASS;
+    if (expressionName) {
+      selector +=  + "." + expressionName;
+    }
+    $input.parent().find(selector).remove();
     $input.removeClass(INPUT_REUSED_CLASS);
     $input.addClass(INPUT_NON_REUSED_CLASS);
   };
