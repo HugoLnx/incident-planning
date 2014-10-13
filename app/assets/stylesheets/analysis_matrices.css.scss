@@ -4,6 +4,7 @@
 @import "jquery.ui.theme";
 @import "jquery.ui.dialog";
 @import "jquery.ui.autocomplete";
+@import "suggestions_autocomplete";
 
 $error_border_size: 2px;
 
@@ -178,18 +179,6 @@ $error_border_size: 2px;
     border-left: solid black 3px;
     border-right: solid black 3px;
   }
-
-  /* REUSE */
-  .reused-input {
-    background-color: black;
-    color: white;
-  }
-
-}
-
-/* TO AUTOCOMPLETE */
-ul.ui-autocomplete {
-  list-style: none;
 }
 
 
@@ -249,22 +238,6 @@ ul.ui-autocomplete {
   .approve-form {
     float: left;
   }
-}
-
-/* SUGGESTIONS AUTOCOMPLETE */
-.multiple-instances > a:after {
-  content: "";
-  width: 3px;
-  height: 3px;
-  border-radius: 3px;
-  border: solid 1px black;
-  background-color: black;
-  float: right;
-  margin: 0.4em 10px;
-}
-
-.ui-menu-item {
-  width: 200px;
 }
 
 /* INNER BORDERS */

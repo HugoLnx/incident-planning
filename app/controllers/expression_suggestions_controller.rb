@@ -26,7 +26,7 @@ class ExpressionSuggestionsController < ApplicationController
       reuse_config, expression_name, term,
       current_incident_id, to_be_updated_id)
 
-    @expressions = query.load
+    @expressions = ExpressionReuseAdviser.filter_expressions(query.load, reuse_config, expression_name)
     @suggestions = SuggestionsTree::ExpressionSuggestion.from_expressions(@expressions)
   end
 

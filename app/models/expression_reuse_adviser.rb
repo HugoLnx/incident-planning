@@ -26,6 +26,35 @@ class ExpressionReuseAdviser
     query
   end
 
+  def self.filter_expressions(exps, config, expression_name)
+    is_strategy = expression_name == ::Model.strategy_how.name
+    is_reusing_hierarchy = config.reuse_hierarchy?
+    if is_strategy && is_reusing_hierarchy
+      exps
+    else
+      singlify_choices(exps) 
+    end
+  end
+
+  def self.singlify_choices(expressions)
+    texts = {}
+    new_expressions = []
+    expressions.each do |exp|
+      text = exp.info_as_str
+      if !texts[text]
+        new_expressions << exp
+        texts[text] = {
+          exp: exp,
+          index: new_expressions.size-1
+        }
+      elsif texts[text][:exp].created_at > exp.created_at
+        new_expressions[texts[text][:index]] = exp
+        texts[exp.info_as_str][:exp] = exp
+      end
+    end
+    new_expressions
+  end
+
 private
   def apply_user_filter(query, config)
     user_id = config.user_filter_value
