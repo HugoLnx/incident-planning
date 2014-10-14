@@ -2,7 +2,7 @@ class IncidentsController < ApplicationController
   before_action :set_incident, only: [:show, :edit, :update, :destroy]
 
   def index
-    @incidents = Incident.all
+    @incidents = Incident.where("company_id = ? or company_id is null", current_user.company_id)
   end
 
   def show
@@ -55,6 +55,8 @@ class IncidentsController < ApplicationController
     end
 
     def incident_params
-      params.require(:incident).permit(:name)
+      i = params.require(:incident).permit(:name)
+      i[:company_id] = current_user.company_id
+      i
     end
 end
