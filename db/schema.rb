@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006200857) do
+ActiveRecord::Schema.define(version: 20141014023344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,12 @@ ActiveRecord::Schema.define(version: 20141006200857) do
   add_index "approvals", ["expression_type"], name: "index_approvals_on_expression_type", using: :btree
   add_index "approvals", ["role_id"], name: "index_approvals_on_role_id", using: :btree
   add_index "approvals", ["user_id"], name: "index_approvals_on_user_id", using: :btree
+
+  create_table "companies", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "cycles", force: true do |t|
     t.integer  "incident_id",                                null: false
@@ -69,7 +75,10 @@ ActiveRecord::Schema.define(version: 20141006200857) do
     t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "company_id"
   end
+
+  add_index "incidents", ["company_id"], name: "index_incidents_on_company_id", using: :btree
 
   create_table "reuse_configurations", force: true do |t|
     t.boolean "hierarchy",             default: true
@@ -149,8 +158,10 @@ ActiveRecord::Schema.define(version: 20141006200857) do
     t.datetime "updated_at"
     t.string   "name"
     t.string   "phone",                  limit: 25
+    t.integer  "company_id"
   end
 
+  add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 

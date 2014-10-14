@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :user_roles, dependent: :destroy
   has_one :reuse_configuration
   has_one :features_config
+  belongs_to :company
   validates_associated :user_roles
   after_initialize :defaults
 
@@ -18,6 +19,10 @@ class User < ActiveRecord::Base
 
   validates :name,
     presence: true
+
+  def company_name
+    (company && company.name) || "none"
+  end
 
   def roles_ids=(roles_ids)
     valids_size = 0

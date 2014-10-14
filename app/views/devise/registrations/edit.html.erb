@@ -16,6 +16,9 @@
 			<% end %>
 			<%= f.input :name, autofocus: true, hint: "required" %>
 			<%= f.input :phone, placeholder: "(21)99999-9999", hint: "required" %>
+			<%= f.input :company_id do %>
+				<span class="company-id"><%= resource.company_name %></span>
+			<% end %>
     </fieldset>
 
     <fieldset>
