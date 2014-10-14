@@ -51,12 +51,29 @@
 			font-weight: bold;
 		}
 
+		.title-area h1,
+		.title-area p {
+			display: inline;
+		}
+
+		.title-area p {
+			font-size: 0.9em;
+		}
+
+		.title-area {
+			margin-bottom: 15px;
+		}
   </style>
 <% end %>
 
 <%= render partial: "analysis_matrices/objective_cant_be_edited" %>
 
-<h1><%= analysis_matrix_resource_name %></h1>
+<div class="title-area">
+	<h1><%= analysis_matrix_resource_name %></h1>
+	<p>
+		Go to: <%= link_to "ICS 202", incident_cycle_path(@incident, @cycle) %>
+	</p>
+</div>
 
 <% if @general_errors && !@general_errors.empty? %>
 <div class="general-errors">
