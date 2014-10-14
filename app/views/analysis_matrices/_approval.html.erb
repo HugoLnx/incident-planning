@@ -3,7 +3,7 @@
 		<p class="approval-role-status">
 			<span class="approval-role-name"><%= role %></span>: <span class="approval-status"><%= approval_text(positive) %></span>
 		</p>
-		<p class="approval-user">by <span class="approval-user-human-id"><%= user_human_id %></span></p>
+		<p class="approval-user">by <span class="approval-user-human-id"><%= link_to user_human_id, profile_path(user) %></span></p>
 	</li>
 <% else %>
 	<li class="approval missing-approval">
