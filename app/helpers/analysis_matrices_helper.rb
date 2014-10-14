@@ -287,6 +287,7 @@ private
       already_approved_by_user: check_already_approved_by_user(expression),
       approval: Approval.new(expression: expression),
       owner_human_id: expression && expression.owner && expression.owner.human_id,
+      owner: expression && expression.owner,
       approvals_infos: approvals_infos_from(expression),
       source: expression && expression.source_name,
       status: expression && expression.status_name,
@@ -304,7 +305,8 @@ private
       {
         user_human_id: user && user.human_id,
         role: ::Roles::Dao.new.find_by_id(needed_role).name,
-        positive: approval && approval.positive
+        positive: approval && approval.positive,
+        user: user
       }
     end
   end
