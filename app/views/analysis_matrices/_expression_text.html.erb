@@ -1,8 +1,6 @@
 <% number ||= nil %>
-<p class="expression-text">
-
-  <% if number %>
-    <span class="expression-number"><%= number %></span>
-  <% end -%>
-  <%= text %>
-</p>
+<% if number %>
+<p class="expression-text"><span class="expression-number"><%= number %></span><%= text %></p>
+<% else %>
+<p class="expression-text"><%= text %></p>
+<% end -%>
