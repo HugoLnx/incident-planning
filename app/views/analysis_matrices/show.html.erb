@@ -122,7 +122,7 @@
 			%>
 	<% end %>
 
-	<% if current_user.can_publish? && !@cycle.changed_after_last_version? %>
+	<% if current_user.can_publish? %>
 		<%= btn_link_to "Publish Final Plan",
 			publish_incident_cycle_publishes_path(@incident, @cycle),
 			method: :post,
