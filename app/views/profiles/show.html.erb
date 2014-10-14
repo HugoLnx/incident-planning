@@ -16,6 +16,11 @@
 </p>
 
 <p>
+  <strong>Company:</strong>
+  <%= @user.company_name %>
+</p>
+
+<p>
   <strong>Roles:</strong>
   <% if @user.roles_names.empty? %>
     <span>Have no roles</span>

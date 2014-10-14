@@ -2,6 +2,10 @@
   <%= stylesheet_link_tag "user_form", media: "all" %>
 <% end %>
 
+<% content_for :js do %>
+  <%= javascript_include_tag "users", "data-turbolinks-track" => true %>
+<% end %>
+
 <h2>Sign up</h2>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -10,9 +14,10 @@
   <div class="form-inputs">
     <fieldset>
       <legend>My Info</legend>
-			<%= f.input :email, disabled: true, hint: "required" %>
+			<%= f.input :email, hint: "required" %>
 			<%= f.input :name, autofocus: true, hint: "required" %>
       <%= f.input :phone, placeholder: "(21)99999-9999", hint: "required" %>
+      <%= f.input :company_id, as: :string %>
     </fieldset>
 
     <fieldset>
