@@ -18,6 +18,7 @@ IncidentPlanning::Application.routes.draw do
 
   resources :profiles, only: %i{index show}
   resources :companies, only: :index
+  resources :admin_users, only: %i{index update}
 
   resources :incidents do
     resource :cycle_confirmation, only: :show do

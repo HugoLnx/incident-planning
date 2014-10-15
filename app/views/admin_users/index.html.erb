@@ -1,0 +1,46 @@
+<% content_for :css do %>
+  <%= stylesheet_link_tag "company_autocomplete", media: "all" %>
+  <style>
+    .autocomplete-company-input, .company-button, .user_company_id {
+      display: inline;
+    }
+  </style>
+<% end %>
+
+<% content_for :js do %>
+  <%= javascript_include_tag "company_autocomplete", "data-turbolinks-track" => true %>
+<% end %>
+<h1>Admin: List Users</h1>
+
+<table class="index-table" id="users">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Company</th>
+      <th>Roles</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.phone %></td>
+        <td>
+          <%= simple_form_for user, url: admin_user_path(user) do |f| %>
+            <%= f.input :company_id, as: :string, label: false, input_html: {
+              value: user.company && user.company.name,
+              class: "autocomplete-company-input",
+              id: nil
+            } %>
+            <%= f.button :submit, "Update", class: "company-button" %>
+          <% end %>
+        </td>
+        <td><%= user.roles_names.join(", ") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
