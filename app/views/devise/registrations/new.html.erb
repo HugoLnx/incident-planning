@@ -17,7 +17,9 @@
 			<%= f.input :email, hint: "required" %>
 			<%= f.input :name, autofocus: true, hint: "required" %>
       <%= f.input :phone, placeholder: "(21)99999-9999", hint: "required" %>
-      <%= f.input :company_id, as: :string %>
+      <%= f.input :company_id, as: :string, input_html: {
+        class: "autocomplete-company-input"
+      } %>
     </fieldset>
 
     <fieldset>

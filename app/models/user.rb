@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   validates_associated :user_roles
   after_initialize :defaults
 
+  ADMIN_COMPANY_ID = 99999 # see db/seeds.rb
+
   validates :phone,
     format: {
       with: /\A\(\d{2}\)\d{4,5}\-\d{4}\Z/
@@ -100,6 +102,10 @@ class User < ActiveRecord::Base
     end
 
     can_approve && !is_all_already_approved
+  end
+
+  def in_admin_company?
+    company_id == ADMIN_COMPANY_ID
   end
 
 private

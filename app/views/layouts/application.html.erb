@@ -22,9 +22,12 @@
 					<li><%= link_to "Search Users", profiles_path %></li>
 					<li><%= link_to t("auth.logout"), destroy_user_session_path, method: :delete %></li>
           <li><%= current_user.human_id %></li>
+					<% if current_user.in_admin_company? %>
+						<li><%= link_to "Create user", new_user_registration_path %></li>
+						<li><%= link_to "List users", admin_users_path %></li>
+					<% end %>
 				<% else %>
 					<li><%= link_to t("auth.login"), new_user_session_path %></li>
-					<li><%= link_to "Sign up", new_user_registration_path %></li>
 				<% end -%>
 			</ul>
 		</nav>
