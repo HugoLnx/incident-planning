@@ -5,6 +5,7 @@
     <tr>
       <th>Name</th>
       <th>Status</th>
+      <th>Visibility</th>
       <th></th>
     </tr>
   </thead>
@@ -15,6 +16,7 @@
         <td><%= link_to incident.name, incident_cycles_path(incident) %></td>
         <td><%= cycle_closed_name incident.closed? %></td>
         <td><%= link_to 'Delete', incident, method: :delete, data: { confirm: 'Are you sure?' }, class: "anchor-button" %></td>
+        <td><%= incident.visibility_name %></td>
       </tr>
     <% end %>
   </tbody>

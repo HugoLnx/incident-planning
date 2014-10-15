@@ -15,6 +15,11 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+
+  <div class="field">
+    <%= label_tag "Public?" %>
+    <%= check_box_tag "incident[public]", false %>
+	</div>
   <div class="actions">
     <%= f.submit "Register incident" %>
   </div>

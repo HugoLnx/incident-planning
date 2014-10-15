@@ -55,8 +55,10 @@ class IncidentsController < ApplicationController
     end
 
     def incident_params
-      i = params.require(:incident).permit(:name)
-      i[:company_id] = current_user.company_id
-      i
+      attrs = params.require(:incident).permit(:name, :public)
+      if !attrs.delete(:public)
+        attrs[:company_id] = current_user.company_id
+      end
+      attrs
     end
 end
