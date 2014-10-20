@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
     @filter_term = params[:filter]
     @filter_term = nil if @filter_term && @filter_term.empty?
     if @filter_term
-      @users = QueryFilter.new(User.all).filter(@filter_term, by: %w{name email}).load
+      @users = QueryFilter.new(User.all.where_company(current_user.company_id)).filter(@filter_term, by: %w{name email}).load
     else
       @users = []
     end

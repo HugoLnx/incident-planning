@@ -11,7 +11,13 @@ class User < ActiveRecord::Base
   validates_associated :user_roles
   after_initialize :defaults
 
-  ADMIN_COMPANY_ID = 99999 # see db/seeds.rb
+  scope :where_company, -> (user_company_id) do
+    if user_company_id == Company::ADMIN_ID
+      self
+    else
+      where("company_id in (?, ?) OR company_id is null", user_company_id, Company::ADMIN_ID)
+    end
+  end
 
   validates :phone,
     format: {
@@ -105,7 +111,7 @@ class User < ActiveRecord::Base
   end
 
   def in_admin_company?
-    company_id == ADMIN_COMPANY_ID
+    company_id == Company::ADMIN_ID
   end
 
 private
