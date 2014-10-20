@@ -47,7 +47,8 @@ class CyclesController < ApplicationController
 
     respond_to do |format|
       if @cycle.save
-        format.html { redirect_to incident_cycles_path(@incident), notice: 'The cycle was successfully registered.' }
+        notice_msg = "Operational Period #{@cycle.number} was successfully created."
+        format.html { redirect_to incident_cycles_path(@incident), notice: notice_msg }
       else
         format.html { render action: 'new' }
       end
@@ -62,7 +63,8 @@ class CyclesController < ApplicationController
 
     respond_to do |format|
       if @cycle.save
-        format.html { redirect_to incident_cycles_path(@incident), notice: 'The cycle was successfully updated.' }
+        notice_msg = "Incident Objectives of Operational Period #{@cycle.number} was successfully updated."
+        format.html { redirect_to incident_cycles_path(@incident), notice: notice_msg }
       else
         format.html { render action: 'edit' }
       end
