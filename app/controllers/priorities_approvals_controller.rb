@@ -7,7 +7,7 @@ class PrioritiesApprovalsController < ApplicationController
 
     respond_to do |format|
       if @cycle.save
-        format.html {redirect_to incident_cycle_analysis_matrix_path(@incident, @cycle), notice: "Priorities were sucessfuly approved."}
+        format.html {redirect_to incident_cycle_analysis_matrix_path(@incident, @cycle), notice: "Command Emphasis was sucessfuly approved."}
       else
         format.html {render status: :not_implemented, text: "Error, approval wasn't saved and this case was not treated yet"}
       end
