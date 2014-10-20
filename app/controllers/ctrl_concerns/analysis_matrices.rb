@@ -26,6 +26,7 @@ module CtrlConcerns
 
         @version_have_general_errors = !@cycle.approved?
         @publish_have_general_errors = !@cycle.next_to_be_published? || @cycle.changed_after_last_version? || @version_have_general_errors
+        @priorities = PrioritiesProxy.new(@cycle)
       end
 
       def prepare_errors(all_messages)
