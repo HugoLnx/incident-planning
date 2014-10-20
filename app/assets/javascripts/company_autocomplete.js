@@ -6,7 +6,12 @@ $(function() {
     var $hidden = $input.clone();
     $hidden.attr("type", "hidden");
     $input.attr("name", "user[company_name]");
+    $input.val($input.data("human-value"));
     $input.after($hidden);
+
+    $input.change(function() {
+      $hidden.val(null);
+    });
 
     $input.autocomplete({
       minLength: 0,
