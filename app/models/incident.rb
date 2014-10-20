@@ -4,6 +4,10 @@ class Incident < ActiveRecord::Base
 
   validates :name, presence: true
 
+  scope :where_company, -> (user_company_id) do
+    Company.filter_by_associated_company(scoped, user_company_id)
+  end
+
   def closed?
     cycles.size > 0 && cycles.all?{|cycle| cycle.closed?}
   end
