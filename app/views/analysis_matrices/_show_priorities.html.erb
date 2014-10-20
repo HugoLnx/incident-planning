@@ -11,22 +11,23 @@
   </style>
 <% end %>
 <button class="btn-priorities btn-show-dialog btn
-  <% if !@cycle.priorities_approved? %>
+  <% if !@priorities.approved? %>
     have-errors
   <% end -%>" data-dialog-id="cycle-priorities">Show Command Emphasis</button>
-<div>
+<div class="metadata">
 	<p class="dialog-title">Command Emphasis</p>
-	<div id="cycle-priorities">
-    <% if !@cycle.priorities_approved? %>
+	<div class="metadata" id="cycle-priorities">
+    <% if !@priorities.approved? %>
       <p class="priorities-alert">Alert: Command Emphasis must be approved.</p>
     <% end -%>
 
-		<pre><%= cycle.priorities %></pre>
-
-		<p>
-			<strong>Approval Status:</strong>
-			<span><%= cycle_approval_status_name @cycle.priorities_approved? %></span>
-		</p>
+    <div class="metadata-section item-section">
+      <p class="metadata-label">Item Info</p>
+      <p class="expression"><span class="label">Expression</span>: </p><pre><%= @priorities.text %></pre>
+      <p class="owner"><span class="label">Owner</span>: <%= @priorities.owner ? link_to(@priorities.owner_human_id, profile_path(@priorities.owner)) : @priorities.owner_human_id %></p>
+      <p class="source"><span class="label">Source</span>: <%= @priorities.source || "none" %></p>
+		  <p class="status"><span class="label">Status:</span> <%= cycle_approval_status_name @priorities.approved? %></p>
+    </div>
 
 		<% if current_user.can_approve_priorities? && !cycle.priorities_approved? %>
 			<%= form_tag incident_cycle_priorities_approvals_path(@incident, @cycle) do %>
