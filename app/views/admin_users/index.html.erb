@@ -32,7 +32,8 @@
         <td>
           <%= simple_form_for user, url: admin_user_path(user) do |f| %>
             <%= f.input :company_id, as: :string, label: false, input_html: {
-              value: user.company && user.company.name,
+              value: user.company && user.company.id,
+              :"data-human-value" => user.company && user.company.name,
               class: "autocomplete-company-input",
               id: nil
             } %>
