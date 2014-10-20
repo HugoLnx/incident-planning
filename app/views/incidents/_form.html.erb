@@ -1,26 +1,14 @@
-<%= form_for(@incident, html: {id: "incident_form"}) do |f| %>
-  <% if @incident.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@incident.errors.count, "error") %> prohibited this incident from being saved:</h2>
+<%= simple_form_for(@incident, html: {id: "incident_form"}) do |f| %>
+  <%= f.error_notification %>
 
-      <ul>
-      <% @incident.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+  <div class="form-inputs">
+
+    <%= f.input :name %>
+
+    <%= f.input :company_id, collection: @companies, include_blank: "Public", label: "Restrict to company" %>
+
+    <div class="actions">
+      <%= f.submit "Register incident" %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= label_tag "Public?" %>
-    <%= check_box_tag "incident[public]", false %>
-	</div>
-  <div class="actions">
-    <%= f.submit "Register incident" %>
   </div>
 <% end %>

@@ -10,6 +10,7 @@ class IncidentsController < ApplicationController
 
   def new
     @incident = Incident.new
+    @companies = current_user.in_admin_company? ? Company.all.load : [current_user.company]
   end
 
   def edit
@@ -55,10 +56,6 @@ class IncidentsController < ApplicationController
     end
 
     def incident_params
-      attrs = params.require(:incident).permit(:name, :public)
-      if !attrs.delete(:public)
-        attrs[:company_id] = current_user.company_id
-      end
-      attrs
+      params.require(:incident).permit(:name, :company_id)
     end
 end
