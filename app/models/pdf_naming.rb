@@ -51,6 +51,6 @@ class PdfNaming
 private
 
   def formatted_date
-    @date.strftime("%d-%m-%Y-%H-%M")
+    @date.strftime("%d-%m-%Y %Hh%Mm")
   end
 end
