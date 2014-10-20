@@ -5,7 +5,7 @@
 
     <%= f.input :name %>
 
-    <%= f.input :company_id, collection: @companies, include_blank: "Public", label: "Restrict to company" %>
+		<%= f.input :company_id, collection: @companies, include_blank: "Public", label: "Restrict to #{Company.model_name.human.downcase}" %>
 
     <div class="actions">
       <%= f.submit "Register incident" %>
