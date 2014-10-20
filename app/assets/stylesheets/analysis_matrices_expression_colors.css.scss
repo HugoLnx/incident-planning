@@ -4,6 +4,7 @@ $approved_color: #6d6;          // 20%
 $partial_rejection_color: #fd6; // 20%
 $rejected_color: #fd6;          // 20%
 $expression_color: #c0c0c0;     
+$thesis_off_expression_color: $to_be_approved_color;
 
 $form_dark_percent: 5%;
 $header_lighten_percent: 15%;
@@ -52,28 +53,46 @@ $repeated_light_percent: 20%;
 /* THESIS OFF COLORS */
 	&.thesis-off {
 	/* BACKGROUND COLORS */
-		.header {
-			background-color: lighten($expression_color, $header_lighten_percent);
-		}
+     .header {
+             background-color: lighten($thesis_off_expression_color, $header_lighten_percent);
+     }
 
-		.form {
-			background-color: #e6e6e6;
-		}
-		
-		.add {
-			background-color: #e6e6e6;
-		}
+     .form {
+             background-color: darken($thesis_off_expression_color, 6%);
+     }
+     
+     .add {
+             background-color: lighten($thesis_off_expression_color, 6%);
+     }
 
-		.blank {
-			background-color: #e6e6e6;
-		}
+     .blank {
+             background-color: lighten($thesis_off_expression_color, 6%);
+     }
 
-		.non-repeated:not(.criticality) {
-			background-color: lighten($expression_color, 6%);
-		}
+     @include background-colors($thesis_off_expression_color, 6%);
 
-		.repeated {
-			background-color: #e6e6e6;
-		}
+		//.header {
+		//	background-color: lighten($expression_color, $header_lighten_percent);
+		//}
+
+		//.form {
+		//	background-color: #e6e6e6;
+		//}
+		//
+		//.add {
+		//	background-color: #e6e6e6;
+		//}
+
+		//.blank {
+		//	background-color: #e6e6e6;
+		//}
+
+		//.non-repeated:not(.criticality) {
+		//	background-color: lighten($expression_color, 6%);
+		//}
+
+		//.repeated {
+		//	background-color: #e6e6e6;
+		//}
 	}
 }
