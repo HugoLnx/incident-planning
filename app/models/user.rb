@@ -12,11 +12,7 @@ class User < ActiveRecord::Base
   after_initialize :defaults
 
   scope :where_company, -> (user_company_id) do
-    if user_company_id == Company::ADMIN_ID
-      self
-    else
-      where("company_id in (?, ?) OR company_id is null", user_company_id, Company::ADMIN_ID)
-    end
+    Company.filter_by_associated_company(scoped, user_company_id)
   end
 
   validates :phone,

@@ -2,7 +2,7 @@ class IncidentsController < ApplicationController
   before_action :set_incident, only: [:show, :edit, :update, :destroy]
 
   def index
-    @incidents = Incident.where("company_id = ? or company_id is null", current_user.company_id)
+    @incidents = Incident.all.where_company(current_user.company_id).load
   end
 
   def show
