@@ -68,12 +68,11 @@
 
 <%= render partial: "analysis_matrices/objective_cant_be_edited" %>
 
-<div class="title-area">
-	<h1><%= analysis_matrix_resource_name %></h1>
-	<p>
-		Go to: <%= link_to "ICS 202", incident_cycle_path(@incident, @cycle) %>
-	</p>
-</div>
+<% if @notice_partial %>
+  <p class="big-notice">
+    <%= render partial: @notice_partial %>
+  </p>
+<% end -%>
 
 <% if @general_errors && !@general_errors.empty? %>
 <div class="general-errors">
@@ -85,11 +84,13 @@
 	</ul>
 </div>
 <% end -%>
-<% if @notice_partial %>
-  <p class="big-notice">
-    <%= render partial: @notice_partial %>
-  </p>
-<% end -%>
+
+<div class="title-area">
+	<h1><%= analysis_matrix_resource_name %></h1>
+	<p>
+		Go to: <%= link_to "ICS 202", incident_cycle_path(@incident, @cycle) %>
+	</p>
+</div>
 
 <%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
 
