@@ -26,8 +26,6 @@
 						<li><%= link_to "Create user", new_user_registration_path %></li>
 						<li><%= link_to "List users", admin_users_path %></li>
 					<% end %>
-				<% else %>
-					<li><%= link_to t("auth.login"), new_user_session_path %></li>
 				<% end -%>
 			</ul>
 		</nav>
