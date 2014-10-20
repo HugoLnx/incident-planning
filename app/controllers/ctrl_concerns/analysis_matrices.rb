@@ -32,6 +32,16 @@ module CtrlConcerns
         @expression_errors = all_messages[:expression]
         @group_errors = all_messages[:group]
       end
+
+      def publish_errors?
+        @have_publish_errors || @publish_have_general_errors
+      end
+      helper_method :publish_errors?
+
+      def version_errors?
+        @have_version_errors || @version_have_general_errors
+      end
+      helper_method :version_errors?
     end
   end
 end
