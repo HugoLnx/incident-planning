@@ -1,5 +1,7 @@
 module Publish
   class PublishPrevalidation
+    MATRIX_ERRORS_MSG = "Check Matrix for Planning Item Alerts."
+
     def self.errors_messages_on(*args)
       all_errors = errors_on(*args)
       all_errors.map(&:last)
@@ -12,7 +14,7 @@ module Publish
       errors += Prevalidation::PreviousCyclesPublished.errors_on(cycle).entries
       errors += Prevalidation::NotChangedAfterLastVersion.errors_on(cycle).entries
       if have_matrix_errors
-        errors.push(["Work analysis matrix have errors. (See below)"])
+        errors.push([MATRIX_ERRORS_MSG])
       end
 
       errors

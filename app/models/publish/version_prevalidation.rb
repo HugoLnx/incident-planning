@@ -9,11 +9,11 @@ module Publish
       errors = []
       
       if !cycle.priorities_approved?
-        errors.push(["Priorities must be approved."])
+        errors.push(["Command Emphasis must be approved."])
       end
 
       if have_matrix_errors
-        errors.push(["Work analysis matrix have errors. (See below)"])
+        errors.push([Publish::PublishPrevalidation::MATRIX_ERRORS_MSG])
       end
 
       errors
