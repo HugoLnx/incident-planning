@@ -23,9 +23,14 @@ en:
   activerecord:
     models:
       cycle: Period
+      company: Organization
     attributes:
       forms_cycle:
         from: From
+      user:
+        company_id: Organization
+      incident:
+        company_id: Organization
   errors:
     messages:
       date_format: "must have the format '%{dateformat}'"
