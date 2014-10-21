@@ -4,11 +4,12 @@ class PrioritiesProxy
   end
 
   def owner
-    @cycle.text_expressions.objectives.first.owner
+    first_obj = @cycle.text_expressions.objectives.first
+    first_obj && first_obj.owner
   end
 
   def owner_human_id
-    owner.email
+    owner && owner.email
   end
 
   def approved?
