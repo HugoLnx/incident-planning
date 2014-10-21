@@ -17,7 +17,7 @@ class PrioritiesProxy
 
   def source
     if @cycle.published?
-      @cycle.owner.email
+      @cycle.incident.name
     else
       nil
     end
