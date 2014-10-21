@@ -69,14 +69,16 @@ form {
   }
 
 /* Customization */
-  .objectives-fields {
-    width: 100%;
-  }
-
   .cycle_priorities {
     box-sizing: border-box;
     width: 100%;
   }
+
+	.objectives-fields li {
+		float: left;
+		clear: both;
+		width: 100%;
+	}
 
   .objectives-fields input {
     width: 85%;
