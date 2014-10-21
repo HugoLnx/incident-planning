@@ -38,7 +38,7 @@ $(function() {
         greaterHeight = height;
       }
     });
-    return greaterHeight + 10;
+    return greaterHeight;
   }
 
   function createNewForm() {
