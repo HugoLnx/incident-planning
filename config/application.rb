@@ -31,7 +31,7 @@ module IncidentPlanning
       "ics234_pdf.js", "users.js", "company_autocomplete.js",
       "analysis_matrix_published.js",
       "cycles/new_cycle.css", "cycles/form.css", "cycles/formpdf.css",
-      "cycles.css",
+      "cycles.css","default_forms.css",
       "search_users.js", "company_autocomplete.css",
       "analysis_matrices/formpdf.css", "analysis_matrices/group_approval.css",
       "analysis_matrices.css",

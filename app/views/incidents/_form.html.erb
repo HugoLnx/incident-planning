@@ -1,14 +1,18 @@
+<% content_for :css do %>
+  <%= stylesheet_link_tag "default_forms", media: "all" %>
+<% end %>
+
 <%= simple_form_for(@incident, html: {id: "incident_form"}) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
 
-    <%= f.input :name %>
+    <%= f.input :name, autofocus: true, hint: "required", label: "Incident Name" %>
 
-		<%= f.input :company_id, collection: @companies, include_blank: "Public", label: "Restrict to #{Company.model_name.human.downcase}" %>
+		<%= f.input :company_id, collection: @companies, include_blank: "Public", label: "Allow Access to" %>
 
     <div class="actions">
-      <%= f.submit "Register incident" %>
+      <%= f.submit "Create incident" %>
     </div>
   </div>
 <% end %>

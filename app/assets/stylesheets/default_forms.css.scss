@@ -1,0 +1,24 @@
+.form-inputs legend {
+  font-weight: bold;
+}
+
+label:after {
+  content: ":";
+}
+
+/* SIMPLE FORM */
+.required abbr[title="required"] {
+  display: none;
+}
+
+.hint {
+  font-style: italic;
+  padding-left: 3px;
+
+  &:before {
+    content: "(";
+  }
+  &:after {
+    content: ")";
+  }
+}
