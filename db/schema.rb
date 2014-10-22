@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014023344) do
+ActiveRecord::Schema.define(version: 20141022193113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,14 +127,16 @@ ActiveRecord::Schema.define(version: 20141014023344) do
   add_index "time_expressions", ["owner_id"], name: "index_time_expressions_on_owner_id", using: :btree
 
   create_table "url_tracks", force: true do |t|
-    t.string   "track_type"
     t.string   "url"
     t.datetime "datetime"
     t.string   "session_id"
+    t.boolean  "get_referer",         default: false
+    t.boolean  "general_referer",     default: false
+    t.boolean  "from_config_referer", default: false
+    t.boolean  "is_backable",         default: false
   end
 
   add_index "url_tracks", ["session_id"], name: "index_url_tracks_on_session_id", using: :btree
-  add_index "url_tracks", ["track_type"], name: "index_url_tracks_on_track_type", using: :btree
 
   create_table "user_roles", force: true do |t|
     t.integer "user_id", null: false

@@ -4,42 +4,63 @@ module HistoryTracking
       @session = session
     end
 
-    def add_url(name, value)
-      UrlTrack.create!(session_id: session_id, track_type: name, url: value, datetime: DateTime.now)
+    def update_last_to_be_backable
+      track = last_track
+      track && track.update(is_backable: true)
+    end
+
+    def add_url(url, types, action: nil, params: {})
+      attrs = types.merge({url: url, session_id: session_id, datetime: DateTime.now})
+      UrlTrack.create!(attrs)
       UrlTrack.where("datetime < ?", (DateTime.now - 1.hour)).destroy_all
+      last_action(action: action, params: params)
     end
 
-    def pop_url(name)
-      tracks = UrlTrack.where(session_id: session_id, track_type: name).last(2)
-      if tracks.size == 2
-        current_track = tracks.last
-        last_track = tracks.first
-
-        last_track.url
-      else
-        nil
-      end
+    def last_backable_url(type)
+      track = last_backable_track(type)
+      track && track.url
     end
 
-    def destroy_last(name)
-      track = UrlTrack.where(session_id: session_id, track_type: name).last(1)[0]
-      track.destroy! if track
+    def destroy_all_until_last_backable(type)
+      datetime = last_backable_track(type).datetime
+      base_query.where("datetime >= ?", datetime).destroy_all
     end
 
-    def last_action(name, action: nil, params: {})
+    def destroy_last_track
+      track = last_track
+      track && track.destroy
+    end
+
+    def reset_session
+      hash.delete :last_action
+    end
+
+    def last_action(action: nil, params: {})
       if action
-        hash(name)[:last_action] = [action, params]
+        hash[:last_action] = [action, params]
       else
-        hash(name)[:last_action]
+        hash[:last_action]
       end
     end
   private
-    def hash(name)
-      @session[:"__tracking_history_#{name}"] ||= {}
+    def hash
+      @session[:"__tracking_history__"] ||= {}
     end
 
     def session_id
       @session[:session_id]
+    end
+
+    def base_query
+      UrlTrack.where(session_id: session_id)
+    end
+
+    def last_backable_track(type)
+      base_query.where(is_backable: true, type => true).last(1)[0]
+    end
+
+    def last_track
+      base_query.last(1)[0]
     end
   end
 end
