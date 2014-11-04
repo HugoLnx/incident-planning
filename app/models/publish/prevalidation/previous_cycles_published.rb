@@ -14,7 +14,7 @@ module Publish
       attr_accessor :next_to_be_published
 
       validates :next_to_be_published,
-        truthiness: {message: "All previous cycles must be published."}
+        truthiness: {message: "All previous Operational Periods must be published."}
 
       def self.from(cycle)
         model = self.new

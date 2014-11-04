@@ -14,7 +14,7 @@ module Publish
       attr_accessor :not_changed_after_last_version
 
       validates :not_changed_after_last_version,
-        truthiness: {message: "You have to issue a version before publish."}
+        truthiness: {message: "You have to Issue a version For Review before Publishing."}
 
       def self.from(cycle)
         model = self.new
