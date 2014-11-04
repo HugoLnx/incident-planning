@@ -34,8 +34,8 @@ module Forms
 
     def self.normalize(cycle_params)
       flatter = StandardLib::HashFlatter.new(cycle_params)
-      flatter.flatten("from"){|values| DateTime.new(*values.map(&:to_i))}
-      flatter.flatten("to"){|values| DateTime.new(*values.map(&:to_i))}
+      flatter.flatten("from"){|values| Time.new(*values.map(&:to_i)).to_datetime}
+      flatter.flatten("to"){|values| Time.new(*values.map(&:to_i)).to_datetime}
       flatter.hash
     end
 
