@@ -36,7 +36,8 @@
     var source = "/incident/" + FROM_RAILS.current_incident_id + "/expression_suggestions/Objective";
     //"?expression_updated_id=" + expressionId;
     $element.suggestionsAutocomplete({
-      source: source
+      source: source,
+      onlyText: true
     });
   }
 }(jQuery, LNX_INCIDENT_PLANNING));
