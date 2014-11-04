@@ -13,6 +13,22 @@ $repeated_light_percent: 20%;
 
 .analysis-matrix {
 
+	.header {
+		background-color: lighten($expression_color, $header_lighten_percent);
+	}
+
+	.form {
+		background-color: darken($expression_color, $form_dark_percent);
+	}
+	
+	.add {
+		background-color: lighten($expression_color, $add_light_percent);
+	}
+
+	.blank {
+		background-color: lighten($expression_color, $add_light_percent);
+	}
+
 	@mixin background-colors($color, $repeated_light_percent, $selector: "") {
 		.non-repeated:not(.criticality)#{$selector} {
 			background-color: $color;
@@ -25,23 +41,7 @@ $repeated_light_percent: 20%;
 
 /* THESIS ON COLORS */
 	&.thesis-on {
-	/* BACKGROUND COLORS */
-		.header {
-			background-color: lighten($expression_color, $header_lighten_percent);
-		}
-
-		.form {
-			background-color: darken($expression_color, $form_dark_percent);
-		}
-		
-		.add {
-			background-color: lighten($expression_color, $add_light_percent);
-		}
-
-		.blank {
-			background-color: lighten($expression_color, $add_light_percent);
-		}
-
+	/* EXPRESSIONS BACKGROUND COLORS */
 		@include background-colors($expression_color, 6%);
 		@include background-colors($to_be_approved_color, 12%, ".to-be-approved");
 		@include background-colors($partial_approval_color, 10%, ".partial-approval");
@@ -52,47 +52,7 @@ $repeated_light_percent: 20%;
 
 /* THESIS OFF COLORS */
 	&.thesis-off {
-	/* BACKGROUND COLORS */
-     .header {
-             background-color: lighten($thesis_off_expression_color, $header_lighten_percent);
-     }
-
-     .form {
-             background-color: darken($thesis_off_expression_color, 6%);
-     }
-     
-     .add {
-             background-color: lighten($thesis_off_expression_color, 6%);
-     }
-
-     .blank {
-             background-color: lighten($thesis_off_expression_color, 6%);
-     }
-
-     @include background-colors($thesis_off_expression_color, 6%);
-
-		//.header {
-		//	background-color: lighten($expression_color, $header_lighten_percent);
-		//}
-
-		//.form {
-		//	background-color: #e6e6e6;
-		//}
-		//
-		//.add {
-		//	background-color: #e6e6e6;
-		//}
-
-		//.blank {
-		//	background-color: #e6e6e6;
-		//}
-
-		//.non-repeated:not(.criticality) {
-		//	background-color: lighten($expression_color, 6%);
-		//}
-
-		//.repeated {
-		//	background-color: #e6e6e6;
-		//}
+	/* EXPRESSIONS BACKGROUND COLORS */
+    @include background-colors($thesis_off_expression_color, 6%);
 	}
 }
