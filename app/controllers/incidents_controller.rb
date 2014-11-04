@@ -21,7 +21,7 @@ class IncidentsController < ApplicationController
 
     respond_to do |format|
       if @incident.save
-        format.html { redirect_to new_incident_cycle_path(@incident), notice: 'The incident was successfully registered.' }
+        format.html { redirect_to new_incident_cycle_path(@incident), notice: 'The incident was successfully created.' }
         format.json { render action: 'show', status: :created, location: @incident }
       else
         format.html { render action: 'new' }
