@@ -20,7 +20,7 @@
 <% end -%>
 
 <div class="version-created-notice">
-  <h3>Notice</h3>
+  <h3>Alert</h3>
   <p>Forms ICS-202 and ICS-234 version <%= @created_version.number %> were successfully created in <%= link_to "Past Versions", index_incident_cycle_versions_path(@incident, @cycle) %>.</p>
   <p>PDFs in: <%= link_to 'ICS-202', ics202_incident_cycle_version_path(@incident, @cycle, @created_version, format: :pdf) %> and <%= link_to 'ICS-234', ics234_incident_cycle_version_path(@incident, @cycle, @created_version, format: :pdf) %>.</p>
 </div>
