@@ -128,4 +128,11 @@ class Cycle < ActiveRecord::Base
   def have_past_versions?
     versions.count != 0
   end
+
+  def update_priorities(new_priorities)
+    if self.priorities != new_priorities
+      self.priorities_approval_status = false
+    end
+    self.priorities = new_priorities
+  end
 end

@@ -2,6 +2,27 @@ require "spec_helper"
 
 describe Cycle do
   describe "instance behavior" do
+    describe "when updating the priorities that are already approved", focus: true do
+      before :each do
+        @cycle = create :cycle, priorities: "Priorities",
+          priorities_approval_status: true
+      end
+
+      context "if changing to a new text" do
+        it "lose the approval" do
+          @cycle.update_priorities "New Priorities"
+          expect(@cycle.priorities_approval_status).to be == false
+        end
+      end
+
+      context "if maintaining the text" do
+        it "maintain the priorities approval status" do
+          @cycle.update_priorities "Priorities"
+          expect(@cycle.priorities_approval_status).to be == true
+        end
+      end
+    end
+
     describe "when approving all objectives at once" do
       before :each do
         @user = create :user_god

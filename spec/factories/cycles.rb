@@ -9,6 +9,7 @@ FactoryGirl.define do
     to "2014-01-17"
     closed false
     priorities_approval_status false
+    priorities "Default priorities"
     groups []
   end
 end

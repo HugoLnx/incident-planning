@@ -50,6 +50,8 @@ module Forms
         if value
           if key.to_sym == :objectives_texts
             update_objectives_texts(value)
+          elsif key.to_sym == :priorities
+            @cycle.update_priorities(value)
           else
             self.public_send(:"#{key}=", value)
           end
