@@ -9,7 +9,7 @@ module PageObjects
     end
 
     def submit
-      @form.click_button "Register incident"
+      @form.click_button "Create incident"
     end
   end
 end

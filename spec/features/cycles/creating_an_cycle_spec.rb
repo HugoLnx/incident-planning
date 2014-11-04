@@ -19,7 +19,7 @@ feature "Cycles: Creating cycles to an incident", :js do
       @page.visit @incident
     end
 
-    scenario "I can create the first one" do
+    scenario "I can create the first one", focus: true do
       form = @page.form
       expect(form.element).to_not have_button "Copy from previous period"
 
@@ -37,7 +37,7 @@ feature "Cycles: Creating cycles to an incident", :js do
 
         index_page = confirm_page.click_confirm
 
-        expect(index_page.notice).to have_text "The cycle was successfully registered."
+        expect(index_page.notice).to have_text /Operational Period \d+ was successfully created./
       end.to change{Cycle.count}.by(1)
 
 
@@ -87,7 +87,7 @@ feature "Cycles: Creating cycles to an incident", :js do
       @page.visit @incident
     end
 
-    scenario "I can create another one" do
+    scenario "I can create another one", focus: true do
       form = @page.form
       expect(form.element).to have_button "Copy from previous period"
 
@@ -104,7 +104,7 @@ feature "Cycles: Creating cycles to an incident", :js do
 
         index_page = confirm_page.click_confirm
 
-        expect(index_page.notice).to have_text "The cycle was successfully registered."
+        expect(index_page.notice).to have_text /Operational Period \d+ was successfully created./
       end.to change{Cycle.count}.by(1)
 
       cycle = Cycle.last
