@@ -2,10 +2,15 @@ require "spec_helper"
 
 describe Cycle do
   describe "instance behavior" do
-    describe "when updating the priorities that are already approved", focus: true do
+    describe "when updating the priorities that are already approved" do
       before :each do
         @cycle = create :cycle, priorities: "Priorities",
           priorities_approval_status: true
+      end
+
+      it "changes the text" do
+        @cycle.update_priorities "New Priorities"
+        expect(@cycle.priorities).to be == "New Priorities"
       end
 
       context "if changing to a new text" do

@@ -33,6 +33,16 @@ describe Forms::Form202 do
   end
 
   context "when updating" do
+    it "updates the priorities" do
+      cycle = create :cycle, priorities: "Priorities"
+      @form = Forms::Form202.new_from cycle
+      @form.objectives = [create(:objective)]
+      @form.update_with({priorities: "New Priorities"})
+      @form.save
+      cycle.reload
+      expect(cycle.priorities).to be == "New Priorities"
+    end
+
     context "when already have three objectives" do
       before :each do
         objectives = [

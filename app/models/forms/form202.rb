@@ -50,8 +50,6 @@ module Forms
         if value
           if key.to_sym == :objectives_texts
             update_objectives_texts(value)
-          elsif key.to_sym == :priorities
-            @cycle.update_priorities(value)
           else
             self.public_send(:"#{key}=", value)
           end
@@ -88,7 +86,7 @@ module Forms
       @cycle.number = self.number
       @cycle.incident = self.incident
       @cycle.current_object = "to change"
-      @cycle.priorities = self.priorities
+      @cycle.update_priorities(priorities)
       @cycle
     end
 
