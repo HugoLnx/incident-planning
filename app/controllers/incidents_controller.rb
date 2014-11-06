@@ -10,10 +10,11 @@ class IncidentsController < ApplicationController
 
   def new
     @incident = Incident.new
-    @companies = current_user.in_admin_company? ? Company.all.load : [current_user.company]
+    prepare_to_form
   end
 
   def edit
+    prepare_to_form
   end
 
   def create
@@ -50,12 +51,16 @@ class IncidentsController < ApplicationController
     end
   end
 
-  private
-    def set_incident
-      @incident = Incident.find(params[:id])
-    end
+private
+  def set_incident
+    @incident = Incident.find(params[:id])
+  end
 
-    def incident_params
-      params.require(:incident).permit(:name, :company_id)
-    end
+  def incident_params
+    params.require(:incident).permit(:name, :company_id)
+  end
+
+  def prepare_to_form
+    @companies = current_user.in_admin_company? ? Company.all.load : [current_user.company]
+  end
 end
