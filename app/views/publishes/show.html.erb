@@ -16,7 +16,9 @@
 
 <%= render partial: "layouts/cycle_brief", locals: {cycle: @cycle, incident: @incident} %>
 
-<%= render partial: "analysis_matrices/show_priorities", locals: {cycle: @cycle} %>
+<div class="buttons-line"> 
+	<%= render partial: "analysis_matrices/show_priorities", locals: {cycle: @cycle} %>
+</div>
 
 <table class="analysis-matrix" id="analysis-matrix">
   <thead>
