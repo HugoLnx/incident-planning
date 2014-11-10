@@ -32,7 +32,7 @@ module AnalysisMatricesHelper
       last_child,
       last_repetition
     )
-    locals.merge!(show_cells_info_from(objective, ::Model.root)["objective"])
+    locals.merge!(show_cells_info_from(objective, ::Model.root, false, repeated)["objective"])
     locals[:number] = objective.expression && objective.expression.number
 
     render partial: partial,
@@ -53,7 +53,7 @@ module AnalysisMatricesHelper
     update_path = strategy && incident_cycle_strategy_path(@incident, @cycle, strategy.group_id)
     delete_path = update_path
 
-    infos = show_cells_info_from(strategy, ::Model.strategy)
+    infos = show_cells_info_from(strategy, ::Model.strategy, blank, repeated)
 
     locals[:expressions] = infos
     locals[:update_path] = update_path
@@ -89,7 +89,7 @@ module AnalysisMatricesHelper
     update_path = tactic && incident_cycle_tactic_path(@incident, @cycle, tactic.group_id)
     delete_path = update_path
 
-    infos = show_cells_info_from(tactic, ::Model.tactic)
+    infos = show_cells_info_from(tactic, ::Model.tactic, blank, repeated)
 
     locals[:expressions] = infos
     locals[:update_path] = update_path
@@ -127,9 +127,9 @@ module AnalysisMatricesHelper
     editable ? "editable" : "non-editable"
   end
 
-  def type_class(is_repeated, is_blank=false)
-    return "blank" if is_blank
-    is_repeated ? "repeated" : "non-repeated"
+  def type_class(repeated, blank=false)
+    return "blank" if blank
+    repeated ? "repeated" : "non-repeated"
   end
 
   def last_child_class(is_last_child)
@@ -171,16 +171,47 @@ module AnalysisMatricesHelper
     permission.to_update?(current_user)
   end
 
+  def must_cache_strategy?(row)
+    row.strategy_cells.cells.is_a?(AnalysisMatrixRendererContainer::StrategyCells::Show)
+  end
+
+  def must_cache_tactic?(row)
+    row.tactic_cells.cells &&
+      row.tactic_cells.cells.is_a?(AnalysisMatrixRendererContainer::TacticCells::Show) &&
+      row.tactic_cells.cells.tactic
+  end
+
+  def objective_cache_key(row)
+    cells = row.objective_cells.cells
+    [serialize_args(cells.callback_args), cells.objective.group]
+  end
+
+  def strategy_cache_key(row)
+    return "matrix-cache-strategy-must-not-cache" unless must_cache_strategy?(row)
+    cells = row.strategy_cells.cells
+    [serialize_args(cells.callback_args), cells.strategy.group]
+  end
+
+  def tactic_cache_key(row)
+    return "matrix-cache-tactic-must-not-cache" unless must_cache_tactic?(row)
+    cells = row.tactic_cells.cells
+    [serialize_args(cells.callback_args), cells.tactic.group]
+  end
+
 private
 
-  def show_cells_info_from(group, model)
+  def serialize_args(args)
+    args[1..-1].join("-")
+  end
+
+  def show_cells_info_from(group, model, blank, repeated)
     infos = {}
 
     model.expressions.each do |expression_model|
       name = expression_model.pretty_name
       expression = group && group.public_send(name)
       infos.merge!(name => {
-        metadata_partial: render_metadata_partial_for(expression),
+        metadata_partial: render_metadata_partial_for(expression, blank, repeated),
         text: text_from(expression)
       })
       infos[name][:exp_classes] = classes_for(expression)
@@ -274,10 +305,14 @@ private
     classes
   end
 
-  def render_metadata_partial_for(expression)
-    metadata_locals = metadata_locals_from expression
+  def render_metadata_partial_for(expression, blank, repeated)
+    if blank || repeated
+      return ""
+    else
+      metadata_locals = metadata_locals_from expression
 
-    render partial: "analysis_matrices/metadata.html.erb", locals: metadata_locals
+      render partial: "analysis_matrices/metadata.html.erb", locals: metadata_locals
+    end
   end
 
   def metadata_locals_from(expression)

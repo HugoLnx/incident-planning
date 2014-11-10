@@ -17,7 +17,7 @@ module Concerns
 
     included do
       belongs_to :cycle
-      belongs_to :group
+      belongs_to :group, touch: true
       belongs_to :owner, class_name: "User"
 
       has_many :approvals, as: :expression, dependent: :destroy

@@ -175,13 +175,19 @@
     </tr>
     <% each_row(@matrix_data) do |row| %>
       <tr>
-        <%= row.objective_cells.render %>
+        <% cache objective_cache_key(row) do %>
+          <%= row.objective_cells.render %>
+        <% end -%>
 
-        <%= row.strategy_cells.render %>
+        <% cache_if must_cache_strategy?(row), strategy_cache_key(row) do %>
+          <%= row.strategy_cells.render %>
+        <% end -%>
 
-        <%= row.tactic_cells.render %>
+        <% cache_if must_cache_tactic?(row), tactic_cache_key(row) do %>
+          <%= row.tactic_cells.render %>
+        <% end -%>
       </tr>
-    <% end %>
+    <% end -%>
   </tbody>
 </table>
 
