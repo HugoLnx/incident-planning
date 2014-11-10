@@ -4,7 +4,7 @@ describe TacticsController do
   login_user
 
   let(:valid_date_str){"22/03/1993 10:30"}
-  let(:valid_date){DateTime.strptime(valid_date_str, TimeExpression::TIME_PARSING_FORMAT)}
+  let(:valid_date){Time.strptime(valid_date_str, TimeExpression::TIME_PARSING_FORMAT).to_datetime}
   let(:valid_expression_params){
     {
         who: "Who value",
@@ -217,7 +217,7 @@ describe TacticsController do
       let(:old_who) { "Old Who" }
       let(:old_what) { "Old What" }
       let(:old_where) { "Old Where" }
-      let(:old_when_date) { DateTime.now.beginning_of_minute }
+      let(:old_when_date) { Time.now.to_datetime.beginning_of_minute }
       let(:old_when_text) { "" }
       let(:old_response) { "Old Response" }
 
@@ -346,7 +346,7 @@ describe TacticsController do
       let(:old_who) { "Old Who" }
       let(:old_what) { "Old What" }
       let(:old_where) { "Old Where" }
-      let(:old_when_date) { DateTime.now.beginning_of_minute }
+      let(:old_when_date) { Time.now.to_datetime.beginning_of_minute }
       let(:old_when_text) { "" }
       let(:old_response) { "Old Response" }
 

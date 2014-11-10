@@ -82,7 +82,7 @@ module PageObjects
       hour = @form.find(sprintf(template, 4)).value.to_i
       minute = @form.find(sprintf(template, 5)).value.to_i
 
-      DateTime.new(year, month, day, hour, minute)
+      Time.new(year, month, day, hour, minute).to_datetime
     end
 
     def get_disabled_datetime_with_preffix(preffix)
@@ -93,7 +93,7 @@ module PageObjects
       hour = @form.find(sprintf(template, 4)).value.to_i
       minute = @form.find(sprintf(template, 5)).value.to_i
 
-      DateTime.new(year, month, day, hour, minute)
+      Time.new(year, month, day, hour, minute).to_datetime
     end
   end
 end

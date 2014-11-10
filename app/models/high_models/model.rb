@@ -112,7 +112,7 @@ module HighModels
         define_method :"update_#{name}" do |new_time_str|
           error_raised = false
           begin
-            new_time = DateTime.strptime(new_time_str, TimeExpression::TIME_PARSING_FORMAT)
+            new_time = Time.strptime(new_time_str, TimeExpression::TIME_PARSING_FORMAT).to_datetime
           rescue ArgumentError 
             error_raised = true
           end
@@ -176,7 +176,7 @@ module HighModels
 
         define_method :"#{name}=" do |time_str|
           begin
-            date = time_str && DateTime.strptime(time_str, TimeExpression::TIME_PARSING_FORMAT)
+            date = time_str && Time.strptime(time_str, TimeExpression::TIME_PARSING_FORMAT).to_datetime
           rescue ArgumentError 
           end
           expression = ::TimeExpression.new(name: expression_name, owner: self.owner)

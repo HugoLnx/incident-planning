@@ -8,7 +8,7 @@ shared_examples "time expression attribute" do
   let(:set_reference_method) {:"set_#{expression_name}_reference"}
   let(:getter_method) {expression_name}
 
-  describe "when updating" do
+  describe "when updating", focus: true do
     shared_examples :any_kind_of_update do
       it "maintain the reference" do
         expect(@getted_expression).to be == @old_expression
@@ -90,7 +90,7 @@ shared_examples "time expression attribute" do
         end
 
         context "if update when to a new one" do
-          let(:old_when)  { DateTime.now.beginning_of_minute.utc }
+          let(:old_when)  { Time.now.to_datetime.beginning_of_minute }
           let(:old_text)  { "" }
           let(:new_when) {old_when >> 1}
           let(:new_time_str) {new_when.strftime(TimeExpression::TIME_PARSING_FORMAT)}
@@ -104,7 +104,7 @@ shared_examples "time expression attribute" do
         end
 
         context "if update when to the same old" do
-          let(:old_when)  { DateTime.now.beginning_of_minute.utc }
+          let(:old_when)  { Time.now.to_datetime.beginning_of_minute }
           let(:old_text)  { "" }
           let(:new_time_str) {old_when.strftime(TimeExpression::TIME_PARSING_FORMAT)}
 
@@ -163,7 +163,7 @@ shared_examples "time expression attribute" do
         @old_expression.text = old_text
         @old_expression.when = old_when
         @dup_old_expression = @old_expression.dup
-        @new_time = DateTime.now.beginning_of_minute
+        @new_time = Time.now.to_datetime.beginning_of_minute
         reused_exp = new_reused_expression
         if reused_exp
           owner = reused_exp.owner
@@ -253,7 +253,7 @@ shared_examples "time expression attribute" do
           build :time_expression,
             source: reused_source,
             text: old_text,
-            when: DateTime.now
+            when: Time.now.to_datetime
         end
 
         include_examples :update_when_changing_an_attribute
@@ -397,7 +397,7 @@ shared_examples "time expression attribute" do
         include_examples :expression_of_any_setting
 
         it "with when equals parsed string" do
-          expect(@expression.when).to be == DateTime.new(1993, 3, 22, 10, 30)
+          expect(@expression.when).to be == Time.new(1993, 3, 22, 10, 30).to_datetime
         end
 
         it "with text equals nil" do
@@ -467,7 +467,7 @@ shared_examples "time expression attribute" do
         @reused_expression = build :time_expression,
           source: "Reused Source",
           text: "Reused Text",
-          when: DateTime.now.beginning_of_minute
+          when: Time.now.to_datetime.beginning_of_minute
         subject.public_send(reused_setter_method, @reused_expression)
         @expression = subject.public_send(getter_method)
       end
@@ -487,7 +487,7 @@ shared_examples "time expression attribute" do
         @reused_expression = build :time_expression,
           source: nil,
           text: "Reused Text",
-          when: DateTime.now.beginning_of_minute
+          when: Time.now.to_datetime.beginning_of_minute
         subject.public_send(reused_setter_method, @reused_expression)
         @expression = subject.public_send(getter_method)
       end

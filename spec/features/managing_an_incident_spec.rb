@@ -25,6 +25,6 @@ feature "Managing an incident" do
     incident = Incident.last
     expect(incident.name).to be == "Florest is burning"
 
-    expect(@new_incident_page.notice).to have_text "The incident was successfully registered."
+    expect(@new_incident_page.notice).to have_text "The incident was successfully created."
   end
 end

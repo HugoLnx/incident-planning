@@ -23,7 +23,7 @@ feature "Cycles: Creating cycles to an incident", :js do
       form = @page.form
       expect(form.element).to_not have_button "Copy from previous period"
 
-      filled_from = DateTime.new(2014, 5, 27, 10, 30)
+      filled_from = Time.new(2014, 5, 27, 10, 30).to_datetime
       filled_to = filled_from.next_day(1)
       filled_objectives = build_list(:objective, 5)
       filled_priorities = "Priority 1, Priority 2"
@@ -54,7 +54,7 @@ feature "Cycles: Creating cycles to an incident", :js do
     scenario "I can cancel the creation on confirmation page" do
       form = @page.form
 
-      filled_from = DateTime.new(2014, 5, 27, 10, 30)
+      filled_from = Time.new(2014, 5, 27, 10, 30).to_datetime
       filled_to = filled_from.next_day(1)
       filled_objectives = build_list(:objective, 5)
       filled_priorities = "Priority 1, Priority 2"
