@@ -1,5 +1,5 @@
 class PdfNaming
-  FORMAT = "[formname] OP[cycle]v[version] [date]([type])"
+  FORMAT = "[formname] OP[cycle]v[version] [date] [incidentname] ([type])"
   ICS234 = "ICS-234"
   ICS202 = "ICS-202"
   TYPES = ::TypesLib::Enum.new %i{draft for_review final}
@@ -44,6 +44,7 @@ class PdfNaming
       .gsub("[cycle]", @cycle.number.to_s)
       .gsub("[version]", @version.to_s)
       .gsub("[date]", formatted_date)
+      .gsub("[incidentname]", @cycle.incident.name)
     name += ".pdf" if @extension
     name
   end
