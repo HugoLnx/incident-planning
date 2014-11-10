@@ -24,16 +24,20 @@
     <div class="metadata-section item-section">
       <p class="metadata-label">Item Info</p>
       <p class="expression"><span class="label">Expression</span>: </p><pre><%= @priorities.text %></pre>
-      <p class="owner"><span class="label">Owner</span>: <%= @priorities.owner ? link_to(@priorities.owner_human_id, profile_path(@priorities.owner)) : @priorities.owner_human_id %></p>
-      <p class="source"><span class="label">Source</span>: <%= @priorities.source || "none" %></p>
-		  <p class="status"><span class="label">Status:</span> <%= cycle_approval_status_name @priorities.approved? %></p>
+			<% if current_user.features_config.thesis_tools? %>
+				<p class="owner"><span class="label">Owner</span>: <%= @priorities.owner ? link_to(@priorities.owner_human_id, profile_path(@priorities.owner)) : @priorities.owner_human_id %></p>
+				<p class="source"><span class="label">Source</span>: <%= @priorities.source || "none" %></p>
+			<% end -%>
+			<p class="status"><span class="label">Status:</span> <%= cycle_approval_status_name @priorities.approved? %></p>
     </div>
 
-		<% if current_user.can_approve_priorities? && !cycle.priorities_approved? %>
+		<% if current_user.features_config.thesis_tools? &&
+					current_user.can_approve_priorities? &&
+					!cycle.priorities_approved? %>
 			<%= form_tag incident_cycle_priorities_approvals_path(@incident, @cycle) do %>
 				<button id="btn-approve-priorities">Approve Command Emphasis</button>
 			<% end %>
-		<% end %>
+		<% end -%>
 	</div>
 </div>
 
