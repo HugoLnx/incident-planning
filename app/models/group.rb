@@ -42,8 +42,8 @@ class Group < ActiveRecord::Base
 
     if self.name == ::Model.tactic.name
       names = IDENTIFYING_NAMES
-      my_texts = self.text_expressions.where("name IN (?, ?, ?)", *names).to_a.map(&:text)
-      it_texts = group.text_expressions.where("name IN (?, ?, ?)", *names).to_a.map(&:text)
+      my_texts = self.text_expressions.find_all{|exp| names.include? exp.name}.map(&:text)
+      it_texts = group.text_expressions.find_all{|exp| names.include? exp.name}.map(&:text)
     else
       my_texts = [self.text_expressions.first.text]
       it_texts = [group.text_expressions.first.text]

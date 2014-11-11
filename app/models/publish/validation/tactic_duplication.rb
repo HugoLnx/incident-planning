@@ -4,7 +4,7 @@ module Publish
       ERROR_MESSAGE = "Tactics with Who, What and Where duplicated."
 
       def self.group_errors_on(tactic, all_strategies)
-        father = all_strategies.find{|strat| strat == tactic.father}
+        father = all_strategies.find{|strat| strat.id == tactic.father_id}
         siblings = father.childs.to_a
         instances_count = siblings.count{|sibling| tactic.duplication?(sibling)}
 
