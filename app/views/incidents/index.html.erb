@@ -5,6 +5,7 @@
     <tr>
       <th>Name</th>
       <th>Status</th>
+      <th>Data de Criação</th>
       <th>Accessible by</th>
       <th></th>
       <% if current_user.in_admin_company? %>
@@ -18,6 +19,7 @@
       <tr>
         <td><%= link_to incident.name, incident_cycles_path(incident) %></td>
         <td><%= cycle_closed_name incident.closed? %></td>
+        <td><%= format_date incident.created_at %></td>
         <td><%= incident.visibility_name %></td>
         <td><%= link_to 'Delete', incident, method: :delete, data: { confirm: 'Are you sure?' }, class: "anchor-button" %></td>
         <% if current_user.in_admin_company? %>
