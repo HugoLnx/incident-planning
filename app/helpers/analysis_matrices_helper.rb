@@ -201,6 +201,12 @@ module AnalysisMatricesHelper
     [args, cells.tactic.group]
   end
 
+  def criticalities_collection
+    Group::CRITICALITY_NAMES.map do |value, label|
+      [label, value]
+    end
+  end
+
 private
 
   def serialize_args(args)

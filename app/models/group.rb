@@ -9,6 +9,12 @@ class Group < ActiveRecord::Base
 
   validates :cycle_id, presence: true
 
+  CRITICALITY_NAMES = {
+    'L' => 'Low',
+    'M' => 'Medium',
+    'H' => 'High'
+  }
+
   validates :criticality, inclusion: {
     in: %w{L M H},
     if: :tactic?
@@ -58,6 +64,10 @@ class Group < ActiveRecord::Base
 
   def tactic?
     self.name == ::Model.tactic.name
+  end
+
+  def criticality_name
+    CRITICALITY_NAMES[criticality]
   end
 
 private
