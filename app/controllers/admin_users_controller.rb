@@ -1,6 +1,6 @@
 class AdminUsersController < ApplicationController
   def index
-    @users = User.order(:created_at).load
+    @users = User.order(:name).load
   end
 
   def update
