@@ -5,7 +5,7 @@
 04: Planning Specialist
 05: Operations Specialist
 06: Logistics Specialist
-07: Commander Assistant
+07: Deputy Commander
 08: Planning Assistant
 09: Operations Assistant
 10: Logistics Assistant
