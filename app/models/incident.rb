@@ -8,6 +8,8 @@ class Incident < ActiveRecord::Base
     Company.filter_by_associated_company(scoped, user_company_id)
   end
 
+  default_scope {order(created_at: :desc)}
+
   def closed?
     cycles.size > 0 && cycles.all?{|cycle| cycle.closed?}
   end
