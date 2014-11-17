@@ -183,19 +183,22 @@ module AnalysisMatricesHelper
 
   def objective_cache_key(row)
     cells = row.objective_cells.cells
-    [serialize_args(cells.callback_args), cells.objective.group]
+    args = cells.callback_args + [current_user.features_config.thesis_tools?]
+    [args, cells.objective.group]
   end
 
   def strategy_cache_key(row)
     return "matrix-cache-strategy-must-not-cache" unless must_cache_strategy?(row)
     cells = row.strategy_cells.cells
-    [serialize_args(cells.callback_args), cells.strategy.group]
+    args = cells.callback_args + [current_user.features_config.thesis_tools?]
+    [args, cells.strategy.group]
   end
 
   def tactic_cache_key(row)
     return "matrix-cache-tactic-must-not-cache" unless must_cache_tactic?(row)
     cells = row.tactic_cells.cells
-    [serialize_args(cells.callback_args), cells.tactic.group]
+    args = cells.callback_args + [current_user.features_config.thesis_tools?]
+    [args, cells.tactic.group]
   end
 
 private
