@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   validates_associated :user_roles
   after_initialize :defaults
 
+  default_scope {order(name: :asc)}
+
   scope :where_company, -> (user_company_id) do
     Company.filter_by_associated_company(scoped, user_company_id)
   end
