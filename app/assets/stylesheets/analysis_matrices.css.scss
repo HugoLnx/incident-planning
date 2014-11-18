@@ -88,7 +88,12 @@ $error_border_size: 2px;
 		&.medium {background-color: yellow;}
 		&.low {background-color: white;}
 
-		& select {font-weight: bold;}
+		& select {
+      font-weight: bold;
+      font-size: 12px;
+      width: 35px;
+      font-family: monospace;
+    }
 	}
 
 	.saved-popup {

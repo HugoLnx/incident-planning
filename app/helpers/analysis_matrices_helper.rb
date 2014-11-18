@@ -202,8 +202,8 @@ module AnalysisMatricesHelper
   end
 
   def criticalities_collection
-    Group::CRITICALITY_NAMES.map do |value, label|
-      [label, value]
+    Group::CRITICALITY_NAMES.map do |value, name|
+      ["#{value} #{name}", value]
     end
   end
 
