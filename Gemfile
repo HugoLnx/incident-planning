@@ -3,8 +3,10 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
+gem 'nokogiri', '~> 1.6.2'
+
 # Use mysql as the database for Active Record
-gem 'mysql2'
+#gem 'mysql2'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -12,6 +14,8 @@ gem 'compass-rails', '~> 1.1.2'
 group :assets do
   gem 'compass-colors'
 end
+
+gem 'yaml_db'
 
 gem 'jquery-ui-sass-rails', '~> 4.0.3'
 
