@@ -15,7 +15,7 @@ group :assets do
   gem 'compass-colors'
 end
 
-gem 'yaml_db'
+gem 'yaml_db', git: 'git@github.com:HugoLnx/yaml_db.git'
 
 gem 'jquery-ui-sass-rails', '~> 4.0.3'
 
