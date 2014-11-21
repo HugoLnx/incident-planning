@@ -93,6 +93,8 @@ describe Forms::Form202 do
           expect(@form.objectives[1].text).to be == "New Obj 2"
         end
 
+        it "removes approval of first two objectives and its children"
+
         it "saves successfuly" do
           expect(@saved).to be == true
         end

@@ -75,8 +75,8 @@ module Concerns
         while !childs.empty?
           current_group = childs.pop
           childs += current_group.childs
-          current_group.text_expressions.includes(:approvals).each{|exp| exp.approvals.destroy_all}
-          current_group.time_expressions.includes(:approvals).each{|exp| exp.approvals.destroy_all}
+          current_group.text_expressions.each{|exp| exp.approvals.destroy_all}
+          current_group.time_expressions.each{|exp| exp.approvals.destroy_all}
         end
       end
 
