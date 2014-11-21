@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:HugoLnx/yaml_db.git
+  remote: git://github.com/HugoLnx/yaml_db.git
   revision: 2cd6a9ed88bd7cd09ea0404bfb1f3eed4d845da1
   specs:
     yaml_db (0.3.0)
