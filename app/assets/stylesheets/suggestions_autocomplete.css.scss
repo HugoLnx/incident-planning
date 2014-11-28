@@ -5,6 +5,7 @@
 }
 
 /* SUGGESTIONS AUTOCOMPLETE */
+$autocomplete_width: 200px;
 .multiple-instances > a:after {
   content: "";
   width: 3px;
@@ -17,7 +18,12 @@
 }
 
 .ui-menu-item {
-  width: 200px;
+  width: $autocomplete_width;
+}
+
+.multiple-instances > a {
+  display: inline-block;
+  width: $autocomplete_width - (3px + 20px); // width - (point width + point margin)
 }
 
 /* TO AUTOCOMPLETE */
