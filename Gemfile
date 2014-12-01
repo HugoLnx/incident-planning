@@ -11,6 +11,7 @@ gem 'nokogiri', '~> 1.6.2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 gem 'compass-rails', '~> 1.1.2'
+gem 'compass', '~> 0.12.7'
 group :assets do
   gem 'compass-colors'
 end
@@ -43,8 +44,9 @@ gem "simple_form", "~> 3.0.1"
 
 gem "interactive_editor"
 
-gem "wicked_pdf"
-gem "wkhtmltopdf-binary"
+gem 'sprockets', '~> 2.11.0'
+gem "wicked_pdf", '~> 0.11.0'
+gem "wkhtmltopdf-binary", '~> 0.9.9.3'
 
 group :production do
   gem 'rails_12factor'
