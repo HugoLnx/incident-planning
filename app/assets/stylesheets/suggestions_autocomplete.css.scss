@@ -8,11 +8,9 @@
 $autocomplete_width: 300px;
 .multiple-instances > a:after {
   content: "";
-  width: 3px;
-  height: 3px;
-  border-radius: 3px;
+  width: 5px;
+  height: 5px;
   border: solid 1px black;
-  background-color: black;
   float: right;
   margin: 0.4em 10px;
 }
@@ -23,10 +21,5 @@ $autocomplete_width: 300px;
 
 .multiple-instances > a {
   display: inline-block;
-  width: $autocomplete_width - (3px + 20px); // width - (point width + point margin)
-}
-
-/* TO AUTOCOMPLETE */
-ul.ui-autocomplete {
-  list-style: none;
+  width: $autocomplete_width - (5px + 20px); // width - (point width + point margin)
 }
