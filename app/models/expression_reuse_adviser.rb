@@ -17,7 +17,7 @@ class ExpressionReuseAdviser
     end
 
     if config.date_filter
-      query = apply_date_filter(query, config)
+      query = apply_date_filter(query, config, query_table(expression_name))
     end
 
     query = QueryUtils.where_attr_like(query, :text, term)
@@ -70,10 +70,10 @@ private
     query.joins(:cycle).where({"cycles.incident_id" => incident_id.to_i})
   end
 
-  def apply_date_filter(query, config)
+  def apply_date_filter(query, config, query_table)
     months_from_now = config.date_filter
-    date_limit = DateTime.now.beginning_of_day << config.date_filter
-    query.where("created_at >= ?", date_limit)
+    date_limit = DateTime.now.beginning_of_day << months_from_now
+    query.where("#{query_table}.created_at >= ?", date_limit)
   end
 
   def exclude_expression(query, exp_id)
@@ -81,6 +81,14 @@ private
       query
     else
       query.where.not(id: exp_id)
+    end
+  end
+
+  def query_table(expression_name)
+    if expression_name == "When"
+      "time_expressions"
+    else
+      "text_expressions"
     end
   end
 end
