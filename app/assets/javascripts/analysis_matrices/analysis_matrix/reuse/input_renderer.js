@@ -37,7 +37,7 @@
     var expressionName = inputName.attr();
     var selector = "." + HIDDEN_INPUT_CLASS;
     if (expressionName) {
-      selector +=  + "." + expressionName;
+      selector += "." + expressionName;
     }
     $input.parent().find(selector).remove();
     $input.removeClass(INPUT_REUSED_CLASS);
