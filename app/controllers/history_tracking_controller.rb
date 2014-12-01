@@ -19,7 +19,7 @@ module HistoryTrackingController
           url += "?_back_=#{type}"
         end
       end
-      url
+      url || root_path
     end
 
   private

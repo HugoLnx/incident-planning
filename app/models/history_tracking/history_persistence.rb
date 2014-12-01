@@ -12,7 +12,7 @@ module HistoryTracking
     def add_url(url, types, action: nil, params: {})
       attrs = types.merge({url: url, session_id: session_id, datetime: DateTime.now})
       UrlTrack.create!(attrs)
-      UrlTrack.where("datetime < ?", (DateTime.now - 1.hour)).destroy_all
+      UrlTrack.where("datetime < ?", (Time.now - 3.hours)).destroy_all
       last_action(action: action, params: params)
     end
 
