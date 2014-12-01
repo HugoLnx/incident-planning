@@ -91,7 +91,10 @@ $error_border_size: 2px;
 		& select {
       font-weight: bold;
       font-size: 15px;
-      width: 35px;
+			width: 35px;
+			@media screen and (max-width: 1024px) {
+				width: 43px;
+			}
       font-family: monospace;
     }
 	}
