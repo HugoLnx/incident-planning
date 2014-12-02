@@ -115,8 +115,8 @@
 
       if (isStrategy && strategyHaveTactic && isReusing &&
         FROM_RAILS.hierarchy_reuse_is_on) {
-          var CONFIRMATION_MESSAGE = "This operation will replace the actual tactics "+
-          "with the ones from reused strategy." +
+          var CONFIRMATION_MESSAGE = "This operation will replace the current Tactics "+
+          "with the ones from this reused Strategy." +
           "\nDo you want to continue?";
           var dontWantToContinue = !confirm(CONFIRMATION_MESSAGE);
           if(dontWantToContinue) {
