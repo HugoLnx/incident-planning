@@ -264,7 +264,8 @@ private
     classes = [
       status_class(expression),
       reused_class(expression),
-      error_class(expression)
+      error_class(expression),
+      unchanged_artificial_class(expression)
     ]
     classes += group_error_classes(expression)
     classes.join(" ")
@@ -303,6 +304,15 @@ private
       return "with-errors"
     else
       "no-errors"
+    end
+  end
+
+  def unchanged_artificial_class(expression)
+    return "" if expression.nil?
+    if expression.unchanged_artificial?
+      return "artificial"
+    else
+      return "non-artificial"
     end
   end
 

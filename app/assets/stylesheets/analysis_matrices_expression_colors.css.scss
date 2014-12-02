@@ -41,9 +41,15 @@ $repeated_light_percent: 20%;
 
 /* THESIS ON COLORS */
 	&.thesis-on {
+  /* ARTIFICIAL */
+
+    .artificial.show.non-repeated {
+      background-color: darken($to_be_approved_color, 10%);
+    }
+
 	/* EXPRESSIONS BACKGROUND COLORS */
 		@include background-colors($expression_color, 6%);
-		@include background-colors($to_be_approved_color, 12%, ".to-be-approved");
+		@include background-colors($to_be_approved_color, 12%, ".to-be-approved:not(.artificial)");
 		@include background-colors($partial_approval_color, 10%, ".partial-approval");
 		@include background-colors($approved_color, 30%, ".approved");
 		@include background-colors($partial_rejection_color, 25%, ".partial-rejection");

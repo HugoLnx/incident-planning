@@ -84,6 +84,10 @@ module Concerns
         ::Model.find_expression_by_name(self.name)
       end
 
+      def unchanged_artificial?
+        artificial? && reused?
+      end
+
     private
       def ordenation_number_in_query(query)
         query.order(created_at: :asc)
