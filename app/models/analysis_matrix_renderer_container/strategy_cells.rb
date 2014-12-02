@@ -35,6 +35,7 @@ module AnalysisMatrixRendererContainer
 
       attr_reader :strategy
       attr_reader :repeated
+      attr_reader :blank
 
       def initialize(strategy=nil, repeated=nil, last_child=false, last_repetition=false, blank: false)
         @strategy = strategy

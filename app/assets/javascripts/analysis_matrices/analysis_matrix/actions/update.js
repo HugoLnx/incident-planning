@@ -109,6 +109,21 @@
 
   function bindOnSubmit(form, updateProtocol, $td) {
     form.$submit().on("click", function() {
+      var isStrategy = $td.hasClass("strategy");
+      var strategyHaveTactic = form.$inputsRow().hasClass("have-tactic");
+      var isReusing = form.$inputsRow().find(".reused-input").length !== 0;
+
+      if (isStrategy && strategyHaveTactic && isReusing &&
+        FROM_RAILS.hierarchy_reuse_is_on) {
+          var CONFIRMATION_MESSAGE = "This operation will replace the actual tactics "+
+          "with the ones from reused strategy." +
+          "\nDo you want to continue?";
+          var dontWantToContinue = !confirm(CONFIRMATION_MESSAGE);
+          if(dontWantToContinue) {
+            return false;
+          };
+      }
+
       var request = new Ajax.AjaxRequestBuilder();
       request.addParamsFromInputs(form.$inputs());
 

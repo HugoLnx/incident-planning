@@ -207,6 +207,35 @@ module AnalysisMatricesHelper
     end
   end
 
+  def row_classes(row)
+    classes = ["have-objective"]
+    cells = row.strategy_cells.cells
+    if cells.is_a?(AnalysisMatrixRendererContainer::StrategyCells::Show) && !cells.blank
+      classes << "have-strategy"
+    end
+    cells = row.tactic_cells.cells
+    if cells.is_a?(AnalysisMatrixRendererContainer::TacticCells::Show) && !cells.blank
+      classes << "have-tactic"
+    end
+    classes.join " "
+  end
+
+  def matrix_classes
+    classes = []
+    if current_user.features_config.thesis_tools?
+      classes << "thesis-on"
+    else
+      classes << "thesis-off"
+    end
+
+    if current_user.reuse_configuration.reuse_hierarchy?
+      classes << "reuse-hierarchy-on"
+    else
+      classes << "reuse-hierarchy-off"
+    end
+    classes.join " "
+  end
+
 private
 
   def serialize_args(args)

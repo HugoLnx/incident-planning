@@ -8,6 +8,7 @@
     LNX_INCIDENT_PLANNING.FROM_RAILS.Model = <%= raw ::Model.to_json %>;
     LNX_INCIDENT_PLANNING.FROM_RAILS.environment = <%= raw ::Rails.env.inspect %>;
     LNX_INCIDENT_PLANNING.FROM_RAILS.current_incident_id = <%= @incident.id %>;
+    LNX_INCIDENT_PLANNING.FROM_RAILS.hierarchy_reuse_is_on = <%= current_user.reuse_configuration.reuse_hierarchy? %>;
   <% end %>
 
   <%= javascript_include_tag "analysis_matrices", "data-turbolinks-track" => true %>
@@ -151,7 +152,7 @@
 </div>
 
 
-<table class="analysis-matrix <%= current_user.features_config.thesis_tools? ? "thesis-on" : "thesis-off" %>" id="analysis-matrix">
+<table class="analysis-matrix <%= matrix_classes %>" id="analysis-matrix">
   <thead id="amthead">
     <tr>
       <th rowspan="2" class="header objective">OBJECTIVES</th>
@@ -174,7 +175,7 @@
       <td colspan="9" class="space-below-header"></td>
     </tr>
     <% each_row(@matrix_data) do |row| %>
-      <tr>
+      <tr class="<%= row_classes(row) %>" >
         <% cache objective_cache_key(row) do %>
           <%= row.objective_cells.render %>
         <% end -%>

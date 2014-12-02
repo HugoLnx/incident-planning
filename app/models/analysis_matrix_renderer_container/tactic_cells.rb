@@ -24,6 +24,7 @@ module AnalysisMatrixRendererContainer
 
       attr_reader :tactic
       attr_reader :repeated
+      attr_reader :blank
 
       def initialize(tactic=nil, repeated=nil, last_child: false, last_repetition: false, blank: false)
         @tactic = tactic

@@ -12,6 +12,10 @@
     return this._$inputsTds;
   };
 
+  _prototype.$inputsRow = function() {
+    return this._$inputsTds.first().closest("tr");
+  };
+
   _prototype.$submitRow = function() {
     return this._$submitRow;
   };
