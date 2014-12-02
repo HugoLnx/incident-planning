@@ -38,6 +38,10 @@ describe AnalysisMatrixReuse::Strategy, "reuse strategy hierarchy" do
         expect(@tactic_reusing.expressions.size).to be == @reused_tactic.expressions.size
       end
 
+      it "have all expressions as artificial" do
+        expect(@tactic_reusing.expressions).to be_all(&:artificial?)
+      end
+
       describe "have expressions reusing the expressions of reused tactic" do
         shared_examples :reusing_expression do
           it "have owner equals user received by parameter" do

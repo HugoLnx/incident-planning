@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141022193113) do
+ActiveRecord::Schema.define(version: 20141202163625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 20141022193113) do
     t.integer  "owner_id"
     t.string   "source"
     t.boolean  "reused",     default: false, null: false
+    t.boolean  "artificial", default: false
   end
 
   add_index "text_expressions", ["cycle_id"], name: "index_text_expressions_on_cycle_id", using: :btree
@@ -120,6 +121,7 @@ ActiveRecord::Schema.define(version: 20141022193113) do
     t.string   "text"
     t.string   "source"
     t.boolean  "reused",     default: false, null: false
+    t.boolean  "artificial", default: false
   end
 
   add_index "time_expressions", ["cycle_id"], name: "index_time_expressions_on_cycle_id", using: :btree

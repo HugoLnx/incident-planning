@@ -40,6 +40,7 @@ module AnalysisMatrixReuse
       reused_exp.owner = owner
       reused_exp.cycle = strategy.cycle
       reused_exp.reused = true
+      reused_exp.artificial = true
       reused_exp
     end
   end
