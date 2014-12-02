@@ -126,8 +126,8 @@ module Forms
             if existent_objective.nil? || existent_objective.text != objective.text
               objective.cycle = cycle
               objective.owner = owner
-              objective.reset
               Expressions::Objective.save!(objective)
+              objective.reset
             end
           end
         end
