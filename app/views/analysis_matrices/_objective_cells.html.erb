@@ -1,4 +1,7 @@
 <td class="<%= group_classes %> <%= exp_classes %> show objective">
+  <% if can_approve_expression %>
+    <div class="approvable-triangle"></div>
+  <% end -%>
   <div class="second-border">
     <%= render partial: "analysis_matrices/expression_text.html.erb", locals: {text: text, number: number} %>
     <%= metadata_partial %>

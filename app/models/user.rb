@@ -95,6 +95,17 @@ class User < ActiveRecord::Base
     verifier.operations_chief? || verifier.planning_chief?
   end
 
+  def can_approve_expression?(expression)
+    group_model = ::Model.find_by_group_name(expression.group.name)
+    permission = GroupPermission.new(group_model)
+    can_approve = permission.to_approve?(self)
+
+    approval_expert = ExpressionApprovalExpert.new(expression)
+    already_approved = approval_expert.already_had_needed_role_approval?(self.roles_ids)
+
+    can_approve && !already_approved
+  end
+
   def can_approve_any_expression_of?(group)
     group_model = ::Model.find_by_group_name(group.name)
     permission = GroupPermission.new(group_model)

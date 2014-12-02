@@ -254,6 +254,7 @@ private
       })
       infos[name][:exp_classes] = classes_for(expression)
       infos[name][:expression_id] = expression && expression.id
+      infos[name][:can_approve_expression] = expression && current_user.can_approve_expression?(expression)
     end
 
     infos

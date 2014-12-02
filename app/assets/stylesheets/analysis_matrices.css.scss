@@ -58,6 +58,21 @@ $error_border_size: 2px;
     display: none;
   }
 
+/* APPROVABLE */
+	td {
+		position: relative;
+	}
+
+	.approvable-triangle {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 10px;
+		height: 10px;
+		border: 2px solid yellow;
+		background-color: yellow;
+	}
+
 /* NUMBER */
   .expression-number:after {
     content: ".";
