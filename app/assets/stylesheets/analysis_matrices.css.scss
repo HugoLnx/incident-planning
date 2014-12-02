@@ -63,15 +63,20 @@ $error_border_size: 2px;
 		position: relative;
 	}
 
-	.approvable-triangle {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		width: 10px;
-		height: 10px;
-		border: 2px solid yellow;
-		background-color: yellow;
+	.non-repeated {
+		&.objective .approvable-triangle,
+		&.strategy .approvable-triangle,
+		&.tactic.who .approvable-triangle {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 0;
+			height: 0;
+			border-right: 15px solid transparent;
+			border-top:   15px solid #eb3;
+		}
 	}
+
 
 /* NUMBER */
   .expression-number:after {
