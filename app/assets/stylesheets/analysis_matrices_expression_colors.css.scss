@@ -44,7 +44,7 @@ $repeated_light_percent: 20%;
   /* ARTIFICIAL */
 
     .artificial.show.non-repeated {
-      background-color: darken($to_be_approved_color, 10%);
+      background-color: lighten($to_be_approved_color, 8%);
     }
 
 	/* EXPRESSIONS BACKGROUND COLORS */
