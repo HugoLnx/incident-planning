@@ -54,6 +54,23 @@ $repeated_light_percent: 20%;
 		@include background-colors($approved_color, 30%, ".approved");
 		@include background-colors($partial_rejection_color, 25%, ".partial-rejection");
 		@include background-colors($rejected_color, 25%, ".rejected");
+
+	/* APPROVABLE */
+		.cell-wrapper {
+			display: block;
+			position: relative;
+			border: 1px transparent solid;
+		}
+
+		.non-repeated:not(.partial-rejection) .approvable-triangle {
+			position: absolute;
+			top: -2px;
+			left: -2px;
+			width: 0;
+			height: 0;
+			border-right: 15px solid transparent;
+			border-top:   15px solid #eb3;
+		}
 	}
 
 /* THESIS OFF COLORS */
