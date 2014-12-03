@@ -3,13 +3,15 @@
     data-update_path="<%= update_path %>"
     data-expression-id="<%= info[:expression_id] %>"
     class="<%= group_classes %> <%= info[:exp_classes] %> show tactic <%= name %>">
-		<% if info[:can_approve_expression] %>
-			<div class="approvable-triangle"></div>
-		<% end -%>
-    <div class="second-border">
-      <%= render partial: "analysis_matrices/expression_text.html.erb", locals: {text: info[:text]} %>
-      <%= info[:metadata_partial] %>
-    </div>
+		<div class="cell-wrapper">
+			<% if info[:can_approve_expression] %>
+				<div class="approvable-triangle"></div>
+			<% end -%>
+			<div class="second-border">
+				<%= render partial: "analysis_matrices/expression_text.html.erb", locals: {text: info[:text]} %>
+				<%= info[:metadata_partial] %>
+			</div>
+		</div>
 	</td>
 <% end %>
 <td class="<%= group_classes %> <%= criticality_level %> criticality">
