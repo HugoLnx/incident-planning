@@ -57,6 +57,7 @@ $repeated_light_percent: 20%;
 
 	/* APPROVABLE */
 		.non-repeated:not(.partial-rejection) .approvable-triangle {
+      position: absolute;
 			width: 0;
 			height: 0;
 			border-right: 15px solid transparent;
