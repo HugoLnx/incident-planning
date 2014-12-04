@@ -3,14 +3,12 @@
     data-delete_path="<%= delete_path %>"
     data-expression-id="<%= info[:expression_id] %>"
     class="<%= group_classes %> <%= info[:exp_classes] %> strategy <%= name %> show">
-		<div class="cell-wrapper">
-			<% if info[:can_approve_expression] %>
-				<div class="approvable-triangle"></div>
-			<% end -%>
-			<div class="second-border">
-				<%= render partial: "analysis_matrices/expression_text.html.erb", locals: {text: info[:text]} %>
-				<%= info[:metadata_partial] %>
-			</div>
+		<% if info[:can_approve_expression] %>
+			<div class="approvable-triangle"></div>
+		<% end -%>
+		<div class="second-border">
+			<%= render partial: "analysis_matrices/expression_text.html.erb", locals: {text: info[:text]} %>
+			<%= info[:metadata_partial] %>
 		</div>
 	</td>
 <% end %>
