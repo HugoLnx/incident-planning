@@ -2,6 +2,7 @@
   var Matrix = namespace.Matrix;
   var Templates = namespace.AnalysisMatrix.Templates;
   var Model = namespace.Model;
+  var FlagPositionUpdater = namespace.AnalysisMatrix.FlagPositionUpdater;
 
   Templates.FormRenderer = function(matrix) {
     this.matrix = matrix;
@@ -16,8 +17,11 @@
     renderization.execute();
 
     form.$cancelBtn().on("click", function() {
+      FlagPositionUpdater.updateFlag();
       renderization.back();
     });
+
+    FlagPositionUpdater.updateFlag();
 
     form.$inputs().first().focus();
   }
