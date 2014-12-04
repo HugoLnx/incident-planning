@@ -23,5 +23,7 @@ $(function(){
   matrix = new AnalysisMatrixStarter().start($(".analysis-matrix"));
 
   $(".btn-show-dialog").asShowDialogButton();
-  LNX_INCIDENT_PLANNING.AnalysisMatrix.FlagPositionUpdater.updateFlag();
+  setInterval(function() {
+    LNX_INCIDENT_PLANNING.AnalysisMatrix.FlagPositionUpdater.updateFlag();
+  }, 2000);
 });
