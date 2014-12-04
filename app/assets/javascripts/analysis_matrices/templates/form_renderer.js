@@ -17,8 +17,8 @@
     renderization.execute();
 
     form.$cancelBtn().on("click", function() {
-      FlagPositionUpdater.updateFlag();
       renderization.back();
+      FlagPositionUpdater.updateFlag();
     });
 
     FlagPositionUpdater.updateFlag();
