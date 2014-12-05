@@ -3,7 +3,8 @@ class ExpressionReuseAdviser
     @query = query
   end
 
-  def suggestions_query_for(config, expression_name, term, current_incident_id, excluded_expression_id)
+  def suggestions_query_for(user, expression_name, term, current_incident_id, excluded_expression_id)
+    config = user.reuse_configuration
     query = @query.where({
       name: expression_name
     })
@@ -12,7 +13,9 @@ class ExpressionReuseAdviser
       query = apply_user_filter(query, config)
     end
 
-    if config.incident_filter_type != ReuseConfiguration::INCIDENT_FILTER_TYPES.name(:all)
+    if config.incident_filter_type == ReuseConfiguration::INCIDENT_FILTER_TYPES.name(:all)
+      query = exclude_outside_company_incidents(query, user)
+    else
       query = apply_incident_filter(query, config, current_incident_id)
     end
 
@@ -68,6 +71,10 @@ private
       incident_id = current_incident_id
     end
     query.joins(:cycle).where({"cycles.incident_id" => incident_id.to_i})
+  end
+
+  def exclude_outside_company_incidents(query, user)
+    query.joins(cycle: :incident).where("incidents.company_id in (?) OR incidents.company_id is null", user.company_id)
   end
 
   def apply_date_filter(query, config, query_table)

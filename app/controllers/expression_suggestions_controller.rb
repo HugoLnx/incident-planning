@@ -20,11 +20,11 @@ class ExpressionSuggestionsController < ApplicationController
 
     adviser = ExpressionReuseAdviser.new(query)
 
-    reuse_config = current_user.reuse_configuration
-
     query = adviser.suggestions_query_for(
-      reuse_config, expression_name, term,
+      current_user, expression_name, term,
       current_incident_id, to_be_updated_id)
+
+    reuse_config = current_user.reuse_configuration
 
     @expressions = ExpressionReuseAdviser.filter_expressions(query.load, reuse_config, expression_name)
     @suggestions = SuggestionsTree::ExpressionSuggestion.from_expressions(@expressions)
