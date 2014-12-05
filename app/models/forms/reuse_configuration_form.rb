@@ -51,7 +51,8 @@ module Forms
         label: INCIDENT_FILTER_CURRENT_OPTION,
         value: INCIDENT_FILTER_CURRENT_OPTION
       }]
-      options += Incident.all.map do |incident|
+      incidents = Incident.where_company(@user.company_id).load
+      options += incidents.map do |incident|
         {
           label: incident.name,
           value: incident.id
