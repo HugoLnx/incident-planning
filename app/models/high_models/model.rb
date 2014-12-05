@@ -30,6 +30,7 @@ module HighModels
               exp.reused = false
               exp.source = nil
               exp.owner = self.owner
+              exp.artificial = false
             end
             exp.text = new_text
           end
@@ -57,6 +58,7 @@ module HighModels
 
           if updated
             exp.owner = self.owner
+            exp.artificial = false
           end
 
           return updated
@@ -133,6 +135,7 @@ module HighModels
             exp.owner = self.owner
             exp.reused = false
             exp.source = nil
+            exp.artificial = false
           end
 
           self.instance_variable_set("@#{name}", exp)
@@ -165,6 +168,7 @@ module HighModels
 
           if updated
             exp.owner = self.owner
+            exp.artificial = false
           end
 
           return updated
