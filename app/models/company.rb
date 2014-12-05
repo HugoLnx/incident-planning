@@ -9,7 +9,7 @@ class Company < ActiveRecord::Base
     if user_company_id == Company::ADMIN_ID
       query
     else
-      query.where("company_id in (?, ?) OR company_id is null", user_company_id, Company::ADMIN_ID)
+      query.where("company_id = ? OR company_id is null", user_company_id)
     end
   end
 end
