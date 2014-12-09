@@ -36,8 +36,7 @@ class CyclesController < ApplicationController
 
   def edit
     @cycle = Forms::Form202.new_from(@cycle)
-    permission = GroupPermission.new(::Model.root)
-    @can_create_and_delete = permission.to_create? current_user
+    prepare_to_render_edit_form
   end
 
   def create
@@ -66,6 +65,7 @@ class CyclesController < ApplicationController
         notice_msg = "Incident Objectives of Operational Period #{@cycle.number} was successfully updated."
         format.html { redirect_to incident_cycles_path(@incident), notice: notice_msg }
       else
+        prepare_to_render_edit_form
         format.html { render action: 'edit' }
       end
     end
@@ -92,5 +92,10 @@ class CyclesController < ApplicationController
       cycle_params = params.require(:cycle).permit(:number, :from, :to, :priorities)
       cycle_params[:objectives_texts] = params[:objectives_texts] || []
       Forms::Form202.normalize(cycle_params)
+    end
+
+    def prepare_to_render_edit_form
+    permission = GroupPermission.new(::Model.root)
+    @can_create_and_delete = permission.to_create? current_user
     end
 end
