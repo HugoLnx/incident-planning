@@ -1,7 +1,7 @@
 {
   "group": {
     "name": "Objective",
-    "creator-roles": [1, 8],
+    "creator-roles": [1, 8, 0, 7],
     "expressions": [
       {"name": "Objective", "approval-roles": [0]}
     ],
