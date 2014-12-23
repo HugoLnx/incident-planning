@@ -103,11 +103,6 @@
 *    __name__: Name of the user.
 *    __phone__: Phone of the user.
 *    __encrypted_password__: Password of the user.
-*    __sign_in_count__: How many times the user signed in.
-*    __current_sign_in_at__: When the user signed in. (if it is signed)
-*    __last_sign_in_at__: The last time the user signed in.
-*    __current_sign_in_ip__: The IP of the user that is signed in.
-*    __last_sign_in_ip__: The last IP used by the user in the sign in.
 *    __created_at__: When the tuple was created.
 *    __updated_at__: The last time the tuple was updated.
 
