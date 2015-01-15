@@ -21,3 +21,6 @@ config/database.yml
 *.ignore
 /public/assets/
 /db/data.yml
+docs/html
+docs/node_modules
+docs/build
