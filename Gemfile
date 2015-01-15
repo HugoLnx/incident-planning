@@ -44,6 +44,8 @@ gem "simple_form", "~> 3.0.1"
 
 gem "interactive_editor"
 
+gem "activerecord-session_store"
+
 gem 'sprockets', '~> 2.11.0'
 gem "wicked_pdf", '~> 0.11.0'
 gem "wkhtmltopdf-binary", '~> 0.9.9.3'
